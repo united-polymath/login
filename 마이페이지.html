@@ -179,7 +179,13 @@
         <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/10"></div>
         <div class="absolute -bottom-8 -left-8 w-40 h-40 rounded-full bg-white/5"></div>
         <div class="relative z-10 flex items-center gap-4">
-          <div id="profile-avatar" class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-white text-2xl font-extrabold flex-shrink-0 border-2 border-white/30"></div>
+          <div class="relative flex-shrink-0 group" onclick="document.getElementById('avatar-file-input').click()" style="cursor:pointer">
+            <div id="profile-avatar" class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-white text-2xl font-extrabold border-2 border-white/30 overflow-hidden"></div>
+            <div class="absolute inset-0 rounded-2xl bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings:'FILL' 1">photo_camera</span>
+            </div>
+          </div>
+          <input id="avatar-file-input" type="file" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)"/>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 flex-wrap mb-0.5">
               <div id="profile-name" class="text-xl font-bold leading-tight"></div>
@@ -477,9 +483,14 @@ async function loadProfileData(user) {
         currentProfile = profile;
         role = profile.role || 'member';
         const displayName = profile.name || profile.username || name;
-        document.getElementById('profile-avatar').textContent = (displayName[0] || '?').toUpperCase();
         document.getElementById('profile-name').textContent = displayName;
         updateHeaderAvatar(displayName);
+        const avatarEl = document.getElementById('profile-avatar');
+        if (profile.avatar_url) {
+          avatarEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full object-cover" />`;
+        } else {
+          avatarEl.textContent = (displayName[0] || '?').toUpperCase();
+        }
       }
     }
   } catch (e) {
@@ -635,6 +646,50 @@ async function handleSignup() {
     isLoading = false;
     setLoading('signup-btn', 'signup-btn-text', 'signup-btn-spinner', false);
   }
+}
+
+// ===== AVATAR UPLOAD =====
+async function handleAvatarUpload(event) {
+  const file = event.target.files[0];
+  if (!file || !currentUser) return;
+  if (file.size > 2 * 1024 * 1024) {
+    alert('이미지 크기는 2MB 이하여야 합니다.');
+    return;
+  }
+
+  const avatarEl = document.getElementById('profile-avatar');
+  avatarEl.innerHTML = `<div class="w-full h-full flex items-center justify-center"><div class="w-6 h-6 border-2 border-white/40 border-t-white rounded-full" style="animation:spin 0.8s linear infinite"></div></div>`;
+
+  try {
+    // Supabase Storage에 업로드
+    const ext = file.name.split('.').pop();
+    const path = `${currentUser.id}/avatar.${ext}`;
+    const { data: uploadData, error: uploadError } = await db.storage
+      .from('avatars')
+      .upload(path, file, { upsert: true, contentType: file.type });
+
+    if (uploadError) throw uploadError;
+
+    // Public URL 가져오기
+    const { data: { publicUrl } } = db.storage.from('avatars').getPublicUrl(path);
+
+    // profiles 테이블 업데이트
+    await db.from('profiles').update({ avatar_url: publicUrl }).eq('id', currentUser.id);
+    if (currentProfile) currentProfile.avatar_url = publicUrl;
+
+    // 화면 반영
+    avatarEl.innerHTML = `<img src="${publicUrl}" class="w-full h-full object-cover" />`;
+    updateHeaderAvatar(currentProfile?.name || '');
+
+  } catch (e) {
+    // Storage 없을 경우 base64 로컬 fallback
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      avatarEl.innerHTML = `<img src="${ev.target.result}" class="w-full h-full object-cover" />`;
+    };
+    reader.readAsDataURL(file);
+  }
+  event.target.value = '';
 }
 
 // ===== LOGOUT =====

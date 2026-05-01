@@ -130,9 +130,8 @@
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="마이페이지.html">마이페이지</a>
     </div>
     <div class="flex items-center gap-4">
-      <button class="material-symbols-outlined text-slate-600 hover:opacity-80 transition-opacity">search</button>
-      <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
-        <img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu9xq6XGjatHpeUq2KZB-d9xnSG2zp6eRexe-MuftSMFO4mIeehptB3xMA3Lm1aCAWG7ru1qax8Qq8iiMCJ3hjETyA0j81YhqZBtGz1moyNNZ7e5HvtdWUUBHM62hsZaqqNwopgKZEfuHVG3CZ7I2Rg5BU-8DWwvmFh0NTTOnjcD1-aIKApyQXkywlwO3x7TStkqFBl9uzKo4tyr-Ei46dq2IiYG_ZwfLv7iBA2YsGx_x5p_tu5Whq8CBTLerB7J5IuCahr1137FI"/>
+      <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'" style="cursor:pointer">
+        <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
       </div>
     </div>
   </div>
@@ -583,4 +582,6 @@
   }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="header-auth.js"></script>
 </body></html>
