@@ -7,40 +7,46 @@
   if (!el) return;
 
   try {
+    // SDK getSession — 커뮤니티.html과 동일 방식 (토큰 자동 갱신)
     const { createClient } = supabase;
     const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const sessionResult = await Promise.race([
-      db.auth.getSession(),
-      new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 5000))
-    ]);
-    const { data: { session } } = sessionResult;
+    const { data: { session } } = await db.auth.getSession();
     if (!session) return;
 
-    const token = session.access_token || SUPABASE_ANON_KEY;
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 4000);
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(session.user.id)}&select=name,avatar_url&limit=1`,
-      { signal: controller.signal, headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${token}` } }
-    );
-    if (!res.ok) return;
-    const rows = await res.json();
-    const profile = rows && rows[0];
-    const name = profile?.name || session.user.email?.split('@')[0] || '?';
-    const avatarUrl = profile?.avatar_url;
+    const userId = session.user.id;
+    const token = session.access_token;
 
+    // 세션 있으면 일단 이메일 이니셜로 즉시 표시
+    const emailInitial = (session.user.email || '?').charAt(0).toUpperCase();
+    el.innerHTML = `<span class="text-sm font-bold text-blue-700">${emailInitial}</span>`;
+    el.classList.remove('bg-slate-200');
+    el.classList.add('bg-blue-100');
     el.onclick = () => { location.href = '마이페이지.html'; };
     el.style.cursor = 'pointer';
 
-    if (avatarUrl) {
-      el.innerHTML = `<img src="${avatarUrl}" class="w-full h-full object-cover rounded-full" onerror="this.parentElement.innerHTML='<span class=\\'text-sm font-bold text-blue-700\\'>${name.charAt(0).toUpperCase()}</span>'" />`;
-      el.classList.remove('bg-slate-200');
-      el.classList.add('bg-blue-100');
-    } else {
-      el.innerHTML = `<span class="text-sm font-bold text-blue-700">${name.charAt(0).toUpperCase()}</span>`;
-      el.classList.remove('bg-slate-200');
-      el.classList.add('bg-blue-100');
-    }
+    // 프로필 fetch로 이름/아바타 업데이트
+    try {
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), 5000);
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}&select=name,avatar_url&limit=1`,
+        { signal: controller.signal, headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${token}` } }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        const profile = rows && rows[0];
+        if (profile) {
+          const name = profile.name || emailInitial;
+          const initial = name.charAt(0).toUpperCase();
+          if (profile.avatar_url) {
+            el.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full object-cover rounded-full"
+              onerror="this.parentElement.innerHTML='<span class=\\'text-sm font-bold text-blue-700\\'>${initial}</span>'" />`;
+          } else {
+            el.innerHTML = `<span class="text-sm font-bold text-blue-700">${initial}</span>`;
+          }
+        }
+      }
+    } catch (e) {}
+
   } catch (e) {}
 })();
