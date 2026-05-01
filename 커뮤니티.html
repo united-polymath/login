@@ -155,19 +155,19 @@
     </button>
     <button data-cat="notice" onclick="switchCategory('notice')"
       class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[12px] font-bold whitespace-nowrap hover:bg-slate-200">
-      📌 공지
+      공지
     </button>
     <button data-cat="growth" onclick="switchCategory('growth')"
       class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[12px] font-bold whitespace-nowrap hover:bg-slate-200">
-      🌱 성장기록
+      성장기록
     </button>
     <button data-cat="career" onclick="switchCategory('career')"
       class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[12px] font-bold whitespace-nowrap hover:bg-slate-200">
-      💼 커리어
+      커리어
     </button>
     <button data-cat="relation" onclick="switchCategory('relation')"
       class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-[12px] font-bold whitespace-nowrap hover:bg-slate-200">
-      🤝 관계
+      관계
     </button>
   </section>
 
@@ -439,6 +439,14 @@ function renderFiltered() {
   } else if (currentCategory === 'relation') {
     filtered = allPosts.filter(p => ['#관계','#인간관계'].includes(p.tag));
   }
+
+  // Sort: 공지 상단 고정 → 나머지 최신순
+  filtered.sort((a, b) => {
+    const aNotice = a.tag === '#공지' ? 1 : 0;
+    const bNotice = b.tag === '#공지' ? 1 : 0;
+    if (aNotice !== bNotice) return bNotice - aNotice;
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
 
   countEl.textContent = `총 ${filtered.length}개`;
 
