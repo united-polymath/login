@@ -474,16 +474,16 @@ function postRowHTML(post, idx, total) {
 
   // Tag styles
   const tagStyles = {
-    '#공지':    { bg:'bg-red-100',     text:'text-red-700',     icon:'📌' },
-    '#마음성장':{ bg:'bg-emerald-100', text:'text-emerald-700', icon:'🌱' },
-    '#감정':    { bg:'bg-purple-100',  text:'text-purple-700',  icon:'🎭' },
-    '#커리어':  { bg:'bg-blue-100',    text:'text-blue-700',    icon:'💼' },
-    '#관계':    { bg:'bg-rose-100',    text:'text-rose-700',    icon:'🤝' },
-    '#인간관계':{ bg:'bg-rose-100',    text:'text-rose-700',    icon:'🤝' },
-    '#독서기록':{ bg:'bg-violet-100',  text:'text-violet-700',  icon:'📚' },
-    '#일상':    { bg:'bg-amber-100',   text:'text-amber-700',   icon:'☀️' },
+    '#공지':    { bg:'bg-red-100',     text:'text-red-700',     label:'공지' },
+    '#마음성장':{ bg:'bg-emerald-100', text:'text-emerald-700', label:'마음성장' },
+    '#감정':    { bg:'bg-purple-100',  text:'text-purple-700',  label:'감정' },
+    '#커리어':  { bg:'bg-blue-100',    text:'text-blue-700',    label:'커리어' },
+    '#관계':    { bg:'bg-rose-100',    text:'text-rose-700',    label:'관계' },
+    '#인간관계':{ bg:'bg-rose-100',    text:'text-rose-700',    label:'인간관계' },
+    '#독서기록':{ bg:'bg-violet-100',  text:'text-violet-700',  label:'독서기록' },
+    '#일상':    { bg:'bg-amber-100',   text:'text-amber-700',   label:'일상' },
   };
-  const ts = tagStyles[post.tag] || { bg:'bg-slate-100', text:'text-slate-500', icon:'' };
+  const ts = tagStyles[post.tag] || { bg:'bg-slate-100', text:'text-slate-500', label: (post.tag||'').replace('#','') };
 
   const roleBadge = role === 'admin'
     ? `<span class="px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-bold ml-1">관리자</span>`
@@ -505,7 +505,7 @@ function postRowHTML(post, idx, total) {
       <div class="flex items-start gap-3">
         <!-- Tag badge -->
         <span class="mt-0.5 flex-shrink-0 px-2 py-0.5 rounded-md text-[11px] font-bold ${ts.bg} ${ts.text} whitespace-nowrap">
-          ${ts.icon} ${escapeHtml(post.tag || '')}
+          ${ts.label}
         </span>
         <!-- Title -->
         <span class="flex-1 text-[14px] font-semibold text-slate-800 leading-snug line-clamp-1">${escapeHtml(title)}</span>
