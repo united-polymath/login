@@ -308,14 +308,14 @@
     /* ─────────────────────────────────────────
        Supabase Init
     ───────────────────────────────────────── */
+    const SUPABASE_URL = 'https://hroyuxjqqlimwrrhdwnd.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4';
     const { createClient } = supabase;
-    const db = createClient(
-      'https://hroyuxjqqlimwrrhdwnd.supabase.co',
-      'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4'
-    );
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let currentUser = null;
     let currentProfile = null;
+    let currentAccessToken = null;
 
     // State for role modal
     let pendingRoleChange = { userId: null, name: '', newRole: '' };
@@ -353,13 +353,35 @@
         }
 
         currentUser = session.user;
+        currentAccessToken = session.access_token || null;
 
-        // Fetch profile with timeout
-        const fetchProfile = db.from('profiles').select('*').eq('id', currentUser.id).single();
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000));
-        const { data: profile, error } = await Promise.race([fetchProfile, timeout]);
+        // Fetch profile via direct REST fetch + JWT (avoids SDK hanging bug)
+        const token = currentAccessToken || SUPABASE_ANON_KEY;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        let profile = null;
+        try {
+          const res = await fetch(
+            `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(currentUser.id)}&select=*&limit=1`,
+            {
+              signal: controller.signal,
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            const rows = await res.json();
+            if (rows && rows.length > 0) profile = rows[0];
+          }
+        } catch (fetchErr) {
+          clearTimeout(timeoutId);
+        }
 
-        if (error || !profile) {
+        if (!profile) {
           showToast('프로필 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.', 'error');
           document.getElementById('access-denied').classList.remove('hidden');
           return;

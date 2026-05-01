@@ -340,15 +340,15 @@
 
 <script>
 // ===== SUPABASE INIT =====
+const SUPABASE_URL = 'https://hroyuxjqqlimwrrhdwnd.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4';
 const { createClient } = supabase;
-const db = createClient(
-  'https://hroyuxjqqlimwrrhdwnd.supabase.co',
-  'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4'
-);
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ===== STATE =====
 let currentUser = null;
 let currentProfile = null;
+let currentAccessToken = null; // Store JWT for direct REST calls
 let isLoading = false;
 
 // ===== VIEW HELPERS =====
@@ -452,23 +452,38 @@ async function loadProfileData(user) {
   document.getElementById('profile-join').textContent = formatJoinDate(joinedAt);
   updateHeaderAvatar(name);
 
-  // Try to load from profiles table (with 6s timeout to prevent infinite loading)
+  // Try to load from profiles table using direct REST fetch + JWT (avoids SDK hanging bug)
   let role = 'member';
   try {
-    const fetchProfile = db.from('profiles').select('*').eq('id', user.id).single();
-    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000));
-    const { data: profile, error } = await Promise.race([fetchProfile, timeout]);
-
-    if (!error && profile) {
-      currentProfile = profile;
-      role = profile.role || 'member';
-      const displayName = profile.name || profile.username || name;
-      document.getElementById('profile-avatar').textContent = (displayName[0] || '?').toUpperCase();
-      document.getElementById('profile-name').textContent = displayName;
-      updateHeaderAvatar(displayName);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000);
+    const token = currentAccessToken || SUPABASE_ANON_KEY;
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(user.id)}&select=*&limit=1`,
+      {
+        signal: controller.signal,
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0) {
+        const profile = rows[0];
+        currentProfile = profile;
+        role = profile.role || 'member';
+        const displayName = profile.name || profile.username || name;
+        document.getElementById('profile-avatar').textContent = (displayName[0] || '?').toUpperCase();
+        document.getElementById('profile-name').textContent = displayName;
+        updateHeaderAvatar(displayName);
+      }
     }
   } catch (e) {
-    // profiles table may not exist or timed out — use auth metadata
+    // timeout or network error — use auth metadata fallback
   }
 
   // Role badge
@@ -696,6 +711,7 @@ db.auth.onAuthStateChange(async (event, session) => {
   // Handle both SIGNED_IN and INITIAL_SESSION events
   if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user) {
     if (document.querySelector('.view.active')?.id !== 'view-profile') {
+      currentAccessToken = session.access_token || null;
       await loadProfileData(session.user);
       showView('profile');
     }
@@ -728,6 +744,7 @@ db.auth.onAuthStateChange(async (event, session) => {
     const { data: { session } } = sessionResult;
     clearTimeout(fallback);
     if (session?.user) {
+      currentAccessToken = session.access_token || null;
       await loadProfileData(session.user);
       showView('profile');
     } else {
