@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELAB - 마이페이지</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; background: #f7f9fb; }
+  .view { display: none; }
+  .view.active { display: block; }
+  input:focus { outline: none; }
+  .input-field {
+    width: 100%; padding: 12px 16px; border: 1.5px solid #e0e3e5; border-radius: 12px;
+    font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: border-color 0.15s; background: white;
+  }
+  .input-field:focus { border-color: #004ac6; box-shadow: 0 0 0 3px rgba(0,74,198,0.1); }
+  .input-field.error { border-color: #ba1a1a; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .shake { animation: shake 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { animation: fadeIn 0.35s ease forwards; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
+    <a href="index.html" class="flex items-center">
+      <img src="logo.jpg" alt="SELAB" class="h-11 w-auto rounded-lg"/>
+    </a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="인사이트.html">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="커뮤니티.html">커뮤니티</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80" href="마이페이지.html">마이페이지</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm cursor-pointer" onclick="location.href='마이페이지.html'"></div>
+  </div>
+</header>
+
+<main class="pt-20 pb-32 max-w-[480px] mx-auto px-4">
+
+  <!-- ===== LOGIN VIEW ===== -->
+  <div id="view-login" class="view active fade-in">
+    <div class="text-center pt-8 pb-10">
+      <div class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-200">
+        <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings:'FILL' 1">person</span>
+      </div>
+      <h1 class="text-2xl font-extrabold text-on-surface mb-1">SELAB에 오신 걸 환영해요</h1>
+      <p class="text-on-surface-variant text-sm">로그인하고 함께 성장을 시작하세요.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+      <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-sm font-medium"></div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">이메일</label>
+          <input id="login-email" type="email" class="input-field" placeholder="example@email.com" autocomplete="email"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호</label>
+          <input id="login-password" type="password" class="input-field" placeholder="비밀번호 입력" autocomplete="current-password"/>
+        </div>
+        <button onclick="handleLogin()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 transition-colors active:scale-[0.98] duration-150 mt-2">
+          로그인
+        </button>
+      </div>
+
+      <div class="mt-5 pt-5 border-t border-slate-100 text-center">
+        <p class="text-sm text-on-surface-variant">
+          아직 회원이 아니신가요?
+          <button onclick="showView('signup')" class="text-blue-600 font-semibold hover:underline ml-1">회원가입</button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Demo hint -->
+    <div class="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-100">
+      <div class="text-[12px] text-blue-600 font-semibold mb-1">💡 처음 방문이신가요?</div>
+      <div class="text-[12px] text-blue-700">위 "회원가입"으로 계정을 만들면 바로 커뮤니티에 글을 올릴 수 있어요.</div>
+    </div>
+  </div>
+
+  <!-- ===== SIGNUP VIEW ===== -->
+  <div id="view-signup" class="view fade-in">
+    <div class="text-center pt-8 pb-10">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-200">
+        <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings:'FILL' 1">person_add</span>
+      </div>
+      <h1 class="text-2xl font-extrabold text-on-surface mb-1">회원가입</h1>
+      <p class="text-on-surface-variant text-sm">SELAB 멤버가 되어 함께 성장해요.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+      <div id="signup-error" class="hidden mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-sm font-medium"></div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">이름 (닉네임)</label>
+          <input id="signup-name" type="text" class="input-field" placeholder="홍길동" autocomplete="name"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">이메일</label>
+          <input id="signup-email" type="email" class="input-field" placeholder="example@email.com" autocomplete="email"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호</label>
+          <input id="signup-password" type="password" class="input-field" placeholder="8자리 이상" autocomplete="new-password"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호 확인</label>
+          <input id="signup-password2" type="password" class="input-field" placeholder="비밀번호 재입력" autocomplete="new-password"/>
+        </div>
+        <button onclick="handleSignup()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 transition-colors active:scale-[0.98] duration-150 mt-2">
+          가입하기
+        </button>
+      </div>
+
+      <div class="mt-5 pt-5 border-t border-slate-100 text-center">
+        <p class="text-sm text-on-surface-variant">
+          이미 계정이 있으신가요?
+          <button onclick="showView('login')" class="text-blue-600 font-semibold hover:underline ml-1">로그인</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROFILE VIEW ===== -->
+  <div id="view-profile" class="view fade-in">
+    <!-- Profile Card -->
+    <div class="pt-6 pb-4">
+      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg shadow-blue-200 relative overflow-hidden">
+        <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/10"></div>
+        <div class="absolute -bottom-8 -left-8 w-40 h-40 rounded-full bg-white/5"></div>
+        <div class="relative z-10 flex items-center gap-4">
+          <div id="profile-avatar" class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-white text-2xl font-extrabold flex-shrink-0 border-2 border-white/30"></div>
+          <div>
+            <div id="profile-name" class="text-xl font-bold leading-tight"></div>
+            <div id="profile-email" class="text-blue-200 text-sm mt-0.5"></div>
+            <div id="profile-join" class="text-blue-300 text-[11px] mt-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-3 mb-5">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 text-center">
+        <div id="stat-posts" class="text-2xl font-extrabold text-blue-600">0</div>
+        <div class="text-[11px] text-on-surface-variant mt-0.5 font-medium">작성 글</div>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 text-center">
+        <div class="text-2xl font-extrabold text-emerald-600">0</div>
+        <div class="text-[11px] text-on-surface-variant mt-0.5 font-medium">참여 프로그램</div>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 text-center">
+        <div class="text-2xl font-extrabold text-violet-600">0</div>
+        <div class="text-[11px] text-on-surface-variant mt-0.5 font-medium">저장한 글</div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50 mb-5">
+      <a href="커뮤니티.html" class="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-blue-600 text-xl" style="font-variation-settings:'FILL' 1">forum</span>
+        </div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm text-on-surface">커뮤니티 글 쓰기</div>
+          <div class="text-[12px] text-on-surface-variant">나의 성장을 공유해요</div>
+        </div>
+        <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+      </a>
+      <a href="프로그램.html" class="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-violet-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-violet-600 text-xl" style="font-variation-settings:'FILL' 1">school</span>
+        </div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm text-on-surface">프로그램 둘러보기</div>
+          <div class="text-[12px] text-on-surface-variant">5개 코호트 프로그램 모집 중</div>
+        </div>
+        <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+      </a>
+      <a href="program-quiz.html" class="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-emerald-600 text-xl" style="font-variation-settings:'FILL' 1">quiz</span>
+        </div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm text-on-surface">프로그램 추천받기</div>
+          <div class="text-[12px] text-on-surface-variant">5분 자가진단으로 맞춤 추천</div>
+        </div>
+        <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+      </a>
+    </div>
+
+    <!-- My Posts -->
+    <div class="mb-5">
+      <h3 class="font-bold text-on-surface mb-3 px-1">내가 쓴 글</h3>
+      <div id="my-posts-list"></div>
+      <div id="my-posts-empty" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 text-center">
+        <span class="material-symbols-outlined text-slate-300 text-4xl mb-2 block">edit_note</span>
+        <p class="text-on-surface-variant text-sm">아직 작성한 글이 없어요.</p>
+        <a href="커뮤니티.html" class="inline-block mt-3 text-blue-600 font-semibold text-sm hover:underline">첫 글 쓰러 가기 →</a>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50 mb-5">
+      <button onclick="showChangePassword()" class="w-full flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors text-left">
+        <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
+          <span class="material-symbols-outlined text-slate-500 text-xl">lock</span>
+        </div>
+        <span class="font-semibold text-sm text-on-surface flex-1">비밀번호 변경</span>
+        <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+      </button>
+      <button onclick="handleLogout()" class="w-full flex items-center gap-4 p-4 hover:bg-red-50 transition-colors text-left">
+        <div class="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-red-500 text-xl">logout</span>
+        </div>
+        <span class="font-semibold text-sm text-red-600 flex-1">로그아웃</span>
+      </button>
+    </div>
+
+    <!-- Delete account -->
+    <div class="text-center pb-4">
+      <button onclick="handleDeleteAccount()" class="text-[12px] text-slate-400 hover:text-red-500 transition-colors underline underline-offset-2">
+        회원 탈퇴
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== CHANGE PASSWORD VIEW ===== -->
+  <div id="view-change-password" class="view fade-in">
+    <div class="pt-8 pb-6">
+      <button onclick="showView('profile')" class="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 transition-colors mb-6 text-sm font-medium">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        돌아가기
+      </button>
+      <h1 class="text-2xl font-extrabold text-on-surface mb-1">비밀번호 변경</h1>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+      <div id="pw-error" class="hidden mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-sm font-medium"></div>
+      <div id="pw-success" class="hidden mb-4 p-3 rounded-xl bg-green-50 text-green-700 text-sm font-medium"></div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">현재 비밀번호</label>
+          <input id="current-pw" type="password" class="input-field" placeholder="현재 비밀번호"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">새 비밀번호</label>
+          <input id="new-pw" type="password" class="input-field" placeholder="8자리 이상"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">새 비밀번호 확인</label>
+          <input id="new-pw2" type="password" class="input-field" placeholder="새 비밀번호 재입력"/>
+        </div>
+        <button onclick="handleChangePassword()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors">
+          변경하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-2 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="index.html">
+    <span class="material-symbols-outlined text-[22px]">home</span>
+    <span class="text-[10px] font-medium mt-0.5">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="프로그램.html">
+    <span class="material-symbols-outlined text-[22px]">school</span>
+    <span class="text-[10px] font-medium mt-0.5">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="인사이트.html">
+    <span class="material-symbols-outlined text-[22px]">auto_graph</span>
+    <span class="text-[10px] font-medium mt-0.5">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="커뮤니티.html">
+    <span class="material-symbols-outlined text-[22px]">forum</span>
+    <span class="text-[10px] font-medium mt-0.5">커뮤니티</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform" href="마이페이지.html">
+    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">person</span>
+    <span class="text-[10px] font-medium mt-0.5">마이페이지</span>
+  </a>
+</nav>
+
+<script>
+  // ===== AUTH HELPERS =====
+  const getUsers = () => JSON.parse(localStorage.getItem('selab_users') || '[]');
+  const saveUsers = (u) => localStorage.setItem('selab_users', JSON.stringify(u));
+  const getCurrentUser = () => JSON.parse(localStorage.getItem('selab_current_user') || 'null');
+  const saveCurrentUser = (u) => localStorage.setItem('selab_current_user', JSON.stringify(u));
+  const clearCurrentUser = () => localStorage.removeItem('selab_current_user');
+  const getPosts = () => JSON.parse(localStorage.getItem('selab_posts') || '[]');
+
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => { v.classList.remove('active'); });
+    const el = document.getElementById('view-' + name);
+    el.classList.add('active');
+    el.classList.remove('fade-in');
+    void el.offsetWidth;
+    el.classList.add('fade-in');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    el.closest('.bg-white').classList.add('shake');
+    setTimeout(() => el.closest('.bg-white').classList.remove('shake'), 300);
+  }
+  function hideError(id) { document.getElementById(id)?.classList.add('hidden'); }
+
+  // ===== LOGIN =====
+  function handleLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pw = document.getElementById('login-password').value;
+    hideError('login-error');
+    if (!email || !pw) return showError('login-error', '이메일과 비밀번호를 입력해주세요.');
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === pw);
+    if (!user) return showError('login-error', '이메일 또는 비밀번호가 맞지 않아요.');
+    saveCurrentUser(user);
+    loadProfile(user);
+    showView('profile');
+  }
+
+  // ===== SIGNUP =====
+  function handleSignup() {
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const pw = document.getElementById('signup-password').value;
+    const pw2 = document.getElementById('signup-password2').value;
+    hideError('signup-error');
+    if (!name || !email || !pw) return showError('signup-error', '모든 항목을 입력해주세요.');
+    if (pw.length < 8) return showError('signup-error', '비밀번호는 8자리 이상이어야 해요.');
+    if (pw !== pw2) return showError('signup-error', '비밀번호가 일치하지 않아요.');
+    const users = getUsers();
+    if (users.some(u => u.email === email)) return showError('signup-error', '이미 사용 중인 이메일이에요.');
+    const user = { id: Date.now(), name, email, password: pw, joinDate: new Date().toISOString() };
+    users.push(user);
+    saveUsers(users);
+    saveCurrentUser(user);
+    loadProfile(user);
+    showView('profile');
+  }
+
+  // ===== LOGOUT =====
+  function handleLogout() {
+    if (!confirm('로그아웃 하시겠어요?')) return;
+    clearCurrentUser();
+    showView('login');
+  }
+
+  // ===== DELETE ACCOUNT =====
+  function handleDeleteAccount() {
+    if (!confirm('정말 탈퇴하시겠어요? 작성한 글이 모두 삭제돼요.')) return;
+    const user = getCurrentUser();
+    if (!user) return;
+    // Remove posts
+    const posts = getPosts().filter(p => p.userId !== user.id);
+    localStorage.setItem('selab_posts', JSON.stringify(posts));
+    // Remove user
+    const users = getUsers().filter(u => u.id !== user.id);
+    saveUsers(users);
+    clearCurrentUser();
+    showView('login');
+  }
+
+  // ===== CHANGE PASSWORD =====
+  function showChangePassword() { showView('change-password'); }
+
+  function handleChangePassword() {
+    const current = document.getElementById('current-pw').value;
+    const newPw = document.getElementById('new-pw').value;
+    const newPw2 = document.getElementById('new-pw2').value;
+    document.getElementById('pw-error').classList.add('hidden');
+    document.getElementById('pw-success').classList.add('hidden');
+    const user = getCurrentUser();
+    if (!user) return;
+    if (user.password !== current) {
+      document.getElementById('pw-error').textContent = '현재 비밀번호가 맞지 않아요.';
+      document.getElementById('pw-error').classList.remove('hidden');
+      return;
+    }
+    if (newPw.length < 8) {
+      document.getElementById('pw-error').textContent = '새 비밀번호는 8자리 이상이어야 해요.';
+      document.getElementById('pw-error').classList.remove('hidden');
+      return;
+    }
+    if (newPw !== newPw2) {
+      document.getElementById('pw-error').textContent = '비밀번호가 일치하지 않아요.';
+      document.getElementById('pw-error').classList.remove('hidden');
+      return;
+    }
+    // Update user
+    const users = getUsers();
+    const idx = users.findIndex(u => u.id === user.id);
+    if (idx !== -1) { users[idx].password = newPw; saveUsers(users); }
+    const updated = { ...user, password: newPw };
+    saveCurrentUser(updated);
+    document.getElementById('pw-success').textContent = '비밀번호가 변경됐어요.';
+    document.getElementById('pw-success').classList.remove('hidden');
+    ['current-pw','new-pw','new-pw2'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  // ===== LOAD PROFILE =====
+  function loadProfile(user) {
+    document.getElementById('profile-avatar').textContent = user.name[0].toUpperCase();
+    document.getElementById('profile-name').textContent = user.name;
+    document.getElementById('profile-email').textContent = user.email;
+    const joined = new Date(user.joinDate);
+    document.getElementById('profile-join').textContent = `${joined.getFullYear()}년 ${joined.getMonth()+1}월 가입`;
+
+    // My posts
+    const posts = getPosts().filter(p => p.userId === user.id);
+    document.getElementById('stat-posts').textContent = posts.length;
+
+    const listEl = document.getElementById('my-posts-list');
+    const emptyEl = document.getElementById('my-posts-empty');
+    if (posts.length === 0) {
+      emptyEl.style.display = '';
+      listEl.innerHTML = '';
+    } else {
+      emptyEl.style.display = 'none';
+      listEl.innerHTML = posts.slice().reverse().map(p => {
+        const date = new Date(p.timestamp);
+        const timeStr = formatTime(date);
+        return `
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-3">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold">${p.tag || '#성장'}</span>
+              <span class="text-[11px] text-on-surface-variant">${timeStr}</span>
+            </div>
+            <p class="text-on-surface text-sm leading-relaxed line-clamp-3">${escapeHtml(p.content)}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Header avatar
+    updateHeaderAvatar(user);
+  }
+
+  function updateHeaderAvatar(user) {
+    const el = document.getElementById('header-avatar');
+    if (user) {
+      el.textContent = user.name[0].toUpperCase();
+      el.style.background = 'linear-gradient(135deg,#004ac6,#2563eb)';
+      el.style.color = 'white';
+    }
+  }
+
+  function formatTime(date) {
+    const now = new Date();
+    const diff = (now - date) / 1000;
+    if (diff < 60) return '방금 전';
+    if (diff < 3600) return Math.floor(diff/60) + '분 전';
+    if (diff < 86400) return Math.floor(diff/3600) + '시간 전';
+    return `${date.getMonth()+1}월 ${date.getDate()}일`;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ===== ENTER KEY SUPPORT =====
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const active = document.querySelector('.view.active');
+    if (!active) return;
+    if (active.id === 'view-login') handleLogin();
+    else if (active.id === 'view-signup') handleSignup();
+    else if (active.id === 'view-change-password') handleChangePassword();
+  });
+
+  // ===== INIT =====
+  (function init() {
+    const user = getCurrentUser();
+    if (user) {
+      loadProfile(user);
+      showView('profile');
+    } else {
+      showView('login');
+    }
+  })();
+</script>
+</body>
+</html>

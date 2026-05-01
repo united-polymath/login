@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Plus Jakarta Sans', 'Pretendard', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#b4c5ff",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e6e8ea",
+                      "tertiary-container": "#d22348",
+                      "surface-container-highest": "#e0e3e5",
+                      "secondary-container": "#6cf8bb",
+                      "secondary": "#006c49",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-container": "#2563eb",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-surface": "#191c1e",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-tertiary-container": "#ffecec",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#002113",
+                      "on-background": "#191c1e",
+                      "surface-tint": "#0053db",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c3c6d7",
+                      "surface-variant": "#e0e3e5",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f7f9fb",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#00714d",
+                      "surface-container": "#eceef0",
+                      "primary": "#004ac6",
+                      "outline": "#737686",
+                      "tertiary-fixed": "#ffdadb",
+                      "surface": "#f7f9fb",
+                      "primary-fixed": "#dbe1ff",
+                      "on-surface-variant": "#434655",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#f2f4f6",
+                      "background": "#f7f9fb",
+                      "on-primary-container": "#eeefff",
+                      "tertiary": "#ad0033",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-dim": "#d8dadc",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#00174b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "unit": "8px",
+                      "container-max": "1200px"
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-16 px-6 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400" data-icon="bubble_chart">bubble_chart</span>
+<span class="text-xl font-extrabold tracking-tighter text-blue-600 dark:text-blue-400 font-headline-lg">SELAB</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400 cursor-pointer" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a young Korean professional with a friendly expression, captured in natural, soft daylight. The background is a clean, modern office space with subtle bokeh, maintaining a bright and professional aesthetic that aligns with the growth research center's warm and empathetic brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm2Ze7QmfAu1hNWoS2n7oUj_x0FTuc29ywf8CMNMvNUzl57uT9RvWf2LbJmnikkpnhA8c5wPFGN8og-oKHfBI51-NgHEnZo3u_8om3hiDiEro9doIowDpXbTLJTAdRfXIhHt7tIRE6ljuz1coN60ZFuSEkYwn0c59dySCaWHmqqB71P_E4AhHQLUbWqf45gYlIfWNxI77YUBxwy_srbicLwIt_4WAZiDvYgiHjuXpwzgwyVL7Ym_6yp5Fbh2Z8_JKyBKjYthvBcyc"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-4 md:px-margin-desktop max-w-2xl mx-auto">
+<!-- Search & Write Bar -->
+<section class="mb-8">
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+</div>
+<p class="text-on-surface-variant font-body-md">나의 성장을 공유해보세요</p>
+</div>
+</section>
+<!-- Topic Chips -->
+<section class="flex gap-2 mb-8 overflow-x-auto hide-scrollbar pb-2">
+<div class="px-4 py-2 bg-primary-container text-on-primary rounded-full text-label-sm whitespace-nowrap">전체 피드</div>
+<div class="px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-slate-200 transition-colors">#마음성장</div>
+<div class="px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-slate-200 transition-colors">#커리어</div>
+<div class="px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-slate-200 transition-colors">#독서기록</div>
+<div class="px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-slate-200 transition-colors">#인간관계</div>
+</section>
+<!-- Feed List -->
+<div class="flex flex-col gap-6">
+<!-- Reflection Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="p-5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="person">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-[16px] text-on-surface">익명의 성장자</span>
+<span class="text-xs text-on-surface-variant">· 2시간 전</span>
+</div>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#마음성장</span>
+</div>
+</div>
+<div class="px-5 pb-4">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                        오늘 하루를 돌아보며 문득 깨달은 점이 있어요. 완벽하지 않아도 꾸준히 하는 것 자체가 성장이라는 것을요. 예전에는 결과에만 집착했는데, 이제는 과정의 아름다움을 조금씩 알아가고 있습니다. 함께 나아가는 여러분들 모두 응원합니다.
+                    </p>
+</div>
+<div class="w-full aspect-[16/9] overflow-hidden">
+<img alt="Desk Reflection" class="w-full h-full object-cover" data-alt="A serene and realistic photograph of a clean, minimalist desk setup featuring an open notebook with handwritten notes and a warm cup of coffee. The scene is bathed in soft, golden hour sunlight streaming through a window, creating a peaceful and contemplative mood. The overall aesthetic is bright and clean, reflecting a moment of quiet personal reflection and growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8qO9ByDnNcr3MWr3CBvhX0eXKRw7ca7-orxqElUdgzQqo7ELgCU2CKRbIpzZjEY1dmgTBEAM-vdy57GhhfYuVu8EzYBD0ulxaJ5E5CrzNzidtu3bvHtqH4EUa9XFB4CvfMt0GelOs6dptSkSPUc96Rhj3XDdumAzBxv-PmgIfWyR6oTZKG49s-M4sBUlBJ2m0q1qd_C6FvhkQU4wJJZpGFk4DPpG403_Qr3MCkdylYzUJGq_gqDqaRdK_DEtCY5mSKjmkCSOrsS4"/>
+</div>
+<div class="p-3 flex items-center gap-6 border-t border-slate-50">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+<span class="text-label-sm">24</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm">8</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</article>
+<!-- Reflection Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="p-5 flex items-center gap-3">
+<img alt="User Profile" class="w-12 h-12 rounded-full object-cover" data-alt="A professional headshot of a young woman with a warm, empathetic smile, set against a blurred urban background with natural lighting. The visual style is crisp and modern, emphasizing authentic human connection and a supportive atmosphere for a youth-oriented research platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZnhW6dTox3LtUidptAwa65pQvJGTf1YvgJxkSw3BFfa2QbtyfSXYlJR_QrT8QAED-_sDm6cCnVJgHIgSG02dfNjf7x3hYSn7TkbawU9yNPLJMIPu4-C8RXPGugqiyW4lHuyGCEf6bQRbZTyNA-r1tnyo7CK3Kx9VKXeE4JZghnDUbQ8vcNubQeFsDC0K5My6gT6UbKBjJJhpm_MZ2wx9P4uRrYC0LZlKoD9quBiMk2gMnDkW_zDeuzJTkgSRKkrtaEibuK9nIaMk"/>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-[16px] text-on-surface">김서현 리서처</span>
+<span class="text-xs text-on-surface-variant">· 5시간 전</span>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold">#커리어</span>
+</div>
+</div>
+<div class="px-5 pb-4">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                        새로운 프로젝트를 시작하며 두려움이 앞섰지만, 작은 걸음부터 떼어보기로 했습니다. 실패는 성장의 밑거름이라는 말을 다시금 되새기는 하루네요. 여러분의 오늘은 어떤가요?
+                    </p>
+</div>
+<div class="w-full aspect-[16/9] overflow-hidden">
+<img alt="Workspace Inspiration" class="w-full h-full object-cover" data-alt="A high-quality, realistic image of a modern, airy office lounge where a young adult is focused on their laptop. Natural light floods the space, and green indoor plants provide a touch of warmth and empathy. The lighting is bright and high-key, aligning with the modern corporate style and clean white-space layout of the design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt2R-TVoe7pw9q5JHPX47LsL-T47jF_gmJ8UduGDghalt7rMXiI0Mc1TsoHHUrrMvJka-sktnbZEZd_E0LBvRmTJGTqgU4cKfWVh40pQug1IAhT5Y3giaKr695oCJsLS7D_MsZf312Dd0Y7wzAb6rkVfzG3uEX9vqHGVMCbPqGFqQB-L_fgTSBoWen5bXnllkELGCCnqvpRBjg1HzGKfp1ULCKro2ZG9-icAi5C5HU5bASaMjYuLlYhYxjMH3SH3Nmbfo6K5bD430"/>
+</div>
+<div class="p-3 flex items-center gap-6 border-t border-slate-50">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+<span class="text-label-sm">42</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm">15</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</article>
+<!-- Reflection Card 3 (Text Only) -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="p-5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400" data-icon="eco">eco</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-[16px] text-on-surface">도전하는 성장인</span>
+<span class="text-xs text-on-surface-variant">· 어제</span>
+</div>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#인간관계</span>
+</div>
+</div>
+<div class="px-5 pb-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed italic border-l-4 border-primary-container pl-4">
+                        "진정한 관계는 서로의 성장을 기뻐해줄 때 깊어진다." 오늘 책에서 읽은 문장인데 참 와닿네요. 관계 속에서 나를 잃지 않고 함께 성장하는 방법을 고민 중입니다.
+                    </p>
+</div>
+<div class="p-3 flex items-center gap-6 border-t border-slate-50">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+<span class="text-label-sm">118</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm">23</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl">
+<div class="flex justify-around items-center h-20 pb-safe px-4 max-w-container-max mx-auto">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">프로그램</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="auto_graph">auto_graph</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">인사이트</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] mt-1">커뮤니티</span>
+</a>
+</div>
+</nav>
+<!-- FAB (Floating Action Button) - Rendered only for primary community action -->
+<div class="fixed bottom-24 right-6 z-40">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform hover:opacity-90">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</body></html>

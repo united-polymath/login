@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#b4c5ff",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e6e8ea",
+                    "tertiary-container": "#d22348",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-container": "#6cf8bb",
+                    "secondary": "#006c49",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-container": "#2563eb",
+                    "on-tertiary-fixed": "#40000d",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-container": "#ffecec",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-tertiary-fixed-variant": "#92002a",
+                    "on-secondary-fixed": "#002113",
+                    "on-background": "#191c1e",
+                    "surface-tint": "#0053db",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "surface-variant": "#e0e3e5",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#eceef0",
+                    "primary": "#004ac6",
+                    "outline": "#737686",
+                    "tertiary-fixed": "#ffdadb",
+                    "surface": "#f7f9fb",
+                    "primary-fixed": "#dbe1ff",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "surface-container-low": "#f2f4f6",
+                    "background": "#f7f9fb",
+                    "on-primary-container": "#eeefff",
+                    "tertiary": "#ad0033",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-dim": "#d8dadc",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#00174b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f7f9fb; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+<!-- TopAppBar -->
+<header class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400" data-icon="bubble_chart">bubble_chart</span>
+<h1 class="text-xl font-extrabold tracking-tighter text-blue-600 dark:text-blue-400">SELAB</h1>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-blue-600 dark:text-blue-400 font-semibold transition-opacity hover:opacity-80" href="#">홈</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-opacity hover:opacity-80" href="#">프로그램</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-opacity hover:opacity-80" href="#">인사이트</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-opacity hover:opacity-80" href="#">커뮤니티</a>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a young professional adult with a friendly and authentic expression, captured in natural, soft daylight. The photography style is realistic and clean, reflecting a modern light-mode UI aesthetic. The background is a slightly blurred urban office setting with neutral tones to maintain focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDks7sIg6IC5l0rsZ5VUWZhKDaVdGKTet24bMa-2ErVIUm-JYV3lzcZuhJi6IJMMMGxnefPveSlZaooEoLhJ7thdYA_YqsJyHPGZvaXG-6pUN5rF8oYytIiGriRKVa4DwIABNYpTqUcFzm3i5Ss7ct-UHjfYQO8p1DoPTU28kziOzdVZf6r7RZi6iyJOBr-j6Pg-2m0zFvE6QvrgHAj9pSQFtTKecke5s01Kr8b3NBLbcTeApk2bzvYSfqxNqcJcn-Nh2KqQY-16jQ"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-4 md:px-margin-desktop max-w-[1200px] mx-auto">
+<!-- Welcome Message -->
+<section class="mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">김성장님, 오늘 하루는 어떠셨나요?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">당신의 성장을 위한 오늘의 맞춤형 인사이트를 준비했습니다.</p>
+</section>
+<!-- Quick Navigation Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<div class="bg-white p-8 rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all cursor-pointer group active:scale-95 duration-200">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">성장</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">어제보다 나은 내일을 위한 커리어와 자기계발</p>
+</div>
+<div class="bg-white p-8 rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all cursor-pointer group active:scale-95 duration-200">
+<div class="w-12 h-12 bg-secondary-fixed rounded-lg flex items-center justify-center mb-6 text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">관계</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">서로를 배려하며 깊어지는 인간관계의 기술</p>
+</div>
+<div class="bg-white p-8 rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all cursor-pointer group active:scale-95 duration-200">
+<div class="w-12 h-12 bg-tertiary-fixed rounded-lg flex items-center justify-center mb-6 text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">멘탈</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">마음의 근육을 키우는 회복탄력성과 심리 건강</p>
+</div>
+</section>
+<!-- Section 1: Daily Insight -->
+<section class="mb-16 relative rounded-3xl overflow-hidden min-h-[400px] flex items-center">
+<div class="absolute inset-0 z-0">
+<img alt="Office View" class="w-full h-full object-cover" data-alt="A wide-angle, realistic photograph of a modern, sun-drenched co-working space in Seoul during the late afternoon. The lighting is warm and natural, casting soft shadows across minimalist wooden furniture and indoor plants. The atmosphere is peaceful and focused, reflecting a clean, high-end professional environment with a calm, light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN8t4bKYJ7ZAbpQwivHfrXEeUNda8QwjhIFiHDcOIsVus2Ps9qBnfAsDK89STG0041R2p-kz1p3EEx6HxRNHtheCvEg0HjZ5bNETgF6GCgnmecCBuZ1hNl6GuM1c2mnNROivG2uPBdtX7tOr5PJqcqbCEzhqXbMqIkhJp0rHr7BhSBQ449WPRaSRuxtkT7ZZn2f2rTBRp4yudUnqgt4C8jerfttLGUxf_jI_v1A1M8vzNh81Jx03IQbXOXjFoEPgrSn78xwnLps3o"/>
+<div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+</div>
+<div class="relative z-10 px-8 md:px-16 max-w-2xl">
+<span class="inline-block px-4 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-semibold mb-4">오늘을 위한 한 문장</span>
+<h3 class="font-headline-xl text-headline-xl mb-6 leading-tight">"성장은 선형이 아니라 계단형입니다. 정체기라 느끼는 지금 이 순간에도 당신은 다음 단계를 준비하고 있습니다."</h3>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-semibold flex items-center gap-2 active:scale-95 transition-transform">
+                    인사이트 더보기 <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Section 2: Recommended Programs -->
+<section class="mb-16">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline-lg text-headline-lg mb-2">추천 프로그램</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">지금 가장 많은 분들이 참여하고 있는 인기 프로그램입니다.</p>
+</div>
+<a class="text-primary font-semibold flex items-center gap-1 group" href="#">전체보기 <span class="material-symbols-outlined transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all">
+<div class="w-full md:w-48 h-48">
+<img alt="Relationship Program" class="w-full h-full object-cover" data-alt="A candid, high-quality photograph of two young adults engaged in a meaningful, respectful conversation in a warm, comfortable cafe setting. The lighting is soft and golden, creating an empathetic and supportive mood. The focus is sharp on their expressions, highlighting human connection and authentic social interaction in a realistic, professional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDirzM2VCzB0EKo1ntcvH8BzPCV9YszmAnDpbCOgisFDRgN1mXPQqO8XMbOmuMnHlzhaWpfzhVxl_NXiI61Ov4twf4tKomzKFs1fktW97sfuoZ4val8MhW6agCpGT1UgLT4qTOLXX9YJN7xc_qCZPJVltAja97KHB7dim98LjPLlsv84DRkYb_USl64NUybmvZEd0TWm1Ge2giGgrbyy6Rd_NAUAkvl0_Hy9fFS-OH5c8EpIHliLhS2VtjIWpUH5fDSi2ae2XF0uKY"/>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-center">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold mb-3 w-fit">관계</span>
+<h4 class="font-headline-md text-headline-md mb-2">관계의 온도를 높이는 법</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">건강한 거리두기와 깊이 있는 대화법 워크숍</p>
+<div class="flex items-center gap-2 text-slate-500 text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span> 10월 24일 시작
+                        </div>
+</div>
+</div>
+<div class="bg-white rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all">
+<div class="w-full md:w-48 h-48">
+<img alt="Burnout Program" class="w-full h-full object-cover" data-alt="A realistic, empathetic photograph showing a young professional sitting calmly by a window with a notebook, reflecting on their day. The setting is a minimalist, modern home office with soft, natural morning light. The mood is contemplative and healing, avoiding clinical vibes in favor of warmth and personal growth, aligning with a premium light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0askeRUHVYdonKtf2mEJrm-zmHe0X2rjVOwSI54HHartfQnbDkorvgl72Ou6xHcqlOKuIjnyA672RejE19JU2-90WtQaP620sImgY3Lyh5B1Hfc5GWVBrizDqr-yyeXC7Xh3kqs1WLRWG1AnSpsiP6VJZtjdqja2xCOO9EnMAY-bJLzLxnUY0DJ6KWYwDmdDZcvJIGE3KZTd6TWW62fWTcTF9CctV2qoknSkdr9PMWEm0f3WZ65g-ped39TUu21Ec9yxVioL69UM"/>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-center">
+<span class="inline-block px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-xs font-bold mb-3 w-fit">멘탈</span>
+<h4 class="font-headline-md text-headline-md mb-2">사회초년생 번아웃 극복</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">지친 일상에서 나만의 페이스를 찾는 심리 코칭</p>
+<div class="flex items-center gap-2 text-slate-500 text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="person">person</span> 김지우 코치
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Latest Reports -->
+<section class="mb-16">
+<h3 class="font-headline-lg text-headline-lg mb-8">최신 연구 리포트</h3>
+<div class="space-y-4">
+<article class="bg-white p-6 rounded-xl border border-slate-100 flex items-center justify-between group cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-6">
+<div class="text-slate-400 font-bold text-xl">01</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">2024 대한민국 2030 라이프스타일 트렌드 분석</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">성장과 휴식 사이의 균형점을 찾는 청년들의 이야기</p>
+</div>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="description">description</span>
+</div>
+</article>
+<article class="bg-white p-6 rounded-xl border border-slate-100 flex items-center justify-between group cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-6">
+<div class="text-slate-400 font-bold text-xl">02</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">비대면 시대의 정서적 고립과 회복 탄력성</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">심리학적 관점에서 본 디지털 소통의 한계와 대안</p>
+</div>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="description">description</span>
+</div>
+</article>
+<article class="bg-white p-6 rounded-xl border border-slate-100 flex items-center justify-between group cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-6">
+<div class="text-slate-400 font-bold text-xl">03</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">커리어 초기 몰입을 방해하는 요소들</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">청년 연구원들과 함께 분석한 직장 내 정서 안정성</p>
+</div>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="description">description</span>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+<div class="flex justify-around items-center h-20 pb-safe px-4">
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-bold active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:scale-90 transition-transform duration-150 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full p-2" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">프로그램</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:scale-90 transition-transform duration-150 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full p-2" href="#">
+<span class="material-symbols-outlined" data-icon="auto_graph">auto_graph</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">인사이트</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:scale-90 transition-transform duration-150 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full p-2" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium mt-1">커뮤니티</span>
+</a>
+</div>
+</nav>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

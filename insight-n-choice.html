@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SELAB - N포를 넘어 N선택으로: 2030이 새로 쓰는 삶의 공식</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6", "primary-container": "#2563eb", "on-primary": "#ffffff",
+            "primary-fixed": "#dbe1ff", "on-primary-fixed": "#00174b",
+            "secondary": "#006c49", "secondary-fixed": "#6ffbbe", "on-secondary-fixed-variant": "#005236",
+            "tertiary": "#ad0033", "tertiary-fixed": "#ffdadb", "on-tertiary-fixed": "#40000d",
+            "surface": "#f7f9fb", "background": "#f7f9fb", "on-background": "#191c1e",
+            "on-surface": "#191c1e", "on-surface-variant": "#434655",
+            "surface-container": "#eceef0", "surface-container-high": "#e6e8ea",
+            "surface-container-lowest": "#ffffff", "outline-variant": "#c3c6d7",
+          },
+          spacing: { "margin-desktop": "64px", "gutter": "24px" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .prose p { margin-bottom: 1.5rem; line-height: 1.85; }
+    .prose h3 { margin-top: 2.5rem; margin-bottom: 1rem; }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(136,19,55,0.5) 0%, rgba(190,18,60,0.65) 40%, rgba(80,7,36,0.9) 100%);
+    }
+    .section-border-rose {
+      border-left: 4px solid #e11d48;
+      padding-left: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background">
+
+  <!-- 상단 헤더 nav -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-outline-variant shadow-sm">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">SE</span>
+        </div>
+        <span class="font-bold text-lg text-on-surface tracking-tight">SELAB</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">홈</a>
+        <a href="프로그램.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">프로그램</a>
+        <a href="인사이트.html" class="px-4 py-2 rounded-full text-sm font-medium text-primary bg-primary/10 transition-colors">인사이트</a>
+        <a href="커뮤니티.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">커뮤니티</a>
+      </nav>
+      <button class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <span class="material-symbols-outlined text-base">person</span>
+        로그인
+      </button>
+    </div>
+  </header>
+
+  <main class="pt-0 pb-28">
+
+    <!-- 히어로 섹션 -->
+    <section class="relative w-full h-[460px] overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuLvZc8Bq30AgfIQMVMCnVNkGUTqW3DFYUJpCmdd6Ym8uiGutlCmCPTvx9-NULJHqlCLAnCiEc0SgFRJ8pMbD9DYTBOIee0fh3B_r9WfDaAnOBW7euArKKJRxagF54kBvvaeyKxNm5nKbHEG-UnaDHP86jiiAn8vbTgtBFDBw_iJsxrKUxbSrxPlGjeh_voqRBtWXJoHd-mxF480s-voOT3C-pRZ_QeBrUNWS9cOx4w5I8-_ZHN3WlC2N8MxJYlGlaKOkV8GktRm8"
+        alt="N선택 히어로 이미지"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="hero-gradient absolute inset-0"></div>
+      <div class="absolute inset-0 flex flex-col justify-end px-4 md:px-8 pb-24 max-w-screen-xl mx-auto left-0 right-0">
+        <span class="inline-flex items-center gap-1.5 bg-rose-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full w-fit mb-4">
+          <span class="material-symbols-outlined text-sm">group</span>
+          사회·관계
+        </span>
+        <h1 class="text-white text-2xl md:text-3xl font-bold leading-tight max-w-2xl">
+          N포를 넘어 N선택으로:<br class="hidden md:block"/> 2030이 새로 쓰는 삶의 공식
+        </h1>
+        <div class="flex items-center gap-3 mt-4 text-white/80 text-sm">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">person</span>박지원 사회학 연구원</span>
+          <span>·</span>
+          <span>2026.03.22</span>
+          <span>·</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>8분 읽기</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 브레드크럼 + 뒤로가기 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-4">
+      <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+        <a href="인사이트.html" class="flex items-center gap-1 hover:text-primary transition-colors font-medium">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          인사이트로 돌아가기
+        </a>
+        <span>/</span>
+        <span class="text-rose-600 font-medium">사회·관계</span>
+        <span>/</span>
+        <span class="text-on-surface truncate max-w-xs">N포에서 N선택으로</span>
+      </div>
+    </div>
+
+    <!-- 아티클 컨테이너 -->
+    <div class="max-w-3xl mx-auto px-4 md:px-8 -mt-4">
+      <div class="bg-white rounded-2xl shadow-lg border border-outline-variant/30 overflow-hidden">
+
+        <!-- 아티클 헤더 -->
+        <div class="p-6 md:p-10 border-b border-outline-variant/30">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full">사회·관계</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">라이프스타일</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">2030세대</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold text-on-surface leading-tight mb-6">
+            N포를 넘어 N선택으로: 2030이 새로 쓰는 삶의 공식
+          </h2>
+          <div class="flex flex-wrap items-center gap-4 text-sm text-on-surface-variant">
+            <div class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-rose-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-rose-600 text-lg">groups</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm">박지원</p>
+                <p class="text-xs">사회학 연구원</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span>2026.03.22</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>8분 읽기</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">visibility</span>24,156 조회</div>
+          </div>
+        </div>
+
+        <!-- 본문 -->
+        <div class="p-6 md:p-10 prose max-w-none text-on-surface text-[15px] leading-relaxed">
+
+          <!-- 섹션 1 -->
+          <div class="mb-10">
+            <h3 class="section-border-rose text-xl font-bold text-on-surface mb-5">
+              'N포 세대'라는 언어가 가진 폭력성
+            </h3>
+            <p>
+              2010년대 초 '삼포 세대'라는 말이 등장했을 때, 많은 사람들이 고개를 끄덕였습니다. 연애, 결혼, 출산을 포기할 수밖에 없는 경제적 현실을 반영한 말이었으니까요. 그 이후 오포(+내 집 마련, 인간관계), 칠포(+꿈, 희망), 그리고 포기할 것이 너무 많아 숫자를 붙이기도 어렵다는 <strong>'N포 세대'</strong>로 진화해왔습니다.
+            </p>
+
+            <!-- 타임라인 -->
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 my-6">
+              <p class="font-bold text-rose-800 text-sm mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-rose-600">history</span>
+                N포 세대 용어의 역사
+              </p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-bold text-rose-600 w-12 flex-shrink-0">2011</span>
+                  <div class="flex-1 bg-white rounded-lg px-3 py-2">
+                    <p class="text-sm font-semibold text-on-surface">3포 세대</p>
+                    <p class="text-xs text-on-surface-variant">연애·결혼·출산 포기</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-bold text-rose-600 w-12 flex-shrink-0">2014</span>
+                  <div class="flex-1 bg-white rounded-lg px-3 py-2">
+                    <p class="text-sm font-semibold text-on-surface">5포 세대</p>
+                    <p class="text-xs text-on-surface-variant">+ 내 집 마련·인간관계</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-bold text-rose-600 w-12 flex-shrink-0">2016</span>
+                  <div class="flex-1 bg-white rounded-lg px-3 py-2">
+                    <p class="text-sm font-semibold text-on-surface">7포 세대</p>
+                    <p class="text-xs text-on-surface-variant">+ 꿈·희망</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-bold text-rose-600 w-12 flex-shrink-0">2020+</span>
+                  <div class="flex-1 bg-rose-100 rounded-lg px-3 py-2">
+                    <p class="text-sm font-semibold text-rose-800">N포 세대</p>
+                    <p class="text-xs text-rose-600">셀 수 없는 포기의 목록</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              그런데 이 언어에는 심각한 문제가 있습니다. <strong>언어는 현실을 반영하기도 하지만, 현실을 규정하기도 합니다.</strong> "포기"라는 프레임은 결혼·출산·내 집 마련이 당연히 추구해야 할 삶의 목표이며, 그것을 하지 않는 것은 실패 혹은 포기라는 전제를 깔고 있습니다. 만약 그것이 애초에 나의 목표가 아니었다면?
+            </p>
+            <p>
+              2026년 현재의 통계는 놀랍습니다. 비혼 의향은 <strong class="text-rose-600">38%</strong>, 비출산 의향은 <strong class="text-rose-600">52%</strong>에 달합니다. 그러나 SELAB이 수행한 심층 인터뷰에서 이들 대부분은 스스로를 "불행하다"고 표현하지 않았습니다. 오히려 많은 이들이 자신의 선택에 대해 명확한 근거와 자신감을 가지고 있었습니다.
+            </p>
+
+            <!-- 인터뷰 인용 -->
+            <blockquote class="border-l-4 border-rose-400 pl-5 py-2 bg-rose-50/50 rounded-r-lg my-6 italic">
+              <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
+                "저는 결혼을 포기한 게 아니에요. 지금 이 상태가 저한테 더 맞는 삶의 형태라는 걸 알게 됐어요. 부모님이 싸울 때마다 억지로 참고 사는 걸 보면서 자랐거든요. 제가 선택한 자유로운 삶이, 그 결혼보다 낫다고 생각해요. 이게 포기예요?"
+              </p>
+              <p class="text-rose-600 font-semibold text-xs not-italic">— SELAB 연구 참여자, 28세 마케터 김○○</p>
+            </blockquote>
+          </div>
+
+          <!-- 섹션 2 -->
+          <div class="mb-10">
+            <h3 class="section-border-rose text-xl font-bold text-on-surface mb-5">
+              218명이 말하는 새로운 행복의 기준점
+            </h3>
+            <p>
+              SELAB은 지난 3년간 20-30대 <strong class="text-rose-600">218명</strong>을 대상으로 심층 인터뷰를 진행했습니다. 이들에게 공통적으로 던진 질문은 하나였습니다. "당신에게 행복한 삶이란 무엇인가요?"
+            </p>
+            <p>
+              과거 세대의 행복 지표는 비교적 단순하고 순서가 있었습니다. 좋은 대학 → 좋은 직장 → 결혼 → 출산 → 내 집 마련 → 승진. 이 사다리를 얼마나 빠르게, 높이 올라가느냐가 성공의 척도였습니다.
+            </p>
+
+            <!-- 행복 지표 비교 -->
+            <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-surface-container rounded-xl p-5">
+                <p class="font-bold text-on-surface-variant text-sm mb-3 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-on-surface-variant text-lg">history</span>
+                  과거 세대 행복 지표
+                </p>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full flex-shrink-0"></span><span>결혼 · 출산</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full flex-shrink-0"></span><span>내 집 마련</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full flex-shrink-0"></span><span>직장 내 승진</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full flex-shrink-0"></span><span>사회적 체면과 인정</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full flex-shrink-0"></span><span>안정된 정규직</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+                <p class="font-bold text-rose-700 text-sm mb-3 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-rose-600 text-lg">auto_awesome</span>
+                  2026 2030 행복 지표 TOP 5
+                </p>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <span class="bg-rose-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0">1</span>
+                    <span class="text-sm font-semibold text-on-surface">자율성 — 시간과 공간의 주도권</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-rose-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0">2</span>
+                    <span class="text-sm font-semibold text-on-surface">건강 — 신체·정신 모두</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-rose-400 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0">3</span>
+                    <span class="text-sm font-semibold text-on-surface">깊은 관계 — 소수의 진짜 연결</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-rose-300 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0">4</span>
+                    <span class="text-sm font-semibold text-on-surface">경제적 안정 — 과시 아닌 안전감</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-rose-200 text-rose-700 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0">5</span>
+                    <span class="text-sm font-semibold text-on-surface">성장감 — 어제보다 나은 오늘</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              주목할 점은 결혼과 출산이 행복의 목록에서 사라진 것이 아니라, 그 위치가 달라졌다는 것입니다. 과거에는 그것이 행복의 <em>조건</em>이었다면, 지금의 2030에게 그것은 행복한 삶의 방식 중 하나입니다. 강요된 당연함에서 선택 가능한 옵션으로.
+            </p>
+
+            <blockquote class="border-l-4 border-rose-400 pl-5 py-2 bg-rose-50/50 rounded-r-lg my-6 italic">
+              <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
+                "결혼을 안 하는 게 아니에요. 좋은 파트너를 만나지 못했을 때 혼자를 선택하는 거예요. 그건 결혼 포기가 아니라 기준이 높아진 거잖아요."
+              </p>
+              <p class="text-rose-600 font-semibold text-xs not-italic">— SELAB 연구 참여자, 33세 디자이너 이○○</p>
+            </blockquote>
+          </div>
+
+          <!-- 섹션 3 -->
+          <div class="mb-10">
+            <h3 class="section-border-rose text-xl font-bold text-on-surface mb-5">
+              의도적 삶 설계: 어떻게 실천하는가
+            </h3>
+            <p>
+              "삶을 내 방식으로 살고 싶다"는 것은 누구나 동의하는 문장입니다. 그러나 구체적으로 어떻게 시작할 것인가? 인터뷰 참여자 중 스스로 삶에 만족한다고 답한 이들에게는 공통적인 실천 방법이 있었습니다.
+            </p>
+
+            <!-- 라이프 감사 -->
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 my-6">
+              <div class="flex items-start gap-3 mb-4">
+                <span class="material-symbols-outlined text-rose-600 mt-0.5">manage_search</span>
+                <div>
+                  <p class="font-bold text-rose-800 text-sm">라이프 감사(Life Audit) — 삶을 들여다보는 연간 의식</p>
+                  <p class="text-sm text-rose-700 mt-1">연 1-2회, 자신의 삶을 주요 영역별로 점검하는 시간입니다. 건강, 커리어, 관계, 재정, 여가, 성장 각 영역에서 "이것이 나에게 에너지를 주는가, 빼앗는가?"를 솔직하게 묻습니다.</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-lg p-3">
+                  <p class="text-xs font-bold text-rose-600 mb-1.5">에너지 게인 (Energy Gain)</p>
+                  <p class="text-xs text-on-surface-variant">나를 충전시키고, 활기차게 하는 활동·관계·환경을 늘린다</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="text-xs font-bold text-on-surface-variant mb-1.5">에너지 드레인 (Energy Drain)</p>
+                  <p class="text-xs text-on-surface-variant">나를 지치게 하고, 소모시키는 것들을 인식하고 줄인다</p>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              또 하나의 실천은 <strong>'5년 로드맵' 대신 '분기별 실험'</strong>입니다. 5년 후의 삶을 설계하는 것은 지금처럼 빠르게 변하는 세상에서 현실성이 낮습니다. 대신 "이번 분기에 이것을 시도해보자"는 방식으로 접근합니다. 한 번 정한 길을 가는 것이 아니라, 계속 시도하고 조정하면서 자신에게 맞는 삶의 형태를 찾아가는 것입니다.
+            </p>
+
+            <!-- 대안적 관계 설계 -->
+            <div class="my-6">
+              <p class="font-bold text-on-surface text-sm mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-rose-500">diversity_3</span>
+                비혼·비출산 2030의 대안적 관계 설계
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="border border-rose-200 rounded-xl p-4 bg-white hover:bg-rose-50 transition-colors">
+                  <p class="font-bold text-rose-700 text-sm mb-1.5">파트너십 계약</p>
+                  <p class="text-xs text-on-surface-variant">법적 결혼 없이 삶을 공유하는 파트너와 역할·재정·관계 방식을 명시적으로 합의하는 형태. 경계가 명확할수록 갈등이 줄어듭니다.</p>
+                </div>
+                <div class="border border-rose-200 rounded-xl p-4 bg-white hover:bg-rose-50 transition-colors">
+                  <p class="font-bold text-rose-700 text-sm mb-1.5">의도적 공동 주거</p>
+                  <p class="text-xs text-on-surface-variant">비슷한 가치관을 가진 친구들과 함께 살면서 고독을 줄이고 생활비를 나누는 방식. 단순한 룸메이트와 달리 커뮤니티로서 설계됩니다.</p>
+                </div>
+                <div class="border border-rose-200 rounded-xl p-4 bg-white hover:bg-rose-50 transition-colors">
+                  <p class="font-bold text-rose-700 text-sm mb-1.5">우정 계약</p>
+                  <p class="text-xs text-on-surface-variant">오랜 친구들 사이에서 "우리 서로 돌봐주자"는 명시적 약속. 노후와 위기 상황에 서로 지지하는 관계망을 의도적으로 구축합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 4 -->
+          <div class="mb-10">
+            <h3 class="section-border-rose text-xl font-bold text-on-surface mb-5">
+              사회가 응답해야 할 것들
+            </h3>
+            <p>
+              개인의 선택이 달라진 것은 분명합니다. 그러나 사회 제도는 여전히 '표준 생애 경로'를 전제로 설계되어 있습니다. 결혼하고, 아이를 낳고, 가족이 함께 사는 삶을 기준으로 만들어진 시스템에서, 다른 삶의 형태를 선택한 이들은 구조적 불이익을 감수해야 합니다.
+            </p>
+
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 my-6 space-y-3">
+              <p class="font-bold text-rose-800 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-rose-600">gavel</span>
+                제도가 바꿔야 할 것들
+              </p>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <span class="material-symbols-outlined text-rose-400 text-xl mt-0.5">home</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">1인 가구 세제 불이익</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">배우자 공제, 자녀 공제 등 가족 단위를 전제로 한 세제는 1인 가구에게 구조적 불리함을 만듭니다. 가구 유형에 중립적인 세제 개편이 필요합니다.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <span class="material-symbols-outlined text-rose-400 text-xl mt-0.5">local_hospital</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">비혼 파트너 의료 보호자 권리</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">응급 상황에서 법적 가족이 아닌 파트너나 친구는 보호자로 인정받지 못합니다. 법적 결혼과 무관한 신뢰 관계의 법적 지위 인정이 필요합니다.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <span class="material-symbols-outlined text-rose-400 text-xl mt-0.5">savings</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">노후 보장의 가족 의존성</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">노후 돌봄과 사회적 안전망이 가족 관계를 전제로 설계된 부분들을 점검하고, 1인 가구도 안심할 수 있는 사회적 돌봄 인프라가 필요합니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              유럽에는 이미 대안 모델들이 존재합니다. 프랑스의 <strong>PACS(시민연대협약)</strong>는 결혼하지 않은 두 사람이 법적 파트너십을 등록할 수 있는 제도로, 세금 혜택, 상속, 의료 보호자 권리 등을 보장합니다. 네덜란드의 <strong>사만울빙(Samenwoning)</strong> 역시 비슷한 형태의 공식적 동반자 관계를 인정합니다.
+            </p>
+            <p>
+              "다양한 삶의 형태를 존중하는 사회 인프라"는 거창한 이상이 아닙니다. 그것은 지금 이미 존재하는 삶의 방식에 사회가 따라가는 것입니다. 제도가 삶보다 뒤처져 있을 때, 그 간격에서 가장 많은 고통이 발생합니다.
+            </p>
+          </div>
+
+          <!-- 핵심 정리 박스 -->
+          <div class="mt-12 bg-rose-50 border-l-4 border-rose-600 rounded-r-xl p-6 md:p-8">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="material-symbols-outlined text-rose-600">lightbulb</span>
+              <p class="font-bold text-rose-800 text-base">핵심 정리 — Key Takeaways</p>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-rose-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">N포는 패배가 아니다 — 기준이 다른 세대의 의식적 선택이다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">"포기"라는 언어가 가진 편견에서 벗어날 때, 비로소 새로운 삶의 형태를 설계할 자유가 생깁니다. 포기와 선택 사이의 차이는 주체성에 있습니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-rose-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">행복 지표는 이미 바뀌었다 — 사회 시스템이 따라와야 한다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">자율성, 건강, 깊은 관계, 경제적 안정, 성장감 — 이 새로운 지표들에 맞게 사회 제도와 문화도 진화해야 합니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-rose-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">의도적 삶 설계는 하루아침에 완성되지 않는다, 지금 질문에서 시작하라</p>
+                  <p class="text-on-surface-variant text-sm mt-1">"나에게 에너지를 주는 것은 무엇인가?" — 이 질문에서 시작해 라이프 감사와 분기별 실험으로 조금씩 자신만의 삶을 설계해나갑니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 관련 아티클 섹션 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-on-surface">관련 아티클</h2>
+        <a href="인사이트.html" class="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
+          전체 보기<span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 관련 1 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyTPZE7_lG1QcwFD6qcFHoy6gDtAJXCBTG9GFdM3VPIZHxYjIdWtHWKsad6KbHxxXnKu1CUSinWtcS1Ww1FEk1eL_9LREmtHP60jJFrB7F8vTZ3fA8_f65tI7WdzwirUR08F7FIipfc8g3da5XAIoPX_2FYBfbFTRcEi-2a9Z9CUYJxSKPOrIefX29FBfAtHiqialdgNdl-LYx-rB9lQL3eEDC5qmpfONJVdXo9Gz2OrZ2_j4EAdtcshGGusWR7UfW8XMzqGDhoRY" alt="혼자이지만 연결된" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-rose-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">사회·관계</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">혼자이지만 연결된: 서울 1인 가구의 느슨한 공동체 실험</h3>
+            <p class="text-xs text-on-surface-variant">황수연 도시사회학자 · 6분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 2 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9IoqXjrUA5qQJHdPaWA989SDFvITdSk3fcLQyQl_4ygE5aO1eCATkXggUbClOjkV8JmfmPh4u1Spj0cmkazU3d3XQbVarjav5Kp1M7-bxwQX7S52I7H12m7vyCozGdLYdhF5XfRsQCCvh3s8zs5xSrZtCqYKuJQfhYN3MPgfJbNei46tv--xlq1KIe8SlnSgJWBsFBsLnHk7Ip6m2UlSI18M33Y3TPXqK1WknqIuRi0o71yQivPEmZzF_g6DO36MnnjQBQ4h1H0E" alt="도파민 디톡스" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-violet-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">멘탈케어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">도파민 디톡스: 숏폼 중독에서 벗어나는 뇌 리셋 7일 프로그램</h3>
+            <p class="text-xs text-on-surface-variant">김민준 신경심리 연구원 · 6분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 3 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuARdQ2VWOrp70KSH-vwS1S-OaL_zVaTMiYCUpr4F78dzD1eWv2nHSqf56G2yoz9QqlsqYtoI-CtAoo5v4vaHNYmsHXJ9WXF4127DRvC0Mla1NRsaw_y5YnmF3pO5N8Et5NsRvqNczgIDUQRRukA22eN_stnxuZUCE6zJyD80cIFeEjh-SW7af2qiX6-H12zLalY4L2dz2FPtjsRxIdHjRIfS2p2Ou-OIeu3tRE32iNHkGYjUFhXiQRANE4NiH-8FzILI7d0NVSWZHg" alt="사이드 프로젝트" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-2.5 py-1 rounded-full">커리어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">사이드 프로젝트가 본업이 되는 순간: N잡 커리어 자산화 전략</h3>
+            <p class="text-xs text-on-surface-variant">정재훈 N잡러 · 6분 읽기</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 하단 모바일 nav -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant z-50 md:hidden">
+    <div class="flex items-center justify-around h-16">
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">home</span>
+        <span class="text-[10px] font-medium">홈</span>
+      </a>
+      <a href="프로그램.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">school</span>
+        <span class="text-[10px] font-medium">프로그램</span>
+      </a>
+      <a href="인사이트.html" class="flex flex-col items-center gap-0.5 text-primary">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">article</span>
+        <span class="text-[10px] font-bold">인사이트</span>
+      </a>
+      <a href="커뮤니티.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">group</span>
+        <span class="text-[10px] font-medium">커뮤니티</span>
+      </a>
+    </div>
+  </nav>
+
+</body>
+</html>

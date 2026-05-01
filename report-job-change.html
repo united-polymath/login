@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELAB - 평균 18개월의 비밀: MZ 세대 이직 패턴 분석 | Vol.10</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#004ac6",
+          "primary-container": "#2563eb",
+          "on-primary": "#ffffff",
+          "primary-fixed": "#dbe1ff",
+          "on-primary-fixed": "#00174b",
+          "surface": "#f7f9fb",
+          "background": "#f7f9fb",
+          "on-background": "#191c1e",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "surface-container": "#eceef0",
+          "surface-container-lowest": "#ffffff",
+          "outline-variant": "#c3c6d7",
+        },
+        spacing: { "margin-desktop": "64px", "gutter": "24px" }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .stat-number { font-family: 'Plus Jakarta Sans', 'Pretendard', sans-serif; }
+  .finding-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .finding-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(29, 78, 216, 0.12); }
+  .chapter-item:hover { background: #eff6ff; }
+  .chapter-item { transition: background 0.2s ease; }
+  .timeline-bar-strategic { background: linear-gradient(to right, #1d4ed8, #3b82f6); }
+  .timeline-bar-escape { background: linear-gradient(to right, #dc2626, #ef4444); }
+  .timeline-bar-no-move { background: linear-gradient(to right, #6b7280, #9ca3af); }
+</style>
+</head>
+<body class="bg-background text-on-background antialiased">
+
+<!-- ───────────── Header Nav ───────────── -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 max-w-screen-xl mx-auto w-full">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
+        <h1 class="text-xl font-extrabold tracking-tighter text-blue-600 font-['Plus_Jakarta_Sans',sans-serif]">SELAB</h1>
+      </a>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="material-symbols-outlined text-slate-600 hover:opacity-80 transition-opacity">search</button>
+      <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+        <img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu9xq6XGjatHpeUq2KZB-d9xnSG2zp6eRexe-MuftSMFO4mIeehptB3xMA3Lm1aCAWG7ru1qax8Qq8iiMCJ3hjETyA0j81YhqZBtGz1moyNNZ7e5HvtdWUUBHM62hsZaqqNwopgKZEfuHVG3CZ7I2Rg5BU-8DWwvmFh0NTTOnjcD1-aIKApyQXkywlwO3x7TStkqFBl9uzKo4tyr-Ei46dq2IiYG_ZwfLv7iBA2YsGx_x5p_tu5Whq8CBTLerB7J5IuCahr1137FI"/>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-28">
+
+  <!-- ───────────── Hero Section ───────────── -->
+  <section class="relative h-[400px] md:h-[480px] overflow-hidden">
+    <img
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuARdQ2VWOrp70KSH-vwS1S-OaL_zVaTMiYCUpr4F78dzD1eWv2nHSqf56G2yoz9QqlsqYtoI-CtAoo5v4vaHNYmsHXJ9WXF4127DRvC0Mla1NRsaw_y5YnmF3pO5N8Et5NsRvqNczgIDUQRRukA22eN_stnxuZUCE6zJyD80cIFeEjh-SW7af2qiX6-H12zLalY4L2dz2FPtjsRxIdHjRIfS2p2Ou-OIeu3tRE32iNHkGYjUFhXiQRANE4NiH-8FzILI7d0NVSWZHg"
+      alt="이직 패턴 분석 히어로 이미지"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <!-- 카테고리 색상 그라디언트 오버레이 (blue) -->
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-950/80 via-blue-900/55 to-slate-900/92"></div>
+
+    <div class="relative z-10 h-full flex flex-col justify-between px-6 md:px-16 max-w-screen-xl mx-auto py-8 md:py-12">
+      <!-- 상단 뱃지 -->
+      <div class="flex items-center gap-3">
+        <span class="text-white/80 text-xs font-bold tracking-[0.15em] uppercase">SELAB REPORT</span>
+        <span class="w-1 h-1 rounded-full bg-white/50"></span>
+        <span class="px-3 py-1 rounded-full bg-blue-500/80 backdrop-blur-sm text-white text-xs font-bold tracking-wide border border-blue-400/40">Vol.10</span>
+        <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-semibold border border-white/20">커리어</span>
+      </div>
+
+      <!-- 중앙 제목 -->
+      <div class="max-w-3xl">
+        <h1 class="text-white font-bold text-[28px] md:text-[40px] leading-tight mb-4 drop-shadow-lg">
+          평균 18개월의 비밀:<br/>
+          <span class="text-blue-200">MZ 세대 이직 패턴과 커리어 자산화 전략</span>
+        </h1>
+      </div>
+
+      <!-- 하단 메타 -->
+      <div class="flex flex-wrap items-center gap-6 text-white/80 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-300 text-[18px]">group</span>
+          <span>노동시장 연구팀</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-300 text-[18px]">calendar_today</span>
+          <span>2026년 2월 발행</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-300 text-[18px]">menu_book</span>
+          <span>38페이지</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 리포트 메타 바 ───────────── -->
+  <div class="max-w-4xl mx-auto px-4 md:px-8">
+    <div class="bg-white rounded-2xl shadow-lg -mt-16 relative z-10 px-6 py-6 border border-slate-100">
+      <!-- 뒤로가기 -->
+      <a href="인사이트.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-blue-600 text-sm font-medium transition-colors mb-5 group">
+        <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+        인사이트 목록으로 돌아가기
+      </a>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="flex flex-col gap-1">
+          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">시리즈</span>
+          <span class="text-[14px] font-bold text-on-surface">SELAB Vol.10</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">발행일</span>
+          <span class="text-[14px] font-bold text-on-surface">2026.02</span>
+        </div>
+        <div class="flex flex-col gap-1 col-span-2 md:col-span-1">
+          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">연구팀</span>
+          <span class="text-[14px] font-bold text-on-surface">노동시장 연구팀</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">분량</span>
+          <span class="text-[14px] font-bold text-on-surface">38 pages</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">다운로드</span>
+          <span class="text-[14px] font-bold text-blue-600">5,293회</span>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-5 border-t border-slate-100 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-blue-500 text-[18px]">person</span>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-on-surface">수석 정유진 커리어 코치</p>
+          <p class="text-[12px] text-slate-400">조직심리학 자문 이민호 박사 외 3인</p>
+        </div>
+        <div class="ml-auto flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[12px] font-bold border border-blue-100">커리어</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────── 본문 ───────────── -->
+  <div class="max-w-4xl mx-auto px-4 md:px-8 mt-12 space-y-14">
+
+    <!-- Executive Summary -->
+    <section>
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">Executive Summary</h2>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-7 border border-blue-100">
+        <p class="text-[16px] leading-[1.85] text-slate-700">
+          "요즘 애들은 끈기가 없다"는 기성세대의 시선과 "더 좋은 조건을 찾는 게 뭐가 나쁘냐"는 MZ 세대의 반박 — 이 논쟁을 SELAB은 11,000건의 실제 이직 데이터로 종결한다. 결론은 단순하지 않다. <strong class="text-blue-700">이직 자체보다 '이직의 이유와 준비도'가 결과를 결정</strong>한다. 전략적으로 이직한 그룹의 5년 후 연봉은 비이직자 대비 31% 높았으나, 불만 회피형 이직자는 오히려 5% 낮았다. 18-24개월차의 황금 구간, 보이지 않는 자산의 포트폴리오화, 연봉 협상 심리학까지 — 이직을 커리어 복리 효과로 만드는 실증 전략을 공개한다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 핵심 통계 4개 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">핵심 통계</h2>
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <p class="stat-number text-[48px] md:text-[56px] font-extrabold text-blue-600 leading-none mb-2">18.3<span class="text-[20px] font-semibold text-blue-400">개월</span></p>
+          <p class="text-[14px] font-semibold text-on-surface mb-1">2030의 첫 직장 평균 근속 기간</p>
+          <p class="text-[12px] text-slate-400 leading-relaxed">2020년 24.7개월 대비 6.4개월 단축 — 이직 주기 가속화 추세</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <p class="stat-number text-[48px] md:text-[56px] font-extrabold text-blue-600 leading-none mb-2">1.1<span class="text-[22px] font-semibold text-blue-400">만건</span></p>
+          <p class="text-[14px] font-semibold text-on-surface mb-1">분석한 실제 이직 사례 수</p>
+          <p class="text-[12px] text-slate-400 leading-relaxed">사람인·잡코리아 익명 데이터 + 심층 인터뷰 80명 결합</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <p class="stat-number text-[48px] md:text-[56px] font-extrabold text-emerald-500 leading-none mb-2">34<span class="text-[22px] font-semibold text-emerald-400">%</span></p>
+          <p class="text-[14px] font-semibold text-on-surface mb-1">이직 후 연봉 상승 성공 비율</p>
+          <p class="text-[12px] text-slate-400 leading-relaxed">전략적 이직자 기준, 평균 상승폭 +22% (18-24개월차 그룹)</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <p class="stat-number text-[48px] md:text-[56px] font-extrabold text-blue-600 leading-none mb-2">2.8<span class="text-[22px] font-semibold text-blue-400">년</span></p>
+          <p class="text-[14px] font-semibold text-on-surface mb-1">비이직자 연봉 추월 기간</p>
+          <p class="text-[12px] text-slate-400 leading-relaxed">전략적 이직자가 동일 코호트 비이직자를 추월하는 데 걸리는 시간</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 이직 결과 비교 시각화 -->
+    <section>
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">이직 유형별 5년 후 연봉 변화</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+        <p class="text-[13px] text-slate-500 mb-6">동일 코호트 비이직자 연봉을 기준(0%)으로 비교 · 5년 후 측정값</p>
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[14px] font-semibold text-on-surface">전략적 이직자</span>
+              <span class="text-[14px] font-bold text-emerald-600">+31%</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="timeline-bar-strategic h-full rounded-full" style="width: 81%"></div>
+            </div>
+            <p class="text-[12px] text-slate-400 mt-1.5">사전 분석·목표 명확화 후 이직 / n=3,142</p>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[14px] font-semibold text-on-surface">비이직자 (기준)</span>
+              <span class="text-[14px] font-bold text-slate-500">±0%</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="timeline-bar-no-move h-full rounded-full" style="width: 50%"></div>
+            </div>
+            <p class="text-[12px] text-slate-400 mt-1.5">동일 회사 5년 근속 그룹 / n=4,820</p>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[14px] font-semibold text-on-surface">불만 회피형 이직자</span>
+              <span class="text-[14px] font-bold text-red-500">-5%</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="timeline-bar-escape h-full rounded-full" style="width: 45%"></div>
+            </div>
+            <p class="text-[12px] text-slate-400 mt-1.5">명확한 목표 없이 현재 불만으로 이직 / n=3,038</p>
+          </div>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 rounded-xl">
+          <p class="text-[13px] font-semibold text-blue-800">핵심 인사이트: 이직 자체가 아닌 '이직의 이유와 준비도'가 5년 후 결과를 결정한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 주요 발견사항 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">주요 발견사항</h2>
+      </div>
+      <div class="space-y-5">
+
+        <!-- 발견 1 -->
+        <div class="finding-card bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-blue-500">fork_right</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 text-[11px] font-bold">발견 01</span>
+              </div>
+              <h3 class="text-[17px] font-bold text-on-surface mb-3">전략적 이직 vs 도피형 이직 — 이유가 결과를 결정한다</h3>
+              <p class="text-[14px] leading-relaxed text-slate-600 mb-4">연봉·성장·문화를 기준으로 사전 분석 후 이직한 '전략형'의 5년 후 연봉은 비이직자 대비 평균 31% 높다. 반면 현재 불만에서 도망치는 '도피형' 이직자는 오히려 5% 낮은 결과를 보였다. 이직의 빈도가 아니라 '왜 이직하는가'가 커리어 궤적을 결정한다.</p>
+              <div class="flex items-center gap-2 p-3 bg-blue-50 rounded-xl">
+                <span class="material-symbols-outlined text-blue-400 text-[16px]">compare_arrows</span>
+                <span class="text-[13px] font-semibold text-blue-700">전략형 +31% vs 도피형 -5% — 같은 이직, 다른 결과</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 발견 2 -->
+        <div class="finding-card bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-emerald-500">schedule</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-bold">발견 02</span>
+              </div>
+              <h3 class="text-[17px] font-bold text-on-surface mb-3">이직의 황금 구간 — 18-24개월차</h3>
+              <p class="text-[14px] leading-relaxed text-slate-600 mb-4">18-24개월차에 이직한 그룹이 연봉 상승폭 최대(평균 +22%)를 기록했다. 6개월 미만 이직자는 레퍼런스 및 성과 입증이 부족하고, 36개월 초과 이직자는 기회비용 손실이 크다. 데이터가 가리키는 이직의 최적 타이밍이 존재한다.</p>
+              <div class="mt-4 grid grid-cols-3 gap-3">
+                <div class="p-3 bg-red-50 rounded-xl text-center">
+                  <p class="text-[11px] font-bold text-red-500 mb-1">너무 빠름</p>
+                  <p class="text-[13px] font-bold text-on-surface">6개월 미만</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">레퍼런스 부족</p>
+                </div>
+                <div class="p-3 bg-emerald-50 rounded-xl text-center border-2 border-emerald-300">
+                  <p class="text-[11px] font-bold text-emerald-600 mb-1">황금 구간</p>
+                  <p class="text-[13px] font-bold text-emerald-700">18-24개월</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">평균 +22%</p>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-xl text-center">
+                  <p class="text-[11px] font-bold text-amber-600 mb-1">너무 늦음</p>
+                  <p class="text-[13px] font-bold text-on-surface">36개월 초과</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">기회비용 손실</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 발견 3 -->
+        <div class="finding-card bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-violet-500">inventory_2</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[11px] font-bold">발견 03</span>
+              </div>
+              <h3 class="text-[17px] font-bold text-on-surface mb-3">이직 시 놓치는 '보이지 않는 자산'</h3>
+              <p class="text-[14px] leading-relaxed text-slate-600 mb-4">사내 네트워크, 프로젝트 레퍼런스, 조직 이해도가 이직 후 1년간 생산성 저하의 주요 원인으로 분석됐다. 이 '보이지 않는 자산'을 이직 전 포트폴리오화하는 것이 온보딩 속도와 연봉 협상력을 모두 높이는 핵심 전략이다.</p>
+              <div class="flex items-center gap-2 p-3 bg-violet-50 rounded-xl">
+                <span class="material-symbols-outlined text-violet-500 text-[16px]">tips_and_updates</span>
+                <span class="text-[13px] font-semibold text-violet-800">이직 전 3가지 자산 포트폴리오화: 네트워크·레퍼런스·조직 이해</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 발견 4 -->
+        <div class="finding-card bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-amber-500">handshake</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold">발견 04</span>
+              </div>
+              <h3 class="text-[17px] font-bold text-on-surface mb-3">연봉 협상의 심리학 — 데이터가 돈이 된다</h3>
+              <p class="text-[14px] leading-relaxed text-slate-600 mb-4">이직 시 연봉 협상 성공 요인 분석 결과, '시장 데이터 제시'가 최종 패키지를 평균 18% 높였고, '복수 오퍼 활용'은 23%, '비경제적 조건 협상(재택·교육비 등)'은 11% 추가 효과를 나타냈다. 감정이 아닌 데이터와 구조로 협상하는 것이 핵심이다.</p>
+              <div class="grid grid-cols-3 gap-3 mt-2">
+                <div class="p-3 bg-amber-50 rounded-xl text-center">
+                  <p class="stat-number text-[22px] font-extrabold text-amber-600">+18%</p>
+                  <p class="text-[11px] font-semibold text-slate-600 mt-0.5">시장 데이터 제시</p>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-xl text-center">
+                  <p class="stat-number text-[22px] font-extrabold text-amber-600">+23%</p>
+                  <p class="text-[11px] font-semibold text-slate-600 mt-0.5">복수 오퍼 활용</p>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-xl text-center">
+                  <p class="stat-number text-[22px] font-extrabold text-amber-600">+11%</p>
+                  <p class="text-[11px] font-semibold text-slate-600 mt-0.5">비경제적 조건</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 연구 방법론 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">연구 방법론</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-blue-500 text-[16px]">dataset</span>
+            </div>
+            <div>
+              <p class="text-[13px] font-bold text-on-surface mb-1">이직 데이터 분석</p>
+              <p class="text-[13px] text-slate-500 leading-relaxed">실제 이직 경험자 이직 전·후 커리어 데이터 11,000건 체계적 분석</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-blue-500 text-[16px]">business</span>
+            </div>
+            <div>
+              <p class="text-[13px] font-bold text-on-surface mb-1">채용 플랫폼 데이터 협력</p>
+              <p class="text-[13px] text-slate-500 leading-relaxed">사람인·잡코리아 익명 데이터 협력, 실제 연봉 변화 추적</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-blue-500 text-[16px]">record_voice_over</span>
+            </div>
+            <div>
+              <p class="text-[13px] font-bold text-on-surface mb-1">심층 인터뷰</p>
+              <p class="text-[13px] text-slate-500 leading-relaxed">이직 성공/실패 사례 심층 인터뷰 80명 (각 90분, NVivo 질적 분석)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-blue-500 text-[16px]">timeline</span>
+            </div>
+            <div>
+              <p class="text-[13px] font-bold text-on-surface mb-1">5년 추적 패널 연구</p>
+              <p class="text-[13px] text-slate-500 leading-relaxed">동일 코호트 이직자 vs 비이직자 비교, 2021-2026 종단 연구</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 챕터 목차 프리뷰 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-8 rounded-full bg-blue-600"></div>
+        <h2 class="text-[22px] font-bold text-on-surface">챕터 목차</h2>
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm divide-y divide-slate-50">
+        <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-[15px] shrink-0">1</div>
+          <div class="flex-1">
+            <p class="text-[15px] font-bold text-on-surface mb-0.5">이직 데이터의 진실 — 11,000건 분석 방법과 주요 패턴</p>
+            <p class="text-[13px] text-slate-400">데이터 수집 방법론, 이직자 유형 분류, 전체 패턴 개요</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
+        </div>
+        <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center font-bold text-[15px] shrink-0">2</div>
+          <div class="flex-1">
+            <p class="text-[15px] font-bold text-on-surface mb-0.5">전략적 이직의 조건 — 타이밍, 준비도, 목표 명확성</p>
+            <p class="text-[13px] text-slate-400">황금 구간 18-24개월, 이직 준비 체크리스트, 목표 설정 프레임</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
+        </div>
+        <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-blue-400 text-white flex items-center justify-center font-bold text-[15px] shrink-0">3</div>
+          <div class="flex-1">
+            <p class="text-[15px] font-bold text-on-surface mb-0.5">이직 프로세스 최적화 — 탐색부터 협상, 온보딩까지</p>
+            <p class="text-[13px] text-slate-400">이직 탐색 전략, 연봉 협상 전술, 첫 3개월 온보딩 가이드</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
+        </div>
+        <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-blue-200 text-blue-800 flex items-center justify-center font-bold text-[15px] shrink-0">4</div>
+          <div class="flex-1">
+            <p class="text-[15px] font-bold text-on-surface mb-0.5">커리어 자산화 전략 — 이직을 통해 복리 효과 만드는 법</p>
+            <p class="text-[13px] text-slate-400">포트폴리오 축적 방법, 커리어 복리 공식, 장기 로드맵 설계</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ───────────── 다운로드 CTA ───────────── -->
+  <div class="max-w-4xl mx-auto px-4 md:px-8 mt-14">
+    <div class="bg-slate-900 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-blue-500 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-56 h-56 rounded-full bg-sky-400 blur-3xl"></div>
+      </div>
+      <div class="relative z-10">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-[12px] font-bold tracking-wide mb-4 border border-blue-500/30">SELAB REPORT Vol.10</span>
+        <h2 class="text-white text-[26px] md:text-[32px] font-bold mb-3 leading-tight">
+          나의 이직, 전략인가 도피인가<br/>38페이지 완전판으로 확인하세요
+        </h2>
+        <p class="text-slate-400 text-[15px] mb-8 leading-relaxed">
+          직종별 이직 황금 구간 분석, 연봉 협상 시뮬레이션 도구,<br class="hidden md:block"/> 이직 전 자산 포트폴리오화 체크리스트를 제공합니다.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 shadow-lg shadow-blue-600/30">
+            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            전문 보기
+          </button>
+          <button class="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 border border-white/20 backdrop-blur-sm">
+            <span class="material-symbols-outlined text-[20px]">download</span>
+            PDF 다운로드
+          </button>
+        </div>
+        <p class="text-slate-500 text-[12px] mt-5">무료 다운로드 · SELAB 회원 전용</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────── 관련 리포트 ───────────── -->
+  <div class="max-w-4xl mx-auto px-4 md:px-8 mt-14 mb-6">
+    <h2 class="text-[20px] font-bold text-on-surface mb-6">관련 리포트</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <a href="인사이트.html" class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+        <div class="h-36 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center relative overflow-hidden">
+          <span class="material-symbols-outlined text-blue-300 text-[56px] group-hover:scale-110 transition-transform">smart_toy</span>
+        </div>
+        <div class="p-5">
+          <span class="text-[11px] font-bold text-blue-500 uppercase tracking-wider">커리어</span>
+          <h3 class="text-[14px] font-bold text-on-surface mt-1.5 leading-snug group-hover:text-blue-600 transition-colors">AI 전환기 직업 리스크 분석: 살아남는 역량과 사라지는 업무</h3>
+        </div>
+      </a>
+      <a href="인사이트.html" class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+        <div class="h-36 bg-gradient-to-br from-violet-50 to-purple-100 flex items-center justify-center relative overflow-hidden">
+          <span class="material-symbols-outlined text-violet-300 text-[56px] group-hover:scale-110 transition-transform">psychology</span>
+        </div>
+        <div class="p-5">
+          <span class="text-[11px] font-bold text-violet-500 uppercase tracking-wider">멘탈케어</span>
+          <h3 class="text-[14px] font-bold text-on-surface mt-1.5 leading-snug group-hover:text-violet-600 transition-colors">2026 대한민국 청년 정신건강 실태 리포트</h3>
+        </div>
+      </a>
+      <a href="인사이트.html" class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+        <div class="h-36 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center relative overflow-hidden">
+          <span class="material-symbols-outlined text-amber-300 text-[56px] group-hover:scale-110 transition-transform">bedtime</span>
+        </div>
+        <div class="p-5">
+          <span class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">멘탈케어</span>
+          <h3 class="text-[14px] font-bold text-on-surface mt-1.5 leading-snug group-hover:text-amber-600 transition-colors">만성 피로 사회: 수면 부채와 번아웃의 악순환 고리를 끊는 법</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ───────────── 하단 모바일 Nav ───────────── -->
+<nav class="fixed bottom-0 w-full z-50 bg-white border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] md:hidden">
+  <div class="grid grid-cols-4 h-16">
+    <a href="index.html" class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-[22px]">home</span>
+      <span class="text-[10px] font-medium">홈</span>
+    </a>
+    <a href="프로그램.html" class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-[22px]">school</span>
+      <span class="text-[10px] font-medium">프로그램</span>
+    </a>
+    <a href="인사이트.html" class="flex flex-col items-center justify-center gap-1 text-blue-600">
+      <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24">lightbulb</span>
+      <span class="text-[10px] font-bold">인사이트</span>
+    </a>
+    <a href="커뮤니티.html" class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-[22px]">forum</span>
+      <span class="text-[10px] font-medium">커뮤니티</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

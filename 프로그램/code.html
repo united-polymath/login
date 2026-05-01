@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELAB - 성장 프로그램</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#b4c5ff",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e6e8ea",
+                      "tertiary-container": "#d22348",
+                      "surface-container-highest": "#e0e3e5",
+                      "secondary-container": "#6cf8bb",
+                      "secondary": "#006c49",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-container": "#2563eb",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-surface": "#191c1e",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-tertiary-container": "#ffecec",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#002113",
+                      "on-background": "#191c1e",
+                      "surface-tint": "#0053db",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c3c6d7",
+                      "surface-variant": "#e0e3e5",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f7f9fb",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#00714d",
+                      "surface-container": "#eceef0",
+                      "primary": "#004ac6",
+                      "outline": "#737686",
+                      "tertiary-fixed": "#ffdadb",
+                      "surface": "#f7f9fb",
+                      "primary-fixed": "#dbe1ff",
+                      "on-surface-variant": "#434655",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#f2f4f6",
+                      "background": "#f7f9fb",
+                      "on-primary-container": "#eeefff",
+                      "tertiary": "#ad0033",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-dim": "#d8dadc",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#00174b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "unit": "8px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none flex justify-between items-center h-16 px-6 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400" data-icon="bubble_chart">bubble_chart</span>
+<h1 class="font-['Plus_Jakarta_Sans',sans-serif] font-semibold text-xl font-extrabold tracking-tighter text-blue-600 dark:text-blue-400">SELAB</h1>
+</div>
+<div class="active:scale-95 duration-200 hover:opacity-80 transition-opacity cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-200">
+<img alt="User Profile" data-alt="A professional close-up portrait of a young adult with a friendly expression, set against a soft-focus office interior. The lighting is warm and natural, creating an empathetic and approachable feel. The overall aesthetic is clean and modern, consistent with a high-end corporate growth center brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARhFW76TzY0FXZAHI0-Q3WM1IZbujrQGqx8jEd1evXRQ2VlNyWndD_x7kHzxzJ___alOp4Jg-B9OxHD4uSbZ4MtguWtRX5yxL7CbD5V7iy5Uct3-oB-meFP3F7XIaK3o6stLVZmhzhDv95rOeLvUl5-KjznBDpdANCHGKXDeR3kO9OhVkaqaRsw4iXrxyUaCCdO2qNNLSpot4wTsW1ylYozWk-nPc3ebEwCNMpugQw_cq17hpjpfBNgwsPicYwgoUBPgGFP2jRFGo"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 max-w-[1200px] mx-auto px-4 md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">성장 프로그램</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg">연구 데이터에 기반한 체계적인 성장 커리큘럼을 만나보세요.</p>
+</section>
+<!-- Category Filter -->
+<div class="flex gap-3 overflow-x-auto hide-scrollbar mb-8 pb-2">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform">전체</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95">성장</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95">관계</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95">멘탈</button>
+</div>
+<!-- Program Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A group of focused young adults in a modern, sun-drenched library or collaborative office space in Seoul. They are engaged in a serious yet calm study session, surrounded by books and clean digital devices. The lighting is soft and airy, highlighting a professional yet warm growth-oriented environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAsHd3sOHMXVSWD3SlTaWVGkUo78fHes-Rl0qvNSE23B9xx7_SoDyhwIIVGOaR_Dq74So5C6S26dM6-LbCNMSq9nSNuf_WfIVE-3S5gy_Rd9DBHrL-lnshulxJkS85La3A7jlR-SlovuCot55I4av9DpqqPUzqymc6yZYPoZsuTkfYFQ5ipHQsPbJucopWDeWQ7Z-a1Vzt9J9P0eAp7hr6Necs127-oGWFElFqlJsrxff21OCAeTY7O0xb7T8buL_Hjf6rHQmv1DQ"/>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold">성장</span>
+<span class="text-slate-400 text-[12px] font-medium">4주 과정</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">자기주도적 성장을 위한 데이터 리터러시</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">연구 결과로 검증된 메타인지 강화 기법을 통해 스스로의 학습 데이터와 성장 궤적을 분석하는 법을 배웁니다.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-slate-500 text-label-sm">#자기계발</span>
+<span class="text-slate-500 text-label-sm">#메타인지</span>
+</div>
+<button class="w-full py-3 rounded-lg bg-primary text-on-primary font-semibold hover:opacity-90 transition-opacity">신청하기</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A realistic scene of a professional counseling session between two young adults in a minimalist, warm wooden interior. The lighting is gentle and side-lit, emphasizing a quiet, empathetic atmosphere. The subjects appear authentic and focused, reflecting a deep emotional connection and growth journey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDztqrDo0AJoxBPatd-7IvpMaLpj6JfASVCiI0R_2kO1m6cbXr7N0h4flYh1N7aFBp5CGNoQc6bwbyzjyczNC3C1s9kBtkrPKrjlu-o6dHNRHJQ-kBha72DqO4SLbDHdXKnnGa9nmeaG-DbOj6EO4sg-J57eL_dbGtM5LXxG9WGpcVMSU3eUrqe-nG89BX54TcnOOYPZR7rIrjLcT0vgQqPcOEweBhxy8Di2Y_HumsknrA1Mxgp-rKu6ZAlUVNK7xx27rDqxsq7GL8"/>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[12px] font-bold">관계</span>
+<span class="text-slate-400 text-[12px] font-medium">6주 과정</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">건강한 연결을 위한 경계 세우기</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">사회 심리학 연구를 바탕으로 타인과의 적절한 심리적 거리를 유지하며 나를 지키는 대화법을 실습합니다.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-slate-500 text-label-sm">#심리학</span>
+<span class="text-slate-500 text-label-sm">#커뮤니케이션</span>
+</div>
+<button class="w-full py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary/5 transition-colors">상세보기</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(37,99,235,0.1)] transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-key, bright office workspace featuring a laptop and organized research notes, with a blurred background showing a modern city skyline. The style is professional and research-oriented, using a cool blue and white palette. The composition is clean and minimalist, suggesting productivity and mental clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6OftDCpjLbBDP9JesykZdovUiswcAyJNI9LA9k-TXffv2ucAEA6zqyw8UMIu9ErAPrcBbALkPQYKkjY1yUv2keR3wsE8vaHy-tRMmCeMWfd6OTWpkmZ9rCXs1T8GzHLBTEqfrLwepMIGS-jlds54w59qcWhzmm0Z4mAmpXJAdoX_6xyhy9BAZc_Vx2cwJ_ijX-HutefLQTCHHFXsJs4cAuMGjIG0NTI5kbGGKo0FYk-bf3greuMUfCExAeMrS4-QoLKq0dYznFGA"/>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-[12px] font-bold">멘탈</span>
+<span class="text-slate-400 text-[12px] font-medium">8주 과정</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">번아웃 예방을 위한 마인드셋 루틴</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">매일의 회복 탄력성을 높이는 행동 경제학 기반의 마이크로 해빗(Micro-habit) 형성 솔루션입니다.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-slate-500 text-label-sm">#마인드풀니스</span>
+<span class="text-slate-500 text-label-sm">#회복탄력성</span>
+</div>
+<button class="w-full py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary/5 transition-colors">상세보기</button>
+</div>
+</div>
+<!-- Card 4 (Bento Variation) -->
+<div class="bg-slate-900 rounded-xl overflow-hidden md:col-span-2 flex flex-col md:flex-row items-stretch shadow-lg">
+<div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="An authentic workshop setting with young professionals collaborating around a large table in a modern industrial loft. The lighting is warm and dynamic, with focused spots on the work surface. The mood is collaborative and energetic, representing a premium group coaching experience for young adults." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyH3uCehm_xuf4ZOXB2_QC9gNdFw3Hs3iWF-0mC69Xu8V4aN0x05pRgg7W3K-c02xjWOl05qUt-s8MyVY36ElI6D_l93Hoo0po9IXnnBMFlXnHxx8LRefi8p-3xZycj4ZaJRoKFOODaWHbSlp8Hs5mm0OscyFGAeJ3m4cw281aqc0GSAFLENU4p8cx9h7_403oV6fwXruLY3org6cD5wSSCWChMztIFmAsZZGZVOGhm2uXNiKY7bTxCmgozstMe3N8M6fY_IJQnJU"/>
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<div class="inline-block px-3 py-1 rounded-full bg-blue-500 text-white text-[10px] font-bold uppercase tracking-wider mb-4 w-fit">Featured</div>
+<h3 class="text-white text-headline-lg font-headline-lg mb-4">SELAB 리더십 마스터 클래스</h3>
+<p class="text-slate-300 mb-6">차세대 리더들을 위한 12주 집중 멘토링 프로그램. 실제 연구실에서 축적된 조직 심리학 데이터를 바탕으로 리더의 자질을 함양합니다.</p>
+<div class="flex items-center gap-4">
+<span class="text-white font-bold">12주 집중</span>
+<button class="px-8 py-2 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-100 transition-colors">참가 예약</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-4">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium">홈</span>
+</a>
+<!-- Programs (Active) -->
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium">프로그램</span>
+</a>
+<!-- Insights -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="auto_graph">auto_graph</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium">인사이트</span>
+</a>
+<!-- Community -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium">커뮤니케이션</span>
+</a>
+</nav>
+</body></html>

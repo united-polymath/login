@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SELAB - 2026 대한민국 청년 정신건강 실태 리포트</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6", "primary-container": "#2563eb", "on-primary": "#ffffff",
+            "primary-fixed": "#dbe1ff", "on-primary-fixed": "#00174b",
+            "surface": "#f7f9fb", "background": "#f7f9fb", "on-background": "#191c1e",
+            "on-surface": "#191c1e", "on-surface-variant": "#434655",
+            "surface-container": "#eceef0", "surface-container-lowest": "#ffffff",
+            "outline-variant": "#c3c6d7",
+          },
+          spacing: { "margin-desktop": "64px", "gutter": "24px" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(76,29,149,0.5) 0%, rgba(109,40,217,0.65) 40%, rgba(30,10,70,0.90) 100%);
+    }
+    .stat-number {
+      font-feature-settings: 'tnum';
+      font-variant-numeric: tabular-nums;
+    }
+    .chapter-hover:hover { transform: translateX(4px); }
+    .chapter-hover { transition: transform 0.2s ease; }
+  </style>
+</head>
+<body class="bg-background text-on-background">
+
+  <!-- 상단 헤더 nav -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-outline-variant shadow-sm">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">SE</span>
+        </div>
+        <span class="font-bold text-lg text-on-surface tracking-tight">SELAB</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">홈</a>
+        <a href="프로그램.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">프로그램</a>
+        <a href="인사이트.html" class="px-4 py-2 rounded-full text-sm font-medium text-primary bg-primary/10 transition-colors">인사이트</a>
+        <a href="커뮤니티.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">커뮤니티</a>
+      </nav>
+      <button class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <span class="material-symbols-outlined text-base">person</span>
+        로그인
+      </button>
+      <button class="md:hidden p-2 rounded-lg hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-on-surface">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="pb-28">
+
+    <!-- 히어로 섹션 -->
+    <section class="relative w-full h-[400px] md:h-[480px] overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9IoqXjrUA5qQJHdPaWA989SDFvITdSk3fcLQyQl_4ygE5aO1eCATkXggUbClOjkV8JmfmPh4u1Spj0cmkazU3d3XQbVarjav5Kp1M7-bxwQX7S52I7H12m7vyCozGdLYdhF5XfRsQCCvh3s8zs5xSrZtCqYKuJQfhYN3MPgfJbNei46tv--xlq1KIe8SlnSgJWBsFBsLnHk7Ip6m2UlSI18M33Y3TPXqK1WknqIuRi0o71yQivPEmZzF_g6DO36MnnjQBQ4h1H0E"
+        alt="청년 정신건강 리포트 히어로 이미지"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="hero-gradient absolute inset-0"></div>
+      <div class="absolute inset-0 flex flex-col px-4 md:px-8 max-w-screen-xl mx-auto left-0 right-0">
+        <!-- 상단 뱃지 -->
+        <div class="pt-8 md:pt-10 flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-widest">
+            SELAB REPORT
+          </span>
+          <span class="inline-flex items-center bg-violet-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+            Vol.12
+          </span>
+        </div>
+        <!-- 중앙 제목 -->
+        <div class="flex-1 flex flex-col justify-center mt-4">
+          <span class="inline-flex items-center gap-1.5 text-violet-300 text-xs font-semibold mb-3">
+            <span class="material-symbols-outlined text-sm">psychology</span>
+            멘탈케어
+          </span>
+          <h1 class="text-white text-2xl md:text-4xl font-bold leading-tight max-w-3xl">
+            2026 대한민국 청년 정신건강 실태 리포트:<br class="hidden md:block"/>
+            불안 사회의 내면 지형도
+          </h1>
+        </div>
+        <!-- 하단 메타 -->
+        <div class="pb-20 md:pb-24 flex flex-wrap items-center gap-4 text-white/80 text-sm">
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">group</span>
+            정신건강 연구팀
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">calendar_today</span>
+            2026년 4월 발행
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">menu_book</span>
+            48페이지
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">download</span>
+            8,240 다운로드
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="max-w-4xl mx-auto px-4 md:px-8">
+
+      <!-- 리포트 메타 정보 바 -->
+      <div class="bg-white rounded-2xl shadow-lg border border-outline-variant/30 -mt-16 relative z-10 p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-5">
+          <a href="인사이트.html" class="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors font-medium">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            인사이트로 돌아가기
+          </a>
+          <span class="text-outline-variant">/</span>
+          <span class="text-violet-700 text-sm font-medium">멘탈케어</span>
+          <span class="text-outline-variant">/</span>
+          <span class="text-on-surface text-sm truncate max-w-[180px] md:max-w-xs">2026 청년 정신건강 실태</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">시리즈</span>
+            <span class="text-sm font-bold text-on-surface">SELAB Vol.12</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">발행일</span>
+            <span class="text-sm font-bold text-on-surface">2026년 4월</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">연구팀</span>
+            <span class="text-sm font-bold text-on-surface">정신건강 연구팀</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">분량 / 다운로드</span>
+            <span class="text-sm font-bold text-on-surface">48p · 8,240회</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-5 border-t border-outline-variant/40">
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            <strong class="text-violet-700">수석 연구원:</strong> 김민준 신경심리연구원 &nbsp;·&nbsp;
+            <strong class="text-violet-700">임상심리:</strong> 이수아 임상심리사 &nbsp;·&nbsp; 외 5인 참여
+          </p>
+        </div>
+      </div>
+
+      <!-- Executive Summary -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-700">summarize</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">Executive Summary</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8">
+          <p class="text-on-surface leading-relaxed text-[15px] md:text-base">
+            2026년은 AI 전환, 노동시장 재편, 주거 위기, 사회적 고립이 동시에 압박하는 시대다. SELAB은 이러한 복합적 스트레스 환경이 2030 청년의 정신건강에 미치는 영향을 정량·정성적으로 분석하여, 개인과 사회 모두를 위한 실천적 제언을 도출하고자 이 연구를 수행했다.
+          </p>
+          <p class="text-on-surface leading-relaxed text-[15px] md:text-base mt-4">
+            전국 3,200명의 표본 조사 결과, 2030 청년 10명 중 7명 이상이 '보통 이상'의 불안 수준을 보고했으며, 만성 번아웃과 관계 빈곤 현상이 동시에 심화되고 있음을 확인했다. 본 리포트는 불안의 구조적 원인을 진단하고, 회복 생태계 구축을 위한 정책 대안을 제시한다.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-violet-200">정신건강</span>
+            <span class="bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-violet-200">불안장애</span>
+            <span class="bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-violet-200">번아웃</span>
+            <span class="bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-violet-200">AI 불안</span>
+            <span class="bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-violet-200">관계 빈곤</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 핵심 통계 4개 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-700">bar_chart</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">핵심 통계</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- 통계 1 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-700">sentiment_very_dissatisfied</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-violet-700 leading-none">72<span class="text-2xl md:text-3xl">%</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">불안 수준 '보통 이상'</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">2030 청년 중 불안 수준을 '보통 이상'으로 응답한 비율</p>
+            </div>
+          </div>
+          <!-- 통계 2 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-700">people</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-violet-700 leading-none">3,200<span class="text-xl md:text-2xl font-bold">명</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">전국 표본 조사 규모</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">전국 20-39세 남녀를 대상으로 한 대규모 온라인 설문</p>
+            </div>
+          </div>
+          <!-- 통계 3 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-700">energy_savings_leaf</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-violet-700 leading-none">61<span class="text-2xl md:text-3xl">%</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">번아웃 경험 비율</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">'번아웃을 경험한 적 있다'고 응답한 2030 청년 비율</p>
+            </div>
+          </div>
+          <!-- 통계 4 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-700">smartphone</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-violet-700 leading-none">4.2<span class="text-2xl md:text-3xl">h</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">일일 디지털 미디어 소비</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">하루 평균 디지털 미디어 소비 시간 — 정신건강과 역상관</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 주요 발견사항 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-700">lightbulb</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">주요 발견사항</h2>
+        </div>
+        <div class="space-y-4">
+
+          <!-- 발견 1 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">01</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">불안의 구조화: 단순 스트레스에서 만성 불안으로</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  일시적 스트레스 반응이 아닌 구조적 불안의 고착화 현상이 발견됐다. 응답자의 43%가 "특별한 이유 없이 불안하다"고 응답하며, 불안이 특정 원인 없이 만성화되고 있음을 시사했다. 이는 AI 전환기·노동시장 불안정·주거 위기가 복합적으로 작용한 결과로 분석된다.
+                </p>
+                <div class="bg-violet-50 rounded-xl p-4 flex items-center gap-4">
+                  <span class="material-symbols-outlined text-violet-600">analytics</span>
+                  <div>
+                    <span class="text-violet-800 font-bold text-sm">"특별한 이유 없이 불안하다"</span>
+                    <span class="text-violet-700 font-black text-lg ml-2">43%</span>
+                    <p class="text-violet-600 text-xs mt-0.5">전체 응답자 중 만성화된 이유 없는 불안 경험 비율</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 2 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">02</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">AI 불안의 부상: 기술 변화 공포의 계층화</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  '직업 소멸 공포'를 경험한 응답자가 72%에 달했다. 특히 사무직·서비스직에서 더 높게 나타났으며, 주목할 점은 AI 활용 역량이 높을수록 불안 지수가 낮다는 역상관 관계가 확인됐다는 사실이다. 기술 격차가 심리적 격차로 이어지는 구조가 뚜렷하다.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="bg-violet-50 rounded-xl p-3 text-center">
+                    <p class="text-violet-700 font-black text-xl">72%</p>
+                    <p class="text-violet-600 text-xs mt-0.5">직업 소멸 공포 경험</p>
+                  </div>
+                  <div class="bg-violet-50 rounded-xl p-3 text-center">
+                    <p class="text-violet-700 font-black text-xl">81%</p>
+                    <p class="text-violet-600 text-xs mt-0.5">사무직·서비스직 AI 불안</p>
+                  </div>
+                  <div class="bg-violet-50 rounded-xl p-3 text-center">
+                    <p class="text-violet-700 font-black text-xl">↓34%</p>
+                    <p class="text-violet-600 text-xs mt-0.5">AI 고역량 집단 불안 감소</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 3 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">03</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">관계 빈곤 현상: 깊은 관계의 부재</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  평균적으로 깊은 대화를 나눌 수 있는 지인의 수는 1.8명에 불과했다. 직장 동료와 친구를 제외하면 0.9명으로 감소한다. 연결이 넘치는 시대에 역설적인 고독이 심화되고 있으며, 이는 불안과 번아웃의 완충재 부재로 이어지고 있다.
+                </p>
+                <div class="bg-violet-50 rounded-xl p-4 flex items-center gap-6">
+                  <div class="text-center">
+                    <p class="text-violet-700 font-black text-3xl stat-number">1.8<span class="text-lg">명</span></p>
+                    <p class="text-violet-600 text-xs mt-0.5">평균 깊은 대화 가능 지인</p>
+                  </div>
+                  <div class="w-px h-10 bg-violet-200"></div>
+                  <div class="text-center">
+                    <p class="text-violet-700 font-black text-3xl stat-number">0.9<span class="text-lg">명</span></p>
+                    <p class="text-violet-600 text-xs mt-0.5">동료·친구 제외 시</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 4 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">04</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">회복 격차: 정보는 있으나 실천은 없다</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  정신건강 정보를 찾아본 경험은 88%에 달하지만, 실제 전문 상담 경험은 12%에 그쳤다. 정보 접근성이 높아져도 실제 회복 행동으로 이어지지 않는 '심리적 접근 장벽'이 핵심 과제로 드러났다. 비용, 낙인, 접근성 등이 복합적으로 작용한다.
+                </p>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-violet-50 rounded-xl p-3 text-center">
+                    <p class="text-violet-700 font-black text-2xl">88%</p>
+                    <p class="text-violet-600 text-xs mt-0.5">정신건강 정보 탐색 경험</p>
+                  </div>
+                  <div class="bg-red-50 rounded-xl p-3 text-center border border-red-100">
+                    <p class="text-red-600 font-black text-2xl">12%</p>
+                    <p class="text-red-500 text-xs mt-0.5">실제 전문 상담 경험 — 76%p 격차</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 연구 방법론 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-700">science</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">연구 방법론</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-violet-700 text-base">assignment</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">대규모 설문 조사</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">전국 20-39세 남녀 3,200명 온라인 설문 (2025.10 ~ 2026.01)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-violet-700 text-base">record_voice_over</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">심층 인터뷰</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">60명 심층 인터뷰 (서울·경기·부산·대구 각 거점)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-violet-700 text-base">scale</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">표준화 측정 도구</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">한국 불안 척도(K-ANX) 및 번아웃 지수(MBI-GS) 활용</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-violet-700 text-base">hub</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">통계 분석 모형</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">다중 회귀분석, 요인분석, 구조방정식 모형(SEM) 적용</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 챕터 목차 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-700">format_list_numbered</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">챕터 목차</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 overflow-hidden">
+          <div class="divide-y divide-outline-variant/30">
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-violet-700 font-black text-sm">01</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">연구 설계 및 방법론</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">표본 구성, 설문 도구, 분석 방법</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-violet-700 font-black text-sm">02</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">불안의 지형도</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">유형별/연령별/직업별 불안 분포 분석</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-violet-700 font-black text-sm">03</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">AI 전환기의 심리적 충격</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">기술 불안의 사회경제적 배경</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-violet-700 font-black text-sm">04</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">관계 빈곤과 사회적 고립</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">연결 사회의 역설적 고독</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-violet-700 font-black text-sm">05</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">회복 생태계 구축을 위한 정책 제언</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">개인/기업/사회 단위 실천 방안</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 다운로드 CTA -->
+      <section class="mt-10 md:mt-12">
+        <div class="bg-slate-900 rounded-2xl p-8 md:p-12 text-white text-center">
+          <div class="w-14 h-14 bg-violet-600 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <span class="material-symbols-outlined text-white text-2xl">description</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold mb-2">리포트 전문 다운로드</h2>
+          <p class="text-slate-300 text-sm md:text-base mb-2">48페이지 완전판 · 데이터 부록 포함</p>
+          <p class="text-slate-400 text-xs mb-8">SELAB Vol.12 | 2026년 4월 발행 | 무료 제공</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button class="flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-7 py-3.5 rounded-xl font-semibold transition-colors text-sm md:text-base">
+              <span class="material-symbols-outlined text-xl">download</span>
+              PDF 다운로드
+            </button>
+            <button class="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-3.5 rounded-xl font-semibold transition-colors text-sm md:text-base">
+              <span class="material-symbols-outlined text-xl">open_in_new</span>
+              온라인으로 읽기
+            </button>
+          </div>
+          <p class="text-slate-500 text-xs mt-6">현재까지 8,240명이 다운로드했습니다</p>
+        </div>
+      </section>
+
+      <!-- 관련 리포트 -->
+      <section class="mt-10 md:mt-12 mb-4">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant">library_books</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">관련 리포트</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-600 text-base">bedtime</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-violet-600 mb-1 block">멘탈케어 · Vol.11</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-violet-700 transition-colors">만성 피로 사회: 수면 부채와 번아웃의 악순환 고리를 끊는 법</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-rose-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-rose-600 text-base">favorite</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-rose-600 mb-1 block">사회·관계 · Vol.10</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-rose-700 transition-colors">결혼·출산 인식 전환 심층 보고서</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-blue-600 text-base">smart_toy</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-blue-600 mb-1 block">커리어 · Vol.9</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-blue-700 transition-colors">AI 전환기 직업 리스크 분석</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 하단 모바일 nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-outline-variant md:hidden">
+    <div class="flex items-stretch justify-around h-16">
+      <a href="index.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">home</span>
+        <span class="text-[10px] font-medium">홈</span>
+      </a>
+      <a href="프로그램.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">menu_book</span>
+        <span class="text-[10px] font-medium">프로그램</span>
+      </a>
+      <a href="인사이트.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-primary px-2">
+        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">lightbulb</span>
+        <span class="text-[10px] font-semibold">인사이트</span>
+      </a>
+      <a href="커뮤니티.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">forum</span>
+        <span class="text-[10px] font-medium">커뮤니티</span>
+      </a>
+    </div>
+  </nav>
+
+</body>
+</html>

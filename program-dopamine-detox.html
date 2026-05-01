@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>도파민 디톡스 4주 코호트 - SELAB</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+          "surface": "#f7f9fb",
+        },
+        spacing: {
+          "margin-desktop": "64px",
+          "margin-mobile": "16px",
+          "gutter": "24px",
+          "unit": "8px",
+          "container-max": "1200px"
+        },
+        fontSize: {
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+  .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .accordion-content.open { max-height: 600px; }
+  .accordion-icon { transition: transform 0.3s ease; }
+  .accordion-icon.open { transform: rotate(180deg); }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- 상단 헤더 -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-4">
+      <a href="프로그램.html" class="flex items-center gap-1 text-slate-500 hover:text-violet-600 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">프로그램 목록</span>
+      </a>
+      <div class="w-px h-5 bg-slate-200 hidden sm:block"></div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
+        <span class="font-extrabold tracking-tighter text-xl text-blue-600">SELAB</span>
+      </div>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
+    </div>
+    <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-200">
+      <img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARhFW76TzY0FXZAHI0-Q3WM1IZbujrQGqx8jEd1evXRQ2VlNyWndD_x7kHzxzJ___alOp4Jg-B9OxHD4uSbZ4MtguWtRX5yxL7CbD5V7iy5Uct3-oB-meFP3F7XIaK3o6stLVZmhzhDv95rOeLvUl5-KjznBDpdANCHGKXDeR3kO9OhVkaqaRsw4iXrxyUaCCdO2qNNLSpot4wTsW1ylYozWk-nPc3ebEwCNMpugQw_cq17hpjpfBNgwsPicYwgoUBPgGFP2jRFGo"/>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-32 max-w-[800px] mx-auto px-4 md:px-8">
+
+  <!-- Hero 섹션 -->
+  <section class="relative -mx-4 md:-mx-8 mb-10">
+    <div class="bg-gradient-to-br from-violet-600 via-purple-700 to-purple-900 px-6 pt-12 pb-10 md:px-16 md:pt-16 md:pb-14">
+      <!-- 배지 -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-5 backdrop-blur-sm">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1,'wght' 500;">self_improvement</span>
+        멘탈 · 신경과학 기반
+      </div>
+      <!-- 기수 뱃지 -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-400/40 text-violet-100 text-[11px] font-bold ml-2 backdrop-blur-sm">
+        3기 모집중
+      </div>
+      <h1 class="text-white text-3xl md:text-4xl font-extrabold leading-tight mt-4 mb-3">
+        도파민 디톡스 4주 코호트
+      </h1>
+      <p class="text-violet-200 text-base md:text-lg leading-relaxed max-w-xl mb-8">
+        스마트폰·SNS 과의존 패턴을 신경과학 기반으로 분석하고,<br class="hidden md:block"/> 주의력과 수면 질을 4주 만에 회복하는 집중 코호트.
+      </p>
+      <!-- 정보 행 -->
+      <div class="flex flex-wrap gap-4 md:gap-6">
+        <div class="flex items-center gap-2 text-violet-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">calendar_month</span>
+          <span>4주 (온라인+오프라인 혼합)</span>
+        </div>
+        <div class="flex items-center gap-2 text-violet-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">group</span>
+          <span>12명 소그룹</span>
+        </div>
+        <div class="flex items-center gap-2 text-violet-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">play_circle</span>
+          <span>3기 · 2026년 6월 9일 시작</span>
+        </div>
+        <div class="flex items-center gap-2 text-violet-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">payments</span>
+          <span class="font-bold text-white">198,000원</span>
+        </div>
+      </div>
+    </div>
+    <!-- 하단 곡선 -->
+    <div class="h-6 bg-background" style="clip-path: ellipse(55% 100% at 50% 100%); margin-top: -1px;"></div>
+  </section>
+
+  <!-- 프로그램 소개 -->
+  <section class="mb-12 px-1">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-violet-500 rounded-full inline-block"></span>
+      왜 이 프로그램인가
+    </h2>
+    <div class="space-y-4 text-on-surface-variant leading-relaxed text-[15px]">
+      <p>
+        SELAB 2026 조사에 따르면, 한국 성인의 하루 평균 스마트폰 사용시간은 <strong class="text-on-surface">6.7시간</strong>에 달합니다. 하지만 대부분의 사람들이 의지력 문제라고 자책하는 이 현상은, 사실 뇌의 도파민 보상 회로가 설계된 방식에서 비롯됩니다. SNS·숏폼 영상·무한 스크롤은 우리 뇌를 짧고 즉각적인 보상에 최적화되도록 훈련시킵니다.
+      </p>
+      <p>
+        도파민 보상 회로가 과부하된 상태에서는 집중력, 수면, 감정 조절이 모두 손상됩니다. 공부를 해도 내용이 머리에 들어오지 않고, 잠자리에 누워도 폰을 놓지 못하고, 작은 지루함도 견디기 힘들어지는 것은 의지의 문제가 아닙니다. 뇌 회로의 문제입니다.
+      </p>
+      <p>
+        이 코호트는 신경과학 연구를 기반으로, 손상된 주의력 회로를 4주에 걸쳐 단계적으로 재훈련합니다. 무작정 스마트폰을 끊는 것이 아니라, 내 디지털 패턴을 진단하고, 과학적 방법으로 집중력과 수면을 회복하며, 지속 가능한 루틴을 정착시킵니다. 12명의 소그룹이라는 구조가 이 여정을 가능하게 합니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 주요 특징 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-violet-500 rounded-full inline-block"></span>
+      주요 특징
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1;">biotech</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">신경과학 기반 커리큘럼</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">도파민, 전전두피질, 기본 모드 네트워크 등 최신 신경과학 연구를 일상 언어로 풀어낸 커리큘럼. 과학적 근거 위에서 루틴을 설계합니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1;">analytics</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">데이터로 보는 내 패턴</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">스마트폰 스크린타임 데이터 분석, 수면 추적, 집중력 측정 등 객관적 지표를 통해 변화를 눈으로 확인합니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1;">diversity_2</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">12명 소그룹 코호트</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">혼자 하면 쉽게 포기하는 것을 같은 목표를 가진 동료들과 함께합니다. 매주 그룹 체크인으로 서로 버텨주는 구조.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1;">event_available</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">온라인 + 오프라인 혼합</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">주중 온라인 세션과 4주차 오프라인 마무리 모임으로 온·오프라인의 장점을 모두 활용. 마지막 오프 모임이 가장 인상 깊다는 평가.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 커리큘럼 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-violet-500 rounded-full inline-block"></span>
+      4주 커리큘럼
+    </h2>
+    <div class="space-y-3">
+
+      <!-- 1주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-violet-700 font-extrabold text-sm">1주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">나의 디지털 패턴 진단</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">내 스마트폰 사용 습관의 정체를 파악한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-violet-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>스크린타임 분석 워크숍</strong> — 앱별 사용시간 측정, 시간대별 패턴 가시화</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>트리거 분석</strong> — 언제, 어떤 감정에서 폰을 집어드는지 매핑</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>도파민 보상 회로 이해</strong> — 왜 의지력으로는 안 되는지 신경과학으로 이해하기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-violet-700 font-extrabold text-sm">2주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">주의력 회복 훈련</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">끊기고 흩어진 집중력을 단계적으로 복원한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-violet-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>딥워크 실습</strong> — 방해 없는 집중 블록 설계, 환경 설정 가이드</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>포모도로 변형 기법</strong> — 개인 집중 주기에 맞춘 타이머 방식 실험</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>집중력 측정</strong> — 연속 집중 가능 시간 기록, 주간 변화 추적</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-violet-700 font-extrabold text-sm">3주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">수면 루틴 재설계</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">자기 전 폰 의존에서 벗어나 깊은 수면을 되찾는다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-violet-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>수면 위생 프로토콜</strong> — 취침 전 1시간 루틴 설계, 알람 최소화 실험</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>블루라이트 차단 실험</strong> — 기기별 야간 모드, 색온도 조절 실습</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>수면 일지 작성</strong> — 수면 시각, 기상 시각, 수면의 질 자가 평가 기록</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-violet-700 font-extrabold text-sm">4주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">지속 가능한 루틴 정착</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">코호트가 끝난 이후에도 이어지는 나만의 시스템을 만든다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-violet-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>개인화 디톡스 플랜 완성</strong> — 4주의 데이터를 기반으로 지속 가능한 스마트폰 사용 규칙 설계</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>재발 방지 전략</strong> — 스트레스·외로움·지루함 상황별 대처 매뉴얼</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-violet-900">
+                <span class="material-symbols-outlined text-violet-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>오프라인 마무리 모임</strong> — 4주간의 변화 공유, 그룹 피드백, 지속 연결 채널 개설</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 참가자 후기 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-violet-500 rounded-full inline-block"></span>
+      참가자 후기
+    </h2>
+    <div class="space-y-4">
+
+      <!-- 후기 1 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">이</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">이서연</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">27세 · UX 디자이너</span>
+              </div>
+              <span class="text-[11px] text-violet-600 bg-violet-50 px-2.5 py-1 rounded-full font-semibold">2기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "유튜브 알고리즘에 끌려다니던 내가 이제는 루틴대로 움직여요. 4주 만에 수면시간이 7시간으로 늘었고, 집중 블록이 진짜 가능해졌어요. 이게 의지력이 아니라 환경 설계의 문제라는 걸 이 코호트가 알려줬어요."
+        </p>
+      </div>
+
+      <!-- 후기 2 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-violet-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">박</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">박준혁</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">31세 · 프리랜서 개발자</span>
+              </div>
+              <span class="text-[11px] text-violet-600 bg-violet-50 px-2.5 py-1 rounded-full font-semibold">1기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "스마트폰을 손에서 놓지 못하는 게 의지력의 문제가 아니라 구조의 문제라는 걸 처음 알았어요. 과학적인 접근 방식이 저한테 딱이었습니다. 프리랜서라 혼자 집중해야 하는 시간이 많은데, 지금은 오전 4시간을 완전히 딥워크로 쓰고 있어요."
+        </p>
+      </div>
+
+      <!-- 후기 3 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">최</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">최지은</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">29세 · 마케터</span>
+              </div>
+              <span class="text-[11px] text-violet-600 bg-violet-50 px-2.5 py-1 rounded-full font-semibold">2기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★</span><span class="text-amber-300 text-base">★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">4.5</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "처음 2주가 솔직히 힘들었는데, 소그룹이어서 서로 버텨줬어요. 지금은 SNS를 하루 30분으로 유지하고 있고, 이게 가능한 사람이 된 게 신기해요. 마케터라 SNS를 완전히 끊을 수는 없는데, 의도적으로 사용하는 사람이 됐다는 게 가장 큰 변화예요."
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 신청 섹션 -->
+  <section class="mb-8">
+    <div class="bg-gradient-to-br from-violet-600 to-purple-800 rounded-3xl p-8 text-center shadow-xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-4">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">schedule</span>
+        3기 · 2026년 6월 9일 시작
+      </div>
+      <h2 class="text-white text-2xl font-extrabold mb-2">지금 신청하기</h2>
+      <p class="text-violet-200 text-sm mb-1">도파민 디톡스 4주 코호트</p>
+      <div class="text-white text-3xl font-extrabold mb-2">198,000원</div>
+      <p class="text-violet-300 text-xs mb-6">남은 자리 <strong class="text-white">4자리</strong> / 총 12명</p>
+      <!-- 진행 바 -->
+      <div class="w-full bg-white/20 rounded-full h-2 mb-6">
+        <div class="bg-white rounded-full h-2" style="width: 66.7%;"></div>
+      </div>
+      <button class="w-full py-4 bg-white text-violet-700 rounded-2xl font-extrabold text-base hover:bg-violet-50 transition-colors active:scale-95 duration-200 mb-4">
+        3기 신청하기
+      </button>
+      <div class="flex items-center justify-center gap-2 text-violet-200 text-xs">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">mail</span>
+        <span>문의: program@selab.kr</span>
+        <span class="mx-2">·</span>
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">chat</span>
+        <span>카카오채널 @SELAB</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 하단 모바일 네비게이션 -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-4 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="index.html">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-[11px] font-medium">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold hover:bg-slate-50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="프로그램.html">
+    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>
+    <span class="text-[11px] font-medium">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="인사이트.html">
+    <span class="material-symbols-outlined">auto_graph</span>
+    <span class="text-[11px] font-medium">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-16 h-16 active:scale-90 transition-transform duration-150" href="커뮤니티.html">
+    <span class="material-symbols-outlined">forum</span>
+    <span class="text-[11px] font-medium">커뮤니티</span>
+  </a>
+</nav>
+
+<script>
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector('.accordion-icon');
+    const isOpen = content.classList.contains('open');
+
+    // 모두 닫기
+    document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.accordion-icon').forEach(el => el.classList.remove('open'));
+
+    if (!isOpen) {
+      content.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>

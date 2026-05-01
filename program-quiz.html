@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELAB - 프로그램 추천 자가진단</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; background: #f7f9fb; }
+
+  .option-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid #e0e3e5;
+    background: #ffffff;
+  }
+  .option-card:hover { border-color: #004ac6; background: #f0f4ff; }
+  .option-card.selected { border-color: #004ac6; background: #eef2ff; }
+  .option-card.selected .option-check { opacity: 1; }
+  .option-check { opacity: 0; transition: opacity 0.15s; }
+
+  .step-slide { display: none; }
+  .step-slide.active { display: block; }
+
+  .progress-bar { transition: width 0.4s ease; }
+
+  /* Result cards */
+  .result-primary { animation: slideUp 0.5s ease forwards; }
+  .result-secondary { animation: slideUp 0.6s ease forwards; }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .score-bar { transition: width 0.8s ease 0.3s; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex items-center h-16 px-4 md:px-8 w-full max-w-[800px] mx-auto gap-4">
+    <a href="프로그램.html" class="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium">
+      <span class="material-symbols-outlined text-lg">arrow_back</span>
+      프로그램
+    </a>
+    <div class="flex-1 flex justify-center">
+      <a href="index.html" class="font-extrabold tracking-tighter text-xl text-blue-600">SELAB</a>
+    </div>
+    <div class="w-16"></div>
+  </div>
+</header>
+
+<main class="pt-20 pb-32 max-w-[640px] mx-auto px-4">
+
+  <!-- Quiz Header -->
+  <div class="text-center pt-6 pb-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold mb-4">
+      <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">quiz</span>
+      5분 자가진단
+    </div>
+    <h1 class="text-2xl md:text-3xl font-extrabold text-on-surface mb-2">나에게 맞는 프로그램 찾기</h1>
+    <p class="text-on-surface-variant text-sm leading-relaxed">6가지 질문으로 지금 내게 가장 필요한 프로그램을 추천해드려요.</p>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="mb-8" id="progress-area">
+    <div class="flex justify-between text-[12px] text-slate-400 mb-2">
+      <span id="progress-label">1 / 6</span>
+      <span id="progress-pct">17%</span>
+    </div>
+    <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+      <div class="progress-bar h-full bg-blue-600 rounded-full" id="progress-bar" style="width: 17%"></div>
+    </div>
+  </div>
+
+  <!-- Quiz Steps -->
+  <div id="quiz-container">
+
+    <!-- Step 1 -->
+    <div class="step-slide active" data-step="1">
+      <h2 class="text-lg font-bold text-on-surface mb-1">요즘 가장 많이 드는 생각은?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">가장 가까운 것 하나를 골라주세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="1" data-val="dopamine" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1">smartphone</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">스마트폰을 너무 많이 쓰는 것 같아</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">집중이 안 되고, 무한 스크롤에서 벗어나기 힘들어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="1" data-val="ai-career" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1">smart_toy</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">AI가 내 일자리를 위협할 것 같아</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">커리어 방향이 불안하고, 뒤처지는 것 같은 느낌</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="1" data-val="relationship" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1">group</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">인간관계에서 자꾸 소진돼</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">경계를 못 지키거나, 관계 자체가 무거운 느낌</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="1" data-val="emotional" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-600" style="font-variation-settings:'FILL' 1">favorite</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">내 감정이 뭔지 잘 모르겠어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">감정을 표현하거나 다루는 게 낯설고 어려워</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="1" data-val="branding" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-amber-600" style="font-variation-settings:'FILL' 1">trending_up</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">N잡이나 부업으로 수입을 더 늘리고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">나만의 브랜드를 만들고, 수익화를 시작하고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-slide" data-step="2">
+      <h2 class="text-lg font-bold text-on-surface mb-1">현재 나의 상황은?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">가장 가까운 것을 골라주세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="2" data-val="employee" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1">work</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">직장인 (풀타임)</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">회사에 다니면서 성장을 고민 중</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="2" data-val="freelancer" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-amber-600" style="font-variation-settings:'FILL' 1">laptop</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">프리랜서 / N잡러</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">독립적으로 일하거나 여러 일을 병행 중</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="2" data-val="student" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1">school</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">취준생 / 대학생</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">취업을 준비 중이거나 진로를 탐색 중</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="2" data-val="transition" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-600" style="font-variation-settings:'FILL' 1">swap_horiz</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">이직 / 전환 준비 중</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">새로운 커리어 방향을 모색 중</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-slide" data-step="3">
+      <h2 class="text-lg font-bold text-on-surface mb-1">요즘 수면의 질은 어떤가요?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">솔직하게 골라주세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="3" data-val="very_bad" onclick="selectOption(this)">
+          <div class="text-2xl flex-shrink-0 w-10 text-center">😵</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">매우 나빠요</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">잠들기 힘들고, 자도 피곤해요</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="3" data-val="bad" onclick="selectOption(this)">
+          <div class="text-2xl flex-shrink-0 w-10 text-center">😴</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">조금 나빠요</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">가끔 잠을 못 자거나 늦게 자요</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="3" data-val="ok" onclick="selectOption(this)">
+          <div class="text-2xl flex-shrink-0 w-10 text-center">😐</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">그럭저럭이에요</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">나쁘지도 좋지도 않은 수준</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="3" data-val="good" onclick="selectOption(this)">
+          <div class="text-2xl flex-shrink-0 w-10 text-center">😊</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">잘 자고 있어요</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">수면에는 큰 불편이 없어요</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-slide" data-step="4">
+      <h2 class="text-lg font-bold text-on-surface mb-1">SNS·유튜브를 하루에 얼마나 쓰나요?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">스크린타임 기준으로 생각해보세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="4" data-val="4h_plus" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0 text-lg font-bold text-red-500">4h+</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">4시간 이상</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">하루의 상당 부분을 SNS·유튜브에 써요</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="4" data-val="2_4h" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center flex-shrink-0 text-sm font-bold text-orange-500">2-4h</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">2~4시간</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">평균보다 조금 많이 쓰는 편</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="4" data-val="1_2h" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center flex-shrink-0 text-sm font-bold text-yellow-600">1-2h</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">1~2시간</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">적당히 쓰고 있는 편</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="4" data-val="under_1h" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center flex-shrink-0 text-sm font-bold text-green-600">&lt;1h</div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">1시간 미만</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">의식적으로 절제하고 있어요</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-slide" data-step="5">
+      <h2 class="text-lg font-bold text-on-surface mb-1">선호하는 프로그램 방식은?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">참여하기 편한 방식을 골라주세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="5" data-val="online_short" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1">flash_on</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">짧고 집중적으로 (온라인)</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">3주 내외, 이동 없이 온라인으로</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="5" data-val="offline_small" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1">groups</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">소수 정예로 직접 만나서 (오프라인)</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">8명 내외, 오프라인에서 깊이 있게</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="5" data-val="online_cohort" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1">video_call</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">온라인 코호트로 함께 (4~6주)</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">같은 목표를 가진 동료들과 온라인에서</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="5" data-val="long_bootcamp" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-amber-600" style="font-variation-settings:'FILL' 1">military_tech</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">긴 호흡으로 제대로 (8주 부트캠프)</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">8주 동안 실질적인 결과물을 만들고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step-slide" data-step="6">
+      <h2 class="text-lg font-bold text-on-surface mb-1">이 프로그램이 끝나면 어떻게 달라지고 싶어요?</h2>
+      <p class="text-sm text-on-surface-variant mb-6">가장 원하는 변화를 골라주세요.</p>
+      <div class="grid gap-3">
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="6" data-val="focus_sleep" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-violet-600" style="font-variation-settings:'FILL' 1">bedtime</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">집중력이 회복되고 잠을 잘 자고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">디지털 과부하에서 벗어나 본래 컨디션 회복</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="6" data-val="career_direction" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1">explore</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">커리어 방향이 명확해지고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">AI 시대에 내가 나아갈 길을 찾고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="6" data-val="relationship_ease" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1">handshake</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">관계가 편안해지고 경계를 잘 지키고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">소진 없이 건강한 연결을 유지하고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="6" data-val="emotion_understand" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-600" style="font-variation-settings:'FILL' 1">psychology</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">내 감정을 이해하고 잘 다루고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">감정에 끌려다니지 않고 내가 주도하고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+        <div class="option-card rounded-xl p-4 flex items-center gap-4" data-q="6" data-val="income_brand" onclick="selectOption(this)">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-amber-600" style="font-variation-settings:'FILL' 1">monetization_on</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm text-on-surface">나만의 브랜드와 수입원을 만들고 싶어</div>
+            <div class="text-[12px] text-on-surface-variant mt-0.5">퍼스널 브랜딩으로 수익화 기반을 구축하고 싶어</div>
+          </div>
+          <span class="material-symbols-outlined option-check text-blue-600" style="font-variation-settings:'FILL' 1">check_circle</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="step-slide" data-step="result" id="result-section">
+      <!-- dynamically filled -->
+    </div>
+
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex items-center justify-between mt-8" id="nav-buttons">
+    <button id="prev-btn" onclick="prevStep()" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors invisible">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      이전
+    </button>
+    <button id="next-btn" onclick="nextStep()" disabled class="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed ml-auto">
+      다음
+      <span class="material-symbols-outlined text-base">arrow_forward</span>
+    </button>
+  </div>
+
+</main>
+
+<!-- Bottom Nav (mobile) -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-4 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-16 h-16" href="index.html">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-[11px] font-medium">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-16 h-16" href="프로그램.html">
+    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">school</span>
+    <span class="text-[11px] font-medium">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-16 h-16" href="인사이트.html">
+    <span class="material-symbols-outlined">auto_graph</span>
+    <span class="text-[11px] font-medium">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-16 h-16" href="커뮤니티.html">
+    <span class="material-symbols-outlined">forum</span>
+    <span class="text-[11px] font-medium">커뮤니티</span>
+  </a>
+</nav>
+
+<script>
+  const TOTAL_STEPS = 6;
+  let currentStep = 1;
+  const answers = {};
+
+  const programs = {
+    dopamine: {
+      name: '도파민 디톡스 4주 코호트',
+      category: '멘탈',
+      duration: '4주',
+      color: 'violet',
+      bgFrom: 'from-violet-600',
+      bgTo: 'to-purple-800',
+      badge: 'bg-violet-100 text-violet-700',
+      btn: 'bg-violet-600 hover:bg-violet-700',
+      icon: 'self_improvement',
+      url: 'program-dopamine-detox.html',
+      desc: '스마트폰 과의존 패턴을 신경과학 기반으로 분석하고, 집중력과 수면을 회복하는 4주 프로그램.',
+      match_reason: '디지털 과부하와 수면 문제가 현재 가장 시급한 과제로 보여요.',
+      start: '6월 9일',
+      price: '198,000원',
+    },
+    'ai-career': {
+      name: 'AI 시대 커리어 리디자인',
+      category: '커리어',
+      duration: '6주',
+      color: 'blue',
+      bgFrom: 'from-blue-600',
+      bgTo: 'to-indigo-800',
+      badge: 'bg-blue-100 text-blue-700',
+      btn: 'bg-blue-600 hover:bg-blue-700',
+      icon: 'rocket_launch',
+      url: 'program-ai-career.html',
+      desc: 'AI 대체 위험도 진단부터 대체 불가 스킬셋 개발, 포트폴리오 재설계까지 커리어 전체를 재구성.',
+      match_reason: 'AI 시대 커리어 방향이 불확실하게 느껴지는 상황에 직접적으로 대응해요.',
+      start: '6월 16일',
+      price: '298,000원',
+    },
+    relationship: {
+      name: '관계 회복력 실험실',
+      category: '관계',
+      duration: '5주',
+      color: 'emerald',
+      bgFrom: 'from-emerald-500',
+      bgTo: 'to-teal-700',
+      badge: 'bg-emerald-100 text-emerald-700',
+      btn: 'bg-emerald-600 hover:bg-emerald-700',
+      icon: 'diversity_3',
+      url: 'program-relationship-lab.html',
+      desc: '8명 소그룹으로 애착 유형 분석, 경계 설정 실습, 갈등 해결 시뮬레이션을 오프라인에서 훈련.',
+      match_reason: '관계에서 소진이 반복되고 있어, 관계 근육을 직접 훈련하는 것이 필요해요.',
+      start: '6월 21일',
+      price: '248,000원',
+    },
+    emotional: {
+      name: '감정 리터러시 집중 워크숍',
+      category: '멘탈',
+      duration: '3주',
+      color: 'rose',
+      bgFrom: 'from-rose-600',
+      bgTo: 'to-pink-800',
+      badge: 'bg-rose-100 text-rose-700',
+      btn: 'bg-rose-600 hover:bg-rose-700',
+      icon: 'favorite',
+      url: 'program-emotional-literacy.html',
+      desc: '감정 어휘 확장, 신체 감각 인지, 감정 조절 전략을 3주 집중으로 훈련. 만족도 4.9점 1위.',
+      match_reason: '내 감정이 낯설게 느껴질 때, 감정을 아는 것이 모든 변화의 시작이에요.',
+      start: '6월 2일',
+      price: '148,000원',
+    },
+    branding: {
+      name: 'N잡러 퍼스널 브랜딩 부트캠프',
+      category: '커리어',
+      duration: '8주',
+      color: 'amber',
+      bgFrom: 'from-amber-500',
+      bgTo: 'to-orange-700',
+      badge: 'bg-amber-100 text-amber-700',
+      btn: 'bg-amber-500 hover:bg-amber-600',
+      icon: 'trending_up',
+      url: 'program-personal-branding.html',
+      desc: '브랜드 포지셔닝, SNS 채널 전략, 수익화 모델까지 8주간 완성형 커리어 에셋을 구축.',
+      match_reason: '나만의 수입원과 브랜드를 만들고 싶은 지금, 체계적인 부트캠프가 필요해요.',
+      start: '6월 30일',
+      price: '348,000원',
+    },
+  };
+
+  function selectOption(el) {
+    const q = el.dataset.q;
+    // deselect siblings
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[q] = el.dataset.val;
+    document.getElementById('next-btn').disabled = false;
+  }
+
+  function updateProgress() {
+    const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = currentStep + ' / ' + TOTAL_STEPS;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('prev-btn').style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step-slide').forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`[data-step="${n}"]`);
+    if (target) target.classList.add('active');
+  }
+
+  function nextStep() {
+    if (!answers[currentStep]) return;
+    if (currentStep < TOTAL_STEPS) {
+      currentStep++;
+      showStep(currentStep);
+      updateProgress();
+      document.getElementById('next-btn').disabled = !answers[currentStep];
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      showResult();
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+      updateProgress();
+      document.getElementById('next-btn').disabled = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function calcScores() {
+    const scores = { dopamine: 0, 'ai-career': 0, relationship: 0, emotional: 0, branding: 0 };
+
+    // Q1: primary concern (weight 3)
+    const q1 = answers[1];
+    if (q1 && scores[q1] !== undefined) scores[q1] += 3;
+
+    // Q2: situation
+    const q2 = answers[2];
+    if (q2 === 'employee') { scores['ai-career'] += 1; scores['emotional'] += 1; }
+    if (q2 === 'freelancer') { scores['branding'] += 2; scores['ai-career'] += 1; }
+    if (q2 === 'student') { scores['emotional'] += 1; scores['dopamine'] += 1; }
+    if (q2 === 'transition') { scores['ai-career'] += 2; scores['relationship'] += 1; }
+
+    // Q3: sleep
+    const q3 = answers[3];
+    if (q3 === 'very_bad') scores['dopamine'] += 2;
+    if (q3 === 'bad') scores['dopamine'] += 1;
+
+    // Q4: SNS usage
+    const q4 = answers[4];
+    if (q4 === '4h_plus') scores['dopamine'] += 2;
+    if (q4 === '2_4h') scores['dopamine'] += 1;
+
+    // Q5: format preference
+    const q5 = answers[5];
+    if (q5 === 'online_short') scores['emotional'] += 2;
+    if (q5 === 'offline_small') scores['relationship'] += 2;
+    if (q5 === 'online_cohort') { scores['dopamine'] += 1; scores['ai-career'] += 1; }
+    if (q5 === 'long_bootcamp') scores['branding'] += 2;
+
+    // Q6: desired change (weight 2)
+    const q6map = {
+      focus_sleep: 'dopamine',
+      career_direction: 'ai-career',
+      relationship_ease: 'relationship',
+      emotion_understand: 'emotional',
+      income_brand: 'branding',
+    };
+    const q6 = answers[6];
+    if (q6 && q6map[q6]) scores[q6map[q6]] += 2;
+
+    return scores;
+  }
+
+  function showResult() {
+    const scores = calcScores();
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    const [first, second] = sorted;
+    const maxScore = sorted[0][1];
+
+    const p1 = programs[first[0]];
+    const p2 = programs[second[0]];
+
+    // hide progress & nav
+    document.getElementById('progress-area').style.display = 'none';
+    document.getElementById('nav-buttons').style.display = 'none';
+
+    const resultEl = document.getElementById('result-section');
+    resultEl.innerHTML = `
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 text-green-700 text-[12px] font-bold mb-4">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">check_circle</span>
+          분석 완료
+        </div>
+        <h2 class="text-2xl font-extrabold text-on-surface mb-2">나에게 꼭 맞는 프로그램을 찾았어요!</h2>
+        <p class="text-on-surface-variant text-sm">6가지 답변을 분석한 결과예요.</p>
+      </div>
+
+      <!-- Primary recommendation -->
+      <div class="result-primary mb-4">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+          <span class="material-symbols-outlined text-base text-amber-500" style="font-variation-settings:'FILL' 1">star</span>
+          1순위 추천
+        </div>
+        <div class="rounded-2xl overflow-hidden border-2 border-blue-200 shadow-lg">
+          <div class="bg-gradient-to-r ${p1.bgFrom} ${p1.bgTo} p-6 text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">${p1.icon}</span>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider opacity-70">${p1.category} · ${p1.duration}</span>
+                <h3 class="font-bold text-lg leading-tight">${p1.name}</h3>
+              </div>
+            </div>
+            <div class="bg-white/10 rounded-xl p-3 text-sm leading-relaxed">${p1.match_reason}</div>
+          </div>
+          <div class="bg-white p-5">
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-4">${p1.desc}</p>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="text-[11px] text-slate-400">다음 기수 시작일</div>
+                <div class="font-bold text-on-surface">${p1.start}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-[11px] text-slate-400">참가비</div>
+                <div class="font-bold text-on-surface">${p1.price}</div>
+              </div>
+            </div>
+            <a href="${p1.url}" class="block w-full py-3 rounded-xl ${p1.btn} text-white text-center font-bold text-sm transition-colors">
+              상세 페이지 보기
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary recommendation -->
+      <div class="result-secondary mb-8">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">2순위 추천</div>
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white">
+          <div class="p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${p2.bgFrom} ${p2.bgTo} flex items-center justify-center flex-shrink-0">
+              <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings:'FILL' 1">${p2.icon}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <span class="${p2.badge} text-[11px] font-bold px-2 py-0.5 rounded-full">${p2.category}</span>
+              <h3 class="font-bold text-sm text-on-surface mt-1 leading-tight">${p2.name}</h3>
+              <p class="text-on-surface-variant text-[12px] mt-1 line-clamp-2">${p2.desc}</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4">
+            <a href="${p2.url}" class="block w-full py-2.5 rounded-xl border border-slate-200 text-on-surface-variant text-center font-semibold text-sm hover:bg-slate-50 transition-colors">
+              상세 보기
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score breakdown -->
+      <div class="bg-surface-container rounded-2xl p-5 mb-6">
+        <h4 class="font-bold text-sm text-on-surface mb-4">영역별 분석 결과</h4>
+        <div class="grid gap-3">
+          ${sorted.map(([key, score]) => {
+            const p = programs[key];
+            const pct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+            const colorMap = {
+              dopamine: 'bg-violet-500',
+              'ai-career': 'bg-blue-500',
+              relationship: 'bg-emerald-500',
+              emotional: 'bg-rose-500',
+              branding: 'bg-amber-500',
+            };
+            return `
+              <div>
+                <div class="flex justify-between text-[12px] mb-1">
+                  <span class="font-medium text-on-surface">${p.name}</span>
+                  <span class="text-on-surface-variant">${pct}%</span>
+                </div>
+                <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="score-bar h-full ${colorMap[key]} rounded-full" style="width: 0%" data-target="${pct}"></div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Retry -->
+      <div class="text-center">
+        <button onclick="retakeQuiz()" class="text-sm text-on-surface-variant hover:text-on-surface transition-colors underline underline-offset-2">
+          다시 진단하기
+        </button>
+      </div>
+    `;
+
+    showStep('result');
+
+    // animate score bars
+    setTimeout(() => {
+      document.querySelectorAll('.score-bar').forEach(bar => {
+        bar.style.width = bar.dataset.target + '%';
+      });
+    }, 300);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function retakeQuiz() {
+    currentStep = 1;
+    Object.keys(answers).forEach(k => delete answers[k]);
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('progress-area').style.display = '';
+    document.getElementById('nav-buttons').style.display = '';
+    document.getElementById('next-btn').disabled = true;
+    updateProgress();
+    showStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // init
+  updateProgress();
+</script>
+</body>
+</html>

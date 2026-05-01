@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SELAB - "AI에게 대체될까?" — 실존적 불안을 다루는 심리 방어 메커니즘</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6", "primary-container": "#2563eb", "on-primary": "#ffffff",
+            "primary-fixed": "#dbe1ff", "on-primary-fixed": "#00174b",
+            "secondary": "#006c49", "secondary-fixed": "#6ffbbe", "on-secondary-fixed-variant": "#005236",
+            "tertiary": "#ad0033", "tertiary-fixed": "#ffdadb", "on-tertiary-fixed": "#40000d",
+            "surface": "#f7f9fb", "background": "#f7f9fb", "on-background": "#191c1e",
+            "on-surface": "#191c1e", "on-surface-variant": "#434655",
+            "surface-container": "#eceef0", "surface-container-high": "#e6e8ea",
+            "surface-container-lowest": "#ffffff", "outline-variant": "#c3c6d7",
+          },
+          spacing: { "margin-desktop": "64px", "gutter": "24px" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .prose p { margin-bottom: 1.5rem; line-height: 1.85; }
+    .prose h3 { margin-top: 2.5rem; margin-bottom: 1rem; }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(30,27,75,0.55) 0%, rgba(76,29,149,0.65) 40%, rgba(17,24,79,0.9) 100%);
+    }
+    .section-border-violet {
+      border-left: 4px solid #7c3aed;
+      padding-left: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background">
+
+  <!-- 상단 헤더 nav -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-outline-variant shadow-sm">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">SE</span>
+        </div>
+        <span class="font-bold text-lg text-on-surface tracking-tight">SELAB</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">홈</a>
+        <a href="프로그램.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">프로그램</a>
+        <a href="인사이트.html" class="px-4 py-2 rounded-full text-sm font-medium text-primary bg-primary/10 transition-colors">인사이트</a>
+        <a href="커뮤니티.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">커뮤니티</a>
+      </nav>
+      <button class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <span class="material-symbols-outlined text-base">person</span>
+        로그인
+      </button>
+    </div>
+  </header>
+
+  <main class="pt-0 pb-28">
+
+    <!-- 히어로 섹션 -->
+    <section class="relative w-full h-[460px] overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhEF_tr6dkXrWDoZc1IbPFKvQ5IFZkqLPUX1YmxLpCUbDDjP569BCScg9dV2cGYCynMroP3lR_minlFu06JuIEIBsiLh3wVmE1Zmdbldv5MRneCpbvx8g5k9yIzBYZ_tiWb8FkWkLwMdzc2x1inkp0LhTbag_Kt7i1FDfECw296pNRCoCXFokmR6GqsBX89Aa_fp4UiTPjemqFoUBNpIg_TZY7RoWVd-LFmKni0SXqLseJUL7ZFEDGe6mVQrNXREc9MERDW1g"
+        alt="AI 불안 히어로 이미지"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="hero-gradient absolute inset-0"></div>
+      <div class="absolute inset-0 flex flex-col justify-end px-4 md:px-8 pb-24 max-w-screen-xl mx-auto left-0 right-0">
+        <span class="inline-flex items-center gap-1.5 bg-violet-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full w-fit mb-4">
+          <span class="material-symbols-outlined text-sm">psychology</span>
+          멘탈케어
+        </span>
+        <h1 class="text-white text-2xl md:text-3xl font-bold leading-tight max-w-2xl">
+          "AI에게 대체될까?" — 실존적 불안을 다루는<br class="hidden md:block"/> 심리 방어 메커니즘
+        </h1>
+        <div class="flex items-center gap-3 mt-4 text-white/80 text-sm">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">person</span>이수아 임상심리사</span>
+          <span>·</span>
+          <span>2026.04.08</span>
+          <span>·</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>7분 읽기</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 브레드크럼 + 뒤로가기 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-4">
+      <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+        <a href="인사이트.html" class="flex items-center gap-1 hover:text-primary transition-colors font-medium">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          인사이트로 돌아가기
+        </a>
+        <span>/</span>
+        <span class="text-violet-700 font-medium">멘탈케어</span>
+        <span>/</span>
+        <span class="text-on-surface truncate max-w-xs">AI 실존적 불안</span>
+      </div>
+    </div>
+
+    <!-- 아티클 컨테이너 -->
+    <div class="max-w-3xl mx-auto px-4 md:px-8 -mt-4">
+      <div class="bg-white rounded-2xl shadow-lg border border-outline-variant/30 overflow-hidden">
+
+        <!-- 아티클 헤더 -->
+        <div class="p-6 md:p-10 border-b border-outline-variant/30">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full">멘탈케어</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">심리치료</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">AI 시대</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold text-on-surface leading-tight mb-6">
+            "AI에게 대체될까?" — 실존적 불안을 다루는 심리 방어 메커니즘
+          </h2>
+          <div class="flex flex-wrap items-center gap-4 text-sm text-on-surface-variant">
+            <div class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-violet-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-violet-600 text-lg">self_improvement</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm">이수아</p>
+                <p class="text-xs">임상심리사</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span>2026.04.08</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>7분 읽기</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">visibility</span>18,927 조회</div>
+          </div>
+        </div>
+
+        <!-- 본문 -->
+        <div class="p-6 md:p-10 prose max-w-none text-on-surface text-[15px] leading-relaxed">
+
+          <!-- 섹션 1 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              숫자로 보는 AI 불안: 우리는 얼마나 두려운가
+            </h3>
+            <p>
+              "솔직히 GPT가 제 보고서를 더 잘 씁니다. 그걸 알면서도 회사에서 계속 쓰고 있어요. 제가 뭘 하고 있는 건지 모르겠어요."
+            </p>
+            <p>
+              2026년, 이것은 극소수의 이야기가 아닙니다. SELAB이 수행한 조사에서 20-30대의 <strong class="text-violet-700">72%가 "AI로 인해 자신의 직업을 잃을 수 있다"</strong>는 항목에 동의했습니다. 이 숫자는 단순한 통계가 아닙니다. 매일 아침 출근하면서, 보고서를 쓰면서, 기획안을 완성하면서 느끼는 실존적 불안의 무게입니다.
+            </p>
+
+            <!-- 통계 강조 박스 -->
+            <div class="bg-violet-50 border border-violet-200 rounded-xl p-5 my-6">
+              <div class="flex items-start gap-3 mb-4">
+                <span class="material-symbols-outlined text-violet-600 mt-0.5">query_stats</span>
+                <p class="font-bold text-violet-800 text-sm">SELAB 2026 AI 불안 조사 결과 (20-30대 n=1,240)</p>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-lg p-3 text-center">
+                  <p class="text-2xl font-black text-violet-700">72%</p>
+                  <p class="text-xs text-on-surface-variant mt-1">"직업 잃을 수 있다" 동의</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                  <p class="text-2xl font-black text-violet-700">61%</p>
+                  <p class="text-xs text-on-surface-variant mt-1">AI와 비교해 자신감 저하</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                  <p class="text-2xl font-black text-violet-700">48%</p>
+                  <p class="text-xs text-on-surface-variant mt-1">업무 중 불안 경험 주 3회 이상</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                  <p class="text-2xl font-black text-violet-700">34%</p>
+                  <p class="text-xs text-on-surface-variant mt-1">수면 중 직업 상실 관련 불안</p>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              불안이 나타나는 방식은 다양합니다. <strong>비교 불안</strong>(AI가 나보다 빠르고 정확하다), <strong>능력 의심</strong>(나는 무엇을 할 수 있는가), <strong>미래 시나리오 과잉 시뮬레이션</strong>(5년 후 내 직업은 존재할까) — 이 세 가지가 복합적으로 작용하면서 만성적 심리 소모를 일으킵니다.
+            </p>
+            <p>
+              그러나 중요한 구분이 있습니다. <strong>건강한 불안</strong>은 신호이자 동기 부여원입니다. "AI 시대에 어떻게 적응할까?"라는 생산적 질문으로 이어질 때, 불안은 성장의 연료가 됩니다. 반면 <strong>만성 불안</strong>은 현재의 행동 능력을 마비시키고, 아무것도 할 수 없다는 무력감으로 고착됩니다. 지금 당신의 불안은 어느 쪽인가요?
+            </p>
+
+            <!-- 현장 인터뷰 -->
+            <blockquote class="border-l-4 border-violet-400 pl-5 py-2 bg-violet-50/50 rounded-r-lg my-6 italic">
+              <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
+                "GPT가 내 보고서를 더 잘 썼어요. 처음엔 충격이었는데... 지금은 GPT가 초안 잡으면 제가 맥락 넣고 설득력 있게 다듬는 식으로 하고 있어요. 어느 순간 팀에서 저만 이렇게 하고 있더라고요."
+              </p>
+              <p class="text-violet-600 font-semibold text-xs not-italic">— SELAB 인터뷰 참여자, 31세 전략기획팀</p>
+            </blockquote>
+          </div>
+
+          <!-- 섹션 2 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              공포가 작동하는 인지적 메커니즘
+            </h3>
+            <p>
+              AI 불안이 강하게 느껴지는 이유는 우리 뇌가 위협을 처리하는 방식 때문입니다. 임상심리학은 이 과정에서 작동하는 여러 인지적 왜곡을 식별해왔습니다. 자신의 불안 패턴을 인식하는 것이 변화의 첫 걸음입니다.
+            </p>
+
+            <div class="space-y-4 my-6">
+
+              <div class="bg-white border border-violet-200 rounded-xl p-5">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-violet-600 text-lg">warning</span>
+                  </div>
+                  <div>
+                    <p class="font-bold text-on-surface text-sm mb-1.5">파국화(Catastrophizing)</p>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">
+                      최악의 시나리오를 현실로 받아들이는 인지 왜곡입니다. "AI가 내 업무 일부를 대체할 수 있다" → "AI가 내 모든 업무를 대체할 것이다" → "나는 곧 실직한다"로 비약합니다. 이 과정에서 중간 단계의 가능성들은 무시됩니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-violet-200 rounded-xl p-5">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-violet-600 text-lg">visibility</span>
+                  </div>
+                  <div>
+                    <p class="font-bold text-on-surface text-sm mb-1.5">터널 비전(Tunnel Vision)</p>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">
+                      위협 정보만 선택적으로 주목하는 생존 본능입니다. 뉴스에서 AI 대체 사례는 눈에 잘 들어오지만, AI와 인간이 협업해 생산성을 높인 사례는 잘 보이지 않습니다. 뇌가 위험 신호에 과민하게 반응하도록 진화되었기 때문입니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-violet-200 rounded-xl p-5">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-violet-600 text-lg">compare_arrows</span>
+                  </div>
+                  <div>
+                    <p class="font-bold text-on-surface text-sm mb-1.5">비교의 함정 — 잘못된 비교 대상</p>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">
+                      "AI는 나보다 빠르다"는 사실입니다. 그러나 이것은 잘못된 비교입니다. AI는 특정 task에서 빠르지만, 그 task를 어떤 맥락에서, 왜, 누구를 위해 수행해야 하는지 판단하는 것은 여전히 인간의 영역입니다. 스프레드시트보다 계산이 느리다고 회계사가 무용지물이 아닌 것처럼요.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-violet-200 rounded-xl p-5">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-violet-600 text-lg">search</span>
+                  </div>
+                  <div>
+                    <p class="font-bold text-on-surface text-sm mb-1.5">확증 편향(Confirmation Bias)</p>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">
+                      불안한 상태에서는 그 불안을 확인해주는 정보만 눈에 띕니다. "AI가 변호사를 대체한다"는 기사는 기억하지만, "AI 법률 서비스로 중소기업 법무 비용 70% 절감, 법무팀 역할 확대"라는 기사는 기억하지 못합니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 섹션 3 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              수용전념치료(ACT) 기반의 불안 전환 전략
+            </h3>
+            <p>
+              수용전념치료(Acceptance and Commitment Therapy, ACT)는 불안을 억누르거나 제거하려는 대신, 그것을 있는 그대로 수용하면서 가치 있는 행동을 선택하는 접근입니다. AI 불안에 ACT를 적용하면 다음과 같은 4가지 전략이 도출됩니다.
+            </p>
+
+            <!-- ACT 전략 -->
+            <div class="bg-violet-50 rounded-xl p-5 my-6 space-y-5">
+              <p class="font-bold text-violet-800 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-violet-600">self_improvement</span>
+                ACT 기반 4단계 전략
+              </p>
+
+              <div class="space-y-4">
+                <div class="bg-white rounded-xl p-4 border border-violet-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Step 1</span>
+                    <p class="font-bold text-on-surface text-sm">탈융합(Defusion): 생각과 거리 두기</p>
+                  </div>
+                  <p class="text-sm text-on-surface-variant leading-relaxed">
+                    "나는 대체될 것이다"라는 생각이 들 때, 그 생각이 사실이라고 믿는 대신 "나는 지금 '대체될 것이다'라는 생각을 하고 있다"고 관찰하세요. 생각과 나 사이에 공간을 만드는 것입니다. 생각은 현실이 아닌 생각일 뿐입니다.
+                  </p>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 border border-violet-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Step 2</span>
+                    <p class="font-bold text-on-surface text-sm">가치 명료화: '나만의 가치' 재발견</p>
+                  </div>
+                  <p class="text-sm text-on-surface-variant leading-relaxed mb-3">AI가 대체할 수 없는 '나만의 가치'를 찾는 질문을 스스로에게 던져보세요:</p>
+                  <div class="space-y-1.5">
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                      <span class="w-1.5 h-1.5 bg-violet-400 rounded-full flex-shrink-0"></span>
+                      <span>내가 가진 고유한 경험과 맥락은 무엇인가?</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                      <span class="w-1.5 h-1.5 bg-violet-400 rounded-full flex-shrink-0"></span>
+                      <span>동료들이 나에게 의지하는 것은 정확히 무엇인가?</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                      <span class="w-1.5 h-1.5 bg-violet-400 rounded-full flex-shrink-0"></span>
+                      <span>내가 AI보다 잘 하는 상황은 언제인가?</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                      <span class="w-1.5 h-1.5 bg-violet-400 rounded-full flex-shrink-0"></span>
+                      <span>나의 어떤 부분이 나를 나이게 하는가?</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 border border-violet-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Step 3</span>
+                    <p class="font-bold text-on-surface text-sm">현재 순간에 집중: 지금 할 수 있는 행동으로</p>
+                  </div>
+                  <p class="text-sm text-on-surface-variant leading-relaxed">
+                    미래 시나리오 과잉 시뮬레이션은 에너지를 소모하지만 아무것도 바꾸지 못합니다. "5년 후 내 직업이 없어진다면?"이라는 질문 대신 "이번 주에 AI를 활용해 무엇을 더 잘 할 수 있는가?"로 초점을 이동합니다. 불안은 미래에 있고, 행동은 지금 이 순간에 있습니다.
+                  </p>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 border border-violet-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Step 4</span>
+                    <p class="font-bold text-on-surface text-sm">행동 활성화: 작은 성공 경험 쌓기</p>
+                  </div>
+                  <p class="text-sm text-on-surface-variant leading-relaxed">
+                    AI 도구를 활용한 작은 성공 경험이 불안을 줄입니다. "오늘 GPT로 회의록 초안을 3분 만에 만들고, 내가 10분 만에 맥락을 추가해 완성했다" — 이런 경험의 축적이 "나는 AI를 잘 활용하는 사람"이라는 새로운 자기 정의를 만들어냅니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 4 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              인간이 AI보다 잘하는 것들
+            </h3>
+            <p>
+              AI 불안을 해소하는 가장 직접적인 방법은 AI가 실제로 무엇을 잘하고, 무엇을 못하는지 냉정하게 이해하는 것입니다. 현재의 AI는 패턴 인식과 정보 합성에 탁월하지만, 다음과 같은 영역에서는 여전히 인간을 따라올 수 없습니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div class="bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-violet-600">favorite</span>
+                  <p class="font-bold text-on-surface text-sm">감정적 공명과 맥락 이해</p>
+                </div>
+                <p class="text-sm text-on-surface-variant">클라이언트가 "그냥 괜찮아요"라고 말할 때 실제로 괜찮지 않다는 것을 아는 능력. 말투, 눈빛, 침묵의 의미를 읽는 것. AI는 언어를 처리하지만 감정을 느끼지 않습니다.</p>
+              </div>
+              <div class="bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-violet-600">lightbulb</span>
+                  <p class="font-bold text-on-surface text-sm">모호한 상황에서의 창의적 판단</p>
+                </div>
+                <p class="text-sm text-on-surface-variant">전례 없는 상황, 정답이 없는 윤리적 딜레마, 불완전한 정보 속에서의 결단. AI는 학습 데이터 밖의 상황에서 취약합니다. 인간의 직관과 경험이 빛나는 지점입니다.</p>
+              </div>
+              <div class="bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-violet-600">handshake</span>
+                  <p class="font-bold text-on-surface text-sm">신뢰 기반의 관계 형성</p>
+                </div>
+                <p class="text-sm text-on-surface-variant">장기적 파트너십, 팀의 심리적 안전감, 리더십의 신뢰. 사람들은 여전히 중요한 결정을 AI가 아닌 사람과 함께 내립니다. 신뢰는 관계의 역사와 인격에서 옵니다.</p>
+              </div>
+              <div class="bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="material-symbols-outlined text-violet-600">record_voice_over</span>
+                  <p class="font-bold text-on-surface text-sm">설득과 영향력</p>
+                </div>
+                <p class="text-sm text-on-surface-variant">이해관계가 복잡한 조직에서 합의를 만들어내는 정치적 감각. 누구의 말을, 어떤 타이밍에, 어떤 방식으로 해야 하는지 아는 것. 이는 경험과 인간 이해에서 나옵니다.</p>
+              </div>
+            </div>
+
+            <p>
+              결국 "AI를 잘 쓰는 사람"이 되는 것이 곧 경쟁력입니다. AI를 두려워하는 사람과 AI를 도구로 숙달하는 사람 사이의 격차는 앞으로 점점 커질 것입니다. 불안의 에너지를 학습의 에너지로 전환하세요. 지금이 바로 그 전환의 적기입니다.
+            </p>
+          </div>
+
+          <!-- 핵심 정리 박스 -->
+          <div class="mt-12 bg-violet-50 border-l-4 border-violet-600 rounded-r-xl p-6 md:p-8">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="material-symbols-outlined text-violet-600">lightbulb</span>
+              <p class="font-bold text-violet-800 text-base">핵심 정리 — Key Takeaways</p>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">불안은 신호다 — 억누를 것이 아니라 읽어야 한다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">AI 불안은 변화에 대한 뇌의 정상 반응입니다. 억누르려 하면 더 커집니다. "내가 무엇을 두려워하는가?"를 명확히 하는 것이 해소의 시작입니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">AI는 경쟁 상대가 아닌 도구다 — 비교 대상을 바꿔라</p>
+                  <p class="text-on-surface-variant text-sm mt-1">AI와 자신을 비교하는 것은 계산기보다 암산이 느리다고 자책하는 것과 같습니다. 비교 상대는 'AI를 잘 쓰는 나' vs '아직 쓰지 않는 나'입니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">인간 고유 역량을 명확히 파악하는 것이 불안 해소의 시작점</p>
+                  <p class="text-on-surface-variant text-sm mt-1">감정적 공명, 창의적 판단, 신뢰 관계 — AI가 대체할 수 없는 나만의 영역을 구체적으로 파악하면 불안의 근거가 흔들립니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 관련 아티클 섹션 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-on-surface">관련 아티클</h2>
+        <a href="인사이트.html" class="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
+          전체 보기<span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 관련 1 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9IoqXjrUA5qQJHdPaWA989SDFvITdSk3fcLQyQl_4ygE5aO1eCATkXggUbClOjkV8JmfmPh4u1Spj0cmkazU3d3XQbVarjav5Kp1M7-bxwQX7S52I7H12m7vyCozGdLYdhF5XfRsQCCvh3s8zs5xSrZtCqYKuJQfhYN3MPgfJbNei46tv--xlq1KIe8SlnSgJWBsFBsLnHk7Ip6m2UlSI18M33Y3TPXqK1WknqIuRi0o71yQivPEmZzF_g6DO36MnnjQBQ4h1H0E" alt="도파민 디톡스" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-violet-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">멘탈케어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">도파민 디톡스: 숏폼 중독에서 벗어나는 뇌 리셋 7일 프로그램</h3>
+            <p class="text-xs text-on-surface-variant">김민준 신경심리 연구원 · 6분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 2 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAny1MAd6VtMkiW7wv-SQB5wcTtV1WIPpNE_XGwhzDc8D0V9963JvgJ5lQWIFOSJ-pRe9EM-ja3t-wHKQS_U2B0UyR2gSGjmKmxp9F7p6r6EdQ1pGVOydcXrYr2KqyTZWs4ytYRXAyd7jHQ5eCrnWD6eVsbJfS47ocdXn_9jACTNB1bi6fj_U5Nkxqj1qLWdsMMTYuJDgpXbPrWzcL7nSc2djjqzJKXQopsLkiTreqEcofsEbvvI61XItE1-PHTOTDUigsvPqm5mK0" alt="T자형 인재" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-2.5 py-1 rounded-full">커리어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">AI와 협업하는 T자형 인재: 2026 하이브리드 스킬셋 전략</h3>
+            <p class="text-xs text-on-surface-variant">최유진 커리어 코치 · 5분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 3 -->
+        <a href="인사이트.html" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuARdQ2VWOrp70KSH-vwS1S-OaL_zVaTMiYCUpr4F78dzD1eWv2nHSqf56G2yoz9QqlsqYtoI-CtAoo5v4vaHNYmsHXJ9WXF4127DRvC0Mla1NRsaw_y5YnmF3pO5N8Et5NsRvqNczgIDUQRRukA22eN_stnxuZUCE6zJyD80cIFeEjh-SW7af2qiX6-H12zLalY4L2dz2FPtjsRxIdHjRIfS2p2Ou-OIeu3tRE32iNHkGYjUFhXiQRANE4NiH-8FzILI7d0NVSWZHg" alt="사이드 프로젝트" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-2.5 py-1 rounded-full">커리어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">사이드 프로젝트가 본업이 되는 순간: N잡 커리어 자산화 전략</h3>
+            <p class="text-xs text-on-surface-variant">정재훈 N잡러 · 6분 읽기</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 하단 모바일 nav -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant z-50 md:hidden">
+    <div class="flex items-center justify-around h-16">
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">home</span>
+        <span class="text-[10px] font-medium">홈</span>
+      </a>
+      <a href="프로그램.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">school</span>
+        <span class="text-[10px] font-medium">프로그램</span>
+      </a>
+      <a href="인사이트.html" class="flex flex-col items-center gap-0.5 text-primary">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">article</span>
+        <span class="text-[10px] font-bold">인사이트</span>
+      </a>
+      <a href="커뮤니티.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">group</span>
+        <span class="text-[10px] font-medium">커뮤니티</span>
+      </a>
+    </div>
+  </nav>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SELAB - 커뮤니티</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container-high": "#e6e8ea",
+          "surface-container": "#eceef0",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+          "primary-container": "#2563eb",
+          "primary-fixed": "#dbe1ff",
+          "secondary-fixed": "#6ffbbe",
+          "on-secondary-fixed-variant": "#005236",
+          "tertiary-fixed": "#ffdadb",
+          "on-tertiary-fixed-variant": "#92002a",
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  textarea:focus { outline: none; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .post-card { animation: fadeIn 0.3s ease forwards; }
+  #write-overlay { backdrop-filter: blur(4px); }
+</style>
+</head>
+<body class="bg-background text-on-background pb-24">
+
+<!-- Header -->
+<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
+    <a href="index.html"><img src="logo.jpg" alt="SELAB" class="h-11 w-auto rounded-lg"/></a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="인사이트.html">인사이트</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80" href="커뮤니티.html">커뮤니티</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="마이페이지.html">마이페이지</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-sm cursor-pointer hover:opacity-80 transition-opacity border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'">
+      <span class="material-symbols-outlined text-[18px]">person</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Write Modal Overlay -->
+<div id="write-overlay" class="fixed inset-0 z-50 bg-black/40 hidden" onclick="closeWriteModal()">
+  <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 max-w-2xl mx-auto" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between mb-5">
+      <div class="flex items-center gap-3">
+        <div id="modal-avatar" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm"></div>
+        <div id="modal-username" class="font-semibold text-on-surface"></div>
+      </div>
+      <button onclick="closeWriteModal()" class="text-slate-400 hover:text-slate-700 transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <!-- Tag selector -->
+    <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar pb-1">
+      <button onclick="selectTag(this, '#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold whitespace-nowrap border-2 border-blue-200">#마음성장</button>
+      <button onclick="selectTag(this, '#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#커리어</button>
+      <button onclick="selectTag(this, '#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#독서기록</button>
+      <button onclick="selectTag(this, '#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#인간관계</button>
+      <button onclick="selectTag(this, '#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#일상</button>
+    </div>
+    <textarea id="write-content" class="w-full min-h-[140px] resize-none text-base leading-relaxed text-on-surface placeholder:text-slate-300 border-none p-0 font-['Plus_Jakarta_Sans',sans-serif]"
+      placeholder="나의 성장을 공유해보세요..."></textarea>
+    <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
+      <span id="char-count" class="text-[12px] text-slate-400">0 / 500</span>
+      <button onclick="submitPost()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors active:scale-95">
+        게시하기
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="pt-24 px-4 md:px-8 max-w-2xl mx-auto">
+
+  <!-- Write Bar -->
+  <section class="mb-6">
+    <div id="write-bar" onclick="openWriteModal()" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+      <div id="write-bar-avatar" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-slate-400">person</span>
+      </div>
+      <p id="write-bar-placeholder" class="text-on-surface-variant text-[15px]">나의 성장을 공유해보세요</p>
+    </div>
+    <!-- Not logged in banner -->
+    <div id="login-banner" class="hidden mt-3 p-3 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
+      <span class="material-symbols-outlined text-blue-500 text-lg" style="font-variation-settings:'FILL' 1">info</span>
+      <p class="text-blue-700 text-sm flex-1">로그인하면 커뮤니티에 글을 올릴 수 있어요.</p>
+      <a href="마이페이지.html" class="text-blue-700 font-bold text-sm whitespace-nowrap hover:underline">로그인 →</a>
+    </div>
+  </section>
+
+  <!-- Topic Chips -->
+  <section class="flex gap-2 mb-6 overflow-x-auto hide-scrollbar pb-2">
+    <button onclick="filterFeed('전체')" class="feed-filter px-4 py-2 bg-primary-container text-white rounded-full text-[13px] font-bold whitespace-nowrap" data-filter="전체">전체 피드</button>
+    <button onclick="filterFeed('#마음성장')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#마음성장">#마음성장</button>
+    <button onclick="filterFeed('#커리어')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#커리어">#커리어</button>
+    <button onclick="filterFeed('#독서기록')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#독서기록">#독서기록</button>
+    <button onclick="filterFeed('#인간관계')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#인간관계">#인간관계</button>
+  </section>
+
+  <!-- Dynamic Feed -->
+  <div id="dynamic-feed" class="flex flex-col gap-5 mb-5"></div>
+
+  <!-- Static Feed (sample posts) -->
+  <div id="static-feed" class="flex flex-col gap-5">
+
+    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#마음성장">
+      <div class="p-5 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+          <span class="material-symbols-outlined text-slate-400">person</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold text-[15px] text-on-surface">익명의 성장자</span>
+            <span class="text-[12px] text-on-surface-variant">· 2시간 전</span>
+          </div>
+          <span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#마음성장</span>
+        </div>
+      </div>
+      <div class="px-5 pb-4">
+        <p class="text-on-surface-variant text-[15px] leading-relaxed">오늘 하루를 돌아보며 문득 깨달은 점이 있어요. 완벽하지 않아도 꾸준히 하는 것 자체가 성장이라는 것을요. 예전에는 결과에만 집착했는데, 이제는 과정의 아름다움을 조금씩 알아가고 있습니다. 함께 나아가는 여러분들 모두 응원합니다.</p>
+      </div>
+      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
+        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="24">
+          <span class="material-symbols-outlined text-[20px]">favorite</span>
+          <span class="text-[13px] font-medium">24</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+          <span class="text-[13px] font-medium">8</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#커리어">
+      <div class="p-5 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">김</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold text-[15px] text-on-surface">김서현 리서처</span>
+            <span class="text-[12px] text-on-surface-variant">· 5시간 전</span>
+          </div>
+          <span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold">#커리어</span>
+        </div>
+      </div>
+      <div class="px-5 pb-4">
+        <p class="text-on-surface-variant text-[15px] leading-relaxed">새로운 프로젝트를 시작하며 두려움이 앞섰지만, 작은 걸음부터 떼어보기로 했습니다. 실패는 성장의 밑거름이라는 말을 다시금 되새기는 하루네요. 여러분의 오늘은 어떤가요?</p>
+      </div>
+      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
+        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="42">
+          <span class="material-symbols-outlined text-[20px]">favorite</span>
+          <span class="text-[13px] font-medium">42</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+          <span class="text-[13px] font-medium">15</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#인간관계">
+      <div class="p-5 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-emerald-400">eco</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold text-[15px] text-on-surface">도전하는 성장인</span>
+            <span class="text-[12px] text-on-surface-variant">· 어제</span>
+          </div>
+          <span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#인간관계</span>
+        </div>
+      </div>
+      <div class="px-5 pb-6">
+        <p class="text-on-surface-variant text-[15px] leading-relaxed italic border-l-4 border-blue-200 pl-4">"진정한 관계는 서로의 성장을 기뻐해줄 때 깊어진다." 오늘 책에서 읽은 문장인데 참 와닿네요. 관계 속에서 나를 잃지 않고 함께 성장하는 방법을 고민 중입니다.</p>
+      </div>
+      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
+        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="118">
+          <span class="material-symbols-outlined text-[20px]">favorite</span>
+          <span class="text-[13px] font-medium">118</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+          <span class="text-[13px] font-medium">23</span>
+        </button>
+        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </button>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-2 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="index.html">
+    <span class="material-symbols-outlined text-[22px]">home</span>
+    <span class="text-[10px] font-medium mt-0.5">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="프로그램.html">
+    <span class="material-symbols-outlined text-[22px]">school</span>
+    <span class="text-[10px] font-medium mt-0.5">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="인사이트.html">
+    <span class="material-symbols-outlined text-[22px]">auto_graph</span>
+    <span class="text-[10px] font-medium mt-0.5">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform" href="커뮤니티.html">
+    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">forum</span>
+    <span class="text-[10px] font-medium mt-0.5">커뮤니티</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="마이페이지.html">
+    <span class="material-symbols-outlined text-[22px]">person</span>
+    <span class="text-[10px] font-medium mt-0.5">마이페이지</span>
+  </a>
+</nav>
+
+<script>
+  const getCurrentUser = () => JSON.parse(localStorage.getItem('selab_current_user') || 'null');
+  const getPosts = () => JSON.parse(localStorage.getItem('selab_posts') || '[]');
+  const savePosts = (p) => localStorage.setItem('selab_posts', JSON.stringify(p));
+
+  let selectedTag = '#마음성장';
+  let currentFilter = '전체';
+
+  // ===== INIT =====
+  (function init() {
+    const user = getCurrentUser();
+    updateHeaderAvatar(user);
+    updateWriteBar(user);
+    renderDynamicPosts();
+  })();
+
+  function updateHeaderAvatar(user) {
+    const el = document.getElementById('header-avatar');
+    if (user) {
+      el.innerHTML = `<span class="font-bold text-white text-sm">${user.name[0].toUpperCase()}</span>`;
+      el.style.background = 'linear-gradient(135deg,#004ac6,#2563eb)';
+    }
+  }
+
+  function updateWriteBar(user) {
+    const barAvatar = document.getElementById('write-bar-avatar');
+    const placeholder = document.getElementById('write-bar-placeholder');
+    const loginBanner = document.getElementById('login-banner');
+    if (user) {
+      barAvatar.innerHTML = `<span class="font-bold text-white text-sm">${user.name[0].toUpperCase()}</span>`;
+      barAvatar.style.background = 'linear-gradient(135deg,#004ac6,#2563eb)';
+      placeholder.textContent = `${user.name}님의 성장을 공유해보세요`;
+      loginBanner.classList.add('hidden');
+    } else {
+      loginBanner.classList.remove('hidden');
+    }
+  }
+
+  // ===== WRITE MODAL =====
+  function openWriteModal() {
+    const user = getCurrentUser();
+    if (!user) {
+      document.getElementById('login-banner').classList.remove('hidden');
+      document.getElementById('login-banner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
+    document.getElementById('modal-avatar').textContent = user.name[0].toUpperCase();
+    document.getElementById('modal-username').textContent = user.name;
+    document.getElementById('write-content').value = '';
+    document.getElementById('char-count').textContent = '0 / 500';
+    document.getElementById('write-overlay').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('write-content').focus(), 100);
+  }
+
+  function closeWriteModal() {
+    document.getElementById('write-overlay').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function selectTag(btn, tag) {
+    selectedTag = tag;
+    document.querySelectorAll('.tag-btn').forEach(b => {
+      b.className = 'tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent';
+    });
+    btn.className = 'tag-btn px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold whitespace-nowrap border-2 border-blue-200';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const ta = document.getElementById('write-content');
+    if (ta) {
+      ta.addEventListener('input', () => {
+        const len = ta.value.length;
+        document.getElementById('char-count').textContent = `${len} / 500`;
+        if (len > 500) ta.value = ta.value.slice(0, 500);
+      });
+    }
+  });
+
+  function submitPost() {
+    const user = getCurrentUser();
+    if (!user) return;
+    const content = document.getElementById('write-content').value.trim();
+    if (!content) { alert('내용을 입력해주세요.'); return; }
+
+    const post = {
+      id: Date.now(),
+      userId: user.id,
+      userName: user.name,
+      content,
+      tag: selectedTag,
+      timestamp: new Date().toISOString(),
+      likes: 0,
+    };
+    const posts = getPosts();
+    posts.push(post);
+    savePosts(posts);
+
+    closeWriteModal();
+    renderDynamicPosts();
+  }
+
+  // ===== RENDER =====
+  function renderDynamicPosts() {
+    const posts = getPosts().slice().reverse();
+    const feed = document.getElementById('dynamic-feed');
+    feed.innerHTML = posts.length === 0 ? '' : posts.map(p => {
+      const date = new Date(p.timestamp);
+      const timeStr = formatTime(date);
+      const tagColors = {
+        '#마음성장': 'bg-emerald-50 text-emerald-700',
+        '#커리어': 'bg-blue-50 text-blue-700',
+        '#독서기록': 'bg-amber-50 text-amber-700',
+        '#인간관계': 'bg-violet-50 text-violet-700',
+        '#일상': 'bg-slate-100 text-slate-600',
+      };
+      const tagClass = tagColors[p.tag] || 'bg-slate-100 text-slate-600';
+      return `
+        <article class="post-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden" data-tag="${p.tag}">
+          <div class="p-5 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:linear-gradient(135deg,#004ac6,#2563eb)">
+              ${escapeHtml(p.userName[0].toUpperCase())}
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-[15px] text-on-surface">${escapeHtml(p.userName)}</span>
+                <span class="text-[12px] text-on-surface-variant">· ${timeStr}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${tagClass}">${p.tag}</span>
+            </div>
+          </div>
+          <div class="px-5 pb-4">
+            <p class="text-on-surface-variant text-[15px] leading-relaxed">${escapeHtml(p.content).replace(/\n/g, '<br/>')}</p>
+          </div>
+          <div class="p-3 flex items-center gap-6 border-t border-slate-50">
+            <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="${p.likes}">
+              <span class="material-symbols-outlined text-[20px]">favorite</span>
+              <span class="text-[13px] font-medium">${p.likes}</span>
+            </button>
+            <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+              <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+              <span class="text-[13px] font-medium">0</span>
+            </button>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // apply current filter
+    applyFilter(currentFilter);
+  }
+
+  // ===== FILTER =====
+  function filterFeed(cat) {
+    currentFilter = cat;
+    document.querySelectorAll('.feed-filter').forEach(btn => {
+      const active = btn.dataset.filter === cat;
+      btn.className = active
+        ? 'feed-filter px-4 py-2 bg-primary-container text-white rounded-full text-[13px] font-bold whitespace-nowrap'
+        : 'feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors';
+    });
+    applyFilter(cat);
+  }
+
+  function applyFilter(cat) {
+    document.querySelectorAll('.post-card').forEach(card => {
+      const show = cat === '전체' || card.dataset.tag === cat;
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  // ===== LIKE =====
+  function toggleLike(btn) {
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const countEl = btn.querySelector('span:last-child');
+    const liked = btn.classList.contains('liked');
+    let count = parseInt(btn.dataset.count);
+    if (liked) {
+      count--;
+      btn.classList.remove('liked', 'text-rose-500');
+      btn.classList.add('text-on-surface-variant');
+      icon.style.fontVariationSettings = "'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24";
+    } else {
+      count++;
+      btn.classList.add('liked', 'text-rose-500');
+      btn.classList.remove('text-on-surface-variant');
+      icon.style.fontVariationSettings = "'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24";
+    }
+    btn.dataset.count = count;
+    countEl.textContent = count;
+  }
+
+  // ===== UTILS =====
+  function formatTime(date) {
+    const diff = (new Date() - date) / 1000;
+    if (diff < 60) return '방금 전';
+    if (diff < 3600) return Math.floor(diff/60) + '분 전';
+    if (diff < 86400) return Math.floor(diff/3600) + '시간 전';
+    return `${date.getMonth()+1}월 ${date.getDate()}일`;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>

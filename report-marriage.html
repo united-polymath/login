@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SELAB - 결혼·출산 인식 전환 심층 보고서</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6", "primary-container": "#2563eb", "on-primary": "#ffffff",
+            "primary-fixed": "#dbe1ff", "on-primary-fixed": "#00174b",
+            "surface": "#f7f9fb", "background": "#f7f9fb", "on-background": "#191c1e",
+            "on-surface": "#191c1e", "on-surface-variant": "#434655",
+            "surface-container": "#eceef0", "surface-container-lowest": "#ffffff",
+            "outline-variant": "#c3c6d7",
+          },
+          spacing: { "margin-desktop": "64px", "gutter": "24px" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(159,18,57,0.45) 0%, rgba(190,18,60,0.6) 35%, rgba(60,5,20,0.92) 100%);
+    }
+    .stat-number {
+      font-feature-settings: 'tnum';
+      font-variant-numeric: tabular-nums;
+    }
+    .chapter-hover:hover { transform: translateX(4px); }
+    .chapter-hover { transition: transform 0.2s ease; }
+  </style>
+</head>
+<body class="bg-background text-on-background">
+
+  <!-- 상단 헤더 nav -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-outline-variant shadow-sm">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">SE</span>
+        </div>
+        <span class="font-bold text-lg text-on-surface tracking-tight">SELAB</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">홈</a>
+        <a href="프로그램.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">프로그램</a>
+        <a href="인사이트.html" class="px-4 py-2 rounded-full text-sm font-medium text-primary bg-primary/10 transition-colors">인사이트</a>
+        <a href="커뮤니티.html" class="px-4 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors">커뮤니티</a>
+      </nav>
+      <button class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+        <span class="material-symbols-outlined text-base">person</span>
+        로그인
+      </button>
+      <button class="md:hidden p-2 rounded-lg hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-on-surface">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="pb-28">
+
+    <!-- 히어로 섹션 -->
+    <section class="relative w-full h-[400px] md:h-[480px] overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuLvZc8Bq30AgfIQMVMCnVNkGUTqW3DFYUJpCmdd6Ym8uiGutlCmCPTvx9-NULJHqlCLAnCiEc0SgFRJ8pMbD9DYTBOIee0fh3B_r9WfDaAnOBW7euArKKJRxagF54kBvvaeyKxNm5nKbHEG-UnaDHP86jiiAn8vbTgtBFDBw_iJsxrKUxbSrxPlGjeh_voqRBtWXJoHd-mxF480s-voOT3C-pRZ_QeBrUNWS9cOx4w5I8-_ZHN3WlC2N8MxJYlGlaKOkV8GktRm8"
+        alt="결혼·출산 인식 전환 리포트 히어로 이미지"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="hero-gradient absolute inset-0"></div>
+      <div class="absolute inset-0 flex flex-col px-4 md:px-8 max-w-screen-xl mx-auto left-0 right-0">
+        <!-- 상단 뱃지 -->
+        <div class="pt-8 md:pt-10 flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-widest">
+            SELAB REPORT
+          </span>
+          <span class="inline-flex items-center bg-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+            Vol.10
+          </span>
+        </div>
+        <!-- 중앙 제목 -->
+        <div class="flex-1 flex flex-col justify-center mt-4">
+          <span class="inline-flex items-center gap-1.5 text-rose-300 text-xs font-semibold mb-3">
+            <span class="material-symbols-outlined text-sm">favorite</span>
+            사회·관계
+          </span>
+          <h1 class="text-white text-2xl md:text-4xl font-bold leading-tight max-w-3xl">
+            결혼·출산 인식 전환 심층 보고서:<br class="hidden md:block"/>
+            포기가 아닌 선택의 언어로
+          </h1>
+        </div>
+        <!-- 하단 메타 -->
+        <div class="pb-20 md:pb-24 flex flex-wrap items-center gap-4 text-white/80 text-sm">
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">group</span>
+            사회문화 연구팀
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">calendar_today</span>
+            2026년 2월 발행
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">menu_book</span>
+            52페이지
+          </span>
+          <span class="text-white/40">|</span>
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">download</span>
+            11,380 다운로드
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="max-w-4xl mx-auto px-4 md:px-8">
+
+      <!-- 리포트 메타 정보 바 -->
+      <div class="bg-white rounded-2xl shadow-lg border border-outline-variant/30 -mt-16 relative z-10 p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-5">
+          <a href="인사이트.html" class="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors font-medium">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            인사이트로 돌아가기
+          </a>
+          <span class="text-outline-variant">/</span>
+          <span class="text-rose-700 text-sm font-medium">사회·관계</span>
+          <span class="text-outline-variant">/</span>
+          <span class="text-on-surface text-sm truncate max-w-[160px] md:max-w-xs">결혼·출산 인식 전환</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">시리즈</span>
+            <span class="text-sm font-bold text-on-surface">SELAB Vol.10</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">발행일</span>
+            <span class="text-sm font-bold text-on-surface">2026년 2월</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">연구팀</span>
+            <span class="text-sm font-bold text-on-surface">사회문화 연구팀</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">분량 / 다운로드</span>
+            <span class="text-sm font-bold text-on-surface">52p · 11,380회</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-5 border-t border-outline-variant/40">
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            <strong class="text-rose-700">수석 연구원:</strong> 박지원 사회학 연구원 &nbsp;·&nbsp;
+            <strong class="text-rose-700">인구학 자문:</strong> 서연희 박사 &nbsp;·&nbsp; 외 4인 참여
+          </p>
+        </div>
+      </div>
+
+      <!-- Executive Summary -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-700">summarize</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">Executive Summary</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8">
+          <p class="text-on-surface leading-relaxed text-[15px] md:text-base">
+            "왜 결혼을 안 하느냐"는 질문 대신 "어떤 삶을 원하느냐"를 물었을 때 비로소 실상이 보였다. SELAB은 기존 정책 담론이 놓친 2030의 실제 욕구와 제약 조건을 파악하기 위해 이 연구를 설계했다. 숫자 뒤에 있는 사람들의 이야기를 담는 것이 목표다.
+          </p>
+          <p class="text-on-surface leading-relaxed text-[15px] md:text-base mt-4">
+            2025년 합계출산율 0.68이라는 OECD 최저 수치의 이면에는 '포기'가 아닌 구조적 불일치와 새로운 가족 형태에 대한 욕구가 자리하고 있다. 본 리포트는 1,800명 설문과 60명 심층 인터뷰를 통해 비혼·비출산의 실제 이유를 규명하고, 다양한 가족 형태를 수용하는 사회 인프라 구축 방향을 제안한다.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-rose-200">결혼·출산</span>
+            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-rose-200">인구위기</span>
+            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-rose-200">비혼</span>
+            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-rose-200">가족 다양성</span>
+            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-rose-200">파트너십</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 핵심 통계 4개 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-700">bar_chart</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">핵심 통계</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- 통계 1 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-rose-700">child_care</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-rose-700 leading-none">0.68</p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">2025 합계출산율</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">OECD 최저 수준 — 인구 유지 기준(2.1)의 1/3 미만</p>
+            </div>
+            <div class="bg-rose-50 rounded-lg p-2 text-center">
+              <p class="text-rose-600 text-xs font-semibold">OECD 평균 1.51 대비 <strong>1/2 수준</strong></p>
+            </div>
+          </div>
+          <!-- 통계 2 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-rose-700">people</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-rose-700 leading-none">1,800<span class="text-xl md:text-2xl font-bold">명</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">전국 2030 심층 설문</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">전국 20-39세 미혼 남녀 대상 온라인 설문 표본 규모</p>
+            </div>
+          </div>
+          <!-- 통계 3 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-rose-700">do_not_disturb_on</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-rose-700 leading-none">52<span class="text-2xl md:text-3xl">%</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">비출산 의향</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">출산 의향이 없다는 응답 비율 — 2023년 대비 +11%p 증가</p>
+            </div>
+            <div class="bg-rose-50 rounded-lg p-2 text-center">
+              <p class="text-rose-600 text-xs font-semibold">2년 새 +11%p 급증</p>
+            </div>
+          </div>
+          <!-- 통계 4 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-5 md:p-7 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-rose-700">favorite_border</span>
+            </div>
+            <div>
+              <p class="stat-number text-4xl md:text-5xl font-black text-rose-700 leading-none">38<span class="text-2xl md:text-3xl">%</span></p>
+              <p class="text-on-surface font-semibold text-sm md:text-base mt-2">결혼 의향 O, 조건 불충족</p>
+              <p class="text-on-surface-variant text-xs md:text-sm mt-1 leading-relaxed">"결혼 의향은 있으나 조건이 맞지 않아서 못 한다"는 응답</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 주요 발견사항 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-700">lightbulb</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">주요 발견사항</h2>
+        </div>
+        <div class="space-y-4">
+
+          <!-- 발견 1 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">01</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">'포기'가 아닌 '선택'의 재해석</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  응답자의 67%는 비혼을 "결혼하기 싫어서"가 아닌 "적합한 파트너나 환경을 찾지 못해서"라고 답변했다. 결혼 자체에 대한 부정이 아닌 '조건 불충족' 구조임이 확인됐다. 이는 기존 정책 담론의 "비혼 선택 = 반결혼" 프레임이 틀렸음을 시사한다.
+                </p>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-rose-50 rounded-xl p-4 text-center">
+                    <p class="text-rose-700 font-black text-2xl">67%</p>
+                    <p class="text-rose-600 text-xs mt-1">"맞는 파트너/환경이 없어서"</p>
+                  </div>
+                  <div class="bg-slate-50 rounded-xl p-4 text-center">
+                    <p class="text-slate-600 font-black text-2xl">33%</p>
+                    <p class="text-slate-500 text-xs mt-1">결혼 자체를 원하지 않음</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 2 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">02</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">경제 문제는 빙산의 일각</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  비혼 이유로 주거비·육아비를 꼽는 비율은 71%였다. 그러나 심층 인터뷰에서는 "파트너십의 질"과 "자기 삶의 자율성" 문제가 더 크게 작용함을 확인했다. 경제 요인은 가시적이지만, 관계의 질과 자율성에 대한 욕구가 더 근본적인 결정 요인이었다.
+                </p>
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                  <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-amber-600 mt-0.5">tips_and_updates</span>
+                    <div>
+                      <p class="text-amber-800 font-bold text-sm mb-1">심층 인터뷰에서 드러난 실제 이유</p>
+                      <ul class="text-amber-700 text-xs space-y-1">
+                        <li>• 파트너십의 질 — 동등한 관계, 상호 존중에 대한 높은 기준</li>
+                        <li>• 자기 삶의 자율성 — 결혼 후 잃게 될 개인 시간과 선택권에 대한 우려</li>
+                        <li>• 역할 분담의 불평등 — 가사·육아의 불균형 지속 우려</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 3 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">03</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">출산율 회복의 열쇠는 육아 분담</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  "파트너가 육아를 50% 분담한다면 출산 의향이 있다"는 응답이 62%에 달했다. 출산 지원금보다 돌봄 인프라와 부성 휴가 활성화가 더 효과적인 정책 도구임을 시사한다. 물질적 지원보다 구조적 평등이 핵심이다.
+                </p>
+                <div class="bg-rose-50 rounded-xl p-4 flex items-center gap-4">
+                  <div class="text-center flex-shrink-0">
+                    <p class="text-rose-700 font-black text-4xl stat-number">62<span class="text-2xl">%</span></p>
+                    <p class="text-rose-600 text-xs mt-0.5">육아 분담 시 출산 의향</p>
+                  </div>
+                  <div class="w-px h-14 bg-rose-200"></div>
+                  <div class="space-y-1.5 text-xs text-rose-700">
+                    <p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-xs">check_circle</span>부성 휴가 의무화 — 높은 선호도</p>
+                    <p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-xs">check_circle</span>직장 내 육아 인프라 확충</p>
+                    <p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-xs">check_circle</span>유연근무제 확대 적용</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 발견 4 -->
+          <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white font-black text-base">04</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base md:text-lg font-bold text-on-surface mb-2">새로운 가족 형태의 부상</h3>
+                <p class="text-on-surface-variant text-sm md:text-[15px] leading-relaxed mb-4">
+                  법적 결혼 외 '생활 동반자', '비혼 출산', '공동 주거' 등 다양한 가족 형태에 대한 수용도가 높아지고 있다. 2030의 44%가 "결혼 없이도 함께할 수 있다"에 동의했으며, 이는 2022년 대비 18%p 상승한 수치다.
+                </p>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="bg-rose-50 rounded-xl p-3 text-center border border-rose-100">
+                    <span class="material-symbols-outlined text-rose-600 text-xl mb-1 block">handshake</span>
+                    <p class="text-rose-700 font-bold text-xs">생활 동반자</p>
+                    <p class="text-rose-600 font-black text-lg mt-1">58%</p>
+                    <p class="text-rose-500 text-xs">긍정적 인식</p>
+                  </div>
+                  <div class="bg-rose-50 rounded-xl p-3 text-center border border-rose-100">
+                    <span class="material-symbols-outlined text-rose-600 text-xl mb-1 block">child_friendly</span>
+                    <p class="text-rose-700 font-bold text-xs">비혼 출산</p>
+                    <p class="text-rose-600 font-black text-lg mt-1">41%</p>
+                    <p class="text-rose-500 text-xs">수용 가능</p>
+                  </div>
+                  <div class="bg-rose-50 rounded-xl p-3 text-center border border-rose-100">
+                    <span class="material-symbols-outlined text-rose-600 text-xl mb-1 block">home</span>
+                    <p class="text-rose-700 font-bold text-xs">공동 주거</p>
+                    <p class="text-rose-600 font-black text-lg mt-1">53%</p>
+                    <p class="text-rose-500 text-xs">고려 의향</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 연구 방법론 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-700">science</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">연구 방법론</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-rose-700 text-base">assignment</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">전국 미혼 설문 조사</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">전국 20-39세 미혼 남녀 1,800명 온라인 설문</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-rose-700 text-base">record_voice_over</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">심층 인터뷰 60명</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">비혼 선택자 / 결혼 희망자 / 비출산 결정자 구분 심층 인터뷰</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-rose-700 text-base">database</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">행정데이터 연계 분석</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">통계청 인구동향조사 원자료 연계 분석</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-rose-700 text-base">public</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm mb-1">국제 비교 연구</p>
+                <p class="text-on-surface-variant text-xs leading-relaxed">한국·일본·프랑스·스웨덴 혼인율 변화 추이 비교</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 챕터 목차 -->
+      <section class="mt-10 md:mt-12">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-rose-700">format_list_numbered</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">챕터 목차</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant/40 overflow-hidden">
+          <div class="divide-y divide-outline-variant/30">
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-rose-700 font-black text-sm">01</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">인구학적 현황과 연구 설계</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">출생·혼인 통계와 연구 방법</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-rose-700 font-black text-sm">02</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">비혼·비출산의 실제 이유</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">양적 데이터와 심층 인터뷰의 교차 분석</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-rose-700 font-black text-sm">03</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">파트너십의 변화</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">결혼 제도 안팎의 새로운 관계 실험들</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-rose-700 font-black text-sm">04</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">해외 사례 비교</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">프랑스 PACS, 스웨덴 삼보, 일본 사실혼 제도</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+            <div class="chapter-hover flex items-center gap-4 p-5 md:p-6 cursor-default">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-rose-700 font-black text-sm">05</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-on-surface text-sm md:text-base">정책 제언</p>
+                <p class="text-on-surface-variant text-xs md:text-sm mt-0.5">다양한 가족 형태를 수용하는 사회 인프라 구축 방향</p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl flex-shrink-0">chevron_right</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 해외 사례 비교 미리보기 -->
+      <section class="mt-6">
+        <div class="bg-white rounded-2xl border border-outline-variant/40 p-6 md:p-8">
+          <p class="font-bold text-on-surface text-sm mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-rose-600 text-base">public</span>
+            해외 대안적 파트너십 제도 비교
+          </p>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-blue-50 rounded-xl p-4 text-center">
+              <p class="text-lg mb-1">🇫🇷</p>
+              <p class="font-bold text-blue-800 text-xs">프랑스 PACS</p>
+              <p class="text-blue-600 text-xs mt-1">시민연대협약 — 출산율 1.68 유지</p>
+            </div>
+            <div class="bg-yellow-50 rounded-xl p-4 text-center">
+              <p class="text-lg mb-1">🇸🇪</p>
+              <p class="font-bold text-yellow-800 text-xs">스웨덴 삼보</p>
+              <p class="text-yellow-600 text-xs mt-1">동거 파트너 법적 보호 — 출산율 1.67</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-4 text-center">
+              <p class="text-lg mb-1">🇯🇵</p>
+              <p class="font-bold text-red-800 text-xs">일본 사실혼</p>
+              <p class="text-red-600 text-xs mt-1">제도 미비로 출산율 1.20 하락세</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 다운로드 CTA -->
+      <section class="mt-10 md:mt-12">
+        <div class="bg-slate-900 rounded-2xl p-8 md:p-12 text-white text-center">
+          <div class="w-14 h-14 bg-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <span class="material-symbols-outlined text-white text-2xl">description</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold mb-2">리포트 전문 다운로드</h2>
+          <p class="text-slate-300 text-sm md:text-base mb-2">52페이지 완전판 · 해외 제도 비교표 부록 포함</p>
+          <p class="text-slate-400 text-xs mb-8">SELAB Vol.10 | 2026년 2월 발행 | 무료 제공</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button class="flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-7 py-3.5 rounded-xl font-semibold transition-colors text-sm md:text-base">
+              <span class="material-symbols-outlined text-xl">download</span>
+              PDF 다운로드
+            </button>
+            <button class="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-3.5 rounded-xl font-semibold transition-colors text-sm md:text-base">
+              <span class="material-symbols-outlined text-xl">open_in_new</span>
+              온라인으로 읽기
+            </button>
+          </div>
+          <p class="text-slate-500 text-xs mt-6">현재까지 11,380명이 다운로드했습니다</p>
+        </div>
+      </section>
+
+      <!-- 관련 리포트 -->
+      <section class="mt-10 md:mt-12 mb-4">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant">library_books</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-on-surface">관련 리포트</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-blue-600 text-base">wifi_off</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-blue-600 mb-1 block">사회·관계</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-blue-700 transition-colors">디지털 과연결 시대의 역설적 고독</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-violet-600 text-base">psychology</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-violet-600 mb-1 block">멘탈케어 · Vol.12</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-violet-700 transition-colors">2026 대한민국 청년 정신건강 실태 리포트</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+          <a href="인사이트.html" class="bg-white rounded-2xl border border-outline-variant/40 p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-blue-600 text-base">work_history</span>
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-blue-600 mb-1 block">커리어</span>
+              <p class="font-bold text-on-surface text-sm leading-snug group-hover:text-blue-700 transition-colors">평균 18개월의 비밀: MZ 세대 이직 패턴 분석</p>
+            </div>
+            <span class="text-xs text-on-surface-variant flex items-center gap-1 mt-auto">
+              읽어보기 <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 하단 모바일 nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-outline-variant md:hidden">
+    <div class="flex items-stretch justify-around h-16">
+      <a href="index.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">home</span>
+        <span class="text-[10px] font-medium">홈</span>
+      </a>
+      <a href="프로그램.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">menu_book</span>
+        <span class="text-[10px] font-medium">프로그램</span>
+      </a>
+      <a href="인사이트.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-primary px-2">
+        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">lightbulb</span>
+        <span class="text-[10px] font-semibold">인사이트</span>
+      </a>
+      <a href="커뮤니티.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 text-on-surface-variant hover:text-on-surface transition-colors px-2">
+        <span class="material-symbols-outlined text-[22px]">forum</span>
+        <span class="text-[10px] font-medium">커뮤니티</span>
+      </a>
+    </div>
+  </nav>
+
+</body>
+</html>
