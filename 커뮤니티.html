@@ -4,30 +4,24 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SELAB - 커뮤니티</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script>
   tailwind.config = {
-    darkMode: "class",
     theme: {
       extend: {
         colors: {
           "surface-container-lowest": "#ffffff",
-          "surface-container-high": "#e6e8ea",
           "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
           "on-surface": "#191c1e",
           "on-surface-variant": "#434655",
           "outline-variant": "#c3c6d7",
           "primary": "#004ac6",
           "on-primary": "#ffffff",
           "background": "#f7f9fb",
-          "primary-container": "#2563eb",
-          "primary-fixed": "#dbe1ff",
-          "secondary-fixed": "#6ffbbe",
-          "on-secondary-fixed-variant": "#005236",
-          "tertiary-fixed": "#ffdadb",
-          "on-tertiary-fixed-variant": "#92002a",
         }
       }
     }
@@ -35,27 +29,57 @@
 </script>
 <style>
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; background: #f7f9fb; }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  textarea:focus { outline: none; }
+  textarea:focus { outline: none; box-shadow: none; border-color: transparent; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
   .post-card { animation: fadeIn 0.3s ease forwards; }
-  #write-overlay { backdrop-filter: blur(4px); }
+  @keyframes toastIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes toastOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(20px)} }
+  #toast { animation: toastIn 0.25s ease forwards; }
+  #toast.hiding { animation: toastOut 0.25s ease forwards; }
+  .channel-btn.active {
+    background-color: #004ac6;
+    color: #ffffff;
+    font-weight: 700;
+  }
+  .channel-btn {
+    transition: all 0.15s ease;
+  }
+  .like-btn-active .like-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #f43f5e;
+  }
+  .modal-enter { animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  @keyframes modalSlideUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+  #write-overlay { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .tag-btn.selected {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    border-color: #93c5fd;
+  }
+  .skeleton { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 </style>
 </head>
-<body class="bg-background text-on-background pb-24">
+<body class="bg-background text-on-surface pb-24">
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] hidden">
+  <div id="toast-inner" class="px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold text-white max-w-[320px] text-center"></div>
+</div>
 
 <!-- Header -->
 <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
   <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
     <a href="index.html"><img src="logo.jpg" alt="SELAB" class="h-11 w-auto rounded-lg"/></a>
     <div class="hidden md:flex gap-8 items-center">
-      <a class="text-slate-600 font-medium hover:opacity-80" href="index.html">홈</a>
-      <a class="text-slate-600 font-medium hover:opacity-80" href="프로그램.html">프로그램</a>
-      <a class="text-slate-600 font-medium hover:opacity-80" href="인사이트.html">인사이트</a>
-      <a class="text-blue-600 font-semibold hover:opacity-80" href="커뮤니티.html">커뮤니티</a>
-      <a class="text-slate-600 font-medium hover:opacity-80" href="마이페이지.html">마이페이지</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
+      <a class="text-blue-600 font-semibold" href="커뮤니티.html">커뮤니티</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="마이페이지.html">마이페이지</a>
     </div>
     <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-sm cursor-pointer hover:opacity-80 transition-opacity border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'">
       <span class="material-symbols-outlined text-[18px]">person</span>
@@ -65,160 +89,136 @@
 
 <!-- Write Modal Overlay -->
 <div id="write-overlay" class="fixed inset-0 z-50 bg-black/40 hidden" onclick="closeWriteModal()">
-  <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 max-w-2xl mx-auto" onclick="event.stopPropagation()">
+  <div id="write-modal" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 max-w-2xl mx-auto modal-enter" onclick="event.stopPropagation()">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-5"></div>
     <div class="flex items-center justify-between mb-5">
       <div class="flex items-center gap-3">
-        <div id="modal-avatar" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm"></div>
-        <div id="modal-username" class="font-semibold text-on-surface"></div>
+        <div id="modal-avatar" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0"></div>
+        <div>
+          <div id="modal-username" class="font-semibold text-on-surface text-sm"></div>
+          <div id="modal-channel-label" class="text-xs text-slate-500 mt-0.5"></div>
+        </div>
       </div>
-      <button onclick="closeWriteModal()" class="text-slate-400 hover:text-slate-700 transition-colors">
+      <button onclick="closeWriteModal()" class="text-slate-400 hover:text-slate-700 transition-colors p-1">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
+
     <!-- Tag selector -->
     <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar pb-1">
-      <button onclick="selectTag(this, '#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold whitespace-nowrap border-2 border-blue-200">#마음성장</button>
-      <button onclick="selectTag(this, '#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#커리어</button>
-      <button onclick="selectTag(this, '#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#독서기록</button>
-      <button onclick="selectTag(this, '#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#인간관계</button>
-      <button onclick="selectTag(this, '#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#일상</button>
+      <button onclick="selectTag(this, '#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200 transition-colors">#마음성장</button>
+      <button onclick="selectTag(this, '#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200 transition-colors">#커리어</button>
+      <button onclick="selectTag(this, '#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200 transition-colors">#독서기록</button>
+      <button onclick="selectTag(this, '#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200 transition-colors">#인간관계</button>
+      <button onclick="selectTag(this, '#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200 transition-colors">#일상</button>
     </div>
-    <textarea id="write-content" class="w-full min-h-[140px] resize-none text-base leading-relaxed text-on-surface placeholder:text-slate-300 border-none p-0 font-['Plus_Jakarta_Sans',sans-serif]"
-      placeholder="나의 성장을 공유해보세요..."></textarea>
+
+    <textarea id="write-content"
+      class="w-full min-h-[140px] resize-none text-base leading-relaxed text-on-surface placeholder:text-slate-300 p-0 bg-transparent border-0 font-['Plus_Jakarta_Sans',sans-serif]"
+      placeholder="나의 성장을 공유해보세요... (500자 이내)"
+      maxlength="500"
+      oninput="updateCharCount()"></textarea>
+
     <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
-      <span id="char-count" class="text-[12px] text-slate-400">0 / 500</span>
-      <button onclick="submitPost()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors active:scale-95">
+      <span id="char-count" class="text-[12px] text-slate-400 font-medium">0 / 500</span>
+      <button id="submit-btn" onclick="submitPost()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
         게시하기
       </button>
     </div>
   </div>
 </div>
 
-<main class="pt-24 px-4 md:px-8 max-w-2xl mx-auto">
+<main class="pt-20 px-4 max-w-2xl mx-auto">
+
+  <!-- Page Title -->
+  <div class="py-5">
+    <h1 class="text-2xl font-extrabold text-on-surface">커뮤니티</h1>
+    <p class="text-on-surface-variant text-sm mt-1">SELAB 멤버들과 성장을 함께 나눠요</p>
+  </div>
+
+  <!-- Channel Tabs -->
+  <section class="flex gap-2 mb-5 overflow-x-auto hide-scrollbar pb-1">
+    <button data-channel="public" onclick="switchChannel('public')"
+      class="channel-btn active flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-[13px] font-medium whitespace-nowrap border border-transparent">
+      💬 전체 피드
+    </button>
+    <button data-channel="manager" onclick="switchChannel('manager')"
+      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-[13px] font-medium whitespace-nowrap border border-transparent hover:bg-slate-200">
+      🔒 매니저 라운지
+    </button>
+    <button data-channel="admin" onclick="switchChannel('admin')"
+      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-[13px] font-medium whitespace-nowrap border border-transparent hover:bg-slate-200">
+      🔒 관리자 채널
+    </button>
+  </section>
 
   <!-- Write Bar -->
-  <section class="mb-6">
-    <div id="write-bar" onclick="openWriteModal()" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+  <section class="mb-5">
+    <div id="write-bar" onclick="openWriteModal()" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
       <div id="write-bar-avatar" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
-        <span class="material-symbols-outlined text-slate-400">person</span>
+        <span class="material-symbols-outlined text-slate-400 text-xl">person</span>
       </div>
-      <p id="write-bar-placeholder" class="text-on-surface-variant text-[15px]">나의 성장을 공유해보세요</p>
+      <p class="text-on-surface-variant text-[15px]">나의 성장을 공유해보세요</p>
     </div>
     <!-- Not logged in banner -->
-    <div id="login-banner" class="hidden mt-3 p-3 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
-      <span class="material-symbols-outlined text-blue-500 text-lg" style="font-variation-settings:'FILL' 1">info</span>
+    <div id="login-banner" class="hidden mt-3 p-3.5 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
+      <span class="material-symbols-outlined text-blue-500 text-lg flex-shrink-0" style="font-variation-settings:'FILL' 1">info</span>
       <p class="text-blue-700 text-sm flex-1">로그인하면 커뮤니티에 글을 올릴 수 있어요.</p>
       <a href="마이페이지.html" class="text-blue-700 font-bold text-sm whitespace-nowrap hover:underline">로그인 →</a>
     </div>
   </section>
 
-  <!-- Topic Chips -->
-  <section class="flex gap-2 mb-6 overflow-x-auto hide-scrollbar pb-2">
-    <button onclick="filterFeed('전체')" class="feed-filter px-4 py-2 bg-primary-container text-white rounded-full text-[13px] font-bold whitespace-nowrap" data-filter="전체">전체 피드</button>
-    <button onclick="filterFeed('#마음성장')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#마음성장">#마음성장</button>
-    <button onclick="filterFeed('#커리어')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#커리어">#커리어</button>
-    <button onclick="filterFeed('#독서기록')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#독서기록">#독서기록</button>
-    <button onclick="filterFeed('#인간관계')" class="feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-filter="#인간관계">#인간관계</button>
-  </section>
+  <!-- Feed Loading Skeleton -->
+  <div id="feed-loading" class="flex flex-col gap-4">
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full skeleton"></div>
+        <div class="flex-1">
+          <div class="h-4 w-24 rounded skeleton mb-2"></div>
+          <div class="h-3 w-16 rounded skeleton"></div>
+        </div>
+      </div>
+      <div class="h-4 w-full rounded skeleton mb-2"></div>
+      <div class="h-4 w-3/4 rounded skeleton"></div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full skeleton"></div>
+        <div class="flex-1">
+          <div class="h-4 w-20 rounded skeleton mb-2"></div>
+          <div class="h-3 w-14 rounded skeleton"></div>
+        </div>
+      </div>
+      <div class="h-4 w-full rounded skeleton mb-2"></div>
+      <div class="h-4 w-2/3 rounded skeleton mb-2"></div>
+      <div class="h-4 w-1/2 rounded skeleton"></div>
+    </div>
+  </div>
+
+  <!-- Feed Empty State -->
+  <div id="feed-empty" class="hidden text-center py-16">
+    <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+      <span class="material-symbols-outlined text-slate-400 text-3xl">forum</span>
+    </div>
+    <p class="text-on-surface-variant font-medium mb-1">아직 글이 없어요</p>
+    <p class="text-slate-400 text-sm">첫 번째 글을 작성해보세요!</p>
+  </div>
+
+  <!-- Feed Error State -->
+  <div id="feed-error" class="hidden text-center py-16">
+    <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
+      <span class="material-symbols-outlined text-red-400 text-3xl">error</span>
+    </div>
+    <p class="text-on-surface-variant font-medium mb-1">피드를 불러올 수 없어요</p>
+    <p class="text-slate-400 text-sm mb-4">네트워크를 확인한 후 다시 시도해주세요</p>
+    <button onclick="loadFeed()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors">
+      다시 시도
+    </button>
+  </div>
 
   <!-- Dynamic Feed -->
-  <div id="dynamic-feed" class="flex flex-col gap-5 mb-5"></div>
+  <div id="feed" class="flex flex-col gap-4 mb-8"></div>
 
-  <!-- Static Feed (sample posts) -->
-  <div id="static-feed" class="flex flex-col gap-5">
-
-    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#마음성장">
-      <div class="p-5 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-          <span class="material-symbols-outlined text-slate-400">person</span>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-semibold text-[15px] text-on-surface">익명의 성장자</span>
-            <span class="text-[12px] text-on-surface-variant">· 2시간 전</span>
-          </div>
-          <span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#마음성장</span>
-        </div>
-      </div>
-      <div class="px-5 pb-4">
-        <p class="text-on-surface-variant text-[15px] leading-relaxed">오늘 하루를 돌아보며 문득 깨달은 점이 있어요. 완벽하지 않아도 꾸준히 하는 것 자체가 성장이라는 것을요. 예전에는 결과에만 집착했는데, 이제는 과정의 아름다움을 조금씩 알아가고 있습니다. 함께 나아가는 여러분들 모두 응원합니다.</p>
-      </div>
-      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
-        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="24">
-          <span class="material-symbols-outlined text-[20px]">favorite</span>
-          <span class="text-[13px] font-medium">24</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
-          <span class="text-[13px] font-medium">8</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">share</span>
-        </button>
-      </div>
-    </article>
-
-    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#커리어">
-      <div class="p-5 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">김</div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-semibold text-[15px] text-on-surface">김서현 리서처</span>
-            <span class="text-[12px] text-on-surface-variant">· 5시간 전</span>
-          </div>
-          <span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold">#커리어</span>
-        </div>
-      </div>
-      <div class="px-5 pb-4">
-        <p class="text-on-surface-variant text-[15px] leading-relaxed">새로운 프로젝트를 시작하며 두려움이 앞섰지만, 작은 걸음부터 떼어보기로 했습니다. 실패는 성장의 밑거름이라는 말을 다시금 되새기는 하루네요. 여러분의 오늘은 어떤가요?</p>
-      </div>
-      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
-        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="42">
-          <span class="material-symbols-outlined text-[20px]">favorite</span>
-          <span class="text-[13px] font-medium">42</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
-          <span class="text-[13px] font-medium">15</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">share</span>
-        </button>
-      </div>
-    </article>
-
-    <article class="post-card bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden" data-tag="#인간관계">
-      <div class="p-5 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
-          <span class="material-symbols-outlined text-emerald-400">eco</span>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-semibold text-[15px] text-on-surface">도전하는 성장인</span>
-            <span class="text-[12px] text-on-surface-variant">· 어제</span>
-          </div>
-          <span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold">#인간관계</span>
-        </div>
-      </div>
-      <div class="px-5 pb-6">
-        <p class="text-on-surface-variant text-[15px] leading-relaxed italic border-l-4 border-blue-200 pl-4">"진정한 관계는 서로의 성장을 기뻐해줄 때 깊어진다." 오늘 책에서 읽은 문장인데 참 와닿네요. 관계 속에서 나를 잃지 않고 함께 성장하는 방법을 고민 중입니다.</p>
-      </div>
-      <div class="p-3 flex items-center gap-6 border-t border-slate-50">
-        <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="118">
-          <span class="material-symbols-outlined text-[20px]">favorite</span>
-          <span class="text-[13px] font-medium">118</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
-          <span class="text-[13px] font-medium">23</span>
-        </button>
-        <button class="flex items-center gap-1.5 text-on-surface-variant ml-auto hover:text-primary transition-colors">
-          <span class="material-symbols-outlined text-[20px]">share</span>
-        </button>
-      </div>
-    </article>
-
-  </div>
 </main>
 
 <!-- Bottom Nav -->
@@ -237,7 +237,7 @@
   </a>
   <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform" href="커뮤니티.html">
     <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">forum</span>
-    <span class="text-[10px] font-medium mt-0.5">커뮤니티</span>
+    <span class="text-[10px] font-bold mt-0.5">커뮤니티</span>
   </a>
   <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="마이페이지.html">
     <span class="material-symbols-outlined text-[22px]">person</span>
@@ -246,209 +246,604 @@
 </nav>
 
 <script>
-  const getCurrentUser = () => JSON.parse(localStorage.getItem('selab_current_user') || 'null');
-  const getPosts = () => JSON.parse(localStorage.getItem('selab_posts') || '[]');
-  const savePosts = (p) => localStorage.setItem('selab_posts', JSON.stringify(p));
+// ============================================================
+//  Supabase 초기화
+// ============================================================
+const { createClient } = supabase;
+const db = createClient(
+  'https://hroyuxjqqlimwrrhdwnd.supabase.co',
+  'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4'
+);
 
-  let selectedTag = '#마음성장';
-  let currentFilter = '전체';
+// ============================================================
+//  전역 상태
+// ============================================================
+let currentUser = null;
+let currentProfile = null;
+let currentChannel = 'public';
+let selectedTag = null;
+let myLikedPostIds = new Set();
+let isSubmitting = false;
+let realtimeChannel = null;
 
-  // ===== INIT =====
-  (function init() {
-    const user = getCurrentUser();
-    updateHeaderAvatar(user);
-    updateWriteBar(user);
-    renderDynamicPosts();
-  })();
+// ============================================================
+//  초기화
+// ============================================================
+async function init() {
+  try {
+    const { data: { session }, error } = await db.auth.getSession();
+    if (error) throw error;
 
-  function updateHeaderAvatar(user) {
-    const el = document.getElementById('header-avatar');
-    if (user) {
-      el.innerHTML = `<span class="font-bold text-white text-sm">${user.name[0].toUpperCase()}</span>`;
-      el.style.background = 'linear-gradient(135deg,#004ac6,#2563eb)';
-    }
-  }
-
-  function updateWriteBar(user) {
-    const barAvatar = document.getElementById('write-bar-avatar');
-    const placeholder = document.getElementById('write-bar-placeholder');
-    const loginBanner = document.getElementById('login-banner');
-    if (user) {
-      barAvatar.innerHTML = `<span class="font-bold text-white text-sm">${user.name[0].toUpperCase()}</span>`;
-      barAvatar.style.background = 'linear-gradient(135deg,#004ac6,#2563eb)';
-      placeholder.textContent = `${user.name}님의 성장을 공유해보세요`;
-      loginBanner.classList.add('hidden');
+    if (session) {
+      currentUser = session.user;
+      await loadProfile();
+      updateHeaderAvatar();
+      updateWriteBar();
     } else {
-      loginBanner.classList.remove('hidden');
+      updateWriteBar();
     }
-  }
 
-  // ===== WRITE MODAL =====
-  function openWriteModal() {
-    const user = getCurrentUser();
-    if (!user) {
-      document.getElementById('login-banner').classList.remove('hidden');
-      document.getElementById('login-banner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    await loadFeed();
+    setupRealtime();
+
+  } catch (err) {
+    console.error('초기화 오류:', err);
+    showToast('페이지를 불러오는 중 오류가 발생했습니다', 'error');
+    updateWriteBar();
+    await loadFeed();
+  }
+}
+
+// ============================================================
+//  프로필 로드
+// ============================================================
+async function loadProfile() {
+  if (!currentUser) return;
+  try {
+    const { data, error } = await db
+      .from('profiles')
+      .select('*')
+      .eq('id', currentUser.id)
+      .single();
+    if (error && error.code !== 'PGRST116') throw error;
+    currentProfile = data;
+  } catch (err) {
+    console.error('프로필 로드 오류:', err);
+  }
+}
+
+// ============================================================
+//  헤더 아바타 업데이트
+// ============================================================
+function updateHeaderAvatar() {
+  const el = document.getElementById('header-avatar');
+  if (!el) return;
+  if (currentProfile && currentProfile.name) {
+    const initial = currentProfile.name.charAt(0).toUpperCase();
+    el.innerHTML = `<span class="text-sm font-bold text-blue-700">${initial}</span>`;
+    el.classList.remove('bg-slate-200');
+    el.classList.add('bg-blue-100');
+  }
+}
+
+// ============================================================
+//  글쓰기 바 업데이트
+// ============================================================
+function updateWriteBar() {
+  const loginBanner = document.getElementById('login-banner');
+  const writeBarAvatar = document.getElementById('write-bar-avatar');
+
+  if (currentUser && currentProfile) {
+    loginBanner.classList.add('hidden');
+    const initial = currentProfile.name ? currentProfile.name.charAt(0).toUpperCase() : '?';
+    writeBarAvatar.innerHTML = `<span class="text-white font-bold text-sm">${initial}</span>`;
+    writeBarAvatar.className = 'w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0';
+  } else if (currentUser) {
+    loginBanner.classList.add('hidden');
+  } else {
+    loginBanner.classList.remove('hidden');
+  }
+}
+
+// ============================================================
+//  채널 전환
+// ============================================================
+function switchChannel(channel) {
+  // 권한 확인
+  if (channel === 'manager') {
+    if (!currentUser) {
+      showToast('로그인이 필요합니다', 'warning');
       return;
     }
-    document.getElementById('modal-avatar').textContent = user.name[0].toUpperCase();
-    document.getElementById('modal-username').textContent = user.name;
-    document.getElementById('write-content').value = '';
-    document.getElementById('char-count').textContent = '0 / 500';
-    document.getElementById('write-overlay').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => document.getElementById('write-content').focus(), 100);
+    const role = currentProfile?.role;
+    if (role !== 'manager' && role !== 'admin') {
+      showToast('매니저 이상 권한이 필요합니다', 'warning');
+      return;
+    }
+  }
+  if (channel === 'admin') {
+    if (!currentUser) {
+      showToast('로그인이 필요합니다', 'warning');
+      return;
+    }
+    if (currentProfile?.role !== 'admin') {
+      showToast('매니저 이상 권한이 필요합니다', 'warning');
+      return;
+    }
   }
 
-  function closeWriteModal() {
-    document.getElementById('write-overlay').classList.add('hidden');
-    document.body.style.overflow = '';
-  }
+  currentChannel = channel;
 
-  function selectTag(btn, tag) {
-    selectedTag = tag;
-    document.querySelectorAll('.tag-btn').forEach(b => {
-      b.className = 'tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent';
-    });
-    btn.className = 'tag-btn px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold whitespace-nowrap border-2 border-blue-200';
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const ta = document.getElementById('write-content');
-    if (ta) {
-      ta.addEventListener('input', () => {
-        const len = ta.value.length;
-        document.getElementById('char-count').textContent = `${len} / 500`;
-        if (len > 500) ta.value = ta.value.slice(0, 500);
-      });
+  // 탭 UI 업데이트
+  document.querySelectorAll('.channel-btn').forEach(btn => {
+    if (btn.dataset.channel === channel) {
+      btn.classList.add('active');
+      btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+    } else {
+      btn.classList.remove('active');
+      btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
     }
   });
 
-  function submitPost() {
-    const user = getCurrentUser();
-    if (!user) return;
-    const content = document.getElementById('write-content').value.trim();
-    if (!content) { alert('내용을 입력해주세요.'); return; }
+  loadFeed();
+}
 
-    const post = {
-      id: Date.now(),
-      userId: user.id,
-      userName: user.name,
-      content,
+// ============================================================
+//  피드 로드
+// ============================================================
+async function loadFeed() {
+  const feedEl = document.getElementById('feed');
+  const loadingEl = document.getElementById('feed-loading');
+  const emptyEl = document.getElementById('feed-empty');
+  const errorEl = document.getElementById('feed-error');
+
+  // 상태 초기화
+  feedEl.innerHTML = '';
+  feedEl.classList.add('hidden');
+  loadingEl.classList.remove('hidden');
+  emptyEl.classList.add('hidden');
+  errorEl.classList.add('hidden');
+
+  try {
+    // 포스트 조회 (프로필 join)
+    const { data: posts, error: postsError } = await db
+      .from('posts')
+      .select('*, profiles(name, role)')
+      .eq('channel', currentChannel)
+      .order('created_at', { ascending: false });
+
+    if (postsError) throw postsError;
+
+    // 내가 좋아요한 포스트 확인
+    myLikedPostIds = new Set();
+    if (currentUser) {
+      const { data: myLikes, error: likesError } = await db
+        .from('likes')
+        .select('post_id')
+        .eq('user_id', currentUser.id);
+
+      if (!likesError && myLikes) {
+        myLikes.forEach(l => myLikedPostIds.add(l.post_id));
+      }
+    }
+
+    loadingEl.classList.add('hidden');
+    feedEl.classList.remove('hidden');
+
+    if (!posts || posts.length === 0) {
+      emptyEl.classList.remove('hidden');
+      return;
+    }
+
+    posts.forEach(post => {
+      feedEl.appendChild(renderPostCard(post));
+    });
+
+  } catch (err) {
+    console.error('피드 로드 오류:', err);
+    loadingEl.classList.add('hidden');
+    errorEl.classList.remove('hidden');
+    showToast('피드를 불러오지 못했습니다', 'error');
+  }
+}
+
+// ============================================================
+//  포스트 카드 렌더링
+// ============================================================
+function renderPostCard(post) {
+  const profile = post.profiles || {};
+  const name = profile.name || '알 수 없는 사용자';
+  const role = profile.role || 'member';
+  const initial = name.charAt(0).toUpperCase();
+  const isLiked = myLikedPostIds.has(post.id);
+  const timeAgo = formatTimeAgo(post.created_at);
+  const contentHtml = escapeHtml(post.content).replace(/\n/g, '<br>');
+
+  // 역할 뱃지
+  let badgeHtml = '';
+  if (role === 'manager') {
+    badgeHtml = `<span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold">[매니저]</span>`;
+  } else if (role === 'admin') {
+    badgeHtml = `<span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px] font-bold">[관리자]</span>`;
+  }
+
+  // 태그 색상
+  const tagColors = {
+    '#마음성장': 'bg-emerald-100 text-emerald-700',
+    '#커리어': 'bg-blue-100 text-blue-700',
+    '#독서기록': 'bg-violet-100 text-violet-700',
+    '#인간관계': 'bg-rose-100 text-rose-700',
+    '#일상': 'bg-amber-100 text-amber-700',
+  };
+  const tagColor = tagColors[post.tag] || 'bg-slate-100 text-slate-600';
+  const tagHtml = post.tag ? `<span class="px-2 py-0.5 ${tagColor} rounded-full text-[10px] font-bold">${escapeHtml(post.tag)}</span>` : '';
+
+  // 아바타 배경색 (이름 기반)
+  const avatarColors = ['bg-blue-500', 'bg-violet-500', 'bg-emerald-500', 'bg-rose-500', 'bg-amber-500', 'bg-indigo-500', 'bg-teal-500'];
+  const colorIdx = name.charCodeAt(0) % avatarColors.length;
+  const avatarBg = avatarColors[colorIdx];
+
+  const card = document.createElement('article');
+  card.className = 'post-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden';
+  card.dataset.postId = post.id;
+
+  card.innerHTML = `
+    <div class="p-5">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-full ${avatarBg} flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+          ${initial}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-semibold text-[15px] text-on-surface">${escapeHtml(name)}</span>
+            ${badgeHtml}
+            <span class="text-[12px] text-slate-400">· ${timeAgo}</span>
+          </div>
+          ${tagHtml ? `<div class="mt-1">${tagHtml}</div>` : ''}
+        </div>
+      </div>
+      <div class="mt-3 text-on-surface-variant text-[15px] leading-relaxed">
+        ${contentHtml}
+      </div>
+    </div>
+    <div class="px-4 py-3 flex items-center gap-5 border-t border-slate-50">
+      <button
+        onclick="toggleLike('${post.id}', this)"
+        class="like-btn flex items-center gap-1.5 transition-colors ${isLiked ? 'like-btn-active text-rose-500' : 'text-slate-400 hover:text-rose-400'}"
+        data-liked="${isLiked ? 'true' : 'false'}"
+        data-count="${post.likes_count || 0}"
+      >
+        <span class="material-symbols-outlined like-icon text-[20px]" style="font-variation-settings:'FILL' ${isLiked ? '1' : '0'}, 'wght' 400, 'GRAD' 0, 'opsz' 24">favorite</span>
+        <span class="like-count text-[13px] font-medium">${post.likes_count || 0}</span>
+      </button>
+      <div class="flex items-center gap-1.5 text-slate-300">
+        <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+        <span class="text-[13px] font-medium">0</span>
+      </div>
+    </div>
+  `;
+
+  return card;
+}
+
+// ============================================================
+//  좋아요 토글
+// ============================================================
+async function toggleLike(postId, btnEl) {
+  if (!currentUser) {
+    showToast('로그인이 필요합니다', 'warning');
+    return;
+  }
+
+  const isLiked = btnEl.dataset.liked === 'true';
+  const countEl = btnEl.querySelector('.like-count');
+  const iconEl = btnEl.querySelector('.like-icon');
+  let count = parseInt(btnEl.dataset.count) || 0;
+
+  // 낙관적 UI 업데이트
+  if (isLiked) {
+    count = Math.max(0, count - 1);
+    btnEl.dataset.liked = 'false';
+    btnEl.dataset.count = count;
+    btnEl.classList.remove('like-btn-active', 'text-rose-500');
+    btnEl.classList.add('text-slate-400', 'hover:text-rose-400');
+    iconEl.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+    countEl.textContent = count;
+    myLikedPostIds.delete(postId);
+  } else {
+    count = count + 1;
+    btnEl.dataset.liked = 'true';
+    btnEl.dataset.count = count;
+    btnEl.classList.add('like-btn-active', 'text-rose-500');
+    btnEl.classList.remove('text-slate-400', 'hover:text-rose-400');
+    iconEl.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+    countEl.textContent = count;
+    myLikedPostIds.add(postId);
+  }
+
+  try {
+    if (isLiked) {
+      const { error } = await db.from('likes').delete().match({ post_id: postId, user_id: currentUser.id });
+      if (error) throw error;
+    } else {
+      const { error } = await db.from('likes').insert({ post_id: postId, user_id: currentUser.id });
+      if (error) throw error;
+    }
+  } catch (err) {
+    console.error('좋아요 오류:', err);
+    // 롤백
+    if (isLiked) {
+      count = count + 1;
+      btnEl.dataset.liked = 'true';
+      btnEl.dataset.count = count;
+      btnEl.classList.add('like-btn-active', 'text-rose-500');
+      btnEl.classList.remove('text-slate-400', 'hover:text-rose-400');
+      iconEl.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+      countEl.textContent = count;
+      myLikedPostIds.add(postId);
+    } else {
+      count = Math.max(0, count - 1);
+      btnEl.dataset.liked = 'false';
+      btnEl.dataset.count = count;
+      btnEl.classList.remove('like-btn-active', 'text-rose-500');
+      btnEl.classList.add('text-slate-400', 'hover:text-rose-400');
+      iconEl.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+      countEl.textContent = count;
+      myLikedPostIds.delete(postId);
+    }
+    showToast('좋아요 처리 중 오류가 발생했습니다', 'error');
+  }
+}
+
+// ============================================================
+//  글쓰기 모달
+// ============================================================
+function openWriteModal() {
+  if (!currentUser) {
+    showToast('로그인이 필요합니다. 마이페이지에서 로그인해주세요.', 'warning');
+    setTimeout(() => { location.href = '마이페이지.html'; }, 1500);
+    return;
+  }
+
+  // 모달 설정
+  const name = currentProfile?.name || '사용자';
+  const initial = name.charAt(0).toUpperCase();
+  document.getElementById('modal-avatar').textContent = initial;
+  document.getElementById('modal-username').textContent = name;
+
+  const channelLabels = { public: '전체 피드', manager: '매니저 라운지', admin: '관리자 채널' };
+  document.getElementById('modal-channel-label').textContent = channelLabels[currentChannel] || '전체 피드';
+
+  // 초기화
+  document.getElementById('write-content').value = '';
+  document.getElementById('char-count').textContent = '0 / 500';
+  selectedTag = null;
+  document.querySelectorAll('.tag-btn').forEach(btn => {
+    btn.classList.remove('selected', 'bg-blue-50', 'text-blue-700', 'border-blue-200');
+    btn.classList.add('bg-slate-100', 'text-slate-600', 'border-transparent');
+  });
+
+  const overlay = document.getElementById('write-overlay');
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    document.getElementById('write-content').focus();
+  }, 100);
+}
+
+function closeWriteModal() {
+  document.getElementById('write-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function selectTag(btn, tag) {
+  selectedTag = tag;
+  document.querySelectorAll('.tag-btn').forEach(b => {
+    b.classList.remove('selected', 'bg-blue-50', 'text-blue-700', 'border-blue-200');
+    b.classList.add('bg-slate-100', 'text-slate-600', 'border-transparent');
+  });
+  btn.classList.add('selected', 'bg-blue-50', 'text-blue-700', 'border-blue-200');
+  btn.classList.remove('bg-slate-100', 'text-slate-600', 'border-transparent');
+}
+
+function updateCharCount() {
+  const content = document.getElementById('write-content').value;
+  const count = content.length;
+  const countEl = document.getElementById('char-count');
+  countEl.textContent = `${count} / 500`;
+  if (count > 450) {
+    countEl.classList.add('text-amber-500');
+    countEl.classList.remove('text-slate-400');
+  } else {
+    countEl.classList.remove('text-amber-500');
+    countEl.classList.add('text-slate-400');
+  }
+}
+
+// ============================================================
+//  글 제출
+// ============================================================
+async function submitPost() {
+  if (isSubmitting) return;
+  if (!currentUser) {
+    showToast('로그인이 필요합니다', 'warning');
+    return;
+  }
+
+  const content = document.getElementById('write-content').value.trim();
+  if (!content) {
+    showToast('내용을 입력해주세요', 'warning');
+    document.getElementById('write-content').focus();
+    return;
+  }
+  if (content.length > 500) {
+    showToast('500자 이내로 작성해주세요', 'warning');
+    return;
+  }
+
+  isSubmitting = true;
+  const submitBtn = document.getElementById('submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = '게시 중...';
+
+  try {
+    const { error } = await db.from('posts').insert({
+      user_id: currentUser.id,
+      content: content,
       tag: selectedTag,
-      timestamp: new Date().toISOString(),
-      likes: 0,
-    };
-    const posts = getPosts();
-    posts.push(post);
-    savePosts(posts);
+      channel: currentChannel,
+    });
+
+    if (error) throw error;
 
     closeWriteModal();
-    renderDynamicPosts();
-  }
+    showToast('글이 게시되었습니다!', 'success');
+    await loadFeed();
 
-  // ===== RENDER =====
-  function renderDynamicPosts() {
-    const posts = getPosts().slice().reverse();
-    const feed = document.getElementById('dynamic-feed');
-    feed.innerHTML = posts.length === 0 ? '' : posts.map(p => {
-      const date = new Date(p.timestamp);
-      const timeStr = formatTime(date);
-      const tagColors = {
-        '#마음성장': 'bg-emerald-50 text-emerald-700',
-        '#커리어': 'bg-blue-50 text-blue-700',
-        '#독서기록': 'bg-amber-50 text-amber-700',
-        '#인간관계': 'bg-violet-50 text-violet-700',
-        '#일상': 'bg-slate-100 text-slate-600',
-      };
-      const tagClass = tagColors[p.tag] || 'bg-slate-100 text-slate-600';
-      return `
-        <article class="post-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden" data-tag="${p.tag}">
-          <div class="p-5 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:linear-gradient(135deg,#004ac6,#2563eb)">
-              ${escapeHtml(p.userName[0].toUpperCase())}
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="font-semibold text-[15px] text-on-surface">${escapeHtml(p.userName)}</span>
-                <span class="text-[12px] text-on-surface-variant">· ${timeStr}</span>
-              </div>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${tagClass}">${p.tag}</span>
-            </div>
-          </div>
-          <div class="px-5 pb-4">
-            <p class="text-on-surface-variant text-[15px] leading-relaxed">${escapeHtml(p.content).replace(/\n/g, '<br/>')}</p>
-          </div>
-          <div class="p-3 flex items-center gap-6 border-t border-slate-50">
-            <button onclick="toggleLike(this)" class="like-btn flex items-center gap-1.5 text-on-surface-variant hover:text-rose-500 transition-colors" data-count="${p.likes}">
-              <span class="material-symbols-outlined text-[20px]">favorite</span>
-              <span class="text-[13px] font-medium">${p.likes}</span>
-            </button>
-            <button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
-              <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
-              <span class="text-[13px] font-medium">0</span>
-            </button>
-          </div>
-        </article>
-      `;
-    }).join('');
-
-    // apply current filter
-    applyFilter(currentFilter);
-  }
-
-  // ===== FILTER =====
-  function filterFeed(cat) {
-    currentFilter = cat;
-    document.querySelectorAll('.feed-filter').forEach(btn => {
-      const active = btn.dataset.filter === cat;
-      btn.className = active
-        ? 'feed-filter px-4 py-2 bg-primary-container text-white rounded-full text-[13px] font-bold whitespace-nowrap'
-        : 'feed-filter px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-[13px] font-medium whitespace-nowrap hover:bg-slate-200 transition-colors';
-    });
-    applyFilter(cat);
-  }
-
-  function applyFilter(cat) {
-    document.querySelectorAll('.post-card').forEach(card => {
-      const show = cat === '전체' || card.dataset.tag === cat;
-      card.style.display = show ? '' : 'none';
-    });
-  }
-
-  // ===== LIKE =====
-  function toggleLike(btn) {
-    const icon = btn.querySelector('.material-symbols-outlined');
-    const countEl = btn.querySelector('span:last-child');
-    const liked = btn.classList.contains('liked');
-    let count = parseInt(btn.dataset.count);
-    if (liked) {
-      count--;
-      btn.classList.remove('liked', 'text-rose-500');
-      btn.classList.add('text-on-surface-variant');
-      icon.style.fontVariationSettings = "'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24";
-    } else {
-      count++;
-      btn.classList.add('liked', 'text-rose-500');
-      btn.classList.remove('text-on-surface-variant');
-      icon.style.fontVariationSettings = "'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24";
+  } catch (err) {
+    console.error('글 게시 오류:', err);
+    let msg = '글을 게시하지 못했습니다';
+    if (err.message) {
+      if (err.message.includes('permission') || err.message.includes('policy')) {
+        msg = '이 채널에 글을 쓸 권한이 없습니다';
+      } else if (err.message.includes('network') || err.message.includes('fetch')) {
+        msg = '네트워크 오류가 발생했습니다. 다시 시도해주세요';
+      }
     }
-    btn.dataset.count = count;
-    countEl.textContent = count;
+    showToast(msg, 'error');
+  } finally {
+    isSubmitting = false;
+    submitBtn.disabled = false;
+    submitBtn.textContent = '게시하기';
+  }
+}
+
+// ============================================================
+//  실시간 업데이트
+// ============================================================
+function setupRealtime() {
+  if (realtimeChannel) {
+    db.removeChannel(realtimeChannel);
   }
 
-  // ===== UTILS =====
-  function formatTime(date) {
-    const diff = (new Date() - date) / 1000;
-    if (diff < 60) return '방금 전';
-    if (diff < 3600) return Math.floor(diff/60) + '분 전';
-    if (diff < 86400) return Math.floor(diff/3600) + '시간 전';
-    return `${date.getMonth()+1}월 ${date.getDate()}일`;
-  }
+  realtimeChannel = db.channel('community-posts')
+    .on('postgres_changes', {
+      event: 'INSERT',
+      schema: 'public',
+      table: 'posts',
+    }, async (payload) => {
+      const newPost = payload.new;
+      if (newPost.channel !== currentChannel) return;
 
-  function escapeHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      try {
+        const { data: postWithProfile } = await db
+          .from('posts')
+          .select('*, profiles(name, role)')
+          .eq('id', newPost.id)
+          .single();
+
+        if (postWithProfile) {
+          const feedEl = document.getElementById('feed');
+          const emptyEl = document.getElementById('feed-empty');
+
+          emptyEl.classList.add('hidden');
+          feedEl.classList.remove('hidden');
+
+          // 이미 있는 카드면 무시 (자기 자신이 게시한 경우 이미 loadFeed로 추가됨)
+          if (!document.querySelector(`[data-post-id="${newPost.id}"]`)) {
+            const card = renderPostCard(postWithProfile);
+            feedEl.insertBefore(card, feedEl.firstChild);
+
+            // 상단에 새 글 토스트
+            if (currentUser && newPost.user_id !== currentUser.id) {
+              showToast('새 글이 게시되었습니다', 'info');
+            }
+          }
+        }
+      } catch (err) {
+        console.error('실시간 업데이트 오류:', err);
+      }
+    })
+    .subscribe();
+}
+
+// ============================================================
+//  유틸리티 함수
+// ============================================================
+function formatTimeAgo(dateStr) {
+  if (!dateStr) return '';
+  const now = new Date();
+  const date = new Date(dateStr);
+  const diff = Math.floor((now - date) / 1000);
+
+  if (diff < 60) return '방금 전';
+  if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}시간 전`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)}일 전`;
+
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}.${m}.${d}`;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+let toastTimer = null;
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  const inner = document.getElementById('toast-inner');
+
+  const colors = {
+    success: 'bg-emerald-600',
+    error: 'bg-red-600',
+    warning: 'bg-amber-500',
+    info: 'bg-slate-700',
+  };
+
+  inner.className = `px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold text-white max-w-[320px] text-center ${colors[type] || colors.info}`;
+  inner.textContent = message;
+
+  toast.classList.remove('hiding', 'hidden');
+  toast.style.animation = 'none';
+  requestAnimationFrame(() => {
+    toast.style.animation = '';
+    toast.id = 'toast'; // re-trigger
+  });
+
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.add('hiding');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      toast.classList.remove('hiding');
+    }, 250);
+  }, 3000);
+}
+
+// ESC 키로 모달 닫기
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeWriteModal();
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+    if (!document.getElementById('write-overlay').classList.contains('hidden')) {
+      submitPost();
+    }
   }
+});
+
+// ============================================================
+//  페이지 로드
+// ============================================================
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
