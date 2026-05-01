@@ -100,7 +100,7 @@
 
 <!-- Write Modal -->
 <div id="write-overlay" class="fixed inset-0 z-50 bg-black/40 hidden" onclick="closeWriteModal()">
-  <div id="write-modal" class="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl max-w-2xl mx-auto modal-enter" onclick="event.stopPropagation()">
+  <div id="write-modal" class="fixed left-0 right-0 bg-white rounded-t-3xl max-w-2xl mx-auto modal-enter" style="bottom:80px" onclick="event.stopPropagation()">
     <!-- 드래그 핸들 -->
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-4 mb-0 flex-shrink-0"></div>
     <!-- 헤더 (고정) -->
@@ -710,19 +710,22 @@ function openWriteModal() {
   }
 }
 
+const NAV_HEIGHT = 80;
+
 function onViewportResize() {
   const modal = document.getElementById('write-modal');
   if (!modal) return;
   const vv = window.visualViewport;
   const keyboardHeight = window.innerHeight - vv.offsetTop - vv.height;
-  modal.style.bottom = Math.max(0, keyboardHeight) + 'px';
+  // 키보드가 올라오면 nav 위 + 키보드 높이만큼, 키보드 없으면 nav 위에만
+  modal.style.bottom = (Math.max(0, keyboardHeight) + (keyboardHeight > 10 ? 0 : NAV_HEIGHT)) + 'px';
 }
 
 function closeWriteModal() {
   document.getElementById('write-overlay').classList.add('hidden');
   document.body.style.overflow = '';
   const modal = document.getElementById('write-modal');
-  if (modal) modal.style.bottom = '0px';
+  if (modal) modal.style.bottom = NAV_HEIGHT + 'px';
   if (window.visualViewport) {
     window.visualViewport.removeEventListener('resize', onViewportResize);
     window.visualViewport.removeEventListener('scroll', onViewportResize);
