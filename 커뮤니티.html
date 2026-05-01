@@ -54,9 +54,15 @@
   @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
   /* Write modal */
-  .modal-enter { animation: modalUp 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-  @keyframes modalUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+  .modal-enter { animation: modalUp 0.25s ease-out forwards; }
+  @keyframes modalUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
   #write-overlay { backdrop-filter: blur(4px); }
+  #write-modal {
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
 
   .tag-btn.selected { background:#dbeafe; color:#1d4ed8; border-color:#93c5fd; }
 
@@ -94,31 +100,42 @@
 
 <!-- Write Modal -->
 <div id="write-overlay" class="fixed inset-0 z-50 bg-black/40 hidden" onclick="closeWriteModal()">
-  <div id="write-modal" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 max-w-2xl mx-auto modal-enter" onclick="event.stopPropagation()">
-    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-5"></div>
-    <div class="flex items-center justify-between mb-4">
+  <div id="write-modal" class="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl max-w-2xl mx-auto modal-enter" onclick="event.stopPropagation()">
+    <!-- 드래그 핸들 -->
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-4 mb-0 flex-shrink-0"></div>
+    <!-- 헤더 (고정) -->
+    <div class="flex items-center justify-between px-6 pt-4 pb-3 border-b border-slate-100 flex-shrink-0">
       <div class="flex items-center gap-3">
-        <div id="modal-avatar" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0"></div>
+        <div id="modal-avatar" class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0"></div>
         <div>
           <div id="modal-username" class="font-semibold text-on-surface text-sm"></div>
           <div id="modal-channel-label" class="text-xs text-slate-500 mt-0.5"></div>
         </div>
       </div>
-      <button onclick="closeWriteModal()" class="text-slate-400 hover:text-slate-600 p-1">
-        <span class="material-symbols-outlined">close</span>
+      <button onclick="closeWriteModal()" class="text-slate-400 hover:text-slate-600 p-1 -mr-1">
+        <span class="material-symbols-outlined text-[22px]">close</span>
       </button>
     </div>
-    <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar pb-1">
-      <button onclick="selectTag(this,'#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200">#마음성장</button>
-      <button onclick="selectTag(this,'#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200">#커리어</button>
-      <button onclick="selectTag(this,'#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200">#독서기록</button>
-      <button onclick="selectTag(this,'#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200">#인간관계</button>
-      <button onclick="selectTag(this,'#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent hover:bg-slate-200">#일상</button>
+    <!-- 태그 선택 -->
+    <div class="flex gap-2 px-6 pt-3 pb-2 overflow-x-auto hide-scrollbar flex-shrink-0">
+      <button onclick="selectTag(this,'#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#마음성장</button>
+      <button onclick="selectTag(this,'#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#커리어</button>
+      <button onclick="selectTag(this,'#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#독서기록</button>
+      <button onclick="selectTag(this,'#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#인간관계</button>
+      <button onclick="selectTag(this,'#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#일상</button>
     </div>
-    <textarea id="write-content" class="w-full min-h-[140px] resize-none text-base leading-relaxed text-on-surface placeholder:text-slate-300 p-0 bg-transparent border-0 border-none focus:ring-0" placeholder="나의 성장을 공유해보세요... (500자 이내)" maxlength="500" oninput="updateCharCount()"></textarea>
-    <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
+    <!-- 텍스트 입력 -->
+    <div class="px-6 py-2">
+      <textarea id="write-content" rows="5"
+        class="w-full resize-none text-[15px] leading-relaxed text-on-surface placeholder:text-slate-300 bg-transparent border-0 border-none focus:ring-0 focus:outline-none"
+        placeholder="나의 성장을 공유해보세요... (500자 이내)"
+        maxlength="500"
+        oninput="updateCharCount()"></textarea>
+    </div>
+    <!-- 하단 버튼 -->
+    <div class="flex items-center justify-between px-6 py-3 border-t border-slate-100">
       <span id="char-count" class="text-[12px] text-slate-400 font-medium">0 / 500</span>
-      <button id="submit-btn" onclick="submitPost()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors">게시하기</button>
+      <button id="submit-btn" onclick="submitPost()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 active:scale-95 transition-all">게시하기</button>
     </div>
   </div>
 </div>
@@ -684,12 +701,32 @@ function openWriteModal() {
   });
   document.getElementById('write-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('write-content').focus(), 100);
+  setTimeout(() => document.getElementById('write-content').focus(), 150);
+
+  // 키보드가 올라올 때 모달을 키보드 위로 올림
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', onViewportResize);
+    window.visualViewport.addEventListener('scroll', onViewportResize);
+  }
+}
+
+function onViewportResize() {
+  const modal = document.getElementById('write-modal');
+  if (!modal) return;
+  const vv = window.visualViewport;
+  const keyboardHeight = window.innerHeight - vv.offsetTop - vv.height;
+  modal.style.bottom = Math.max(0, keyboardHeight) + 'px';
 }
 
 function closeWriteModal() {
   document.getElementById('write-overlay').classList.add('hidden');
   document.body.style.overflow = '';
+  const modal = document.getElementById('write-modal');
+  if (modal) modal.style.bottom = '0px';
+  if (window.visualViewport) {
+    window.visualViewport.removeEventListener('resize', onViewportResize);
+    window.visualViewport.removeEventListener('scroll', onViewportResize);
+  }
 }
 
 function selectTag(btn, tag) {
