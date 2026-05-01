@@ -340,41 +340,49 @@
        Auth Check
     ───────────────────────────────────────── */
     async function initAuth() {
-      const { data: { session } } = await db.auth.getSession();
+      try {
+        const sessionResult = await Promise.race([
+          db.auth.getSession(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+        ]);
+        const { data: { session } } = sessionResult;
 
-      if (!session) {
-        window.location.href = '마이페이지.html';
-        return;
-      }
+        if (!session) {
+          window.location.href = '마이페이지.html';
+          return;
+        }
 
-      currentUser = session.user;
+        currentUser = session.user;
 
-      // Fetch profile
-      const { data: profile, error } = await db
-        .from('profiles')
-        .select('*')
-        .eq('id', currentUser.id)
-        .single();
+        // Fetch profile with timeout
+        const fetchProfile = db.from('profiles').select('*').eq('id', currentUser.id).single();
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000));
+        const { data: profile, error } = await Promise.race([fetchProfile, timeout]);
 
-      if (error || !profile) {
-        showToast('프로필 정보를 불러오지 못했습니다.', 'error');
-        return;
-      }
+        if (error || !profile) {
+          showToast('프로필 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.', 'error');
+          document.getElementById('access-denied').classList.remove('hidden');
+          return;
+        }
 
-      currentProfile = profile;
+        currentProfile = profile;
 
-      if (profile.role !== 'admin') {
+        if (profile.role !== 'admin') {
+          document.getElementById('access-denied').classList.remove('hidden');
+          return;
+        }
+
+        // Show main content
+        document.getElementById('main-content').classList.remove('hidden');
+        const usernameEl = document.getElementById('header-username');
+        if (usernameEl) usernameEl.textContent = profile.name + ' 님';
+
+        // Load default tab
+        loadMembers();
+      } catch (e) {
+        showToast('연결 오류가 발생했습니다. 페이지를 새로고침해주세요.', 'error');
         document.getElementById('access-denied').classList.remove('hidden');
-        return;
       }
-
-      // Show main content
-      document.getElementById('main-content').classList.remove('hidden');
-      const usernameEl = document.getElementById('header-username');
-      if (usernameEl) usernameEl.textContent = profile.name + ' 님';
-
-      // Load default tab
-      loadMembers();
     }
 
     /* ─────────────────────────────────────────

@@ -452,14 +452,12 @@ async function loadProfileData(user) {
   document.getElementById('profile-join').textContent = formatJoinDate(joinedAt);
   updateHeaderAvatar(name);
 
-  // Try to load from profiles table
+  // Try to load from profiles table (with 6s timeout to prevent infinite loading)
   let role = 'member';
   try {
-    const { data: profile, error } = await db
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
+    const fetchProfile = db.from('profiles').select('*').eq('id', user.id).single();
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000));
+    const { data: profile, error } = await Promise.race([fetchProfile, timeout]);
 
     if (!error && profile) {
       currentProfile = profile;
@@ -470,7 +468,7 @@ async function loadProfileData(user) {
       updateHeaderAvatar(displayName);
     }
   } catch (e) {
-    // profiles table may not exist — use auth metadata
+    // profiles table may not exist or timed out — use auth metadata
   }
 
   // Role badge
@@ -695,11 +693,15 @@ document.addEventListener('keydown', (e) => {
 
 // ===== REALTIME AUTH STATE =====
 db.auth.onAuthStateChange(async (event, session) => {
-  if (event === 'SIGNED_IN' && session?.user) {
+  // Handle both SIGNED_IN and INITIAL_SESSION events
+  if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user) {
     if (document.querySelector('.view.active')?.id !== 'view-profile') {
       await loadProfileData(session.user);
       showView('profile');
     }
+  } else if (event === 'INITIAL_SESSION' && !session) {
+    // No session on initial load
+    showView('login');
   } else if (event === 'SIGNED_OUT') {
     currentUser = null;
     currentProfile = null;
@@ -711,8 +713,20 @@ db.auth.onAuthStateChange(async (event, session) => {
 // ===== INIT =====
 (async function init() {
   showView('loading');
+  // Safety fallback: if nothing resolves in 10s, show login
+  const fallback = setTimeout(() => {
+    if (document.querySelector('.view.active')?.id === 'view-loading') {
+      showView('login');
+    }
+  }, 10000);
+
   try {
-    const { data: { session } } = await db.auth.getSession();
+    const sessionResult = await Promise.race([
+      db.auth.getSession(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+    ]);
+    const { data: { session } } = sessionResult;
+    clearTimeout(fallback);
     if (session?.user) {
       await loadProfileData(session.user);
       showView('profile');
@@ -720,6 +734,7 @@ db.auth.onAuthStateChange(async (event, session) => {
       showView('login');
     }
   } catch (e) {
+    clearTimeout(fallback);
     showView('login');
   }
 })();
