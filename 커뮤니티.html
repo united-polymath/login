@@ -557,8 +557,8 @@ function postRowHTML(post, idx, total) {
         <!-- Full content -->
         <div class="text-[14px] leading-relaxed text-slate-700 mb-4 pl-0.5">${fullContent}</div>
 
-        <!-- Like button -->
-        <div class="flex items-center gap-4 py-3 border-t border-slate-100 mb-4">
+        <!-- Like button + Admin delete -->
+        <div class="flex items-center justify-between py-3 border-t border-slate-100 mb-4">
           <button
             onclick="event.stopPropagation(); toggleLike('${post.id}', this)"
             class="like-btn flex items-center gap-1.5 ${isLiked ? 'like-btn-active text-rose-500' : 'text-slate-400 hover:text-rose-400'} transition-colors"
@@ -567,6 +567,12 @@ function postRowHTML(post, idx, total) {
             <span class="material-symbols-outlined like-icon text-[18px]" style="font-variation-settings:'FILL' ${isLiked ? '1' : '0'},'wght' 400,'GRAD' 0,'opsz' 24">favorite</span>
             <span class="like-count text-[13px] font-medium">${post.likes_count || 0}</span>
           </button>
+          ${currentProfile?.role === 'admin' ? `
+          <button onclick="event.stopPropagation(); deletePost('${post.id}')"
+            class="flex items-center gap-1 text-[12px] text-slate-300 hover:text-red-400 transition-colors">
+            <span class="material-symbols-outlined text-[15px]">delete</span>
+            <span>삭제</span>
+          </button>` : ''}
         </div>
 
         <!-- Comment section -->
@@ -608,6 +614,33 @@ function togglePost(postId) {
   const isOpen = body.classList.contains('open');
   body.classList.toggle('open', !isOpen);
   chevron.classList.toggle('open', !isOpen);
+}
+
+// ─── Admin Delete ──────────────────────────────────────────────
+async function deletePost(postId) {
+  if (currentProfile?.role !== 'admin') return;
+  if (!confirm('이 글을 삭제하시겠어요?')) return;
+  try {
+    const token = currentAccessToken || SUPABASE_ANON_KEY;
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/posts?id=eq.${encodeURIComponent(postId)}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Prefer': 'return=minimal'
+        }
+      }
+    );
+    if (!res.ok) throw new Error('failed');
+    // 목록에서 제거
+    allPosts = allPosts.filter(p => p.id !== postId);
+    renderFiltered();
+    showToast('글이 삭제됐습니다', 'success');
+  } catch (e) {
+    showToast('삭제에 실패했어요', 'error');
+  }
 }
 
 // ─── Like ─────────────────────────────────────────────────────
