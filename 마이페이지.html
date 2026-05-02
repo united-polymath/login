@@ -188,7 +188,24 @@
           <input id="avatar-file-input" type="file" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)"/>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 flex-wrap mb-0.5">
-              <div id="profile-name" class="text-xl font-bold leading-tight"></div>
+              <!-- 이름 표시 모드 -->
+              <div id="name-display" class="flex items-center gap-1.5">
+                <div id="profile-name" class="text-xl font-bold leading-tight text-white"></div>
+                <button onclick="startEditName()" class="text-white/60 hover:text-white transition-colors" title="이름 수정">
+                  <span class="material-symbols-outlined text-[16px]">edit</span>
+                </button>
+              </div>
+              <!-- 이름 수정 모드 (기본 숨김) -->
+              <div id="name-edit" class="hidden w-full">
+                <div class="flex items-center gap-2">
+                  <input id="name-input" type="text" maxlength="20"
+                    class="flex-1 px-3 py-1.5 rounded-xl bg-white/20 text-white placeholder:text-white/50 text-base font-bold border border-white/40 focus:outline-none focus:border-white min-w-0"
+                    placeholder="이름 입력"/>
+                  <button onclick="saveName()" class="px-3 py-1.5 bg-white text-blue-700 rounded-xl text-sm font-bold whitespace-nowrap">저장</button>
+                  <button onclick="cancelEditName()" class="px-2 py-1.5 text-white/70 hover:text-white text-sm">취소</button>
+                </div>
+                <div id="name-save-msg" class="text-[11px] mt-1 hidden"></div>
+              </div>
               <div id="profile-role-badge" class="hidden"></div>
             </div>
             <div id="profile-email" class="text-blue-200 text-sm truncate"></div>
@@ -693,6 +710,59 @@ async function handleAvatarUpload(event) {
 }
 
 // ===== LOGOUT =====
+// ── 이름 수정 ──────────────────────────────────────────────────
+function startEditName() {
+  const currentName = document.getElementById('profile-name').textContent || '';
+  document.getElementById('name-input').value = currentName;
+  document.getElementById('name-display').classList.add('hidden');
+  document.getElementById('name-edit').classList.remove('hidden');
+  document.getElementById('name-save-msg').classList.add('hidden');
+  document.getElementById('name-input').focus();
+}
+
+function cancelEditName() {
+  document.getElementById('name-edit').classList.add('hidden');
+  document.getElementById('name-display').classList.remove('hidden');
+}
+
+async function saveName() {
+  const newName = document.getElementById('name-input').value.trim();
+  const msgEl = document.getElementById('name-save-msg');
+  if (!newName) {
+    msgEl.textContent = '이름을 입력해주세요.';
+    msgEl.className = 'text-[11px] mt-1 text-red-300';
+    msgEl.classList.remove('hidden');
+    return;
+  }
+  if (!currentUser) return;
+  try {
+    const token = currentAccessToken || SUPABASE_ANON_KEY;
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(currentUser.id)}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name: newName })
+      }
+    );
+    if (!res.ok) throw new Error('failed');
+    // UI 업데이트
+    document.getElementById('profile-name').textContent = newName;
+    if (currentProfile) currentProfile.name = newName;
+    updateHeaderAvatar(newName);
+    cancelEditName();
+  } catch (e) {
+    msgEl.textContent = '저장에 실패했어요. 다시 시도해주세요.';
+    msgEl.className = 'text-[11px] mt-1 text-red-300';
+    msgEl.classList.remove('hidden');
+  }
+}
+
 async function handleLogout() {
   if (!confirm('로그아웃 하시겠어요?')) return;
   await db.auth.signOut();
