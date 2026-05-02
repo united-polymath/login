@@ -52,6 +52,7 @@
   .accordion-icon { transition: transform 0.3s ease; }
   .accordion-icon.open { transform: rotate(180deg); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-background text-on-surface">
 
@@ -75,8 +76,8 @@
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
     </div>
-    <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-200">
-      <img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARhFW76TzY0FXZAHI0-Q3WM1IZbujrQGqx8jEd1evXRQ2VlNyWndD_x7kHzxzJ___alOp4Jg-B9OxHD4uSbZ4MtguWtRX5yxL7CbD5V7iy5Uct3-oB-meFP3F7XIaK3o6stLVZmhzhDv95rOeLvUl5-KjznBDpdANCHGKXDeR3kO9OhVkaqaRsw4iXrxyUaCCdO2qNNLSpot4wTsW1ylYozWk-nPc3ebEwCNMpugQw_cq17hpjpfBNgwsPicYwgoUBPgGFP2jRFGo"/>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
     </div>
   </div>
 </header>
@@ -473,5 +474,6 @@
     }
   }
 </script>
+<script src="header-auth.js"></script>
 </body>
 </html>

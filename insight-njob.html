@@ -50,6 +50,7 @@
   .stat-box { background: rgba(29, 78, 216, 0.06); border-left: 3px solid #1d4ed8; }
   .summary-box { background: rgba(29, 78, 216, 0.07); border-left: 4px solid #1d4ed8; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-background text-on-background antialiased">
 
@@ -66,8 +67,8 @@
       <a href="인사이트.html" class="text-blue-600 font-semibold text-sm border-b-2 border-blue-600 pb-0.5">인사이트</a>
       <a href="커뮤니티.html" class="text-slate-600 hover:text-primary font-medium text-sm transition-colors">커뮤니티</a>
     </nav>
-    <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
-      <img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu9xq6XGjatHpeUq2KZB-d9xnSG2zp6eRexe-MuftSMFO4mIeehptB3xMA3Lm1aCAWG7ru1qax8Qq8iiMCJ3hjETyA0j81YhqZBtGz1moyNNZ7e5HvtdWUUBHM62hsZaqqNwopgKZEfuHVG3CZ7I2Rg5BU-8DWwvmFh0NTTOnjcD1-aIKApyQXkywlwO3x7TStkqFBl9uzKo4tyr-Ei46dq2IiYG_ZwfLv7iBA2YsGx_x5p_tu5Whq8CBTLerB7J5IuCahr1137FI"/>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
     </div>
   </div>
 </header>
@@ -520,5 +521,6 @@
   </div>
 </nav>
 
+<script src="header-auth.js"></script>
 </body>
 </html>
