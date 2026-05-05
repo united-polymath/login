@@ -800,6 +800,10 @@ select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
         <input type="text" id="c_name" class="form-input" placeholder="이름을 입력해주세요">
       </div>
       <div class="form-group">
+        <label class="form-label">나이 <span>*</span></label>
+        <input type="number" id="c_age" class="form-input" placeholder="만 나이로 입력해주세요" min="1" max="120" inputmode="numeric">
+      </div>
+      <div class="form-group">
         <label class="form-label">연락처 <span>*</span></label>
         <input type="tel" id="c_phone" class="form-input" placeholder="010-0000-0000">
       </div>
@@ -1261,17 +1265,20 @@ function showResult(){
 /* ── FORM SUBMIT ── */
 function submitConsult(){
   const name=document.getElementById('c_name').value.trim();
+  const age=document.getElementById('c_age').value.trim();
   const phone=document.getElementById('c_phone').value.trim();
   const region=document.getElementById('c_region').value;
   const worry=document.getElementById('c_worry').value.trim();
   if(!name){alert('이름을 입력해주세요.');return;}
+  if(!age){alert('나이를 입력해주세요.');return;}
+  if(parseInt(age)<1||parseInt(age)>120){alert('올바른 나이를 입력해주세요.');return;}
   if(!phone){alert('연락처를 입력해주세요.');return;}
   if(!region){alert('거주 지역을 선택해주세요.');return;}
   if(!consentChecked){alert('개인정보 수집 및 이용에 동의해주세요.');return;}
 
   if(SCRIPT_URL){
     const payload={
-      name, phone, region,
+      name, age, phone, region,
       status:selectedStatus, worry,
       result: currentResult ? currentResult.badge+' '+currentResult.title : '',
       timestamp: new Date().toISOString()
@@ -1323,6 +1330,7 @@ function restartTest(){
   document.getElementById('consentCheck').classList.add('checked');
   document.querySelectorAll('#statusChips .chip').forEach(c=>c.classList.remove('active'));
   document.getElementById('c_name').value='';
+  document.getElementById('c_age').value='';
   document.getElementById('c_phone').value='';
   document.getElementById('c_region').value='';
   document.getElementById('c_worry').value='';
