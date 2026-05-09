@@ -114,7 +114,9 @@
     </a>
     <div class="hidden md:flex gap-8 items-center">
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="about.html">About Us</a>
       <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="리추얼.html">리추얼</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="마이페이지.html">마이페이지</a>
@@ -128,182 +130,632 @@
 <main class="pt-24 pb-32 max-w-[1200px] mx-auto px-4 md:px-margin-desktop">
 
   <!-- Hero Section -->
-  <section class="mb-12">
+  <section class="mb-8">
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold mb-4">
       <span class="material-symbols-outlined text-base">science</span>
       SELAB 연구 기반 프로그램
     </div>
     <h2 class="font-headline-lg text-headline-lg text-on-surface mb-3">성장 프로그램</h2>
-    <p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">연구소의 실증 데이터와 심리학 이론을 바탕으로 설계한 코호트 프로그램입니다. 비슷한 고민을 가진 동료들과 함께 변화를 만들어가세요.</p>
+    <p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">연구소의 실증 데이터와 심리학 이론을 바탕으로 설계한 프로그램입니다. 비슷한 고민을 가진 동료들과 함께 변화를 만들어가세요.</p>
   </section>
 
-  <!-- Category Filter -->
-  <div class="flex gap-3 overflow-x-auto hide-scrollbar mb-8 pb-2">
-    <button onclick="filterPrograms('전체')" class="filter-btn px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform" data-cat="전체">전체</button>
-    <button onclick="filterPrograms('멘탈')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="멘탈">멘탈</button>
-    <button onclick="filterPrograms('커리어')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="커리어">커리어</button>
-    <button onclick="filterPrograms('관계')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="관계">관계</button>
+  <!-- ===== 3개 메인 탭 ===== -->
+  <div class="flex gap-1 mb-8 border-b border-outline-variant">
+    <button onclick="switchMainTab('프로그램')" class="main-tab-btn px-6 py-3 text-sm font-bold text-blue-600 border-b-2 border-blue-600 -mb-px transition-all" data-tab="프로그램">프로그램</button>
+    <button onclick="switchMainTab('프로젝트')" class="main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all" data-tab="프로젝트">프로젝트</button>
+    <button onclick="switchMainTab('리추얼')" class="main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all" data-tab="리추얼">리추얼</button>
   </div>
 
-  <!-- Program Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="program-grid">
+  <!-- ===== 탭 1: 프로그램 ===== -->
+  <div id="tab-프로그램" class="main-tab-content">
 
-    <!-- Card 1: 도파민 디톡스 코호트 -->
-    <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(109,40,217,0.12)] transition-all duration-300" data-cat="멘탈" data-url="program-dopamine-detox.html">
-      <div class="h-48 overflow-hidden relative">
-        <div class="absolute inset-0 bg-gradient-to-br from-violet-600 to-purple-800 flex items-center justify-center">
-          <div class="text-center text-white">
-            <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">self_improvement</span>
-            <div class="text-sm font-semibold opacity-70 tracking-wider">DOPAMINE DETOX</div>
+    <!-- Category Filter -->
+    <div class="flex gap-3 overflow-x-auto hide-scrollbar mb-8 pb-2">
+      <button onclick="filterPrograms('전체')" class="filter-btn px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform" data-cat="전체">전체</button>
+      <button onclick="filterPrograms('멘탈')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="멘탈">멘탈</button>
+      <button onclick="filterPrograms('커리어')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="커리어">커리어</button>
+      <button onclick="filterPrograms('관계')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="관계">관계</button>
+    </div>
+
+    <!-- Program Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="program-grid">
+
+      <!-- Card 1: 도파민 디톡스 코호트 -->
+      <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(109,40,217,0.12)] transition-all duration-300" data-cat="멘탈" data-url="program-dopamine-detox.html">
+        <div class="h-48 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-violet-600 to-purple-800 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">self_improvement</span>
+              <div class="text-sm font-semibold opacity-70 tracking-wider">DOPAMINE DETOX</div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">3기 모집중</div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-[12px] font-bold">멘탈</span>
+            <span class="text-slate-400 text-[12px] font-medium">4주 코호트</span>
+            <span class="text-slate-400 text-[12px]">· 12명 소그룹</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">도파민 디톡스 4주 코호트</h3>
+          <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">스마트폰·SNS 과의존 패턴을 신경과학 기반으로 분석하고, 주의력과 수면 질을 회복하는 4주 집중 프로그램.</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="text-slate-500 text-label-sm">#디지털웰빙</span>
+            <span class="text-slate-500 text-label-sm">#주의력회복</span>
+            <span class="text-slate-500 text-label-sm">#수면</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+            <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-violet-600">6월 9일</span></div>
+            <button onclick="event.stopPropagation(); location.href='program-dopamine-detox.html'" class="px-5 py-2 rounded-lg bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition-colors">상세보기</button>
           </div>
         </div>
-        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">3기 모집중</div>
       </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-[12px] font-bold">멘탈</span>
-          <span class="text-slate-400 text-[12px] font-medium">4주 코호트</span>
-          <span class="text-slate-400 text-[12px]">· 12명 소그룹</span>
+
+      <!-- Card 2: AI 커리어 리디자인 -->
+      <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(37,99,235,0.12)] transition-all duration-300" data-cat="커리어" data-url="program-ai-career.html">
+        <div class="h-48 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">rocket_launch</span>
+              <div class="text-sm font-semibold opacity-70 tracking-wider">AI CAREER REDESIGN</div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">2기 모집중</div>
         </div>
-        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">도파민 디톡스 4주 코호트</h3>
-        <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">스마트폰·SNS 과의존 패턴을 신경과학 기반으로 분석하고, 주의력과 수면 질을 회복하는 4주 집중 프로그램.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-slate-500 text-label-sm">#디지털웰빙</span>
-          <span class="text-slate-500 text-label-sm">#주의력회복</span>
-          <span class="text-slate-500 text-label-sm">#수면</span>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold">커리어</span>
+            <span class="text-slate-400 text-[12px] font-medium">6주 코호트</span>
+            <span class="text-slate-400 text-[12px]">· 15명 소그룹</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">AI 시대 커리어 리디자인</h3>
+          <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">AI 대체 위험도 자가진단부터 대체 불가 스킬셋 개발, 포트폴리오 재설계까지 — 커리어를 미래 중심으로 재구성.</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="text-slate-500 text-label-sm">#AI리터러시</span>
+            <span class="text-slate-500 text-label-sm">#스킬셋</span>
+            <span class="text-slate-500 text-label-sm">#포트폴리오</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+            <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-blue-600">6월 16일</span></div>
+            <button onclick="event.stopPropagation(); location.href='program-ai-career.html'" class="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors">상세보기</button>
+          </div>
         </div>
-        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-          <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-violet-600">6월 9일</span></div>
-          <button onclick="event.stopPropagation(); location.href='program-dopamine-detox.html'" class="px-5 py-2 rounded-lg bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition-colors">상세보기</button>
+      </div>
+
+      <!-- Card 3: 관계 회복력 실험실 -->
+      <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(5,150,105,0.12)] transition-all duration-300" data-cat="관계" data-url="program-relationship-lab.html">
+        <div class="h-48 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">diversity_3</span>
+              <div class="text-sm font-semibold opacity-70 tracking-wider">RELATIONSHIP LAB</div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">4기 모집중</div>
         </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[12px] font-bold">관계</span>
+            <span class="text-slate-400 text-[12px] font-medium">5주 코호트</span>
+            <span class="text-slate-400 text-[12px]">· 8명 소그룹</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">관계 회복력 실험실</h3>
+          <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">애착 유형 분석, 경계 설정 실습, 갈등 해결 시뮬레이션으로 오프라인 소그룹에서 관계 근육을 키우는 실험적 프로그램.</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="text-slate-500 text-label-sm">#애착이론</span>
+            <span class="text-slate-500 text-label-sm">#경계설정</span>
+            <span class="text-slate-500 text-label-sm">#오프라인</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+            <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-emerald-600">6월 21일</span></div>
+            <button onclick="event.stopPropagation(); location.href='program-relationship-lab.html'" class="px-5 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">상세보기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 감정 리터러시 워크숍 (Featured) -->
+      <div class="program-card bg-gradient-to-br from-rose-900 to-pink-950 rounded-xl overflow-hidden md:col-span-2 flex flex-col md:flex-row items-stretch shadow-lg hover:shadow-xl transition-shadow duration-300" data-cat="멘탈" data-url="program-emotional-literacy.html">
+        <div class="md:w-5/12 h-56 md:h-auto overflow-hidden relative flex-shrink-0">
+          <div class="absolute inset-0 bg-gradient-to-br from-rose-400/20 to-pink-600/40 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="material-symbols-outlined text-7xl mb-3 opacity-60" style="font-variation-settings:'FILL' 1,'wght' 200;">favorite</span>
+            </div>
+          </div>
+          <div class="absolute top-4 left-4 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-white text-[11px] font-bold uppercase tracking-wider">⭐ Most Popular</div>
+        </div>
+        <div class="md:w-7/12 p-8 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full bg-rose-500/30 text-rose-200 text-[12px] font-bold">멘탈</span>
+            <span class="text-rose-300 text-[12px] font-medium">3주 집중 워크숍</span>
+            <span class="text-rose-400 text-[12px]">· 온라인</span>
+          </div>
+          <h3 class="text-white text-headline-md font-headline-md mb-3">감정 리터러시 집중 워크숍</h3>
+          <p class="text-rose-200 text-sm leading-relaxed mb-5">내 감정에 이름 붙이는 것조차 낯선 당신에게. 감정 어휘 확장, 신체 감각 인지, 감정 조절 전략을 3주간 집중 훈련합니다. 역대 최고 만족도 4.9점.</p>
+          <div class="flex items-center justify-between">
+            <div class="text-rose-300 text-sm">다음 기수 <span class="text-white font-semibold">6월 2일</span></div>
+            <button onclick="event.stopPropagation(); location.href='program-emotional-literacy.html'" class="px-6 py-2.5 bg-white text-rose-900 rounded-lg text-sm font-bold hover:bg-rose-50 transition-colors">상세보기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: N잡러 퍼스널 브랜딩 -->
+      <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(217,119,6,0.12)] transition-all duration-300" data-cat="커리어" data-url="program-personal-branding.html">
+        <div class="h-48 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-700 flex items-center justify-center">
+            <div class="text-center text-white">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">trending_up</span>
+              <div class="text-sm font-semibold opacity-70 tracking-wider">PERSONAL BRANDING</div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">1기 모집중</div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-[12px] font-bold">커리어</span>
+            <span class="text-slate-400 text-[12px] font-medium">8주 부트캠프</span>
+            <span class="text-slate-400 text-[12px]">· 20명</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">N잡러 퍼스널 브랜딩 부트캠프</h3>
+          <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">N잡 시대에 나만의 브랜드 포지셔닝, SNS 채널 전략, 수익화 모델 설계까지 — 8주간 완성형 커리어 에셋 구축.</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="text-slate-500 text-label-sm">#N잡</span>
+            <span class="text-slate-500 text-label-sm">#퍼스널브랜딩</span>
+            <span class="text-slate-500 text-label-sm">#수익화</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+            <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-amber-600">6월 30일</span></div>
+            <button onclick="event.stopPropagation(); location.href='program-personal-branding.html'" class="px-5 py-2 rounded-lg bg-amber-500 text-white text-sm font-semibold hover:bg-amber-600 transition-colors">상세보기</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 지난 프로그램 섹션 -->
+    <div class="mt-16 mb-4">
+      <div class="flex items-center gap-3 mb-2">
+        <h3 class="text-headline-md font-headline-md text-on-surface">지난 프로그램</h3>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[12px] font-bold">종료</span>
+      </div>
+      <p class="text-on-surface-variant text-sm mb-8">이미 진행된 프로그램입니다. 추후 재개될 수 있습니다.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+        <!-- 종료 1: 회복 탄력성 훈련 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="멘탈">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.42.47.jpeg" alt="회복 탄력성 훈련" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+              <span class="text-slate-400 text-[11px]">16회 · 주 1회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">회복 탄력성 훈련</h3>
+            <p class="text-slate-400 text-xs">2025.09.12 – 2025.12.15</p>
+          </div>
+        </div>
+
+        <!-- 종료 2: 성장 마인드셋 코칭 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="멘탈">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.42.51.jpeg" alt="성장 마인드셋 코칭" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+              <span class="text-slate-400 text-[11px]">12회 · 주 2회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">성장 마인드셋 코칭 프로그램</h3>
+            <p class="text-slate-400 text-xs">2024.05.07 – 2024.06.18</p>
+          </div>
+        </div>
+
+        <!-- 종료 3: 자아정체성 탐구 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="멘탈">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.42.56.jpeg" alt="자아정체성 탐구 워크숍" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+              <span class="text-slate-400 text-[11px]">18회 · 주 2회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">자아정체성 탐구 워크숍</h3>
+            <p class="text-slate-400 text-xs">2024.02.13 – 2024.04.14</p>
+          </div>
+        </div>
+
+        <!-- 종료 4: 자기 효능감 개발 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="멘탈">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.43.00.jpeg" alt="자기 효능감 개발 프로그램" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+              <span class="text-slate-400 text-[11px]">6회 · 주 2회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">자기 효능감 개발 프로그램</h3>
+            <p class="text-slate-400 text-xs">2023.07.12 – 2023.07.30</p>
+          </div>
+        </div>
+
+        <!-- 종료 5: 협업 네트워킹 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="관계">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.43.05.jpeg" alt="협업 네트워킹 프로젝트" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+              <span class="text-slate-400 text-[11px]">16회 · 주 2회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">협업 네트워킹 프로젝트</h3>
+            <p class="text-slate-400 text-xs">2025.11.28 – 2026.02.25</p>
+          </div>
+        </div>
+
+        <!-- 종료 6: 자기계발 교육 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="멘탈">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.43.11.jpeg" alt="자기계발 교육" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+              <span class="text-slate-400 text-[11px]">6회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">자기계발 교육</h3>
+            <p class="text-slate-400 text-xs">2025.08.28 – 2025.09.18</p>
+          </div>
+        </div>
+
+        <!-- 종료 7: 조직변화 적응력 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="커리어">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.44.45.jpeg" alt="조직변화 적응력 프로그램" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">커리어</span>
+              <span class="text-slate-400 text-[11px]">18회 · 주 3회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">조직변화 적응력 프로그램</h3>
+            <p class="text-slate-400 text-xs">2024.04.30 – 2024.06.07</p>
+          </div>
+        </div>
+
+        <!-- 종료 8: 멘토링 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="커리어">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.44.50.jpeg" alt="멘토링 프로그램" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">커리어</span>
+              <span class="text-slate-400 text-[11px]">10회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">멘토링 프로그램</h3>
+            <p class="text-slate-400 text-xs">2024.02.15 – 2024.03.15</p>
+          </div>
+        </div>
+
+        <!-- 종료 9: 공감적 소통 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="관계">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.44.57.jpeg" alt="공감적 소통과 경청 훈련" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+              <span class="text-slate-400 text-[11px]">4회 · 주 1회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">공감적 소통과 경청 훈련</h3>
+            <p class="text-slate-400 text-xs">2025.03.17 – 2025.04.08</p>
+          </div>
+        </div>
+
+        <!-- 종료 10: 스피치 교육 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="관계">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.45.02.jpeg" alt="스피치 교육" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+              <span class="text-slate-400 text-[11px]">14회 · 주 2회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">스피치 교육</h3>
+            <p class="text-slate-400 text-xs">2024.11.23 – 2025.01.04</p>
+          </div>
+        </div>
+
+        <!-- 종료 11: TRI LAB 토론 스터디 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="관계">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.45.06.jpeg" alt="TRI LAB 토론 스터디" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+              <span class="text-slate-400 text-[11px]">8회 · 주 1회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">TRI LAB 토론 스터디</h3>
+            <p class="text-slate-400 text-xs">2024.03.14 – 2024.05.14</p>
+          </div>
+        </div>
+
+        <!-- 종료 12: 팀워크 & 협업 트레이닝 -->
+        <div class="ended-card bg-white rounded-xl border border-outline-variant overflow-hidden opacity-80" data-cat="관계">
+          <div class="h-44 overflow-hidden relative">
+            <img src="photo_2026-05-09 16.45.10.jpeg" alt="팀워크 & 협업 트레이닝" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+              <span class="text-slate-400 text-[11px]">4회 · 주 1회</span>
+            </div>
+            <h3 class="font-semibold text-on-surface text-base mb-1">팀워크 &amp; 협업 트레이닝</h3>
+            <p class="text-slate-400 text-xs">2024.01.05 – 2024.02.05</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Card 2: AI 커리어 리디자인 -->
-    <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(37,99,235,0.12)] transition-all duration-300" data-cat="커리어" data-url="program-ai-career.html">
-      <div class="h-48 overflow-hidden relative">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center">
-          <div class="text-center text-white">
-            <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">rocket_launch</span>
-            <div class="text-sm font-semibold opacity-70 tracking-wider">AI CAREER REDESIGN</div>
-          </div>
-        </div>
-        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">2기 모집중</div>
+    <!-- Bottom CTA -->
+    <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 text-center border border-blue-100">
+      <h3 class="text-headline-md font-headline-md text-on-surface mb-2">어떤 프로그램이 나에게 맞을지 모르겠다면?</h3>
+      <p class="text-on-surface-variant mb-6">5분 자가진단 설문으로 지금 내게 가장 필요한 프로그램을 추천받아보세요.</p>
+      <a href="program-quiz.html" class="inline-block px-8 py-3 bg-primary text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">프로그램 추천 받기</a>
+    </div>
+
+  </div><!-- end tab-프로그램 -->
+
+  <!-- ===== 탭 2: 프로젝트 ===== -->
+  <div id="tab-프로젝트" class="main-tab-content hidden">
+
+    <!-- 진행중 -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">진행중인 프로젝트</h3>
+        <span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[12px] font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>진행중
+        </span>
       </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[12px] font-bold">커리어</span>
-          <span class="text-slate-400 text-[12px] font-medium">6주 코호트</span>
-          <span class="text-slate-400 text-[12px]">· 15명 소그룹</span>
-        </div>
-        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">AI 시대 커리어 리디자인</h3>
-        <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">AI 대체 위험도 자가진단부터 대체 불가 스킬셋 개발, 포트폴리오 재설계까지 — 커리어를 미래 중심으로 재구성.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-slate-500 text-label-sm">#AI리터러시</span>
-          <span class="text-slate-500 text-label-sm">#스킬셋</span>
-          <span class="text-slate-500 text-label-sm">#포트폴리오</span>
-        </div>
-        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-          <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-blue-600">6월 16일</span></div>
-          <button onclick="event.stopPropagation(); location.href='program-ai-career.html'" class="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors">상세보기</button>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+        <!-- 블랙박스 인사이트 (상세페이지 있음) -->
+        <a href="project-blackbox.html" class="bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 block group">
+          <div class="h-48 overflow-hidden relative">
+            <img src="project_blackbox.jpg" alt="블랙박스 인사이트" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block"></span>진행중
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-600 text-[11px] font-medium">상세보기 →</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">블랙박스 인사이트</h3>
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-2">세대 경험 데이터를 연결하는 인사이트 플랫폼</p>
+            <p class="text-slate-400 text-xs">2026.03.16 – 진행중</p>
+          </div>
+        </a>
+
       </div>
     </div>
 
-    <!-- Card 3: 관계 회복력 실험실 -->
-    <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(5,150,105,0.12)] transition-all duration-300" data-cat="관계" data-url="program-relationship-lab.html">
-      <div class="h-48 overflow-hidden relative">
-        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center">
-          <div class="text-center text-white">
-            <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">diversity_3</span>
-            <div class="text-sm font-semibold opacity-70 tracking-wider">RELATIONSHIP LAB</div>
-          </div>
-        </div>
-        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">4기 모집중</div>
+    <!-- 지난 프로젝트 -->
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">지난 프로젝트</h3>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[12px] font-bold">종료</span>
       </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[12px] font-bold">관계</span>
-          <span class="text-slate-400 text-[12px] font-medium">5주 코호트</span>
-          <span class="text-slate-400 text-[12px]">· 8명 소그룹</span>
-        </div>
-        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">관계 회복력 실험실</h3>
-        <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">애착 유형 분석, 경계 설정 실습, 갈등 해결 시뮬레이션으로 오프라인 소그룹에서 관계 근육을 키우는 실험적 프로그램.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-slate-500 text-label-sm">#애착이론</span>
-          <span class="text-slate-500 text-label-sm">#경계설정</span>
-          <span class="text-slate-500 text-label-sm">#오프라인</span>
-        </div>
-        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-          <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-emerald-600">6월 21일</span></div>
-          <button onclick="event.stopPropagation(); location.href='program-relationship-lab.html'" class="px-5 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors">상세보기</button>
-        </div>
-      </div>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
 
-    <!-- Card 4: 감정 리터러시 워크숍 (Featured) -->
-    <div class="program-card bg-gradient-to-br from-rose-900 to-pink-950 rounded-xl overflow-hidden md:col-span-2 flex flex-col md:flex-row items-stretch shadow-lg hover:shadow-xl transition-shadow duration-300" data-cat="멘탈" data-url="program-emotional-literacy.html">
-      <div class="md:w-5/12 h-56 md:h-auto overflow-hidden relative flex-shrink-0">
-        <div class="absolute inset-0 bg-gradient-to-br from-rose-400/20 to-pink-600/40 flex items-center justify-center">
-          <div class="text-center text-white">
-            <span class="material-symbols-outlined text-7xl mb-3 opacity-60" style="font-variation-settings:'FILL' 1,'wght' 200;">favorite</span>
+        <!-- 자기확신, 자존감 회복 실험 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_self_confidence.png" alt="자기확신, 자존감 회복 실험" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">자기확신, 자존감 회복 실험</h3>
+            <p class="text-slate-400 text-xs">2025.02 – 2025.04</p>
           </div>
         </div>
-        <div class="absolute top-4 left-4 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-white text-[11px] font-bold uppercase tracking-wider">⭐ Most Popular</div>
-      </div>
-      <div class="md:w-7/12 p-8 flex flex-col justify-center">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full bg-rose-500/30 text-rose-200 text-[12px] font-bold">멘탈</span>
-          <span class="text-rose-300 text-[12px] font-medium">3주 집중 워크숍</span>
-          <span class="text-rose-400 text-[12px]">· 온라인</span>
-        </div>
-        <h3 class="text-white text-headline-md font-headline-md mb-3">감정 리터러시 집중 워크숍</h3>
-        <p class="text-rose-200 text-sm leading-relaxed mb-5">내 감정에 이름 붙이는 것조차 낯선 당신에게. 감정 어휘 확장, 신체 감각 인지, 감정 조절 전략을 3주간 집중 훈련합니다. 역대 최고 만족도 4.9점.</p>
-        <div class="flex items-center justify-between">
-          <div class="text-rose-300 text-sm">다음 기수 <span class="text-white font-semibold">6월 2일</span></div>
-          <button onclick="event.stopPropagation(); location.href='program-emotional-literacy.html'" class="px-6 py-2.5 bg-white text-rose-900 rounded-lg text-sm font-bold hover:bg-rose-50 transition-colors">상세보기</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Card 5: N잡러 퍼스널 브랜딩 -->
-    <div class="program-card bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden group hover:shadow-[0_10px_25px_rgba(217,119,6,0.12)] transition-all duration-300" data-cat="커리어" data-url="program-personal-branding.html">
-      <div class="h-48 overflow-hidden relative">
-        <div class="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-700 flex items-center justify-center">
-          <div class="text-center text-white">
-            <span class="material-symbols-outlined text-5xl mb-2 opacity-80" style="font-variation-settings:'FILL' 1,'wght' 300;">trending_up</span>
-            <div class="text-sm font-semibold opacity-70 tracking-wider">PERSONAL BRANDING</div>
+        <!-- 감정 메타-센싱 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_emotion_sensing.png" alt="감정 메타-센싱 강화 실험" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">감정 메타-센싱 강화 실험</h3>
+            <p class="text-slate-400 text-xs">2025.09 – 2025.11</p>
           </div>
         </div>
-        <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">1기 모집중</div>
-      </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-[12px] font-bold">커리어</span>
-          <span class="text-slate-400 text-[12px] font-medium">8주 부트캠프</span>
-          <span class="text-slate-400 text-[12px]">· 20명</span>
+
+        <!-- 자기정체성 탐색 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_identity.jpg" alt="자기정체성 탐색 실험" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">자기정체성 탐색 실험</h3>
+            <p class="text-slate-400 text-xs">2025.06 – 2025.08</p>
+          </div>
         </div>
-        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">N잡러 퍼스널 브랜딩 부트캠프</h3>
-        <p class="text-on-surface-variant font-body-md text-body-md mb-4 line-clamp-2">N잡 시대에 나만의 브랜드 포지셔닝, SNS 채널 전략, 수익화 모델 설계까지 — 8주간 완성형 커리어 에셋 구축.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-slate-500 text-label-sm">#N잡</span>
-          <span class="text-slate-500 text-label-sm">#퍼스널브랜딩</span>
-          <span class="text-slate-500 text-label-sm">#수익화</span>
+
+        <!-- 경험 vs. 성향 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_growth_tendency.png" alt="경험 vs. 성향 성장 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">커리어</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">경험 vs. 성향 성장 연구</h3>
+            <p class="text-slate-400 text-xs">2025.01 – 2025.03</p>
+          </div>
         </div>
-        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-          <div class="text-sm text-slate-500">다음 기수 <span class="font-semibold text-amber-600">6월 30일</span></div>
-          <button onclick="event.stopPropagation(); location.href='program-personal-branding.html'" class="px-5 py-2 rounded-lg bg-amber-500 text-white text-sm font-semibold hover:bg-amber-600 transition-colors">상세보기</button>
+
+        <!-- 삶의 경험 성장 전략 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_life_strategy.png" alt="삶의 경험을 통한 성장 전략 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">삶의 경험을 통한 성장 전략 연구</h3>
+            <p class="text-slate-400 text-xs">2024.11 – 2025.01</p>
+          </div>
         </div>
+
+        <!-- 인간관계와 자기 소통 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_relationship.png" alt="인간관계와 자기 소통 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">관계</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">인간관계와 자기 소통 연구</h3>
+            <p class="text-slate-400 text-xs">2024.11 – 2025.01</p>
+          </div>
+        </div>
+
+        <!-- 실패 수용과 성장 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_failure.jpg" alt="실패 수용과 성장 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">실패 수용과 성장 연구</h3>
+            <p class="text-slate-400 text-xs">2024.10 – 2024.12</p>
+          </div>
+        </div>
+
+        <!-- 정신 건강과 웰빙 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_mental_health.jpg" alt="정신 건강과 웰빙 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">멘탈</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">정신 건강과 웰빙 연구</h3>
+            <p class="text-slate-400 text-xs">2024.10 – 2024.12</p>
+          </div>
+        </div>
+
+        <!-- 인지적 유연성 -->
+        <div class="bg-white rounded-xl border border-outline-variant overflow-hidden opacity-85 hover:opacity-100 transition-opacity">
+          <div class="h-44 overflow-hidden relative">
+            <img src="project_cognitive.jpg" alt="인지적 유연성과 학습 능력 연구" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-black/20 flex items-end p-3">
+              <span class="px-2 py-1 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">커리어</span>
+            </div>
+            <h3 class="font-bold text-on-surface text-base mb-1">인지적 유연성과 학습 능력 연구</h3>
+            <p class="text-slate-400 text-xs">2024.08 – 2024.10</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </div>
 
-  <!-- Bottom CTA -->
-  <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 text-center border border-blue-100">
-    <h3 class="text-headline-md font-headline-md text-on-surface mb-2">어떤 프로그램이 나에게 맞을지 모르겠다면?</h3>
-    <p class="text-on-surface-variant mb-6">5분 자가진단 설문으로 지금 내게 가장 필요한 프로그램을 추천받아보세요.</p>
-    <a href="program-quiz.html" class="inline-block px-8 py-3 bg-primary text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">프로그램 추천 받기</a>
+  <!-- ===== 탭 3: 리추얼 ===== -->
+  <div id="tab-리추얼" class="main-tab-content hidden">
+    <div class="flex flex-col items-center justify-center py-24 text-center">
+      <span class="material-symbols-outlined text-slate-300 text-[64px] mb-4" style="font-variation-settings:'FILL' 1">self_improvement</span>
+      <h3 class="text-headline-md text-slate-400 font-bold mb-2">리추얼</h3>
+      <p class="text-slate-400 text-sm">콘텐츠가 준비 중입니다.</p>
+    </div>
   </div>
 
 </main>
@@ -318,6 +770,10 @@
     <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">school</span>
     <span class="text-[10px] font-medium">프로그램</span>
   </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="리추얼.html">
+    <span class="material-symbols-outlined text-[22px]">self_improvement</span>
+    <span class="text-[10px] font-medium">리추얼</span>
+  </a>
   <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="인사이트.html">
     <span class="material-symbols-outlined text-[22px]">auto_graph</span>
     <span class="text-[10px] font-medium">인사이트</span>
@@ -326,13 +782,21 @@
     <span class="material-symbols-outlined text-[22px]">forum</span>
     <span class="text-[10px] font-medium">커뮤니티</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="마이페이지.html">
-    <span class="material-symbols-outlined text-[22px]">person</span>
-    <span class="text-[10px] font-medium">마이페이지</span>
-  </a>
 </nav>
 
 <script>
+  function switchMainTab(tabName) {
+    document.querySelectorAll('.main-tab-content').forEach(el => el.classList.add('hidden'));
+    document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+    document.querySelectorAll('.main-tab-btn').forEach(btn => {
+      const active = btn.dataset.tab === tabName;
+      btn.className = active
+        ? 'main-tab-btn px-6 py-3 text-sm font-bold text-blue-600 border-b-2 border-blue-600 -mb-px transition-all'
+        : 'main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all';
+    });
+  }
+
   function filterPrograms(cat) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
       const active = btn.dataset.cat === cat;
@@ -340,10 +804,16 @@
         ? 'filter-btn px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform'
         : 'filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95';
     });
-    document.querySelectorAll('.program-card').forEach(card => {
+    document.querySelectorAll('.program-card, .ended-card').forEach(card => {
       const show = cat === '전체' || card.dataset.cat === cat;
       card.style.display = show ? '' : 'none';
     });
+    // 지난 프로그램 섹션 헤더도 같이 숨기기
+    const endedSection = document.querySelector('.ended-section-header');
+    if (endedSection) {
+      const anyVisible = Array.from(document.querySelectorAll('.ended-card')).some(c => c.style.display !== 'none');
+      endedSection.style.display = anyVisible ? '' : 'none';
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
