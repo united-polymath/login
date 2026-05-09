@@ -269,7 +269,7 @@
 
     <!-- Category Filter -->
     <div class="flex gap-3 overflow-x-auto hide-scrollbar mb-8 pb-2">
-      <button onclick="filterPrograms('전체')" class="filter-btn px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform" data-cat="전체">전체</button>
+      <button onclick="filterPrograms('전체')" class="filter-btn px-6 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform" style="background:#0E0E0E;color:#C8E600;" data-cat="전체">전체</button>
       <button onclick="filterPrograms('멘탈')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="멘탈">멘탈</button>
       <button onclick="filterPrograms('커리어')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="커리어">커리어</button>
       <button onclick="filterPrograms('관계')" class="filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95" data-cat="관계">관계</button>
@@ -1071,17 +1071,23 @@
     document.querySelectorAll('.main-tab-btn').forEach(btn => {
       const active = btn.dataset.tab === tabName;
       btn.className = active
-        ? 'main-tab-btn px-6 py-3 text-sm font-bold text-blue-600 border-b-2 border-blue-600 -mb-px transition-all'
+        ? 'main-tab-btn px-6 py-3 text-sm font-bold border-b-2 -mb-px transition-all'
         : 'main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all';
+      if (active) { btn.style.color='#6B8700'; btn.style.borderBottomColor='#6B8700'; }
+      else { btn.style.color=''; btn.style.borderBottomColor=''; }
     });
   }
 
   function filterPrograms(cat) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
       const active = btn.dataset.cat === cat;
-      btn.className = active
-        ? 'filter-btn px-6 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform'
-        : 'filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95';
+      if (active) {
+        btn.className = 'filter-btn px-6 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap active:scale-95 transition-transform';
+        btn.style.background = '#0E0E0E'; btn.style.color = '#C8E600';
+      } else {
+        btn.className = 'filter-btn px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors active:scale-95';
+        btn.style.background = ''; btn.style.color = '';
+      }
     });
     document.querySelectorAll('.program-card, .ended-card').forEach(card => {
       const show = cat === '전체' || card.dataset.cat === cat;

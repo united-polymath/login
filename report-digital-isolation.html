@@ -43,6 +43,10 @@
   .chapter-item:hover { background: #EEF7B5; }
   .chapter-item { transition: background 0.2s ease; }
 
+  .hero-gradient {
+    background: linear-gradient(to bottom, rgba(14,14,14,0.82) 0%, rgba(14,14,14,0.60) 45%, rgba(14,14,14,0.93) 100%);
+  }
+
   /* ════════════════════════════════════════
    LOGIN EDITORIAL DESIGN
    ════════════════════════════════════════ */
@@ -199,7 +203,7 @@
       class="absolute inset-0 w-full h-full object-cover"
     />
     <!-- 카테고리 색상 그라디언트 오버레이 (rose) -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0E0E0E]/85 via-[#0E0E0E]/65 to-[#0E0E0E]/95"></div>
+    <div class="hero-gradient absolute inset-0"></div>
 
     <div class="relative z-10 h-full flex flex-col justify-between px-6 md:px-16 max-w-screen-xl mx-auto py-8 md:py-12">
       <!-- 상단 뱃지 -->
@@ -528,11 +532,11 @@
           SNA 네트워크 시각화, 플랫폼별 외로움 지수 데이터, 디지털 디톡스 실험 결과 전체를<br class="hidden md:block"/> 수록한 44페이지 완전판 리포트를 제공합니다.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button class="flex items-center justify-center gap-2 bg-[#0E0E0E] hover:bg-[#2A2A2A] text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 shadow-lg shadow-rose-500/30">
+          <button class="flex items-center justify-center gap-2 bg-[#0E0E0E] hover:bg-[#2A2A2A] text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 shadow-lg shadow-rose-500/30" onclick="openDlModal(); return false;">
             <span class="material-symbols-outlined text-[20px]">open_in_new</span>
             전문 보기
           </button>
-          <button class="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 border border-white/20 backdrop-blur-sm">
+          <button class="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-bold text-[15px] transition-all active:scale-95 border border-white/20 backdrop-blur-sm" onclick="openDlModal(); return false;">
             <span class="material-symbols-outlined text-[20px]">download</span>
             PDF 다운로드
           </button>
@@ -600,5 +604,25 @@
   </div>
 </nav>
 
+
+  <!-- PDF 다운로드 안내 모달 -->
+  <div id="dlModal" class="fixed inset-0 z-[200] hidden items-center justify-center px-4" onclick="if(event.target===this)closeDlModal()">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full p-7 text-center">
+      <div class="w-14 h-14 rounded-2xl bg-[#EEF7B5] flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-[#6B8700] text-[28px]">lock</span>
+      </div>
+      <h3 class="text-[18px] font-bold text-[#0E0E0E] mb-2">프리미엄 회원 전용</h3>
+      <p class="text-[14px] text-[#555] leading-relaxed mb-6">PDF 다운로드는 등급업 계정으로<br/>로그인한 회원만 이용 가능합니다.<br/><span class="font-semibold text-[#0E0E0E]">마이페이지</span>에서 계정 등급을 확인하세요.</p>
+      <div class="flex flex-col gap-3">
+        <a href="마이페이지.html" class="block w-full py-3 rounded-xl font-bold text-[15px] text-center" style="background:#0E0E0E;color:#C8E600;">마이페이지로 이동</a>
+        <button onclick="closeDlModal()" class="w-full py-3 rounded-xl font-medium text-[14px] bg-[#F4F1E8] text-[#555]">닫기</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openDlModal(){const m=document.getElementById('dlModal');m.classList.remove('hidden');m.classList.add('flex');}
+    function closeDlModal(){const m=document.getElementById('dlModal');m.classList.add('hidden');m.classList.remove('flex');}
+  </script>
 </body>
 </html>

@@ -282,7 +282,7 @@
 
   <!-- ───────────── Category Filter ───────────── -->
   <section class="mt-10 flex flex-wrap gap-3 items-center">
-    <button onclick="filterCards('all', this)" class="filter-btn px-5 py-2.5 rounded-full bg-primary text-on-primary text-[13px] font-bold shadow-md transition-all">전체</button>
+    <button onclick="filterCards('all', this)" class="filter-btn px-5 py-2.5 rounded-full text-[13px] font-bold shadow-md transition-all" style="background:#0E0E0E;color:#C8E600;">전체</button>
     <button onclick="filterCards('mental', this)" class="filter-btn px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-600 text-[13px] font-medium hover:border-violet-300 hover:text-violet-700 transition-all">🧠 멘탈케어</button>
     <button onclick="filterCards('social', this)" class="filter-btn px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-600 text-[13px] font-medium hover:border-rose-300 hover:text-rose-700 transition-all">🤝 사회·관계</button>
     <button onclick="filterCards('career', this)" class="filter-btn px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-600 text-[13px] font-medium hover:border-blue-300 hover:text-blue-700 transition-all">🚀 커리어</button>
@@ -681,11 +681,11 @@
   function filterCards(cat, btn) {
     // 버튼 스타일 토글
     document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.remove('bg-primary','text-on-primary','shadow-md');
       b.classList.add('bg-white','border','border-slate-200','text-slate-600');
+      b.style.background = ''; b.style.color = '';
     });
-    btn.classList.add('bg-primary','text-on-primary','shadow-md');
     btn.classList.remove('bg-white','border','border-slate-200','text-slate-600');
+    btn.style.background = '#0E0E0E'; btn.style.color = '#C8E600';
 
     // 카드 필터
     document.querySelectorAll('.insight-card, .report-card').forEach(card => {
