@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>SELAB - N포를 넘어 N선택으로: 2030이 새로 쓰는 삶의 공식</title>
+  <title>LOGIN - N포를 넘어 N선택으로: 2030이 새로 쓰는 삶의 공식</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
@@ -39,7 +39,123 @@
       border-left: 4px solid #e11d48;
       padding-left: 1rem;
     }
-  </style>
+  
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-background text-on-background">
@@ -49,10 +165,11 @@
   <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
     <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
       <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
-      <span class="font-extrabold tracking-tighter text-xl text-blue-600">SELAB</span>
+      <span class="font-extrabold tracking-tighter text-xl text-blue-600">LOGIN</span>
     </a>
     <div class="hidden md:flex gap-8 items-center">
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="about.html">About Us</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
       <a class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-0.5" href="인사이트.html">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
@@ -189,7 +306,7 @@
               그런데 이 언어에는 심각한 문제가 있습니다. <strong>언어는 현실을 반영하기도 하지만, 현실을 규정하기도 합니다.</strong> "포기"라는 프레임은 결혼·출산·내 집 마련이 당연히 추구해야 할 삶의 목표이며, 그것을 하지 않는 것은 실패 혹은 포기라는 전제를 깔고 있습니다. 만약 그것이 애초에 나의 목표가 아니었다면?
             </p>
             <p>
-              2026년 현재의 통계는 놀랍습니다. 비혼 의향은 <strong class="text-rose-600">38%</strong>, 비출산 의향은 <strong class="text-rose-600">52%</strong>에 달합니다. 그러나 SELAB이 수행한 심층 인터뷰에서 이들 대부분은 스스로를 "불행하다"고 표현하지 않았습니다. 오히려 많은 이들이 자신의 선택에 대해 명확한 근거와 자신감을 가지고 있었습니다.
+              2026년 현재의 통계는 놀랍습니다. 비혼 의향은 <strong class="text-rose-600">38%</strong>, 비출산 의향은 <strong class="text-rose-600">52%</strong>에 달합니다. 그러나 LOGIN이 수행한 심층 인터뷰에서 이들 대부분은 스스로를 "불행하다"고 표현하지 않았습니다. 오히려 많은 이들이 자신의 선택에 대해 명확한 근거와 자신감을 가지고 있었습니다.
             </p>
 
             <!-- 인터뷰 인용 -->
@@ -197,7 +314,7 @@
               <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
                 "저는 결혼을 포기한 게 아니에요. 지금 이 상태가 저한테 더 맞는 삶의 형태라는 걸 알게 됐어요. 부모님이 싸울 때마다 억지로 참고 사는 걸 보면서 자랐거든요. 제가 선택한 자유로운 삶이, 그 결혼보다 낫다고 생각해요. 이게 포기예요?"
               </p>
-              <p class="text-rose-600 font-semibold text-xs not-italic">— SELAB 연구 참여자, 28세 마케터 김○○</p>
+              <p class="text-rose-600 font-semibold text-xs not-italic">— LOGIN 연구 참여자, 28세 마케터 김○○</p>
             </blockquote>
           </div>
 
@@ -207,7 +324,7 @@
               218명이 말하는 새로운 행복의 기준점
             </h3>
             <p>
-              SELAB은 지난 3년간 20-30대 <strong class="text-rose-600">218명</strong>을 대상으로 심층 인터뷰를 진행했습니다. 이들에게 공통적으로 던진 질문은 하나였습니다. "당신에게 행복한 삶이란 무엇인가요?"
+              LOGIN은 지난 3년간 20-30대 <strong class="text-rose-600">218명</strong>을 대상으로 심층 인터뷰를 진행했습니다. 이들에게 공통적으로 던진 질문은 하나였습니다. "당신에게 행복한 삶이란 무엇인가요?"
             </p>
             <p>
               과거 세대의 행복 지표는 비교적 단순하고 순서가 있었습니다. 좋은 대학 → 좋은 직장 → 결혼 → 출산 → 내 집 마련 → 승진. 이 사다리를 얼마나 빠르게, 높이 올라가느냐가 성공의 척도였습니다.
@@ -276,7 +393,7 @@
               <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
                 "결혼을 안 하는 게 아니에요. 좋은 파트너를 만나지 못했을 때 혼자를 선택하는 거예요. 그건 결혼 포기가 아니라 기준이 높아진 거잖아요."
               </p>
-              <p class="text-rose-600 font-semibold text-xs not-italic">— SELAB 연구 참여자, 33세 디자이너 이○○</p>
+              <p class="text-rose-600 font-semibold text-xs not-italic">— LOGIN 연구 참여자, 33세 디자이너 이○○</p>
             </blockquote>
           </div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SELAB - 2030을 위한 성장 연구소</title>
+<title>LOGIN - 2030을 위한 성장 연구소</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -74,6 +74,122 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
 </style>
 </head>
 <body class="bg-background text-on-background">
@@ -83,7 +199,7 @@
   <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
     <!-- Logo -->
     <a href="index.html" class="flex items-center">
-      <img src="logo.jpg" alt="SELAB" class="h-11 w-auto rounded-lg"/>
+      <img src="logo2.jpg" alt="LOGIN" class="h-11 w-auto rounded-lg"/>
     </a>
     <!-- Desktop Nav -->
     <div class="hidden md:flex gap-8 items-center">
@@ -129,7 +245,7 @@
         <!-- Sub -->
         <p class="fade-up-3 text-blue-100/80 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
           막연한 불안 대신 데이터로, 혼자 대신 함께.<br/>
-          SELAB에서 지금 가장 필요한 변화를 시작하세요.
+          LOGIN에서 지금 가장 필요한 변화를 시작하세요.
         </p>
         <!-- CTAs -->
         <div class="fade-up-3 flex flex-col sm:flex-row gap-4">
@@ -205,7 +321,7 @@
   <section class="max-w-[1200px] mx-auto px-5 md:px-margin-desktop pt-16 pb-4">
     <div class="flex justify-between items-end mb-8">
       <div>
-        <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">SELAB Programs</div>
+        <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">LOGIN Programs</div>
         <h2 class="text-headline-lg font-headline-lg text-on-surface">지금 모집 중인 프로그램</h2>
       </div>
       <a href="프로그램.html" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
@@ -219,8 +335,9 @@
 
       <!-- Program 1 -->
       <a href="program-dopamine-detox.html" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
-        <div class="h-36 bg-gradient-to-br from-violet-500 to-purple-700 relative flex items-center justify-center">
-          <span class="material-symbols-outlined text-white text-5xl opacity-60" style="font-variation-settings:'FILL' 1,'wght' 200">self_improvement</span>
+        <div class="aspect-square overflow-hidden relative">
+          <img src="program 1.png" alt="도파민 디톡스" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
           <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">3기 모집중</div>
         </div>
         <div class="p-5">
@@ -236,8 +353,9 @@
 
       <!-- Program 2 -->
       <a href="program-ai-career.html" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
-        <div class="h-36 bg-gradient-to-br from-blue-500 to-indigo-700 relative flex items-center justify-center">
-          <span class="material-symbols-outlined text-white text-5xl opacity-60" style="font-variation-settings:'FILL' 1,'wght' 200">rocket_launch</span>
+        <div class="aspect-square overflow-hidden relative">
+          <img src="program 2.png" alt="AI 시대 커리어" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
           <div class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">2기 모집중</div>
         </div>
         <div class="p-5">
@@ -301,7 +419,7 @@
   <section class="max-w-[1200px] mx-auto px-5 md:px-margin-desktop py-8">
     <div class="flex justify-between items-end mb-8">
       <div>
-        <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">SELAB Insights</div>
+        <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">LOGIN Insights</div>
         <h2 class="text-headline-lg font-headline-lg text-on-surface">2030이 꼭 알아야 할 인사이트</h2>
       </div>
       <a href="인사이트.html" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
@@ -455,26 +573,30 @@
 </main>
 
 <!-- ===== BOTTOM NAV ===== -->
-<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-4 md:hidden">
-  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="index.html">
-    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">home</span>
-    <span class="text-[10px] font-medium">홈</span>
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-1 md:hidden">
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="index.html">
+    <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1">home</span>
+    <span class="text-[8.5px] font-medium">홈</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="프로그램.html">
-    <span class="material-symbols-outlined text-[22px]">school</span>
-    <span class="text-[10px] font-medium">프로그램</span>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="about.html">
+    <span class="material-symbols-outlined text-[17px]">info</span>
+    <span class="text-[8.5px] font-medium">About</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="인사이트.html">
-    <span class="material-symbols-outlined text-[22px]">auto_graph</span>
-    <span class="text-[10px] font-medium">인사이트</span>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="프로그램.html">
+    <span class="material-symbols-outlined text-[17px]">school</span>
+    <span class="text-[8.5px] font-medium">프로그램</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="커뮤니티.html">
-    <span class="material-symbols-outlined text-[22px]">forum</span>
-    <span class="text-[10px] font-medium">커뮤니티</span>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="인사이트.html">
+    <span class="material-symbols-outlined text-[17px]">auto_graph</span>
+    <span class="text-[8.5px] font-medium">인사이트</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="마이페이지.html">
-    <span class="material-symbols-outlined text-[22px]">person</span>
-    <span class="text-[10px] font-medium">마이페이지</span>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="커뮤니티.html">
+    <span class="material-symbols-outlined text-[17px]">forum</span>
+    <span class="text-[8.5px] font-medium">커뮤니티</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="마이페이지.html">
+    <span class="material-symbols-outlined text-[17px]">person</span>
+    <span class="text-[8.5px] font-medium">마이페이지</span>
   </a>
 </nav>
 <script src="header-auth.js"></script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SELAB - AI 전환기 직업 리스크 분석 | Vol.12</title>
+<title>LOGIN - AI 전환기 직업 리스크 분석 | Vol.12</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
@@ -44,6 +44,122 @@
   .risk-badge-high { background: #fee2e2; color: #dc2626; }
   .risk-badge-mid { background: #fef9c3; color: #ca8a04; }
   .risk-badge-low { background: #dcfce7; color: #16a34a; }
+
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
 </style>
 </head>
 <body class="bg-background text-on-background antialiased">
@@ -54,11 +170,12 @@
     <div class="flex items-center gap-3">
       <a href="index.html" class="flex items-center gap-2">
         <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
-        <h1 class="text-xl font-extrabold tracking-tighter text-blue-600 font-['Plus_Jakarta_Sans',sans-serif]">SELAB</h1>
+        <h1 class="text-xl font-extrabold tracking-tighter text-blue-600 font-['Plus_Jakarta_Sans',sans-serif]">LOGIN</h1>
       </a>
     </div>
     <div class="hidden md:flex gap-8 items-center">
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="about.html">About Us</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
       <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
@@ -87,7 +204,7 @@
     <div class="relative z-10 h-full flex flex-col justify-between px-6 md:px-16 max-w-screen-xl mx-auto py-8 md:py-12">
       <!-- 상단 뱃지 -->
       <div class="flex items-center gap-3">
-        <span class="text-white/80 text-xs font-bold tracking-[0.15em] uppercase">SELAB REPORT</span>
+        <span class="text-white/80 text-xs font-bold tracking-[0.15em] uppercase">LOGIN REPORT</span>
         <span class="w-1 h-1 rounded-full bg-white/50"></span>
         <span class="px-3 py-1 rounded-full bg-blue-500/80 backdrop-blur-sm text-white text-xs font-bold tracking-wide border border-blue-400/40">Vol.12</span>
         <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-semibold border border-white/20">커리어</span>
@@ -132,7 +249,7 @@
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="flex flex-col gap-1">
           <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">시리즈</span>
-          <span class="text-[14px] font-bold text-on-surface">SELAB Vol.12</span>
+          <span class="text-[14px] font-bold text-on-surface">LOGIN Vol.12</span>
         </div>
         <div class="flex flex-col gap-1">
           <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">발행일</span>
@@ -178,7 +295,7 @@
       </div>
       <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-7 border border-blue-100">
         <p class="text-[16px] leading-[1.85] text-slate-700">
-          "AI가 일자리를 빼앗는다"는 공포와 "AI는 새로운 일자리를 만든다"는 낙관, 두 담론 모두 실증 데이터에 기반하지 않는 경우가 많다. SELAB 미래노동 연구팀은 국내 287개 직종을 실제로 분석하여 이 논쟁에 데이터로 답했다. 분석 결과, 직업 자체가 소멸하는 경우는 7%에 불과하지만 <strong class="text-blue-700">동일 직업 내 반복·정형 직무는 평균 38%가 자동화 진행 중</strong>이며, '같은 직함, 다른 일'의 시대가 도래했다. 2026-2027년이 전략적 역량 전환의 분기점임을 실증 데이터로 제시하고, 직종별 맞춤 AI 적응 로드맵을 제공한다.
+          "AI가 일자리를 빼앗는다"는 공포와 "AI는 새로운 일자리를 만든다"는 낙관, 두 담론 모두 실증 데이터에 기반하지 않는 경우가 많다. LOGIN 미래노동 연구팀은 국내 287개 직종을 실제로 분석하여 이 논쟁에 데이터로 답했다. 분석 결과, 직업 자체가 소멸하는 경우는 7%에 불과하지만 <strong class="text-blue-700">동일 직업 내 반복·정형 직무는 평균 38%가 자동화 진행 중</strong>이며, '같은 직함, 다른 일'의 시대가 도래했다. 2026-2027년이 전략적 역량 전환의 분기점임을 실증 데이터로 제시하고, 직종별 맞춤 AI 적응 로드맵을 제공한다.
         </p>
       </div>
     </section>
@@ -462,7 +579,7 @@
         <div class="absolute bottom-0 right-1/4 w-56 h-56 rounded-full bg-indigo-500 blur-3xl"></div>
       </div>
       <div class="relative z-10">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-[12px] font-bold tracking-wide mb-4 border border-blue-500/30">SELAB REPORT Vol.12</span>
+        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-[12px] font-bold tracking-wide mb-4 border border-blue-500/30">LOGIN REPORT Vol.12</span>
         <h2 class="text-white text-[26px] md:text-[32px] font-bold mb-3 leading-tight">
           60페이지 완전판으로 확인하세요<br/>당신의 직종은 어디에 있는가
         </h2>
@@ -479,7 +596,7 @@
             PDF 다운로드
           </button>
         </div>
-        <p class="text-slate-500 text-[12px] mt-5">무료 다운로드 · SELAB 회원 전용</p>
+        <p class="text-slate-500 text-[12px] mt-5">무료 다운로드 · LOGIN 회원 전용</p>
       </div>
     </div>
   </div>

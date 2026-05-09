@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SELAB - AI와 협업하는 T자형 인재: 2026 하이브리드 스킬셋 전략</title>
+<title>LOGIN - AI와 협업하는 T자형 인재: 2026 하이브리드 스킬셋 전략</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -49,6 +49,122 @@
   .section-border { border-left: 4px solid #1d4ed8; padding-left: 1rem; }
   .stat-box { background: rgba(29, 78, 216, 0.06); border-left: 3px solid #1d4ed8; }
   .summary-box { background: rgba(29, 78, 216, 0.07); border-left: 4px solid #1d4ed8; }
+
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -59,10 +175,11 @@
   <div class="flex justify-between items-center h-16 px-6 max-w-screen-xl mx-auto w-full">
     <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
       <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
-      <span class="text-xl font-extrabold tracking-tighter text-blue-600 font-['Plus_Jakarta_Sans',sans-serif]">SELAB</span>
+      <span class="text-xl font-extrabold tracking-tighter text-blue-600 font-['Plus_Jakarta_Sans',sans-serif]">LOGIN</span>
     </a>
     <nav class="hidden md:flex items-center gap-8">
       <a href="index.html" class="text-slate-600 hover:text-primary font-medium text-sm transition-colors">홈</a>
+      <a href="about.html" class="text-slate-600 hover:text-primary font-medium text-sm transition-colors">About Us</a>
       <a href="프로그램.html" class="text-slate-600 hover:text-primary font-medium text-sm transition-colors">프로그램</a>
       <a href="인사이트.html" class="text-blue-600 font-semibold text-sm border-b-2 border-blue-600 pb-0.5">인사이트</a>
       <a href="커뮤니티.html" class="text-slate-600 hover:text-primary font-medium text-sm transition-colors">커뮤니티</a>
@@ -262,7 +379,7 @@
       <!-- Section 4 -->
       <section class="mb-10">
         <h3 class="text-xl md:text-2xl font-bold text-on-surface mb-5 section-border">지금 당장 시작하는 스킬셋 로드맵 (6개월 계획)</h3>
-        <p class="text-on-surface-variant leading-relaxed mb-6">이론보다 실전입니다. SELAB이 제안하는 6개월 AI 하이브리드 스킬셋 구축 로드맵을 소개합니다.</p>
+        <p class="text-on-surface-variant leading-relaxed mb-6">이론보다 실전입니다. LOGIN이 제안하는 6개월 AI 하이브리드 스킬셋 구축 로드맵을 소개합니다.</p>
 
         <!-- Timeline -->
         <div class="relative pl-8 mb-8">

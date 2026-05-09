@@ -3,7 +3,7 @@
 <html class="light" lang="ko"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SELAB - 인사이트</title>
+<title>LOGIN - 인사이트</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -111,7 +111,123 @@
         .dot-mental { background: #7c3aed; }
         .dot-social { background: #e11d48; }
         .dot-career { background: #1d4ed8; }
-    </style>
+    
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+</style>
 </head>
 <body class="bg-background text-on-background antialiased">
 
@@ -120,7 +236,7 @@
   <div class="flex justify-between items-center h-16 px-6 max-w-screen-xl mx-auto w-full">
     <div class="flex items-center gap-3">
       <a href="index.html" class="flex items-center">
-        <img src="logo.jpg" alt="SELAB" class="h-11 w-auto rounded-lg"/>
+        <img src="logo2.jpg" alt="LOGIN" class="h-11 w-auto rounded-lg"/>
       </a>
     </div>
     <div class="hidden md:flex gap-8 items-center">
@@ -152,7 +268,7 @@
         <span class="text-white/60 text-sm">5분 읽기</span>
       </div>
       <h2 class="text-white font-headline-xl text-headline-xl mb-4 leading-tight">도파민 과부하 시대,<br/>우리의 뇌는 리셋이 필요하다</h2>
-      <p class="text-white/85 text-[17px] leading-relaxed mb-6">숏폼 콘텐츠와 무한 스크롤이 일상이 된 지금, SELAB 연구진이 분석한 2030 세대의 신경가소성 변화와 실천 가능한 도파민 디톡스 로드맵.</p>
+      <p class="text-white/85 text-[17px] leading-relaxed mb-6">숏폼 콘텐츠와 무한 스크롤이 일상이 된 지금, LOGIN 연구진이 분석한 2030 세대의 신경가소성 변화와 실천 가능한 도파민 디톡스 로드맵.</p>
       <div class="flex items-center gap-4">
         <a href="insight-dopamine.html" class="bg-white text-primary px-8 py-3 rounded-xl font-bold hover:bg-slate-50 transition-colors active:scale-95 duration-200 shadow-md inline-block">리포트 전문 읽기</a>
         <button class="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors text-sm font-medium">
@@ -175,7 +291,7 @@
     <div class="flex items-end justify-between mb-6">
       <div>
         <h2 class="text-[22px] font-bold text-on-surface">이번 주 인사이트</h2>
-        <p class="text-on-surface-variant text-[14px] mt-0.5">SELAB 연구진이 엄선한 2026년 핵심 아티클</p>
+        <p class="text-on-surface-variant text-[14px] mt-0.5">LOGIN 연구진이 엄선한 2026년 핵심 아티클</p>
       </div>
       <span class="text-[13px] text-slate-400">매주 업데이트</span>
     </div>
@@ -220,7 +336,7 @@
         </div>
         <div class="p-5">
           <h3 class="font-bold text-[17px] text-on-surface mb-2 leading-snug group-hover:text-violet-700 transition-colors">"AI에게 대체될까?" — 실존적 불안을 다루는 심리 방어 메커니즘</h3>
-          <p class="text-on-surface-variant text-[13px] leading-relaxed mb-4 line-clamp-2">GPT-5 시대, 2030의 72%가 직업 소멸 공포를 경험한다. 불안을 동력으로 전환하는 인지행동 전략을 SELAB이 분석했다.</p>
+          <p class="text-on-surface-variant text-[13px] leading-relaxed mb-4 line-clamp-2">GPT-5 시대, 2030의 72%가 직업 소멸 공포를 경험한다. 불안을 동력으로 전환하는 인지행동 전략을 LOGIN이 분석했다.</p>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="w-5 h-5 rounded-full bg-violet-100 flex items-center justify-center">
@@ -276,7 +392,7 @@
           <p class="text-on-surface-variant text-[14px] leading-relaxed mb-5">2026년 현재 서울 가구의 41%가 1인 가구. 이들이 '혼자이되 고립되지 않기 위해' 만들어가는 새로운 사회적 연결망과 커뮤니티 문화를 3년간 추적한 결과를 공개한다.</p>
           <div class="flex items-center justify-between mt-auto">
             <div class="flex items-center gap-2">
-              <span class="text-slate-400 text-[12px]">SELAB 사회문화 연구팀</span>
+              <span class="text-slate-400 text-[12px]">LOGIN 사회문화 연구팀</span>
               <span class="text-slate-300 text-[12px]">·</span>
               <span class="text-slate-400 text-[12px]">10분 읽기</span>
             </div>
@@ -349,7 +465,7 @@
   <section class="mt-20" id="report-section">
     <div class="flex items-end justify-between mb-6">
       <div>
-        <h2 class="text-[22px] font-bold text-on-surface">SELAB 리포트</h2>
+        <h2 class="text-[22px] font-bold text-on-surface">LOGIN 리포트</h2>
         <p class="text-on-surface-variant text-[14px] mt-0.5">데이터와 심층 인터뷰로 완성한 2026년 심층 분석 보고서</p>
       </div>
       <button class="text-primary text-[13px] font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity">
@@ -367,7 +483,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-mental rounded-full text-[11px] font-bold">멘탈케어</span>
-            <span class="text-slate-400 text-[11px]">2026년 4월 · SELAB Vol.12</span>
+            <span class="text-slate-400 text-[11px]">2026년 4월 · LOGIN Vol.12</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-violet-700 transition-colors">2026 대한민국 청년 정신건강 실태 리포트: 불안 사회의 내면 지형도</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">전국 2030 남녀 3,200명 대상 설문·인터뷰. 불안 지수, 수면 질, 사회적 고립감의 상관관계를 처음으로 수치화한 대규모 실태 보고서.</p>
@@ -387,7 +503,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-mental rounded-full text-[11px] font-bold">멘탈케어</span>
-            <span class="text-slate-400 text-[11px]">2026년 3월 · SELAB Vol.11</span>
+            <span class="text-slate-400 text-[11px]">2026년 3월 · LOGIN Vol.11</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-violet-700 transition-colors">만성 피로 사회: 수면 부채와 번아웃의 악순환 고리를 끊는 법</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">평균 수면 5.8시간, 2030의 61%가 '피로가 기본값'인 삶을 살고 있다. 수면과학·행동의학·조직심리학의 교차점에서 도출한 회복 프로토콜.</p>
@@ -407,7 +523,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-social rounded-full text-[11px] font-bold">사회·관계</span>
-            <span class="text-slate-400 text-[11px]">2026년 2월 · SELAB Vol.10</span>
+            <span class="text-slate-400 text-[11px]">2026년 2월 · LOGIN Vol.10</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-rose-700 transition-colors">결혼·출산 인식 전환 심층 보고서: 포기가 아닌 선택의 언어로</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">혼인율 역대 최저, 합계출산율 0.68의 이면. 2030이 실제로 원하는 삶의 형태와 제도적 간극을 1,800명 심층 설문으로 포착했다.</p>
@@ -427,7 +543,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-social rounded-full text-[11px] font-bold">사회·관계</span>
-            <span class="text-slate-400 text-[11px]">2026년 1월 · SELAB Vol.9</span>
+            <span class="text-slate-400 text-[11px]">2026년 1월 · LOGIN Vol.9</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-rose-700 transition-colors">디지털 과연결 시대의 역설적 고독: 온라인 사회자본의 허와 실</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">팔로워 수가 곧 사회적 자본이 된 시대. SNS 연결망이 촘촘할수록 깊어지는 고립감의 역설을 사회연결망 분석(SNA) 데이터로 증명했다.</p>
@@ -447,7 +563,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-career rounded-full text-[11px] font-bold">커리어</span>
-            <span class="text-slate-400 text-[11px]">2026년 4월 · SELAB Vol.12</span>
+            <span class="text-slate-400 text-[11px]">2026년 4월 · LOGIN Vol.12</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-blue-700 transition-colors">AI 전환기 직업 리스크 분석: 살아남는 역량과 사라지는 업무</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">국내 287개 직종 자동화 노출 지수 전수 분석. 직업이 사라지는 것이 아니라 재편되는 방식, 그리고 지금 당장 키워야 할 역량 지도를 제시한다.</p>
@@ -467,7 +583,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-0.5 tag-career rounded-full text-[11px] font-bold">커리어</span>
-            <span class="text-slate-400 text-[11px]">2026년 2월 · SELAB Vol.10</span>
+            <span class="text-slate-400 text-[11px]">2026년 2월 · LOGIN Vol.10</span>
           </div>
           <h3 class="font-bold text-[15px] text-on-surface mb-1.5 leading-snug group-hover:text-blue-700 transition-colors">평균 18개월의 비밀: MZ 세대 이직 패턴과 커리어 자산화 전략</h3>
           <p class="text-slate-500 text-[13px] leading-relaxed line-clamp-2">잦은 이직은 무능함이 아니다. 2030의 이직 데이터 11,000건을 분석해 얻은 '전략적 이직'과 '충동적 이직'의 결정적 차이, 그리고 연봉 상승 궤적의 비밀.</p>
@@ -486,26 +602,30 @@
 
 <!-- ───────────── BottomNavBar ───────────── -->
 <nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
-  <div class="flex justify-around items-center h-20 pb-safe px-2">
-    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="index.html">
-      <span class="material-symbols-outlined text-[22px]">home</span>
-      <span class="text-[10px] font-medium mt-0.5">홈</span>
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="index.html">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="프로그램.html">
-      <span class="material-symbols-outlined text-[22px]">school</span>
-      <span class="text-[10px] font-medium mt-0.5">프로그램</span>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="about.html">
+    <span class="material-symbols-outlined text-[17px]">info</span>
+    <span class="text-[8.5px] font-medium">About</span>
+  </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="프로그램.html">
+      <span class="material-symbols-outlined text-[17px]">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform" href="인사이트.html">
-      <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1;">auto_graph</span>
-      <span class="text-[10px] font-medium mt-0.5">인사이트</span>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="인사이트.html">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="커뮤니티.html">
-      <span class="material-symbols-outlined text-[22px]">forum</span>
-      <span class="text-[10px] font-medium mt-0.5">커뮤니티</span>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="커뮤니티.html">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-14 h-14 active:scale-90 transition-transform" href="마이페이지.html">
-      <span class="material-symbols-outlined text-[22px]">person</span>
-      <span class="text-[10px] font-medium mt-0.5">마이페이지</span>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="마이페이지.html">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
     </a>
   </div>
 </nav>

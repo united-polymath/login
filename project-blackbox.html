@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>블랙박스 인사이트 - LOGIN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+          "surface": "#f7f9fb",
+        },
+        spacing: { "margin-desktop": "64px", "gutter": "24px" },
+        fontSize: {
+          "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- 헤더 -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-4">
+      <a href="프로그램.html" class="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">프로젝트 목록</span>
+      </a>
+      <div class="w-px h-5 bg-slate-200 hidden sm:block"></div>
+      <a href="index.html" class="flex items-center">
+        <img src="logo2.jpg" alt="LOGIN" class="h-9 w-auto rounded-lg"/>
+      </a>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="index.html">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="about.html">About Us</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-28">
+
+  <!-- ===== 히어로 ===== -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 min-h-[500px] md:min-h-[560px] flex items-end">
+    <div class="absolute inset-0">
+      <img src="project_blackbox.jpg" alt="블랙박스 인사이트" class="w-full h-full object-cover opacity-25"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-[1200px] mx-auto px-5 md:px-margin-desktop pb-14 w-full">
+      <div class="flex flex-wrap items-center gap-2 mb-5">
+        <span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[12px] font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block"></span>프로젝트 참여자 모집중
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-headline-xl text-white font-bold mb-3">블랙박스 인사이트 프로젝트</h1>
+      <p class="text-slate-300 text-base md:text-body-lg max-w-2xl mb-8">세대 경험 데이터를 연결하는 인사이트 플랫폼</p>
+
+      <!-- 기본 정보 3개 -->
+      <div class="flex flex-wrap gap-6">
+        <div class="flex items-center gap-2 text-slate-300 text-sm">
+          <span class="material-symbols-outlined text-[18px] text-blue-400" style="font-variation-settings:'FILL' 1">calendar_month</span>
+          <div>
+            <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">모집기간</div>
+            <div class="font-semibold text-white">3월 16일 ~ 3월 28일</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-slate-300 text-sm">
+          <span class="material-symbols-outlined text-[18px] text-blue-400" style="font-variation-settings:'FILL' 1">schedule</span>
+          <div>
+            <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">소요시간</div>
+            <div class="font-semibold text-white">1시간 내외</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-slate-300 text-sm">
+          <span class="material-symbols-outlined text-[18px] text-blue-400" style="font-variation-settings:'FILL' 1">location_on</span>
+          <div>
+            <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">진행방식</div>
+            <div class="font-semibold text-white">오프라인</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-slate-300 text-sm">
+          <span class="material-symbols-outlined text-[18px] text-blue-400" style="font-variation-settings:'FILL' 1">group</span>
+          <div>
+            <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">대상</div>
+            <div class="font-semibold text-white">20대 청년 누구나</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[1200px] mx-auto px-5 md:px-margin-desktop py-14">
+
+    <!-- ===== Section 1: 기획 배경 ===== -->
+    <section class="mb-16">
+      <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">Background</div>
+      <h2 class="text-headline-md text-on-surface mb-10">프로젝트 기획 배경</h2>
+
+      <!-- (1) 청년 진로 불안 -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+          <span class="text-blue-600">(1)</span> 청년의 시행착오와 진로 불안
+        </h3>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 md:p-8">
+          <p class="text-on-surface-variant text-body-md leading-relaxed mb-6">
+            현대 20~30대 청년들은 자신의 진로와 삶의 방향성에 대해 명확한 확신을 가지기가 어렵습니다. 최근 통계에 따르면 대학생의 <strong class="text-on-surface">"약 75% 이상이 진로 탐색 및 취업 준비"</strong>를 위해 휴학을 결정하며, 실무 경험 부족으로 인한 불안감을 겪고 있습니다.
+          </p>
+
+          <!-- 데이터 박스 -->
+          <div class="bg-slate-50 rounded-xl border border-outline-variant p-5">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-4">📊 청년층 진로 및 직장 생존 현실 데이터</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl border border-outline-variant p-5 text-center">
+                <div class="text-4xl font-bold text-red-500 mb-1">10명 중 3명</div>
+                <div class="font-semibold text-on-surface text-sm mb-1">MZ세대 신규 입사자</div>
+                <div class="text-on-surface-variant text-xs">1년 내 조기 퇴사</div>
+              </div>
+              <div class="bg-white rounded-xl border border-outline-variant p-5 text-center">
+                <div class="text-4xl font-bold text-amber-500 mb-1">75%+</div>
+                <div class="font-semibold text-on-surface text-sm mb-1">대학생 휴학 선택</div>
+                <div class="text-on-surface-variant text-xs">진로 탐색 및 취업 준비 목적</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- (2) 조기 퇴사와 경험 데이터 단절 -->
+      <div>
+        <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+          <span class="text-blue-600">(2)</span> 지속되는 조기 퇴사와 경험 데이터의 단절
+        </h3>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 md:p-8">
+          <p class="text-on-surface-variant text-body-md leading-relaxed mb-6">
+            실제로 신규 입사자의 <strong class="text-on-surface">"약 28.7%"</strong>가 1년 내에 조기 퇴사하며, <strong class="text-on-surface">"직무 적성 불일치 (48%)"</strong>가 가장 큰 원인으로 꼽히고 있습니다. 이처럼 현실적인 조언과 생존법의 부재로 인한 엄청난 매몰 비용이 발생하고 있습니다.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="rounded-xl bg-red-50 border border-red-100 p-5 text-center">
+              <div class="text-3xl font-bold text-red-500 mb-1">28.7%</div>
+              <div class="text-red-700 text-sm font-semibold">1년 내 조기 퇴사율</div>
+            </div>
+            <div class="rounded-xl bg-amber-50 border border-amber-100 p-5 text-center">
+              <div class="text-3xl font-bold text-amber-500 mb-1">48%</div>
+              <div class="text-amber-700 text-sm font-semibold">직무 적성 불일치</div>
+              <div class="text-amber-600 text-xs mt-1">주요 퇴사 사유 1위</div>
+            </div>
+            <div class="rounded-xl bg-blue-50 border border-blue-100 p-5 text-center">
+              <div class="text-3xl font-bold text-blue-500 mb-1">92.3%</div>
+              <div class="text-blue-700 text-sm font-semibold">진짜 멘토가 필요해</div>
+              <div class="text-blue-600 text-xs mt-1">출처: 뉴스프라임</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: 프로젝트 소개 ===== -->
+    <section class="mb-16">
+      <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">Project</div>
+      <h2 class="text-headline-md text-on-surface mb-6">신규 프로젝트 소개</h2>
+
+      <div class="bg-gradient-to-br from-slate-900 to-blue-950 rounded-2xl p-8 md:p-10 text-white mb-6">
+        <p class="text-xl md:text-2xl font-bold text-white mb-6 leading-snug">뻔한 성공담? 우리에겐 <span class="text-blue-300">'진짜 생존법'</span>이 필요합니다.</p>
+        <p class="text-slate-300 text-base leading-relaxed mb-5">
+          요즘 진로나 고민을 해결하기 위해 유튜브나 AI 검색 많이 하시죠? 하지만 검색하면 뻔한 성공담만 넘쳐납니다. 막상 현장에 부딪혔을 때 필요한 <strong class="text-white">'진짜 생존법'</strong>이나 <strong class="text-white">'실패했을 때 어떻게 일어섰는지'</strong>와 같은 현실적인 조언은 찾기 힘드셨을 겁니다.
+        </p>
+        <p class="text-slate-300 text-base leading-relaxed mb-5">
+          저희가 이번에 평생 현직 필드를 누비다 명예퇴직하신 <strong class="text-yellow-300">"6070 대선배님"</strong>들을 만났습니다. 이분들이 가진 인사이트는 정말 대단했습니다. 검색창엔 절대 안 나오고, 유튜브에서도 볼 수 없는 그들만의 <strong class="text-white">'블랙박스' 같은 성공과 실패 기록</strong>들을 모아 청년 분들에게 연결해 드리고자 본 프로젝트를 기획하게 되었습니다.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-sm">#블랙박스인사이트</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-sm">#트라이연구소</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-sm">#데이터수집</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-sm">#세대연결</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: 4가지 인사이트 ===== -->
+    <section class="mb-16">
+      <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">Insights</div>
+      <h2 class="text-headline-md text-on-surface mb-4">프로젝트를 통해 완성될 4가지 인사이트</h2>
+      <p class="text-on-surface-variant text-body-md mb-8">참여해주시면 아래 4가지 결과물로 보답드립니다.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+        <!-- 인사이트 콘텐츠 -->
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 flex gap-4 items-start">
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center shrink-0 text-2xl">💡</div>
+          <div>
+            <div class="font-bold text-on-surface text-base mb-2">인사이트 콘텐츠</div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">면접관의 실제 시각, 직장 내 숨겨진 리스크 분석 등 현실 생존 기반의 100% 리얼 콘텐츠 수집</p>
+          </div>
+        </div>
+
+        <!-- 실패 데이터 아카이브 -->
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 flex gap-4 items-start">
+          <div class="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center shrink-0 text-2xl">📂</div>
+          <div>
+            <div class="font-bold text-on-surface text-base mb-2">실패 데이터 아카이브</div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">선배들의 실패 경험과 그 이후의 극복 과정을 모아놓은 오답 노트형 데이터베이스 구축</p>
+          </div>
+        </div>
+
+        <!-- 1:1 맞춤 인사이트 -->
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 flex gap-4 items-start">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 text-2xl">💬</div>
+          <div>
+            <div class="font-bold text-on-surface text-base mb-2">1:1 맞춤 인사이트 제공</div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">트라이(TRI) 연구소가 독점 확보한 6070 선배님들의 실전 전문 데이터를 바탕으로, 참가자 상황에 맞춘 심층적이고 다양한 실무 인사이트 제공</p>
+          </div>
+        </div>
+
+        <!-- 맞춤 인생 리포트 -->
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 flex gap-4 items-start">
+          <div class="w-12 h-12 rounded-full bg-violet-100 flex items-center justify-center shrink-0 text-2xl">📊</div>
+          <div>
+            <div class="font-bold text-on-surface text-base mb-2">맞춤 인생 리포트</div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">개인별 고민 분석 및 참여자별 진로 성향 데이터를 바탕으로 그려지는 맞춤형 커리어 로드맵</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 멘토 통계 배너 -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+        <div class="text-center md:text-left shrink-0">
+          <div class="text-5xl font-bold text-amber-600 mb-1">10명 중 9명</div>
+          <div class="text-amber-700 font-semibold">"진짜 멘토가 필요합니다"</div>
+        </div>
+        <div class="w-px h-16 bg-amber-200 hidden md:block shrink-0"></div>
+        <div>
+          <p class="text-amber-800 text-sm leading-relaxed">멘토가 없는 직장인을 대상으로 진행한 '멘토 필요성 체감율' 조사 결과, <strong>92.3%</strong>가 직장생활에 멘토가 필요하다고 응답했습니다.</p>
+          <p class="text-amber-600 text-xs mt-2">출처: 뉴스프라임 ('직장 생활에 멘토가 필요하다' 92.3%)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 4: 진짜 이유 ===== -->
+    <section class="mb-16">
+      <div class="text-[12px] font-bold text-blue-600 uppercase tracking-wider mb-2">Why</div>
+      <h2 class="text-headline-md text-on-surface mb-4">프로젝트를 진행하는 진짜 이유</h2>
+      <p class="text-on-surface-variant text-body-lg font-semibold mb-6">시대가 너무 빠르게 변하고 있습니다. 직접 만나서, 진짜 이야기를 듣고 싶습니다.</p>
+
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 md:p-8 mb-8">
+        <p class="text-on-surface-variant text-body-md leading-relaxed mb-5">
+          저희는 세대를 연결하는 앱(App) 플랫폼 출시를 준비하고 있습니다. 하지만 지금의 시대는 상상 이상으로 빠르게 변하고 있어, 단순히 책상 앞에서의 기획이나 검색 결과만으로는 <strong class="text-on-surface">"요즘 청년들이 직장과 진로에서 실제로 겪는 트렌드나 날것의 고민"</strong>을 온전히 따라잡을 수 없었습니다.
+        </p>
+        <p class="text-on-surface-variant text-body-md leading-relaxed">
+          그래서 저희는 청년들을 직접 만나 여러분의 현재 상황을 생생하게 인터뷰하기로 했습니다. 이 프로젝트는 단순한 설문조사가 아니라, <strong class="text-on-surface">"우리가 뼈저리게 필요한 것과 여러분이 간절히 바라는 것을 맞교환하는 확실한 Win-Win 커넥션"</strong>입니다.
+        </p>
+      </div>
+
+      <!-- Win-Win 교환 -->
+      <h3 class="text-base font-bold text-on-surface mb-5">🎯 상호 가치의 교환: 우리가 주고, 받는 것들</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+        <div class="bg-slate-900 rounded-2xl p-6 text-white">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-blue-400" style="font-variation-settings:'FILL' 1">download</span>
+            <div class="font-bold text-blue-300 text-sm uppercase tracking-wider">우리가 얻고 싶은 것</div>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            빠르게 변하는 시대 흐름 속에서 탁상공론을 탈피하고, 앱 플랫폼 기획의 핵심 방향을 단단하게 잡아줄 <strong class="text-white">"청년들의 솔직하고 생생한 직무 고민 데이터"</strong>
+          </p>
+        </div>
+        <div class="bg-blue-950 rounded-2xl p-6 text-white">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-emerald-400" style="font-variation-settings:'FILL' 1">upload</span>
+            <div class="font-bold text-emerald-300 text-sm uppercase tracking-wider">참여 청년들이 얻게 되는 것</div>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            참여자가 현재 겪고 있는 직무, 조직문화, 진로 방향성 고민들에 적용할 수 있는, 트라이 연구소가 사전 발굴한 <strong class="text-white">'6070 현직 대선배님들의 실전 블랙박스 인사이트'</strong> 맞춤형 제공
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-center">
+        <span class="material-symbols-outlined text-blue-500 text-[32px] mb-3 block" style="font-variation-settings:'FILL' 1">handshake</span>
+        <p class="text-blue-800 text-base leading-relaxed">
+          저희는 <strong>1회 40분의 오프라인 심층 인터뷰</strong>를 통해 여러분의 진짜 이야기를 듣고 싶습니다.<br/>
+          흔쾌히 들려주신 고민에, 저희는 수천 명의 선배 데이터가 응축된 <strong>'명확한 해답의 단서'</strong>로 보답하겠습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 요약 카드 ===== -->
+    <section class="mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <span class="material-symbols-outlined text-blue-500 text-[32px] mb-3 block" style="font-variation-settings:'FILL' 1">calendar_month</span>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">모집기간</div>
+          <div class="font-bold text-on-surface">3월 16일 ~ 3월 28일</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <span class="material-symbols-outlined text-blue-500 text-[32px] mb-3 block" style="font-variation-settings:'FILL' 1">schedule</span>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">소요시간</div>
+          <div class="font-bold text-on-surface">1시간 내외</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <span class="material-symbols-outlined text-blue-500 text-[32px] mb-3 block" style="font-variation-settings:'FILL' 1">flag</span>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">목표</div>
+          <div class="font-bold text-on-surface">청년 고민 데이터 수집 및 세대 연결 앱 개발</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="bg-gradient-to-br from-slate-900 to-blue-950 rounded-2xl p-8 md:p-12 text-center text-white">
+      <div class="text-[12px] font-bold text-blue-400 uppercase tracking-widest mb-3">Recruitment</div>
+      <h3 class="text-2xl md:text-headline-md font-bold mb-3">지금 바로 참여하세요</h3>
+      <p class="text-slate-300 text-base leading-relaxed mb-8 max-w-xl mx-auto">
+        20대 청년이라면 누구나 참여 가능합니다.<br/>내 커리어 고민을 꺼내놓고, 선배들의 블랙박스 인사이트를 받아가세요.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="프로그램.html" class="px-8 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-colors">← 목록으로 돌아가기</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- 하단 네비 (모바일) -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-4 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="index.html">
+    <span class="material-symbols-outlined text-[22px]">home</span>
+    <span class="text-[10px] font-medium">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="프로그램.html">
+    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">school</span>
+    <span class="text-[10px] font-medium">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="인사이트.html">
+    <span class="material-symbols-outlined text-[22px]">auto_graph</span>
+    <span class="text-[10px] font-medium">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="커뮤니티.html">
+    <span class="material-symbols-outlined text-[22px]">forum</span>
+    <span class="text-[10px] font-medium">커뮤니티</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-14 h-14 active:scale-90 transition-transform duration-150" href="마이페이지.html">
+    <span class="material-symbols-outlined text-[22px]">person</span>
+    <span class="text-[10px] font-medium">마이페이지</span>
+  </a>
+</nav>
+
+<script src="header-auth.js"></script>
+</body>
+</html>
