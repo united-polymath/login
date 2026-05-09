@@ -402,6 +402,17 @@
 
     <!-- Settings -->
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50 mb-5">
+      <!-- 등급 업그레이드 문의 -->
+      <button onclick="showView('upgrade')" class="w-full flex items-center gap-4 p-4 hover:bg-[#EEF7B5] transition-colors text-left">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EEF7B5;">
+          <span class="material-symbols-outlined text-xl" style="color:#6B8700;">workspace_premium</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="font-semibold text-sm text-on-surface">등급 업그레이드 문의</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">PDF 다운로드 · 프리미엄 콘텐츠 이용</div>
+        </div>
+        <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+      </button>
       <button onclick="showView('change-password')" class="w-full flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors text-left">
         <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
           <span class="material-symbols-outlined text-slate-500 text-xl">lock</span>
@@ -450,6 +461,88 @@
         <button id="pw-btn" onclick="handleChangePassword()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#C8E600;border-radius:4px;">
           <span id="pw-btn-text">변경하기</span>
           <span id="pw-btn-spinner" class="hidden w-4 h-4 border-2 border-white/40 border-t-white rounded-full spinner"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== UPGRADE INQUIRY VIEW ===== -->
+  <div id="view-upgrade" class="view fade-in">
+    <div class="pt-8 pb-6">
+      <button onclick="showView('profile')" class="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 transition-colors mb-6 text-sm font-medium">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        돌아가기
+      </button>
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#EEF7B5;">
+          <span class="material-symbols-outlined" style="color:#6B8700;font-size:22px;">workspace_premium</span>
+        </div>
+        <div>
+          <h1 class="text-2xl font-extrabold text-on-surface leading-tight">등급 업그레이드 문의</h1>
+          <p class="text-sm text-slate-400 mt-0.5">검토 후 1~2 영업일 내 이메일로 안내드려요.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 프리미엄 혜택 안내 -->
+    <div class="rounded-xl p-4 mb-5 border" style="background:#EEF7B5;border-color:#D5E8A0;">
+      <p class="text-xs font-bold mb-2" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;letter-spacing:0.08em;">// PREMIUM BENEFITS</p>
+      <ul class="space-y-1.5 text-sm text-[#0E0E0E]">
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">download</span>리포트 PDF 전체 다운로드</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">lock_open</span>프리미엄 인사이트 전체 열람</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">event_available</span>프로그램 우선 신청권</li>
+      </ul>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+      <div id="upgrade-error" class="hidden mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-sm font-medium"></div>
+      <div id="upgrade-success" class="hidden mb-4 p-4 rounded-xl text-center" style="background:#EEF7B5;">
+        <span class="material-symbols-outlined text-3xl mb-2 block" style="color:#6B8700;">check_circle</span>
+        <p class="font-bold text-[#0E0E0E] mb-1">문의가 접수됐어요!</p>
+        <p class="text-sm text-slate-500">검토 후 1~2 영업일 내로 이메일로 안내드릴게요.</p>
+      </div>
+
+      <div id="upgrade-form" class="space-y-5">
+        <!-- 이름 -->
+        <div>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 이름</label>
+          <input id="upgrade-name" type="text" class="input-field" placeholder="이름을 입력하세요"/>
+        </div>
+
+        <!-- 이메일 -->
+        <div>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 이메일</label>
+          <input id="upgrade-email" type="email" class="input-field bg-[#F4F1E8]" readonly placeholder="자동으로 채워집니다"/>
+        </div>
+
+        <!-- 문의 목적 -->
+        <div>
+          <label class="block text-xs font-bold mb-2 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 주요 이용 목적</label>
+          <div class="grid grid-cols-2 gap-2" id="purpose-btns">
+            <button type="button" onclick="togglePurpose(this)" data-val="pdf" class="purpose-btn py-2.5 px-3 rounded-lg border text-sm font-medium text-left transition-all border-[#E5E2D7] text-slate-600 bg-white hover:border-[#0E0E0E]">
+              📄 PDF 다운로드
+            </button>
+            <button type="button" onclick="togglePurpose(this)" data-val="insight" class="purpose-btn py-2.5 px-3 rounded-lg border text-sm font-medium text-left transition-all border-[#E5E2D7] text-slate-600 bg-white hover:border-[#0E0E0E]">
+              📖 프리미엄 인사이트
+            </button>
+            <button type="button" onclick="togglePurpose(this)" data-val="program" class="purpose-btn py-2.5 px-3 rounded-lg border text-sm font-medium text-left transition-all border-[#E5E2D7] text-slate-600 bg-white hover:border-[#0E0E0E]">
+              🎯 프로그램 우선 신청
+            </button>
+            <button type="button" onclick="togglePurpose(this)" data-val="etc" class="purpose-btn py-2.5 px-3 rounded-lg border text-sm font-medium text-left transition-all border-[#E5E2D7] text-slate-600 bg-white hover:border-[#0E0E0E]">
+              💬 기타
+            </button>
+          </div>
+        </div>
+
+        <!-- 문의 내용 -->
+        <div>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 추가 문의 내용 <span class="normal-case font-normal text-slate-400">(선택)</span></label>
+          <textarea id="upgrade-msg" class="input-field resize-none" rows="4" placeholder="등급업을 원하시는 이유나 궁금한 점을 자유롭게 적어주세요."></textarea>
+        </div>
+
+        <button id="upgrade-btn" onclick="handleUpgradeRequest()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#C8E600;border-radius:4px;">
+          <span id="upgrade-btn-text">문의 접수하기</span>
+          <span id="upgrade-btn-spinner" class="hidden w-4 h-4 border-2 rounded-full spinner" style="border-color:#C8E600/40;border-top-color:#C8E600;"></span>
         </button>
       </div>
     </div>
@@ -508,6 +601,7 @@ function showView(name) {
   void el.offsetWidth;
   el.classList.add('fade-in');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'upgrade') initUpgradeView();
 }
 
 function showError(id, msg) {
@@ -910,6 +1004,88 @@ async function handleDeleteAccount() {
     showView('login');
   } catch (e) {
     alert('탈퇴 처리 중 오류가 발생했어요. 관리자에게 문의해주세요.');
+  }
+}
+
+// ===== UPGRADE INQUIRY =====
+let selectedPurposes = new Set();
+
+function togglePurpose(btn) {
+  const val = btn.dataset.val;
+  if (selectedPurposes.has(val)) {
+    selectedPurposes.delete(val);
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  } else {
+    selectedPurposes.add(val);
+    btn.style.background = '#EEF7B5';
+    btn.style.borderColor = '#0E0E0E';
+    btn.style.color = '#0E0E0E';
+  }
+}
+
+function initUpgradeView() {
+  if (currentUser) {
+    document.getElementById('upgrade-email').value = currentUser.email || '';
+  }
+  if (currentProfile?.name) {
+    document.getElementById('upgrade-name').value = currentProfile.name;
+  }
+  selectedPurposes.clear();
+  document.querySelectorAll('.purpose-btn').forEach(b => {
+    b.style.background = ''; b.style.borderColor = ''; b.style.color = '';
+  });
+  document.getElementById('upgrade-msg').value = '';
+  document.getElementById('upgrade-error').classList.add('hidden');
+  document.getElementById('upgrade-success').classList.add('hidden');
+  document.getElementById('upgrade-form').classList.remove('hidden');
+}
+
+async function handleUpgradeRequest() {
+  if (isLoading) return;
+  const name = document.getElementById('upgrade-name').value.trim();
+  const email = document.getElementById('upgrade-email').value.trim();
+  const msg = document.getElementById('upgrade-msg').value.trim();
+  const purposes = [...selectedPurposes];
+
+  document.getElementById('upgrade-error').classList.add('hidden');
+
+  if (!name) return showError('upgrade-error', '이름을 입력해주세요.');
+  if (purposes.length === 0) return showError('upgrade-error', '이용 목적을 하나 이상 선택해주세요.');
+
+  const btn = document.getElementById('upgrade-btn');
+  const btnText = document.getElementById('upgrade-btn-text');
+  const spinner = document.getElementById('upgrade-btn-spinner');
+  btn.disabled = true; btnText.textContent = '접수 중...'; spinner.classList.remove('hidden');
+
+  try {
+    const token = currentAccessToken || SUPABASE_ANON_KEY;
+    const body = {
+      user_id: currentUser?.id || null,
+      user_email: email,
+      user_name: name,
+      purpose: purposes.join(', '),
+      message: msg || null,
+      status: 'pending'
+    };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/upgrade_requests`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('insert failed');
+    document.getElementById('upgrade-form').classList.add('hidden');
+    document.getElementById('upgrade-success').classList.remove('hidden');
+  } catch(e) {
+    showError('upgrade-error', '접수 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.');
+  } finally {
+    btn.disabled = false; btnText.textContent = '문의 접수하기'; spinner.classList.add('hidden');
   }
 }
 
