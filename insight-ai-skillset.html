@@ -6,6 +6,7 @@
 <title>LOGIN - AI와 협업하는 T자형 인재: 2026 하이브리드 스킬셋 전략</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
 <script id="tailwind-config">
@@ -51,51 +52,53 @@
   .summary-box { background: rgba(29, 78, 216, 0.07); border-left: 4px solid #1d4ed8; }
 
   /* ════════════════════════════════════════
-     LOGIN DARK MODE OVERRIDE
-     ════════════════════════════════════════ */
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
   :root {
-    --lime: #C5FF00;
-    --lime-dim: #A8D900;
-    --lime-bg: #1A2600;
-    --bg:      #0A0A0A;
-    --surface: #111111;
-    --card:    #181818;
-    --raised:  #202020;
-    --border:  #272727;
-    --border2: #333333;
-    --text1:   #F2F2F2;
-    --text2:   #A0A0A0;
-    --text3:   #5A5A5A;
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
   }
 
-  /* ── 기본 배경·텍스트 ── */
   html, body {
     background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
     color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
   }
 
-  /* ── 헤더 ── */
   header {
-    background-color: rgba(8,8,8,0.97) !important;
-    border-bottom-color: var(--border) !important;
-    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
   }
-  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
-  header a.text-slate-600:hover { color: var(--text1) !important; }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
 
-  /* ── 하단 네비 ── */
   nav.fixed.bottom-0 {
-    background-color: rgba(8,8,8,0.98) !important;
-    border-top-color: var(--border) !important;
-    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
   }
+  nav.fixed.bottom-0 a { color: #666 !important; }
 
-  /* ── 배경 색상 재정의 ── */
   .bg-white                         { background-color: var(--card) !important; }
   .bg-slate-50                      { background-color: var(--surface) !important; }
   .bg-slate-100                     { background-color: var(--raised) !important; }
-  .bg-slate-200                     { background-color: #2A2A2A !important; }
-  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
   .bg-gray-50                       { background-color: var(--surface) !important; }
   .bg-gray-100                      { background-color: var(--raised) !important; }
   .bg-background                    { background-color: var(--bg) !important; }
@@ -103,68 +106,68 @@
   .bg-surface-container-lowest      { background-color: var(--surface) !important; }
   .bg-surface-container-low         { background-color: var(--card) !important; }
   .bg-surface-container             { background-color: var(--raised) !important; }
-  .bg-surface-container-high        { background-color: #252525 !important; }
-  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
 
-  /* ── 보더 ── */
   .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
   .border-slate-200 { border-color: var(--border2) !important; }
-  .border-slate-300 { border-color: #3A3A3A !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
   .divide-slate-100 > * + * { border-color: var(--border) !important; }
 
-  /* ── 텍스트 ── */
-  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-300                 { color: #B8B4A8 !important; }
   .text-slate-400                 { color: var(--text3) !important; }
   .text-slate-500                 { color: #777 !important; }
   .text-slate-600, .text-outline  { color: var(--text2) !important; }
-  .text-slate-700                 { color: #C0C0C0 !important; }
-  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
   .text-slate-900                 { color: var(--text1) !important; }
   .text-on-surface                { color: var(--text1) !important; }
   .text-on-surface-variant        { color: var(--text2) !important; }
   .text-on-background             { color: var(--text1) !important; }
 
-  /* ── Primary Blue → Lime ── */
-  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
   .bg-blue-600, .bg-primary,
-  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
-  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
   .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
-  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
   .hover\:bg-blue-700:hover,
-  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
-  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
-  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
-  .text-on-primary-container { color: var(--lime) !important; }
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
 
-  /* ── 카드 hover 그림자 ── */
-  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
-  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
-  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
-  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
 
-  /* ── hover 배경 ── */
-  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
-  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
-  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
 
-  /* ── 인풋 필드 ── */
   input, textarea, select {
-    background-color: var(--raised) !important;
+    background-color: #FFFFFF !important;
     border-color: var(--border2) !important;
     color: var(--text1) !important;
   }
   input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
 
-  /* ── 특수 케이스: 흰 배경 섹션 ── */
   section.bg-white, div.bg-white { background-color: var(--card) !important; }
 
-  /* ── 로고 ── */
-  header img { border-radius: 8px; }
-
-  /* ── active 네비 아이템 색상 ── */
   nav a.text-blue-600 span { color: var(--lime) !important; }
   nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>

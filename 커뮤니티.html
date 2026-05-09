@@ -6,6 +6,7 @@
 <title>LOGIN - 커뮤니티</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script>
@@ -30,16 +31,18 @@
   textarea:focus { outline: none; box-shadow: none; }
 
   /* Channel tab */
-  .channel-btn.active { background: #C5FF00; color: #0A0A0A; font-weight: 700; border-color: #C5FF00; }
-  .channel-btn { transition: all 0.15s; }
+  .channel-btn.active { background: #0E0E0E; color: #C8E600; font-weight: 700; border-color: #0E0E0E; }
+  .channel-btn { transition: all 0.15s; color: #555; border: 1.5px solid #D8D5CA; background: #FFFFFF; }
+  .channel-btn:hover { border-color: #0E0E0E; }
 
   /* Category filter */
-  .cat-btn.active { background: #222; color: #C5FF00; border-color: #C5FF00; }
-  .cat-btn { transition: all 0.15s; }
+  .cat-btn.active { background: #0E0E0E; color: #C8E600; border-color: #0E0E0E; }
+  .cat-btn { transition: all 0.15s; color: #555; border: 1.5px solid #D8D5CA; background: #FFFFFF; }
+  .cat-btn:hover { border-color: #0E0E0E; }
 
   /* Post card */
-  .post-card { transition: border-color 0.15s; }
-  .post-card:hover { border-color: #333; }
+  .post-card { transition: border-color 0.15s, box-shadow 0.15s; }
+  .post-card:hover { border-color: #0E0E0E; box-shadow: 4px 4px 0 rgba(14,14,14,0.08); }
 
   /* Comments panel */
   .comment-panel { display: none; }
@@ -51,7 +54,7 @@
   .post-card { animation: cardIn 0.2s ease forwards; }
 
   /* Skeleton */
-  .skeleton { background: linear-gradient(90deg,#1e1e1e 25%,#2a2a2a 50%,#1e1e1e 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
+  .skeleton { background: linear-gradient(90deg,#F4F1E8 25%,#EDE9DF 50%,#F4F1E8 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
   @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
   /* Write modal */
@@ -59,14 +62,16 @@
   @keyframes modalUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
   #write-overlay { backdrop-filter: blur(6px); }
   #write-modal {
-    background: #141414;
+    background: #FFFFFF;
     max-height: 92vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  .tag-btn.selected { background: rgba(197,255,0,0.15); color: #C5FF00; border-color: #C5FF00; }
+  .tag-btn.selected { background: #0E0E0E; color: #C8E600; border-color: #0E0E0E; }
+  .tag-btn { color: #555; border: 1.5px solid #D8D5CA; background: #FFFFFF; }
+  .tag-btn:hover { border-color: #0E0E0E; }
 
   /* Like active */
   .like-btn-active .like-icon { font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
@@ -80,51 +85,53 @@
   #toast { animation: toastIn 0.25s ease forwards; }
 
   /* ════════════════════════════════════════
-     LOGIN DARK MODE OVERRIDE
-     ════════════════════════════════════════ */
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
   :root {
-    --lime: #C5FF00;
-    --lime-dim: #A8D900;
-    --lime-bg: #1A2600;
-    --bg:      #0A0A0A;
-    --surface: #111111;
-    --card:    #181818;
-    --raised:  #202020;
-    --border:  #272727;
-    --border2: #333333;
-    --text1:   #F2F2F2;
-    --text2:   #A0A0A0;
-    --text3:   #5A5A5A;
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
   }
 
-  /* ── 기본 배경·텍스트 ── */
   html, body {
     background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
     color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
   }
 
-  /* ── 헤더 ── */
   header {
-    background-color: rgba(8,8,8,0.97) !important;
-    border-bottom-color: var(--border) !important;
-    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
   }
-  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
-  header a.text-slate-600:hover { color: var(--text1) !important; }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
 
-  /* ── 하단 네비 ── */
   nav.fixed.bottom-0 {
-    background-color: rgba(8,8,8,0.98) !important;
-    border-top-color: var(--border) !important;
-    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
   }
+  nav.fixed.bottom-0 a { color: #666 !important; }
 
-  /* ── 배경 색상 재정의 ── */
   .bg-white                         { background-color: var(--card) !important; }
   .bg-slate-50                      { background-color: var(--surface) !important; }
   .bg-slate-100                     { background-color: var(--raised) !important; }
-  .bg-slate-200                     { background-color: #2A2A2A !important; }
-  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
   .bg-gray-50                       { background-color: var(--surface) !important; }
   .bg-gray-100                      { background-color: var(--raised) !important; }
   .bg-background                    { background-color: var(--bg) !important; }
@@ -132,68 +139,68 @@
   .bg-surface-container-lowest      { background-color: var(--surface) !important; }
   .bg-surface-container-low         { background-color: var(--card) !important; }
   .bg-surface-container             { background-color: var(--raised) !important; }
-  .bg-surface-container-high        { background-color: #252525 !important; }
-  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
 
-  /* ── 보더 ── */
   .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
   .border-slate-200 { border-color: var(--border2) !important; }
-  .border-slate-300 { border-color: #3A3A3A !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
   .divide-slate-100 > * + * { border-color: var(--border) !important; }
 
-  /* ── 텍스트 ── */
-  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-300                 { color: #B8B4A8 !important; }
   .text-slate-400                 { color: var(--text3) !important; }
   .text-slate-500                 { color: #777 !important; }
   .text-slate-600, .text-outline  { color: var(--text2) !important; }
-  .text-slate-700                 { color: #C0C0C0 !important; }
-  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
   .text-slate-900                 { color: var(--text1) !important; }
   .text-on-surface                { color: var(--text1) !important; }
   .text-on-surface-variant        { color: var(--text2) !important; }
   .text-on-background             { color: var(--text1) !important; }
 
-  /* ── Primary Blue → Lime ── */
-  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
   .bg-blue-600, .bg-primary,
-  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
-  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
   .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
-  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
   .hover\:bg-blue-700:hover,
-  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
-  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
-  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
-  .text-on-primary-container { color: var(--lime) !important; }
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
 
-  /* ── 카드 hover 그림자 ── */
-  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
-  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
-  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
-  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
 
-  /* ── hover 배경 ── */
-  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
-  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
-  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
 
-  /* ── 인풋 필드 ── */
   input, textarea, select {
-    background-color: var(--raised) !important;
+    background-color: #FFFFFF !important;
     border-color: var(--border2) !important;
     color: var(--text1) !important;
   }
   input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
 
-  /* ── 특수 케이스: 흰 배경 섹션 ── */
   section.bg-white, div.bg-white { background-color: var(--card) !important; }
 
-  /* ── 로고 ── */
-  header img { border-radius: 8px; }
-
-  /* ── active 네비 아이템 색상 ── */
   nav a.text-blue-600 span { color: var(--lime) !important; }
   nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
 </style>
 </head>
 <body class="bg-background text-on-surface pb-28">
@@ -223,30 +230,30 @@
 
 <!-- Write Modal -->
 <div id="write-overlay" class="fixed inset-0 z-50 bg-black/40 hidden" onclick="closeWriteModal()">
-  <div id="write-modal" class="fixed left-0 right-0 rounded-t-3xl max-w-2xl mx-auto modal-enter border border-[#2A2A2A] border-b-0" style="bottom:80px" onclick="event.stopPropagation()">
+  <div id="write-modal" class="fixed left-0 right-0 rounded-t-3xl max-w-2xl mx-auto modal-enter border border-[#D8D5CA] border-b-0" style="bottom:80px" onclick="event.stopPropagation()">
     <div class="w-10 h-1 bg-[#333] rounded-full mx-auto mt-4 mb-0 flex-shrink-0"></div>
-    <div class="flex items-center justify-between px-6 pt-4 pb-3 border-b border-[#222] flex-shrink-0">
+    <div class="flex items-center justify-between px-6 pt-4 pb-3 border-b border-[#E5E2D7] flex-shrink-0">
       <div class="flex items-center gap-3">
-        <div id="modal-avatar" class="w-9 h-9 rounded-full bg-[#C5FF00] flex items-center justify-center text-black font-bold text-sm flex-shrink-0"></div>
+        <div id="modal-avatar" class="w-9 h-9 rounded-full bg-[#C8E600] flex items-center justify-center text-black font-bold text-sm flex-shrink-0"></div>
         <div>
-          <div id="modal-username" class="font-semibold text-[#F2F2F2] text-sm"></div>
+          <div id="modal-username" class="font-semibold text-[#0E0E0E] text-sm"></div>
           <div id="modal-channel-label" class="text-xs text-[#666] mt-0.5"></div>
         </div>
       </div>
-      <button onclick="closeWriteModal()" class="text-[#555] hover:text-[#F2F2F2] p-1 -mr-1 transition-colors">
+      <button onclick="closeWriteModal()" class="text-[#555] hover:text-[#0E0E0E] p-1 -mr-1 transition-colors">
         <span class="material-symbols-outlined text-[22px]">close</span>
       </button>
     </div>
     <div class="flex gap-2 px-6 pt-3 pb-2 overflow-x-auto hide-scrollbar flex-shrink-0">
-      <button onclick="selectTag(this,'#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#마음성장</button>
-      <button onclick="selectTag(this,'#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#커리어</button>
-      <button onclick="selectTag(this,'#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#독서기록</button>
-      <button onclick="selectTag(this,'#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#인간관계</button>
-      <button onclick="selectTag(this,'#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#일상</button>
+      <button onclick="selectTag(this,'#마음성장')" class="tag-btn px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#마음성장</button>
+      <button onclick="selectTag(this,'#커리어')" class="tag-btn px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#커리어</button>
+      <button onclick="selectTag(this,'#독서기록')" class="tag-btn px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#독서기록</button>
+      <button onclick="selectTag(this,'#인간관계')" class="tag-btn px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#인간관계</button>
+      <button onclick="selectTag(this,'#일상')" class="tag-btn px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border-2 border-transparent">#일상</button>
     </div>
     <div class="px-6 py-3">
       <textarea id="write-content" rows="4"
-        class="w-full resize-none text-[15px] leading-relaxed text-[#F2F2F2] placeholder:text-[#444] bg-transparent border-0 border-none focus:ring-0 focus:outline-none"
+        class="w-full resize-none text-[15px] leading-relaxed text-[#0E0E0E] placeholder:text-[#444] bg-transparent border-0 border-none focus:ring-0 focus:outline-none"
         placeholder="지금 어떤 생각이 드나요? 자유롭게 나눠보세요 ✨"
         maxlength="500"
         oninput="updateCharCount()"></textarea>
@@ -254,22 +261,22 @@
     <!-- Image preview -->
     <div id="img-preview-wrap" class="hidden px-6 pb-3">
       <div class="relative inline-block">
-        <img id="img-preview" src="" alt="" class="max-h-52 rounded-xl object-cover border border-[#2A2A2A]"/>
+        <img id="img-preview" src="" alt="" class="max-h-52 rounded-xl object-cover border border-[#D8D5CA]"/>
         <button onclick="removeImage()" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/70 flex items-center justify-center text-white hover:bg-black transition-colors">
           <span class="material-symbols-outlined text-[14px]">close</span>
         </button>
       </div>
     </div>
     <input type="file" id="img-input" accept="image/*" class="hidden" onchange="handleImageSelect(this)"/>
-    <div class="flex items-center justify-between px-6 py-3 border-t border-[#222]">
+    <div class="flex items-center justify-between px-6 py-3 border-t border-[#E5E2D7]">
       <div class="flex items-center gap-3">
-        <button onclick="document.getElementById('img-input').click()" class="flex items-center gap-1.5 text-[#555] hover:text-[#C5FF00] transition-colors">
+        <button onclick="document.getElementById('img-input').click()" class="flex items-center gap-1.5 text-[#555] hover:text-[#C8E600] transition-colors">
           <span class="material-symbols-outlined text-[22px]">add_photo_alternate</span>
           <span class="text-[12px]">사진</span>
         </button>
         <span id="char-count" class="text-[12px] text-[#555] font-medium">0 / 500</span>
       </div>
-      <button id="submit-btn" onclick="submitPost()" class="px-6 py-2.5 bg-[#C5FF00] text-black rounded-xl font-bold text-sm hover:bg-[#A8D900] active:scale-95 transition-all">게시하기</button>
+      <button id="submit-btn" onclick="submitPost()" class="px-6 py-2.5 bg-[#C8E600] text-black rounded-xl font-bold text-sm hover:bg-[#A8C400] active:scale-95 transition-all">게시하기</button>
     </div>
   </div>
 </div>
@@ -278,62 +285,62 @@
 
   <!-- Title -->
   <div class="py-4">
-    <h1 class="text-2xl font-extrabold text-[#F2F2F2]">커뮤니티 💬</h1>
+    <h1 class="text-2xl font-extrabold text-[#0E0E0E]">커뮤니티 💬</h1>
     <p class="text-[#666] text-sm mt-1">LOGIN 멤버들과 자유롭게 나눠요</p>
   </div>
 
   <!-- Channel Tabs -->
   <section class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar pb-1">
     <button data-channel="public" onclick="switchChannel('public')"
-      class="channel-btn active flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1E1E1E] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#2A2A2A]">
+      class="channel-btn active flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F4F1E8] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#D8D5CA]">
       💬 전체
     </button>
     <button data-channel="manager" onclick="switchChannel('manager')"
-      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1E1E1E] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#2A2A2A] hover:border-[#444]">
+      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F4F1E8] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#D8D5CA] hover:border-[#444]">
       ✨ 매니저
     </button>
     <button data-channel="admin" onclick="switchChannel('admin')"
-      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1E1E1E] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#2A2A2A] hover:border-[#444]">
+      class="channel-btn flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F4F1E8] text-[#888] text-[13px] font-medium whitespace-nowrap border border-[#D8D5CA] hover:border-[#444]">
       🔒 관리자
     </button>
   </section>
 
   <!-- Write Bar -->
   <section class="mb-4">
-    <div id="write-bar" onclick="openWriteModal()" class="p-4 rounded-2xl border border-[#272727] bg-[#131313] flex items-center gap-3 cursor-pointer hover:border-[#3A3A3A] transition-all">
-      <div id="write-bar-avatar" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center flex-shrink-0 border border-[#333]">
+    <div id="write-bar" onclick="openWriteModal()" class="p-4 rounded-2xl border border-[#E5E2D7] bg-[#FAFAF5] flex items-center gap-3 cursor-pointer hover:border-[#CCC9BE] transition-all">
+      <div id="write-bar-avatar" class="w-10 h-10 rounded-full bg-[#F0EDE6] flex items-center justify-center flex-shrink-0 border border-[#D8D5CA]">
         <span class="material-symbols-outlined text-[#555] text-xl">person</span>
       </div>
       <p id="write-bar-hint" class="text-[#555] text-[14px] flex-1">지금 어떤 생각이 드나요? ✨</p>
-      <span class="material-symbols-outlined text-[#C5FF00] text-[20px]" style="font-variation-settings:'FILL' 1">edit_square</span>
+      <span class="material-symbols-outlined text-[#C8E600] text-[20px]" style="font-variation-settings:'FILL' 1">edit_square</span>
     </div>
-    <div id="login-banner" class="hidden mt-3 p-4 bg-[#1A2600] rounded-2xl border border-[#C5FF00]/20 flex items-center gap-3">
-      <span class="material-symbols-outlined text-[#C5FF00] text-lg flex-shrink-0" style="font-variation-settings:'FILL' 1">info</span>
-      <p class="text-[#A0A0A0] text-sm flex-1">로그인하면 커뮤니티에 글을 올릴 수 있어요.</p>
-      <a href="마이페이지.html" class="text-[#C5FF00] font-bold text-sm whitespace-nowrap">로그인 →</a>
+    <div id="login-banner" class="hidden mt-3 p-4 bg-[#1A2600] rounded-2xl border border-[#C8E600]/20 flex items-center gap-3">
+      <span class="material-symbols-outlined text-[#C8E600] text-lg flex-shrink-0" style="font-variation-settings:'FILL' 1">info</span>
+      <p class="text-[#777777] text-sm flex-1">로그인하면 커뮤니티에 글을 올릴 수 있어요.</p>
+      <a href="마이페이지.html" class="text-[#C8E600] font-bold text-sm whitespace-nowrap">로그인 →</a>
     </div>
   </section>
 
   <!-- Category Filter -->
   <section class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar">
     <button data-cat="all" onclick="switchCategory('all')"
-      class="cat-btn active flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#888] text-[12px] font-bold whitespace-nowrap border border-[#2A2A2A]">
+      class="cat-btn active flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#888] text-[12px] font-bold whitespace-nowrap border border-[#D8D5CA]">
       전체
     </button>
     <button data-cat="notice" onclick="switchCategory('notice')"
-      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#2A2A2A]">
+      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#D8D5CA]">
       📢 공지
     </button>
     <button data-cat="growth" onclick="switchCategory('growth')"
-      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#2A2A2A]">
+      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#D8D5CA]">
       🌱 성장
     </button>
     <button data-cat="career" onclick="switchCategory('career')"
-      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#2A2A2A]">
+      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#D8D5CA]">
       💼 커리어
     </button>
     <button data-cat="relation" onclick="switchCategory('relation')"
-      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1E1E1E] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#2A2A2A]">
+      class="cat-btn flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F4F1E8] text-[#666] text-[12px] font-bold whitespace-nowrap border border-[#D8D5CA]">
       💞 관계
     </button>
   </section>
@@ -345,21 +352,21 @@
 
   <!-- Loading skeleton -->
   <div id="feed-loading" class="space-y-3">
-    <div class="rounded-2xl border border-[#222] bg-[#131313] p-4">
+    <div class="rounded-2xl border border-[#E5E2D7] bg-[#FAFAF5] p-4">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-10 h-10 rounded-full skeleton flex-shrink-0"></div>
         <div class="flex-1"><div class="h-3 w-24 skeleton mb-2"></div><div class="h-3 w-16 skeleton"></div></div>
       </div>
       <div class="h-3 skeleton mb-2"></div><div class="h-3 w-3/4 skeleton"></div>
     </div>
-    <div class="rounded-2xl border border-[#222] bg-[#131313] p-4">
+    <div class="rounded-2xl border border-[#E5E2D7] bg-[#FAFAF5] p-4">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-10 h-10 rounded-full skeleton flex-shrink-0"></div>
         <div class="flex-1"><div class="h-3 w-20 skeleton mb-2"></div><div class="h-3 w-14 skeleton"></div></div>
       </div>
       <div class="h-3 skeleton mb-2"></div><div class="h-3 w-1/2 skeleton"></div>
     </div>
-    <div class="rounded-2xl border border-[#222] bg-[#131313] p-4">
+    <div class="rounded-2xl border border-[#E5E2D7] bg-[#FAFAF5] p-4">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-10 h-10 rounded-full skeleton flex-shrink-0"></div>
         <div class="flex-1"><div class="h-3 w-28 skeleton mb-2"></div><div class="h-3 w-16 skeleton"></div></div>
@@ -379,7 +386,7 @@
   <div id="feed-error" class="hidden text-center py-16">
     <div class="text-4xl mb-3">⚠️</div>
     <p class="text-[#666] font-medium mb-4">피드를 불러올 수 없어요</p>
-    <button onclick="loadFeed()" class="px-5 py-2.5 bg-[#C5FF00] text-black rounded-xl font-bold text-sm">다시 시도</button>
+    <button onclick="loadFeed()" class="px-5 py-2.5 bg-[#C8E600] text-black rounded-xl font-bold text-sm">다시 시도</button>
   </div>
 
   <!-- Feed (social cards) -->
@@ -655,7 +662,7 @@ function postRowHTML(post, idx, total) {
   const avatarColor  = avatarColors[name.charCodeAt(0) % avatarColors.length];
 
   return `
-  <div class="post-card rounded-2xl border border-[#222] bg-[#111] p-4">
+  <div class="post-card rounded-2xl border border-[#E5E2D7] bg-white p-4">
     <!-- Header -->
     <div class="flex items-start gap-3 mb-3">
       <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:${avatarColor}">
@@ -663,7 +670,7 @@ function postRowHTML(post, idx, total) {
       </div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="font-bold text-[13px] text-[#E8E8E8]">${escapeHtml(name)}</span>
+          <span class="font-bold text-[13px] text-[#0E0E0E]">${escapeHtml(name)}</span>
           ${roleBadge}
           <span class="text-[11px] text-[#444] ml-auto">${timeStr}</span>
         </div>
@@ -672,14 +679,14 @@ function postRowHTML(post, idx, total) {
     </div>
 
     <!-- Content -->
-    <div class="text-[14px] leading-relaxed text-[#C0C0C0] mb-3">${fullContent}</div>
+    <div class="text-[14px] leading-relaxed text-[#2A2A2A] mb-3">${fullContent}</div>
     ${post.image_url ? `
-    <div class="mb-3 rounded-xl overflow-hidden border border-[#222]">
+    <div class="mb-3 rounded-xl overflow-hidden border border-[#E5E2D7]">
       <img src="${post.image_url}" alt="" class="w-full max-h-80 object-cover" loading="lazy" onerror="this.parentElement.remove()"/>
     </div>` : ''}
 
     <!-- Actions -->
-    <div class="flex items-center gap-5 pt-3 border-t border-[#1A1A1A]">
+    <div class="flex items-center gap-5 pt-3 border-t border-[#E5E2D7]">
       <button
         onclick="toggleLike('${post.id}', this)"
         class="like-btn flex items-center gap-1.5 transition-colors ${isLiked ? 'text-rose-400' : 'text-[#444] hover:text-rose-400'}"
@@ -700,7 +707,7 @@ function postRowHTML(post, idx, total) {
 
     <!-- Comment panel -->
     <div class="comment-panel" id="comments-${post.id}">
-      <div class="mt-3 pt-3 border-t border-[#1A1A1A]">
+      <div class="mt-3 pt-3 border-t border-[#E5E2D7]">
         <div class="comment-list text-[13px] text-[#555] mb-3 space-y-2" id="comment-list-${post.id}">
           <p class="text-[#333] text-[12px]">첫 댓글을 달아보세요 💬</p>
         </div>
@@ -711,17 +718,17 @@ function postRowHTML(post, idx, total) {
           </div>
           <div class="flex-1 flex gap-2">
             <input type="text" id="comment-input-${post.id}"
-              class="flex-1 text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl px-3 py-1.5 text-[#E0E0E0] placeholder:text-[#444] focus:outline-none focus:border-[#C5FF00]/40"
+              class="flex-1 text-[13px] bg-[#F4F1E8] border border-[#D8D5CA] rounded-xl px-3 py-1.5 text-[#0E0E0E] placeholder:text-[#444] focus:outline-none focus:border-[#C8E600]/40"
               placeholder="댓글을 입력하세요..."
               onkeydown="if(event.key==='Enter') submitComment('${post.id}')"
             />
             <button onclick="submitComment('${post.id}')"
-              class="px-3 py-1.5 bg-[#C5FF00] text-black text-[12px] font-bold rounded-xl hover:bg-[#A8D900] transition-colors whitespace-nowrap">
+              class="px-3 py-1.5 bg-[#C8E600] text-black text-[12px] font-bold rounded-xl hover:bg-[#A8C400] transition-colors whitespace-nowrap">
               등록
             </button>
           </div>
         </div>` : `
-        <p class="text-[12px] text-[#555]"><a href="마이페이지.html" class="text-[#C5FF00] font-semibold">로그인</a>하면 댓글을 달 수 있어요.</p>
+        <p class="text-[12px] text-[#555]"><a href="마이페이지.html" class="text-[#C8E600] font-semibold">로그인</a>하면 댓글을 달 수 있어요.</p>
         `}
       </div>
     </div>
@@ -821,10 +828,10 @@ function submitComment(postId) {
     listEl.innerHTML = localComments[postId].map(c => `
       <div class="flex gap-2 mb-2">
         <div class="w-6 h-6 rounded-full bg-[#3b82f6] flex items-center justify-center text-white font-bold text-[10px] flex-shrink-0">${c.name.charAt(0)}</div>
-        <div class="bg-[#1A1A1A] rounded-xl px-2.5 py-1.5 flex-1">
-          <span class="font-semibold text-[12px] text-[#E0E0E0]">${escapeHtml(c.name)}</span>
+        <div class="bg-[#F4F1E8] rounded-xl px-2.5 py-1.5 flex-1">
+          <span class="font-semibold text-[12px] text-[#0E0E0E]">${escapeHtml(c.name)}</span>
           <span class="text-[11px] text-[#444] ml-1">${c.time}</span>
-          <p class="text-[12px] text-[#A0A0A0] mt-0.5">${escapeHtml(c.text)}</p>
+          <p class="text-[12px] text-[#777777] mt-0.5">${escapeHtml(c.text)}</p>
         </div>
       </div>
     `).join('');
