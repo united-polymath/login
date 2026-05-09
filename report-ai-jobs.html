@@ -246,47 +246,45 @@
 
   <!-- ───────────── 리포트 메타 바 ───────────── -->
   <div class="max-w-4xl mx-auto px-4 md:px-8">
-    <div class="bg-white rounded-2xl shadow-lg -mt-16 relative z-10 px-6 py-6 border border-slate-100">
-      <!-- 뒤로가기 -->
-      <a href="인사이트.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-[#6B8700] text-sm font-medium transition-colors mb-5 group">
-        <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
-        인사이트 목록으로 돌아가기
-      </a>
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 -mt-16 relative z-10 p-6 md:p-8">
 
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <!-- 브레드크럼 네비 -->
+      <div class="flex items-center gap-2 mb-5 flex-wrap">
+        <a href="인사이트.html" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#6B8700] transition-colors font-medium">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          인사이트로 돌아가기
+        </a>
+        <span class="text-slate-300">/</span>
+        <span class="text-[#6B8700] text-sm font-medium">커리어</span>
+        <span class="text-slate-300">/</span>
+        <span class="text-slate-700 text-sm truncate max-w-[180px] md:max-w-xs">AI 직업 리스크 분석</span>
+      </div>
+
+      <!-- 메타 그리드 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="flex flex-col gap-1">
-          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">시리즈</span>
-          <span class="text-[14px] font-bold text-on-surface">LOGIN Vol.12</span>
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">시리즈</span>
+          <span class="text-sm font-bold text-on-surface">LOGIN Vol.12</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">발행일</span>
-          <span class="text-[14px] font-bold text-on-surface">2026.04</span>
-        </div>
-        <div class="flex flex-col gap-1 col-span-2 md:col-span-1">
-          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">연구팀</span>
-          <span class="text-[14px] font-bold text-on-surface">미래노동 연구팀</span>
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">발행일</span>
+          <span class="text-sm font-bold text-on-surface">2026년 4월</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">분량</span>
-          <span class="text-[14px] font-bold text-on-surface">60 pages</span>
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">연구팀</span>
+          <span class="text-sm font-bold text-on-surface">미래노동 연구팀</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">다운로드</span>
-          <span class="text-[14px] font-bold text-[#0E0E0E]">8,127회</span>
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">분량 / 다운로드</span>
+          <span class="text-sm font-bold text-on-surface">60p · 8,127회</span>
         </div>
       </div>
 
-      <div class="mt-5 pt-5 border-t border-slate-100 flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-[#EEF7B5] flex items-center justify-center">
-          <span class="material-symbols-outlined text-[#6B8700] text-[18px]">person</span>
-        </div>
-        <div>
-          <p class="text-[13px] font-semibold text-on-surface">수석 최현우 HR 애널리스트</p>
-          <p class="text-[12px] text-slate-400">경제학 자문 김태양 박사 외 5인</p>
-        </div>
-        <div class="ml-auto flex items-center gap-2">
-          <span class="px-3 py-1 rounded-full bg-[#EEF7B5] text-[#6B8700] text-[12px] font-bold border border-[#D5E8A0]">커리어</span>
-        </div>
+      <!-- 저자 -->
+      <div class="mt-5 pt-5 border-t border-slate-100">
+        <p class="text-xs text-slate-500 leading-relaxed">
+          <strong style="color:#0E0E0E">수석 연구원:</strong> 최현우 HR 애널리스트 &nbsp;·&nbsp; <strong style="color:#0E0E0E">경제학 자문:</strong> 김태양 박사 &nbsp;·&nbsp; 외 5인 참여
+        </p>
       </div>
     </div>
   </div>
