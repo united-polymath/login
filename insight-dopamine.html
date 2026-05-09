@@ -608,26 +608,34 @@
   </main>
 
   <!-- 하단 모바일 nav -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant z-50 md:hidden">
-    <div class="flex items-center justify-around h-16">
-      <a href="index.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-2xl">home</span>
-        <span class="text-[10px] font-medium">홈</span>
-      </a>
-      <a href="프로그램.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-2xl">school</span>
-        <span class="text-[10px] font-medium">프로그램</span>
-      </a>
-      <a href="인사이트.html" class="flex flex-col items-center gap-0.5 text-primary">
-        <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">article</span>
-        <span class="text-[10px] font-bold">인사이트</span>
-      </a>
-      <a href="커뮤니티.html" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-2xl">group</span>
-        <span class="text-[10px] font-medium">커뮤니티</span>
-      </a>
-    </div>
-  </nav>
+  <nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="index.html">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="about.html">
+      <span class="material-symbols-outlined text-[17px]">info</span>
+      <span class="text-[8.5px] font-medium">About</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="프로그램.html">
+      <span class="material-symbols-outlined text-[17px]">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="인사이트.html">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="커뮤니티.html">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="마이페이지.html">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
+    </a>
+  </div>
+</nav>
 
 <script src="header-auth.js"></script>
 </body>
