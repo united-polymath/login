@@ -179,18 +179,13 @@
   </div>
 </header>
 
-<main class="pt-16 pb-28">
+<main class="pt-16 pb-44 md:pb-24">
 
   <!-- ===== 히어로 ===== -->
   <section class="relative overflow-hidden min-h-[480px] md:min-h-[540px] flex items-end" style="background: linear-gradient(135deg, #e8f4f0 0%, #d4eae5 50%, #c8e4dd 100%);">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-teal-200/40 blur-3xl"></div>
       <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-emerald-100/50 blur-3xl"></div>
-    </div>
-
-    <!-- 캐릭터 이미지 -->
-    <div class="absolute right-8 md:right-24 bottom-0 h-64 md:h-80 opacity-90">
-      <img src="/ritual_character.jpg" alt="라이야" class="h-full w-auto object-contain object-bottom"/>
     </div>
 
     <div class="relative z-10 max-w-[1200px] mx-auto px-5 md:px-margin-desktop pb-14 w-full">
@@ -491,6 +486,17 @@
   </div>
 </main>
 
+<!-- ===== 신청하기 Sticky CTA ===== -->
+<div class="fixed bottom-20 md:bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-100 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] px-5 py-3 md:px-8 md:py-4">
+  <div class="max-w-[1200px] mx-auto flex items-center justify-between gap-4">
+    <div>
+      <div class="font-bold text-slate-800 text-sm md:text-base">♻️ 불안 분리수거</div>
+      <div class="text-xs md:text-sm text-slate-500">3주 실험형 · 온라인 · <span class="text-teal-700 font-semibold">55,000원</span></div>
+    </div>
+    <button onclick="handleApply()" class="shrink-0 px-6 py-2.5 md:px-8 md:py-3 bg-teal-600 text-white rounded-xl font-bold text-sm md:text-base hover:bg-teal-700 active:scale-95 transition-all">신청하기</button>
+  </div>
+</div>
+
 <!-- 하단 네비 (모바일) -->
 <nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
   <div class="flex justify-around items-center h-20 pb-safe px-0">
@@ -522,5 +528,21 @@
 </nav>
 
 <script src="/header-auth.js"></script>
+<script>
+async function handleApply() {
+  const { createClient } = supabase;
+  const db = createClient(
+    'https://hroyuxjqqlimwrrhdwnd.supabase.co',
+    'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4'
+  );
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    location.href = '/community';
+  } else {
+    alert('로그인 후 신청 가능합니다.');
+    location.href = '/mypage';
+  }
+}
+</script>
 </body>
 </html>
