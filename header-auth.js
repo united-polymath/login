@@ -21,7 +21,7 @@
     el.innerHTML = `<span class="text-sm font-bold text-blue-700">${emailInitial}</span>`;
     el.classList.remove('bg-slate-200');
     el.classList.add('bg-blue-100');
-    el.onclick = () => { location.href = '마이페이지.html'; };
+    el.onclick = () => { location.href = '/mypage'; };
     el.style.cursor = 'pointer';
 
     // 프로필 fetch로 이름/아바타 업데이트

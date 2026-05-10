@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 패널 | LOGIN</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* Toast */
+    #toast-container { position: fixed; top: 1.25rem; right: 1.25rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
+    .toast { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease; min-width: 200px; max-width: 320px; }
+    .toast.success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+    .toast.error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .toast.info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    @keyframes slideIn { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+
+    /* Tab active */
+    .tab-btn.active { background: #1e293b; color: #f8fafc; }
+    .tab-btn { transition: all 0.2s; }
+
+    /* Channel filter active */
+    .filter-btn.active { background: #334155; color: #f1f5f9; }
+
+    /* Modal backdrop */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+
+    /* Spinner */
+    .spinner { border: 3px solid #e2e8f0; border-top-color: #3b82f6; border-radius: 50%; width: 2rem; height: 2rem; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Mobile nav active */
+    .mobile-nav-btn.active span.material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+    .mobile-nav-btn.active p { color: #0ea5e9; }
+  
+  /* ════════════════════════════════════════
+     LOGIN DARK MODE OVERRIDE
+     ════════════════════════════════════════ */
+  :root {
+    --lime: #C5FF00;
+    --lime-dim: #A8D900;
+    --lime-bg: #1A2600;
+    --bg:      #0A0A0A;
+    --surface: #111111;
+    --card:    #181818;
+    --raised:  #202020;
+    --border:  #272727;
+    --border2: #333333;
+    --text1:   #F2F2F2;
+    --text2:   #A0A0A0;
+    --text3:   #5A5A5A;
+  }
+
+  /* ── 기본 배경·텍스트 ── */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text1) !important;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background-color: rgba(8,8,8,0.97) !important;
+    border-bottom-color: var(--border) !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.7) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: var(--text2) !important; }
+  header a.text-slate-600:hover { color: var(--text1) !important; }
+
+  /* ── 하단 네비 ── */
+  nav.fixed.bottom-0 {
+    background-color: rgba(8,8,8,0.98) !important;
+    border-top-color: var(--border) !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.7) !important;
+  }
+
+  /* ── 배경 색상 재정의 ── */
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #2A2A2A !important; }
+  .bg-slate-300                     { background-color: #353535 !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #252525 !important; }
+  .bg-surface-container-highest     { background-color: #2C2C2C !important; }
+
+  /* ── 보더 ── */
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #3A3A3A !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  /* ── 텍스트 ── */
+  .text-slate-300                 { color: #606060 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #C0C0C0 !important; }
+  .text-slate-800                 { color: #D8D8D8 !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  /* ── Primary Blue → Lime ── */
+  .text-blue-600, .text-blue-700, .text-primary { color: var(--lime) !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: var(--lime) !important; color: #0A0A0A !important; }
+  .border-blue-600, .border-primary { border-color: var(--lime) !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: rgba(197,255,0,0.7) !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: var(--lime-dim) !important; }
+  .bg-on-primary, .text-on-primary { color: #0A0A0A !important; }
+  .bg-primary-fixed { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container { color: var(--lime) !important; }
+
+  /* ── 카드 hover 그림자 ── */
+  .hover\:shadow-md:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.7) !important; }
+  .shadow-sm { box-shadow: 0 1px 6px rgba(0,0,0,0.5) !important; }
+  .shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; }
+
+  /* ── hover 배경 ── */
+  .hover\:bg-slate-50:hover  { background-color: var(--raised) !important; }
+  .hover\:bg-slate-100:hover { background-color: #282828 !important; }
+  .hover\:bg-slate-200:hover { background-color: #303030 !important; }
+
+  /* ── 인풋 필드 ── */
+  input, textarea, select {
+    background-color: var(--raised) !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+
+  /* ── 특수 케이스: 흰 배경 섹션 ── */
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  /* ── 로고 ── */
+  header img { border-radius: 8px; }
+
+  /* ── active 네비 아이템 색상 ── */
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+</style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          maxWidth: { 'screen-xl': '1200px' }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 min-h-screen pb-24 md:pb-0">
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Access Denied Screen (hidden by default) -->
+  <div id="access-denied" class="hidden min-h-screen flex items-center justify-center">
+    <div class="text-center">
+      <span class="material-symbols-outlined text-6xl text-red-400 mb-4 block">lock</span>
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">접근 권한이 없습니다</h2>
+      <p class="text-slate-500 mb-6">관리자만 이 페이지에 접근할 수 있습니다.</p>
+      <a href="/mypage" class="inline-flex items-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-700 transition">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        돌아가기
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content (hidden until auth confirmed) -->
+  <div id="main-content" class="hidden">
+
+    <!-- Header -->
+    <header class="bg-slate-900 sticky top-0 z-50 shadow-lg">
+      <div class="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-16">
+        <!-- Logo + Badge -->
+        <div class="flex items-center gap-3">
+          <a href="/">
+            <img src="/logo2.jpg" alt="LOGIN" class="h-11 w-auto rounded-lg object-cover" onerror="this.style.display='none'" />
+          </a>
+          <span class="bg-amber-400 text-amber-900 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">shield</span>
+            관리자 패널
+          </span>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="/" class="text-slate-300 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 transition">홈</a>
+          <a href="/program" class="text-slate-300 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 transition">프로그램</a>
+          <a href="/insight" class="text-slate-300 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 transition">인사이트</a>
+          <a href="/community" class="text-slate-300 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 transition">커뮤니티</a>
+          <a href="/mypage" class="text-slate-300 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-slate-800 transition">마이페이지</a>
+        </nav>
+
+        <!-- User Info -->
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400 text-sm hidden sm:block" id="header-username"></span>
+          <span class="bg-amber-400 text-amber-900 p-1.5 rounded-lg">
+            <span class="material-symbols-outlined text-lg">admin_panel_settings</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="bg-slate-800 border-b border-slate-700">
+      <div class="max-w-screen-xl mx-auto px-4 py-5">
+        <h1 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-400">dashboard</span>
+          관리자 대시보드
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">회원, 게시글, 통계를 관리합니다.</p>
+      </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="bg-slate-800 border-b border-slate-700 sticky top-16 z-40">
+      <div class="max-w-screen-xl mx-auto px-4">
+        <div class="flex gap-1 py-2">
+          <button onclick="switchTab('members')" id="tab-members" class="tab-btn active flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-300">
+            <span class="material-symbols-outlined text-base">group</span>
+            회원 관리
+          </button>
+          <button onclick="switchTab('posts')" id="tab-posts" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-700 hover:text-slate-100">
+            <span class="material-symbols-outlined text-base">article</span>
+            글 관리
+          </button>
+          <button onclick="switchTab('stats')" id="tab-stats" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-700 hover:text-slate-100">
+            <span class="material-symbols-outlined text-base">bar_chart</span>
+            통계
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="max-w-screen-xl mx-auto px-4 py-6">
+
+      <!-- Tab: Members -->
+      <div id="panel-members">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="material-symbols-outlined text-slate-600">group</span>
+            전체 회원
+            <span id="members-count-badge" class="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-0.5 rounded-full"></span>
+          </h2>
+          <button onclick="loadMembers()" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 font-medium border border-slate-300 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
+            <span class="material-symbols-outlined text-base">refresh</span>
+            새로고침
+          </button>
+        </div>
+        <div id="members-loading" class="flex justify-center py-16">
+          <div class="spinner"></div>
+        </div>
+        <div id="members-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 hidden"></div>
+        <div id="members-empty" class="hidden text-center py-16 text-slate-400">
+          <span class="material-symbols-outlined text-4xl mb-2 block">group_off</span>
+          회원이 없습니다.
+        </div>
+      </div>
+
+      <!-- Tab: Posts -->
+      <div id="panel-posts" class="hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="material-symbols-outlined text-slate-600">article</span>
+            전체 게시글
+            <span id="posts-count-badge" class="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-0.5 rounded-full"></span>
+          </h2>
+          <div class="flex items-center gap-2 flex-wrap">
+            <!-- Channel Filter -->
+            <button onclick="filterPosts('all')" id="filter-all" class="filter-btn active text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 text-slate-100 transition">전체</button>
+            <button onclick="filterPosts('public')" id="filter-public" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 transition">전체 피드</button>
+            <button onclick="filterPosts('manager')" id="filter-manager" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 transition">매니저 라운지</button>
+            <button onclick="filterPosts('admin')" id="filter-admin" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 transition">관리자 채널</button>
+            <button onclick="loadPosts()" class="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 border border-slate-300 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition">
+              <span class="material-symbols-outlined text-base">refresh</span>
+            </button>
+          </div>
+        </div>
+        <div id="posts-loading" class="flex justify-center py-16">
+          <div class="spinner"></div>
+        </div>
+        <div id="posts-list" class="flex flex-col gap-3 hidden"></div>
+        <div id="posts-empty" class="hidden text-center py-16 text-slate-400">
+          <span class="material-symbols-outlined text-4xl mb-2 block">article</span>
+          게시글이 없습니다.
+        </div>
+      </div>
+
+      <!-- Tab: Stats -->
+      <div id="panel-stats" class="hidden">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="material-symbols-outlined text-slate-600">bar_chart</span>
+            통계 대시보드
+          </h2>
+          <button onclick="loadStats()" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 font-medium border border-slate-300 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
+            <span class="material-symbols-outlined text-base">refresh</span>
+            새로고침
+          </button>
+        </div>
+        <div id="stats-loading" class="flex justify-center py-16">
+          <div class="spinner"></div>
+        </div>
+        <div id="stats-content" class="hidden">
+          <!-- Stat Cards -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="bg-blue-100 p-2.5 rounded-xl">
+                  <span class="material-symbols-outlined text-blue-600">group</span>
+                </div>
+                <p class="text-sm font-medium text-slate-500">전체 회원</p>
+              </div>
+              <p id="stat-total-members" class="text-3xl font-bold text-slate-800">-</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="bg-green-100 p-2.5 rounded-xl">
+                  <span class="material-symbols-outlined text-green-600">article</span>
+                </div>
+                <p class="text-sm font-medium text-slate-500">전체 게시글</p>
+              </div>
+              <p id="stat-total-posts" class="text-3xl font-bold text-slate-800">-</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="bg-indigo-100 p-2.5 rounded-xl">
+                  <span class="material-symbols-outlined text-indigo-600">manage_accounts</span>
+                </div>
+                <p class="text-sm font-medium text-slate-500">매니저 수</p>
+              </div>
+              <p id="stat-manager-count" class="text-3xl font-bold text-slate-800">-</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="bg-amber-100 p-2.5 rounded-xl">
+                  <span class="material-symbols-outlined text-amber-600">admin_panel_settings</span>
+                </div>
+                <p class="text-sm font-medium text-slate-500">관리자 수</p>
+              </div>
+              <p id="stat-admin-count" class="text-3xl font-bold text-slate-800">-</p>
+            </div>
+          </div>
+
+          <!-- Recent Members -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate-500">person_add</span>
+              <h3 class="font-bold text-slate-700">최근 가입 회원 (5명)</h3>
+            </div>
+            <div id="recent-members-list" class="divide-y divide-slate-100"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
+    <div class="flex justify-around items-center h-16">
+      <a href="/" class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2">
+        <span class="material-symbols-outlined text-slate-500" style="font-size:22px">home</span>
+        <p class="text-slate-500 text-xs">홈</p>
+      </a>
+      <a href="/program" class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2">
+        <span class="material-symbols-outlined text-slate-500" style="font-size:22px">school</span>
+        <p class="text-slate-500 text-xs">프로그램</p>
+      </a>
+      <a href="/insight" class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2">
+        <span class="material-symbols-outlined text-slate-500" style="font-size:22px">lightbulb</span>
+        <p class="text-slate-500 text-xs">인사이트</p>
+      </a>
+      <a href="/community" class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2">
+        <span class="material-symbols-outlined text-slate-500" style="font-size:22px">forum</span>
+        <p class="text-slate-500 text-xs">커뮤니티</p>
+      </a>
+      <a href="/mypage" class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2">
+        <span class="material-symbols-outlined text-slate-500" style="font-size:22px">person</span>
+        <p class="text-slate-500 text-xs">마이페이지</p>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Role Change Modal -->
+  <div id="role-modal" class="hidden modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-auto p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="bg-amber-100 p-2.5 rounded-xl">
+          <span class="material-symbols-outlined text-amber-600">manage_accounts</span>
+        </div>
+        <h3 class="font-bold text-slate-800 text-lg">역할 변경</h3>
+      </div>
+      <p id="role-modal-msg" class="text-slate-600 mb-6 leading-relaxed"></p>
+      <div class="flex gap-3">
+        <button onclick="closeRoleModal()" class="flex-1 px-4 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-50 transition">취소</button>
+        <button onclick="confirmRoleChange()" id="role-confirm-btn" class="flex-1 px-4 py-2.5 bg-slate-800 text-white rounded-xl font-semibold hover:bg-slate-700 transition">변경</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────────
+       Supabase Init
+    ───────────────────────────────────────── */
+    const SUPABASE_URL = 'https://hroyuxjqqlimwrrhdwnd.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4';
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let currentUser = null;
+    let currentProfile = null;
+    let currentAccessToken = null;
+
+    // State for role modal
+    let pendingRoleChange = { userId: null, name: '', newRole: '' };
+    // All posts (for filtering without re-fetching)
+    let allPosts = [];
+    let currentFilter = 'all';
+
+    /* ─────────────────────────────────────────
+       Toast Notifications
+    ───────────────────────────────────────── */
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const icons = { success: 'check_circle', error: 'error', info: 'info' };
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<span class="material-symbols-outlined text-base">${icons[type]}</span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    /* ─────────────────────────────────────────
+       Auth Check
+    ───────────────────────────────────────── */
+    async function initAuth() {
+      try {
+        const sessionResult = await Promise.race([
+          db.auth.getSession(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+        ]);
+        const { data: { session } } = sessionResult;
+
+        if (!session) {
+          window.location.href='/mypage';
+          return;
+        }
+
+        currentUser = session.user;
+        currentAccessToken = session.access_token || null;
+
+        // Fetch profile via direct REST fetch + JWT (avoids SDK hanging bug)
+        const token = currentAccessToken || SUPABASE_ANON_KEY;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        let profile = null;
+        try {
+          const res = await fetch(
+            `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(currentUser.id)}&select=*&limit=1`,
+            {
+              signal: controller.signal,
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            const rows = await res.json();
+            if (rows && rows.length > 0) profile = rows[0];
+          }
+        } catch (fetchErr) {
+          clearTimeout(timeoutId);
+        }
+
+        if (!profile) {
+          showToast('프로필 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.', 'error');
+          document.getElementById('access-denied').classList.remove('hidden');
+          return;
+        }
+
+        currentProfile = profile;
+
+        if (profile.role !== 'admin') {
+          document.getElementById('access-denied').classList.remove('hidden');
+          return;
+        }
+
+        // Show main content
+        document.getElementById('main-content').classList.remove('hidden');
+        const usernameEl = document.getElementById('header-username');
+        if (usernameEl) usernameEl.textContent = profile.name + ' 님';
+
+        // Load default tab
+        loadMembers();
+      } catch (e) {
+        showToast('연결 오류가 발생했습니다. 페이지를 새로고침해주세요.', 'error');
+        document.getElementById('access-denied').classList.remove('hidden');
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       Tab Switching
+    ───────────────────────────────────────── */
+    function switchTab(tab) {
+      const tabs = ['members', 'posts', 'stats'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const panel = document.getElementById(`panel-${t}`);
+        if (t === tab) {
+          btn.classList.add('active');
+          btn.classList.remove('text-slate-300', 'hover:bg-slate-700', 'hover:text-slate-100');
+          panel.classList.remove('hidden');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('text-slate-300', 'hover:bg-slate-700', 'hover:text-slate-100');
+          panel.classList.add('hidden');
+        }
+      });
+
+      if (tab === 'members') loadMembers();
+      if (tab === 'posts') loadPosts();
+      if (tab === 'stats') loadStats();
+    }
+
+    /* ─────────────────────────────────────────
+       Role Badge Helper
+    ───────────────────────────────────────── */
+    function roleBadgeHTML(role) {
+      const map = {
+        member:  { cls: 'bg-slate-100 text-slate-600',  label: '일반 회원' },
+        manager: { cls: 'bg-blue-100 text-blue-700',    label: '매니저' },
+        admin:   { cls: 'bg-amber-100 text-amber-700',  label: '관리자 ⭐' },
+      };
+      const r = map[role] || map.member;
+      return `<span class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full ${r.cls}">${r.label}</span>`;
+    }
+
+    /* ─────────────────────────────────────────
+       Channel Badge Helper
+    ───────────────────────────────────────── */
+    function channelBadgeHTML(channel) {
+      const map = {
+        public:  { cls: 'bg-green-100 text-green-700',  label: '전체 피드' },
+        manager: { cls: 'bg-blue-100 text-blue-700',    label: '매니저 라운지' },
+        admin:   { cls: 'bg-amber-100 text-amber-700',  label: '관리자 채널' },
+      };
+      const c = map[channel] || { cls: 'bg-slate-100 text-slate-500', label: channel || '알 수 없음' };
+      return `<span class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full ${c.cls}">${c.label}</span>`;
+    }
+
+    /* ─────────────────────────────────────────
+       Format Date
+    ───────────────────────────────────────── */
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      const d = new Date(dateStr);
+      return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    /* ─────────────────────────────────────────
+       TAB 1: Members
+    ───────────────────────────────────────── */
+    async function loadMembers() {
+      const loading = document.getElementById('members-loading');
+      const grid = document.getElementById('members-grid');
+      const empty = document.getElementById('members-empty');
+      const badge = document.getElementById('members-count-badge');
+
+      loading.classList.remove('hidden');
+      grid.classList.add('hidden');
+      empty.classList.add('hidden');
+      grid.innerHTML = '';
+
+      try {
+        const { data: members, error } = await db
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        loading.classList.add('hidden');
+        badge.textContent = (members?.length || 0) + '명';
+
+        if (!members || members.length === 0) {
+          empty.classList.remove('hidden');
+          return;
+        }
+
+        grid.classList.remove('hidden');
+        grid.innerHTML = members.map(m => memberCardHTML(m)).join('');
+
+      } catch (err) {
+        loading.classList.add('hidden');
+        showToast('회원 목록을 불러오지 못했습니다: ' + err.message, 'error');
+      }
+    }
+
+    function memberCardHTML(member) {
+      const isSelf = member.id === currentUser.id;
+      const roleOptions = ['member', 'manager', 'admin'];
+      const roleLabels = { member: '일반 회원', manager: '매니저', admin: '관리자' };
+
+      const selectOptions = roleOptions.map(r => {
+        const selected = r === member.role ? 'selected' : '';
+        return `<option value="${r}" ${selected}>${roleLabels[r]}</option>`;
+      }).join('');
+
+      const selfBadge = isSelf ? `<span class="text-xs text-slate-400 font-medium">(나)</span>` : '';
+
+      return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-slate-500 text-xl">person</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <p class="font-bold text-slate-800">${escapeHTML(member.name || '이름 없음')}</p>
+                  ${selfBadge}
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5">가입일 ${formatDate(member.created_at)}</p>
+              </div>
+            </div>
+            ${roleBadgeHTML(member.role)}
+          </div>
+
+          ${member.bio ? `<p class="text-sm text-slate-500 mb-4 line-clamp-2">${escapeHTML(member.bio)}</p>` : ''}
+
+          ${isSelf
+            ? `<div class="mt-2 text-xs text-slate-400 flex items-center gap-1 bg-slate-50 rounded-lg p-2.5">
+                <span class="material-symbols-outlined text-sm">info</span>
+                자신의 역할은 변경할 수 없습니다.
+               </div>`
+            : `<div class="flex items-center gap-2 mt-2">
+                <select
+                  id="role-select-${member.id}"
+                  class="flex-1 text-sm border border-slate-200 rounded-lg px-2.5 py-2 text-slate-700 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                >
+                  ${selectOptions}
+                </select>
+                <button
+                  onclick="openRoleModal('${member.id}', '${escapeHTML(member.name || '이름 없음')}')"
+                  class="flex items-center gap-1 text-sm font-semibold bg-slate-800 text-white px-3 py-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <span class="material-symbols-outlined text-sm">edit</span>
+                  변경
+                </button>
+               </div>`
+          }
+        </div>
+      `;
+    }
+
+    /* Role Modal */
+    function openRoleModal(userId, name) {
+      const select = document.getElementById(`role-select-${userId}`);
+      if (!select) return;
+      const newRole = select.value;
+      const roleLabels = { member: '일반 회원', manager: '매니저', admin: '관리자' };
+      pendingRoleChange = { userId, name, newRole };
+      document.getElementById('role-modal-msg').textContent =
+        `${name} 님을 [${roleLabels[newRole]}]로 변경하시겠어요?`;
+      document.getElementById('role-modal').classList.remove('hidden');
+    }
+
+    function closeRoleModal() {
+      document.getElementById('role-modal').classList.add('hidden');
+      pendingRoleChange = { userId: null, name: '', newRole: '' };
+    }
+
+    async function confirmRoleChange() {
+      const { userId, name, newRole } = pendingRoleChange;
+      if (!userId) return;
+
+      const btn = document.getElementById('role-confirm-btn');
+      btn.disabled = true;
+      btn.textContent = '변경 중...';
+
+      try {
+        const { error } = await db
+          .from('profiles')
+          .update({ role: newRole })
+          .eq('id', userId);
+
+        if (error) throw error;
+
+        showToast(`${name} 님의 역할이 변경되었습니다.`, 'success');
+        closeRoleModal();
+        loadMembers();
+      } catch (err) {
+        showToast('역할 변경에 실패했습니다: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '변경';
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       TAB 2: Posts
+    ───────────────────────────────────────── */
+    async function loadPosts() {
+      const loading = document.getElementById('posts-loading');
+      const list = document.getElementById('posts-list');
+      const empty = document.getElementById('posts-empty');
+      const badge = document.getElementById('posts-count-badge');
+
+      loading.classList.remove('hidden');
+      list.classList.add('hidden');
+      empty.classList.add('hidden');
+      list.innerHTML = '';
+
+      try {
+        const { data: posts, error } = await db
+          .from('posts')
+          .select('*, profiles(name, role)')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        allPosts = posts || [];
+        loading.classList.add('hidden');
+        badge.textContent = allPosts.length + '개';
+
+        renderPosts(currentFilter);
+      } catch (err) {
+        loading.classList.add('hidden');
+        showToast('게시글을 불러오지 못했습니다: ' + err.message, 'error');
+      }
+    }
+
+    function filterPosts(channel) {
+      currentFilter = channel;
+      const filters = ['all', 'public', 'manager', 'admin'];
+      filters.forEach(f => {
+        const btn = document.getElementById(`filter-${f}`);
+        if (f === channel) {
+          btn.classList.add('active', 'bg-slate-800', 'text-slate-100');
+          btn.classList.remove('bg-slate-200', 'text-slate-600');
+        } else {
+          btn.classList.remove('active', 'bg-slate-800', 'text-slate-100');
+          btn.classList.add('bg-slate-200', 'text-slate-600');
+        }
+      });
+      renderPosts(channel);
+    }
+
+    function renderPosts(channel) {
+      const list = document.getElementById('posts-list');
+      const empty = document.getElementById('posts-empty');
+
+      const filtered = channel === 'all'
+        ? allPosts
+        : allPosts.filter(p => p.channel === channel);
+
+      const badge = document.getElementById('posts-count-badge');
+      badge.textContent = filtered.length + '개';
+
+      if (filtered.length === 0) {
+        list.classList.add('hidden');
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      list.classList.remove('hidden');
+      list.innerHTML = filtered.map(p => postCardHTML(p)).join('');
+    }
+
+    function postCardHTML(post) {
+      const author = post.profiles;
+      const excerpt = (post.content || '').length > 120
+        ? post.content.substring(0, 120) + '...'
+        : post.content;
+
+      return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-2">
+                ${channelBadgeHTML(post.channel)}
+                ${post.tag ? `<span class="text-xs text-slate-400 font-medium">#${escapeHTML(post.tag)}</span>` : ''}
+              </div>
+              <p class="text-slate-700 text-sm leading-relaxed mb-3">${escapeHTML(excerpt)}</p>
+              <div class="flex items-center gap-3 text-xs text-slate-400">
+                <div class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">person</span>
+                  <span>${author ? escapeHTML(author.name || '알 수 없음') : '알 수 없음'}</span>
+                  ${author ? roleBadgeHTML(author.role) : ''}
+                </div>
+                <span>·</span>
+                <div class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">favorite</span>
+                  <span>${post.likes_count || 0}</span>
+                </div>
+                <span>·</span>
+                <span>${formatDate(post.created_at)}</span>
+              </div>
+            </div>
+            <button
+              onclick="deletePost('${post.id}')"
+              class="flex-shrink-0 flex items-center gap-1 text-xs font-semibold text-red-500 hover:bg-red-50 border border-red-200 px-3 py-2 rounded-lg transition"
+            >
+              <span class="material-symbols-outlined text-sm">delete</span>
+              삭제
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    async function deletePost(postId) {
+      if (!confirm('이 게시글을 삭제하시겠어요? 이 작업은 되돌릴 수 없습니다.')) return;
+
+      try {
+        const { error } = await db.from('posts').delete().eq('id', postId);
+        if (error) throw error;
+        showToast('게시글이 삭제되었습니다.', 'success');
+        allPosts = allPosts.filter(p => p.id !== postId);
+        renderPosts(currentFilter);
+        // Update count badge
+        document.getElementById('posts-count-badge').textContent =
+          allPosts.filter(p => currentFilter === 'all' || p.channel === currentFilter).length + '개';
+      } catch (err) {
+        showToast('게시글 삭제에 실패했습니다: ' + err.message, 'error');
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       TAB 3: Stats
+    ───────────────────────────────────────── */
+    async function loadStats() {
+      const loading = document.getElementById('stats-loading');
+      const content = document.getElementById('stats-content');
+
+      loading.classList.remove('hidden');
+      content.classList.add('hidden');
+
+      try {
+        const [
+          { count: totalMembers },
+          { count: totalPosts },
+          { count: managerCount },
+          { count: adminCount },
+          { data: recentMembers }
+        ] = await Promise.all([
+          db.from('profiles').select('*', { count: 'exact', head: true }),
+          db.from('posts').select('*', { count: 'exact', head: true }),
+          db.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'manager'),
+          db.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'admin'),
+          db.from('profiles').select('id, name, role, created_at').order('created_at', { ascending: false }).limit(5)
+        ]);
+
+        document.getElementById('stat-total-members').textContent = totalMembers ?? '-';
+        document.getElementById('stat-total-posts').textContent = totalPosts ?? '-';
+        document.getElementById('stat-manager-count').textContent = managerCount ?? '-';
+        document.getElementById('stat-admin-count').textContent = adminCount ?? '-';
+
+        const recentList = document.getElementById('recent-members-list');
+        if (recentMembers && recentMembers.length > 0) {
+          recentList.innerHTML = recentMembers.map((m, i) => `
+            <div class="flex items-center justify-between px-5 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-slate-500 text-base">person</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800 text-sm">${escapeHTML(m.name || '이름 없음')}</p>
+                  <p class="text-xs text-slate-400">${formatDate(m.created_at)}</p>
+                </div>
+              </div>
+              ${roleBadgeHTML(m.role)}
+            </div>
+          `).join('');
+        } else {
+          recentList.innerHTML = '<div class="px-5 py-8 text-center text-slate-400 text-sm">회원 데이터가 없습니다.</div>';
+        }
+
+        loading.classList.add('hidden');
+        content.classList.remove('hidden');
+
+      } catch (err) {
+        loading.classList.add('hidden');
+        showToast('통계 데이터를 불러오지 못했습니다: ' + err.message, 'error');
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       Utility: XSS escape
+    ───────────────────────────────────────── */
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /* ─────────────────────────────────────────
+       Close modal on backdrop click
+    ───────────────────────────────────────── */
+    document.getElementById('role-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeRoleModal();
+    });
+
+    /* ─────────────────────────────────────────
+       Init
+    ───────────────────────────────────────── */
+    initAuth();
+  </script>
+</body>
+</html>

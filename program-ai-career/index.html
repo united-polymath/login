@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI 시대 커리어 리디자인 - LOGIN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+          "surface": "#f7f9fb",
+        },
+        spacing: {
+          "margin-desktop": "64px",
+          "margin-mobile": "16px",
+          "gutter": "24px",
+          "unit": "8px",
+          "container-max": "1200px"
+        },
+        fontSize: {
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+  .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .accordion-content.open { max-height: 600px; }
+  .accordion-icon { transition: transform 0.3s ease; }
+  .accordion-icon.open { transform: rotate(180deg); }
+
+  /* ════════════════════════════════════════
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
+  :root {
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
+  }
+
+  html, body {
+    background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
+    color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  header {
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
+
+  nav.fixed.bottom-0 {
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
+  }
+  nav.fixed.bottom-0 a { color: #666 !important; }
+
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
+
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  .text-slate-300                 { color: #B8B4A8 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
+
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
+
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
+
+  input, textarea, select {
+    background-color: #FFFFFF !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
+
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- 상단 헤더 -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-4">
+      <a href="/program" class="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">프로그램 목록</span>
+      </a>
+      <div class="w-px h-5 bg-slate-200 hidden sm:block"></div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
+        <span class="font-extrabold tracking-tighter text-xl text-blue-600">LOGIN</span>
+      </div>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="/program">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='/mypage'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-32 max-w-[800px] mx-auto px-4 md:px-8">
+
+  <!-- Hero 섹션 -->
+  <section class="relative -mx-4 md:-mx-8 mb-10">
+    <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 px-6 pt-12 pb-10 md:px-16 md:pt-16 md:pb-14">
+      <!-- 배지 -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-5 backdrop-blur-sm">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1,'wght' 500;">rocket_launch</span>
+        커리어 · LOGIN 분석 기반
+      </div>
+      <!-- 기수 뱃지 -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-400/40 text-blue-100 text-[11px] font-bold ml-2 backdrop-blur-sm">
+        2기 모집중
+      </div>
+      <h1 class="text-white text-3xl md:text-4xl font-extrabold leading-tight mt-4 mb-3">
+        AI 시대 커리어 리디자인
+      </h1>
+      <p class="text-blue-200 text-base md:text-lg leading-relaxed max-w-xl mb-8">
+        AI 대체 공포를 극복하고, 대체 불가능한 사람이 되는<br class="hidden md:block"/> 6주간의 커리어 재설계 코호트.
+      </p>
+      <!-- 정보 행 -->
+      <div class="flex flex-wrap gap-4 md:gap-6">
+        <div class="flex items-center gap-2 text-blue-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">calendar_month</span>
+          <span>6주 (온라인, 주 2회 라이브 세션)</span>
+        </div>
+        <div class="flex items-center gap-2 text-blue-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">group</span>
+          <span>15명 소그룹</span>
+        </div>
+        <div class="flex items-center gap-2 text-blue-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">play_circle</span>
+          <span>2기 · 2026년 6월 16일 시작</span>
+        </div>
+        <div class="flex items-center gap-2 text-blue-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">payments</span>
+          <span class="font-bold text-white">298,000원</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-6 bg-background" style="clip-path: ellipse(55% 100% at 50% 100%); margin-top: -1px;"></div>
+  </section>
+
+  <!-- 프로그램 소개 -->
+  <section class="mb-12 px-1">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-blue-500 rounded-full inline-block"></span>
+      왜 이 프로그램인가
+    </h2>
+    <div class="space-y-4 text-on-surface-variant leading-relaxed text-[15px]">
+      <p>
+        LOGIN 분석 결과, 현재 직장인의 <strong class="text-on-surface">68%가 AI 대체 불안</strong>을 경험하고 있습니다. 287개 직종 중 41%가 3년 내 업무 방식의 대전환을 맞을 것으로 예측됩니다. 하지만 이 불안을 가지고 아무것도 하지 않는 것과, 전략적으로 대응하는 것 사이의 결과는 극명하게 갈립니다.
+      </p>
+      <p>
+        이 프로그램은 단순한 AI 툴 교육이 아닙니다. GPT를 쓰는 방법을 배우는 것이 전부가 아니라, <strong class="text-on-surface">AI가 대체할 수 없는 나만의 역량을 정의하고, 그 위에 AI 리터러시를 얹는 전략</strong>을 세웁니다. 커리어 전체를 AI 시대 중심으로 재설계하는 6주 여정입니다.
+      </p>
+      <p>
+        1기 참가자들은 수료 후 링크드인 팔로워 평균 340% 증가, 이직 제안 수신 2.1배 증가를 경험했습니다. 포트폴리오를 다시 짜고, 나를 피칭하는 언어를 바꾸고, 커리어의 내러티브를 새로 쓰는 것 — 그것이 이 코호트가 만들어내는 변화입니다.
+      </p>
+    </div>
+
+    <!-- 통계 카드 -->
+    <div class="grid grid-cols-3 gap-3 mt-6">
+      <div class="bg-blue-50 rounded-2xl p-4 text-center">
+        <div class="text-blue-700 text-2xl font-extrabold">68%</div>
+        <div class="text-blue-600 text-[11px] font-medium mt-1">직장인 AI 대체 불안</div>
+      </div>
+      <div class="bg-blue-50 rounded-2xl p-4 text-center">
+        <div class="text-blue-700 text-2xl font-extrabold">41%</div>
+        <div class="text-blue-600 text-[11px] font-medium mt-1">3년 내 업무 대전환</div>
+      </div>
+      <div class="bg-blue-50 rounded-2xl p-4 text-center">
+        <div class="text-blue-700 text-2xl font-extrabold">287</div>
+        <div class="text-blue-600 text-[11px] font-medium mt-1">분석 직종 수</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 주요 특징 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-blue-500 rounded-full inline-block"></span>
+      주요 특징
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1;">manage_search</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">AI 대체 위험도 자가진단</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">내 직무의 자동화 가능성을 객관적으로 분석합니다. 막연한 공포가 아니라 데이터 기반의 명확한 지도를 그립니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1;">psychology</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">인간 고유 역량 발굴</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">T자형 역량 지도 작성으로 내가 AI와 경쟁하는 대신, AI를 활용해 가장 빛나는 역할을 정의합니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1;">terminal</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">AI 툴 실전 워크플로우</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">Claude, Gemini, Cursor 등 현업에서 바로 쓸 수 있는 AI 툴 워크플로우를 직접 실습하고 내 업무에 적용합니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1;">record_voice_over</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">멘토 1:1 코칭 포함</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">6주차에 현직 멘토와의 1:1 코칭 세션이 포함됩니다. 내 커리어 로드맵에 대한 직접 피드백을 받습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 커리큘럼 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-blue-500 rounded-full inline-block"></span>
+      6주 커리큘럼
+    </h2>
+    <div class="space-y-3">
+
+      <!-- 1주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">1주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">AI 대체 위험도 자가진단</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">내 직무의 자동화 가능성과 역할의 경계를 명확히 한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>자동화 가능성 분석</strong> — 내 직무의 태스크를 분해하고, 항목별 AI 대체 가능성 평가</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>역할 분해 워크숍</strong> — 지금 내가 하는 일 중 진짜 나만이 할 수 있는 것과 그렇지 않은 것 구분</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>위기-기회 매핑</strong> — AI 전환을 위협이 아닌 기회로 재프레이밍하는 사고 전환 실습</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">2주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">대체 불가 스킬셋 발굴</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">AI가 대체할 수 없는 나만의 역량 지도를 그린다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>T자형 역량 지도 작성</strong> — 넓이(범용 역량)와 깊이(전문 역량)를 시각화</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>인간 고유 역량 정의</strong> — 공감, 판단, 맥락 이해, 관계 형성 등 AI가 복제하기 어려운 역량 특정</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>역량 강화 전략 수립</strong> — 6개월 내 집중 개발 역량 2가지 선정 및 실행 계획</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">3주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">AI 리터러시 실전</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">현업에서 바로 쓰는 AI 툴 워크플로우를 내 것으로 만든다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>Claude 실전 활용</strong> — 문서 작성, 분석, 아이디어 발산에 Claude를 레버리지하는 프롬프트 설계</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>Gemini & Cursor 실습</strong> — 직군별 맞춤 툴 워크플로우 실습 (개발자/기획자/마케터 트랙 분리)</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>AI 워크플로우 통합</strong> — 일일 업무 루틴에 AI 툴을 자연스럽게 통합하는 시스템 설계</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">4주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">포트폴리오 재설계</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">기존 경력을 AI 시대의 언어로 다시 쓴다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>경력의 AI 시대 재해석</strong> — 기존 프로젝트를 AI 협업·활용 관점에서 재서술</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>스토리라인 구성</strong> — "AI를 가장 잘 쓰는 사람"으로 포지셔닝되는 커리어 내러티브 완성</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>코호트 상호 피드백</strong> — 서로의 포트폴리오 초안을 피드백하며 맹점 보완</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">5주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">네트워킹 & 포지셔닝</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">보여지는 커리어를 만들고, 시장에서 발견되도록 한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>링크드인 최적화</strong> — AI 시대 관점에서 프로필 재작성, 검색 최적화 전략</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>커리어 피칭 실습</strong> — 30초 엘리베이터 피치부터 채용 면접까지, 나를 설명하는 언어 훈련</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>전략적 네트워킹</strong> — 내 커리어 방향에 맞는 인맥 지도 작성 및 연결 전략</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-700 font-extrabold text-sm">6주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">개인 커리어 로드맵 발표</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">6주의 결과물을 완성하고, 멘토에게 직접 피드백을 받는다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>커리어 로드맵 발표</strong> — 3년 커리어 로드맵을 코호트 전체 앞에서 발표</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>피어 피드백</strong> — 동료들의 솔직하고 구체적인 피드백으로 로드맵 보완</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-blue-900">
+                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>멘토 1:1 코칭</strong> — 현직 멘토와의 30분 1:1 세션, 실질적 커리어 어드바이스</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 참가자 후기 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-blue-500 rounded-full inline-block"></span>
+      참가자 후기
+    </h2>
+    <div class="space-y-4">
+
+      <!-- 후기 1 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">김</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">김도현</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">33세 · 콘텐츠 기획자</span>
+              </div>
+              <span class="text-[11px] text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full font-semibold">1기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "AI가 내 일을 다 가져갈 거라는 막연한 공포가 있었는데, 오히려 AI를 쓰면서 더 희소한 사람이 될 수 있다는 걸 배웠어요. 수료 후 연봉 협상에서 자신감이 달랐습니다. 포트폴리오를 새로 쓰고 나서 세 군데서 먼저 연락이 왔어요."
+        </p>
+      </div>
+
+      <!-- 후기 2 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">안</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">안수빈</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">28세 · 데이터 분석가</span>
+              </div>
+              <span class="text-[11px] text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full font-semibold">1기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "단순 툴 사용법이 아니라 커리어 전략을 같이 짜준다는 게 달랐어요. 코호트 안에서 서로의 포트폴리오를 피드백해주는 과정이 진짜 값어치 있었습니다. 데이터 분석가로서 AI와 어떻게 공존할지 처음으로 명확한 그림이 그려졌어요."
+        </p>
+      </div>
+
+      <!-- 후기 3 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-blue-700 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">정</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">정민수</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">35세 · HR 매니저</span>
+              </div>
+              <span class="text-[11px] text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full font-semibold">1기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★</span><span class="text-amber-300 text-base">★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">4.5</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "6주 동안 생각이 완전히 바뀌었어요. AI 때문에 위협받는 사람이 아니라, AI를 가장 잘 쓰는 사람으로 포지셔닝하는 전략을 만들었습니다. HR 직무에서 AI를 어떻게 레버리지할지 구체적인 로드맵이 생긴 게 가장 큰 수확이에요."
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 신청 섹션 -->
+  <section class="mb-8">
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-800 rounded-3xl p-8 text-center shadow-xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-4">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">schedule</span>
+        2기 · 2026년 6월 16일 시작
+      </div>
+      <h2 class="text-white text-2xl font-extrabold mb-2">지금 신청하기</h2>
+      <p class="text-blue-200 text-sm mb-1">AI 시대 커리어 리디자인</p>
+      <div class="text-white text-3xl font-extrabold mb-2">298,000원</div>
+      <p class="text-blue-300 text-xs mb-6">남은 자리 <strong class="text-white">6자리</strong> / 총 15명</p>
+      <!-- 진행 바 -->
+      <div class="w-full bg-white/20 rounded-full h-2 mb-6">
+        <div class="bg-white rounded-full h-2" style="width: 60%;"></div>
+      </div>
+      <button class="w-full py-4 bg-white text-blue-700 rounded-2xl font-extrabold text-base hover:bg-blue-50 transition-colors active:scale-95 duration-200 mb-4">
+        2기 신청하기
+      </button>
+      <div class="flex items-center justify-center gap-2 text-blue-200 text-xs">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">mail</span>
+        <span>문의: program@login.kr</span>
+        <span class="mx-2">·</span>
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">chat</span>
+        <span>카카오채널 @LOGIN</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 하단 모바일 네비게이션 -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
+      <span class="material-symbols-outlined text-[17px]">info</span>
+      <span class="text-[8.5px] font-medium">About</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="/program">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/insight">
+      <span class="material-symbols-outlined text-[17px]">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/community">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/mypage">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector('.accordion-icon');
+    const isOpen = content.classList.contains('open');
+
+    document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.accordion-icon').forEach(el => el.classList.remove('open'));
+
+    if (!isOpen) {
+      content.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+</script>
+<script src="/header-auth.js"></script>
+</body>
+</html>

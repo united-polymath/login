@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>불안 분리수거 - LAB SERIES 01 - LOGIN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "on-surface": "#191c1e", "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7", "primary": "#004ac6",
+          "background": "#f7f9fb", "surface": "#f7f9fb",
+        },
+        spacing: { "margin-desktop": "64px", "gutter": "24px" },
+        fontSize: {
+          "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f7f9fb; }
+
+  /* ════════════════════════════════════════
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
+  :root {
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
+  }
+
+  html, body {
+    background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
+    color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  header {
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
+
+  nav.fixed.bottom-0 {
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
+  }
+  nav.fixed.bottom-0 a { color: #666 !important; }
+
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
+
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  .text-slate-300                 { color: #B8B4A8 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
+
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
+
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
+
+  input, textarea, select {
+    background-color: #FFFFFF !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
+
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
+</style>
+</head>
+<body class="text-on-surface">
+
+<!-- 헤더 -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-4">
+      <a href="/program" class="flex items-center gap-1 text-slate-500 hover:text-violet-600 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">리추얼 목록</span>
+      </a>
+      <div class="w-px h-5 bg-slate-200 hidden sm:block"></div>
+      <a href="/"><img src="/logo2.jpg" alt="LOGIN" class="h-9 w-auto rounded-lg"/></a>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="/about">About Us</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="/program">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80" href="/community">커뮤니티</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='/mypage'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-28">
+
+  <!-- ===== 히어로 ===== -->
+  <section class="relative overflow-hidden min-h-[480px] md:min-h-[540px] flex items-end" style="background: linear-gradient(135deg, #e8f4f0 0%, #d4eae5 50%, #c8e4dd 100%);">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-teal-200/40 blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-emerald-100/50 blur-3xl"></div>
+    </div>
+
+    <!-- 캐릭터 이미지 -->
+    <div class="absolute right-8 md:right-24 bottom-0 h-64 md:h-80 opacity-90">
+      <img src="/ritual_character.jpg" alt="라이야" class="h-full w-auto object-contain object-bottom"/>
+    </div>
+
+    <div class="relative z-10 max-w-[1200px] mx-auto px-5 md:px-margin-desktop pb-14 w-full">
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="px-3 py-1 rounded-full bg-teal-600/20 border border-teal-500/30 text-teal-700 text-[12px] font-bold uppercase tracking-wider">LAB SERIES 01</span>
+        <span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[12px] font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>인원 모집중
+        </span>
+      </div>
+      <div class="text-teal-600 text-sm font-medium mb-2">"안녕! 나는 라이야🐾 이번 주제로 불안을 정리해보자!"</div>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-2">♻️ 불안 분리수거</h1>
+      <h2 class="text-xl font-semibold text-teal-700 mb-3">나의 불안 구분하기</h2>
+      <p class="text-slate-600 text-base max-w-lg leading-relaxed mb-6">소란스러운 마음은 비우고, 단단한 나를 채우는 시간</p>
+
+      <!-- 스펙 뱃지 -->
+      <div class="flex flex-wrap gap-3">
+        <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm text-slate-700 text-sm font-medium border border-white/80">
+          <span class="material-symbols-outlined text-[16px] text-teal-600" style="font-variation-settings:'FILL' 1">calendar_month</span>3주 실험형
+        </span>
+        <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm text-slate-700 text-sm font-medium border border-white/80">
+          <span class="material-symbols-outlined text-[16px] text-teal-600" style="font-variation-settings:'FILL' 1">schedule</span>하루 10분
+        </span>
+        <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm text-slate-700 text-sm font-medium border border-white/80">
+          <span class="material-symbols-outlined text-[16px] text-teal-600" style="font-variation-settings:'FILL' 1">laptop_mac</span>온라인 (Zoom · Notion · KakaoTalk)
+        </span>
+        <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-teal-600 text-white text-sm font-bold">
+          55,000원
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[1200px] mx-auto px-5 md:px-margin-desktop py-12">
+
+    <!-- ===== 불안 분리수거란? ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">About</div>
+      <h2 class="text-headline-md text-on-surface mb-6">불안 분리수거란?</h2>
+
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 md:p-8 mb-6">
+        <p class="text-on-surface-variant text-body-lg leading-relaxed mb-6">
+          막연한 불안을 <strong class="text-on-surface">'내가 어쩔 수 없는 것(비움)'</strong>과 <strong class="text-on-surface">'내가 할 수 있는 것(채움)'</strong>으로 구분해 하루 10분의 기록으로 마음의 소음을 줄이는 멘탈 트레이닝입니다.
+        </p>
+        <p class="text-on-surface-variant text-body-md leading-relaxed">
+          엉킨 생각을 비움과 채움으로 분리하는 3주간의 멘탈 트레이닝. 계속 커지는 걱정을 붙잡아 지금의 나에게 필요한 한 걸음을 찾습니다.
+        </p>
+      </div>
+
+      <!-- 핵심 키워드 4개 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-teal-50 rounded-xl border border-teal-100 p-5 text-center">
+          <div class="text-2xl mb-2">⏱️</div>
+          <div class="font-bold text-teal-800">하루 10분</div>
+        </div>
+        <div class="bg-emerald-50 rounded-xl border border-emerald-100 p-5 text-center">
+          <div class="text-2xl mb-2">🗑️</div>
+          <div class="font-bold text-emerald-800">비움 · 채움 · 습관</div>
+        </div>
+        <div class="bg-cyan-50 rounded-xl border border-cyan-100 p-5 text-center">
+          <div class="text-2xl mb-2">📅</div>
+          <div class="font-bold text-cyan-800">Daily Ritual</div>
+        </div>
+        <div class="bg-blue-50 rounded-xl border border-blue-100 p-5 text-center">
+          <div class="text-2xl mb-2">💪</div>
+          <div class="font-bold text-blue-800">자기효능감</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 이런 분께 추천 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Recommended For</div>
+      <h2 class="text-headline-md text-on-surface mb-6">이런 분께 추천합니다</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex gap-3 items-start bg-white rounded-xl border border-outline-variant p-5">
+          <span class="text-xl shrink-0">😔</span>
+          <p class="text-on-surface-variant text-sm leading-relaxed">오늘 밤도 고민/걱정에 잠 못이루는 분</p>
+        </div>
+        <div class="flex gap-3 items-start bg-white rounded-xl border border-outline-variant p-5">
+          <span class="text-xl shrink-0">😰</span>
+          <p class="text-on-surface-variant text-sm leading-relaxed">남들은 앞서가는데 나만 멈춰있다고 생각하는 분</p>
+        </div>
+        <div class="flex gap-3 items-start bg-white rounded-xl border border-outline-variant p-5">
+          <span class="text-xl shrink-0">😟</span>
+          <p class="text-on-surface-variant text-sm leading-relaxed">일어나지 않은 일을 미리 당겨 걱정하는 분</p>
+        </div>
+        <div class="flex gap-3 items-start bg-white rounded-xl border border-outline-variant p-5">
+          <span class="text-xl shrink-0">📱</span>
+          <p class="text-on-surface-variant text-sm leading-relaxed">SNS 비교로 자꾸 작아지는 분</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3단계 리추얼 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Daily Ritual</div>
+      <h2 class="text-headline-md text-on-surface mb-4">하루 10분, 3단계 리추얼</h2>
+      <p class="text-on-surface-variant mb-8">계속 커지는 걱정을 붙잡아 지금의 나에게 필요한 한 걸음을 찾습니다.</p>
+
+      <div class="flex flex-col gap-4">
+
+        <!-- Step 1 -->
+        <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden">
+          <div class="bg-teal-50 border-b border-teal-100 px-6 py-4 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+            <div>
+              <div class="font-bold text-teal-800">감정 날씨 체크</div>
+              <div class="text-teal-600 text-xs">1분</div>
+            </div>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-3">오늘 마음 상태를 날씨 아이콘 + 해시태그로 객관화해요.</p>
+            <div class="bg-slate-50 rounded-lg px-4 py-3 text-sm text-slate-600 font-mono">예) ☁️ 흐림 / #막막함 #조급함</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-2xl border border-teal-200 overflow-hidden">
+          <div class="bg-teal-600 px-6 py-4 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white text-teal-700 flex items-center justify-center font-bold text-sm shrink-0">2</div>
+            <div>
+              <div class="font-bold text-white">불안 분리수거</div>
+              <div class="text-teal-200 text-xs">7분 · Core!</div>
+            </div>
+          </div>
+          <div class="px-6 py-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-slate-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xl">🗑️</span>
+                  <div class="font-bold text-slate-700">비움 (통제 불가)</div>
+                </div>
+                <ul class="text-slate-500 text-sm space-y-1">
+                  <li>• 타인의 시선</li>
+                  <li>• 이미 지나간 실수</li>
+                </ul>
+              </div>
+              <div class="bg-teal-50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xl">♻️</span>
+                  <div class="font-bold text-teal-700">채움 (통제 가능)</div>
+                </div>
+                <ul class="text-teal-600 text-sm space-y-1">
+                  <li>• 지금 할 수 있는 작은 행동</li>
+                  <li>• 생각 전환</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden">
+          <div class="bg-emerald-50 border-b border-emerald-100 px-6 py-4 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+            <div>
+              <div class="font-bold text-emerald-800">오늘의 액션 &amp; 칭찬</div>
+              <div class="text-emerald-600 text-xs">2분</div>
+            </div>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-on-surface-variant text-sm leading-relaxed">거창한 해결책 말고, 오늘의 <strong class="text-on-surface">'아주 작은 행동'</strong>을 적고 칭찬해요.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== 참여 후 얻는 것 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Benefits</div>
+      <h2 class="text-headline-md text-on-surface mb-6">참여 후 얻는 것</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <div class="text-3xl mb-3">📓</div>
+          <div class="font-bold text-on-surface mb-2">[마음 분리수거 노션] 평생 소장</div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">생각을 정리하는 나만의 도구로 평생 사용</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <div class="text-3xl mb-3">📄</div>
+          <div class="font-bold text-on-surface mb-2">[개인별 회고 리포트 PDF]</div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">내 불안의 흐름과 반복 패턴 분석 리포트</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6 text-center">
+          <div class="text-3xl mb-3">💪</div>
+          <div class="font-bold text-on-surface mb-2">루틴 체화</div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">불안이 올라와도 스스로 정리할 수 있는 힘</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 참가자 후기 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Reviews</div>
+      <h2 class="text-headline-md text-on-surface mb-6">참가자 후기</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="bg-white rounded-2xl border border-outline-variant p-6">
+          <div class="flex gap-1 mb-3">
+            <span class="text-yellow-400 text-sm">★★★★★</span>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">"하루 10분인데도, 불안이 '정리되는 느낌'이 처음 들었어요. 특히 비움/채움으로 나누는 순간 머리가 조용해졌습니다."</p>
+          <div class="text-slate-400 text-xs font-medium">참가자 · 취준 중</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-outline-variant p-6">
+          <div class="flex gap-1 mb-3">
+            <span class="text-yellow-400 text-sm">★★★★★</span>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">"감성일기 말고 '데이터로 적는 기록'이라 부담이 덜했고, 제 패턴을 발견하는 재미가 있었어요."</p>
+          <div class="text-slate-400 text-xs font-medium">참가자 · 대학생</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 진행 도구 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Tools</div>
+      <h2 class="text-headline-md text-on-surface mb-6">이런 도구로 진행돼요</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-xl border border-outline-variant p-5 flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 text-lg">🎥</div>
+          <div>
+            <div class="font-bold text-on-surface mb-1">Zoom</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed">시작과 끝 — OT / 회고 미팅</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-outline-variant p-5 flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0 text-lg">📝</div>
+          <div>
+            <div class="font-bold text-on-surface mb-1">Notion</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed">매일의 리추얼 기록 및 아카이빙</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-outline-variant p-5 flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center shrink-0 text-lg">💬</div>
+          <div>
+            <div class="font-bold text-on-surface mb-1">KakaoTalk</div>
+            <p class="text-on-surface-variant text-xs leading-relaxed">매일 밤 인증샷 공유 및 응원</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 일정 & 신청 ===== -->
+    <section class="mb-14">
+      <div class="text-[12px] font-bold text-teal-600 uppercase tracking-wider mb-2">Schedule</div>
+      <h2 class="text-headline-md text-on-surface mb-6">일정 안내</h2>
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden">
+        <div class="divide-y divide-slate-100">
+          <div class="flex gap-4 items-center px-6 py-4">
+            <span class="material-symbols-outlined text-teal-500 shrink-0" style="font-variation-settings:'FILL' 1">edit_calendar</span>
+            <div class="text-sm text-slate-500 w-28 shrink-0 font-medium">신청 기간</div>
+            <div class="font-semibold text-on-surface">2026. 03. 12 (월) ~ 2026. 03. 31 (화)</div>
+          </div>
+          <div class="flex gap-4 items-center px-6 py-4">
+            <span class="material-symbols-outlined text-teal-500 shrink-0" style="font-variation-settings:'FILL' 1">calendar_month</span>
+            <div class="text-sm text-slate-500 w-28 shrink-0 font-medium">진행 기간</div>
+            <div class="font-semibold text-on-surface">2026. 04. 06 (월) ~ 2026. 04. 24 (금) · 3주, 주말 제외</div>
+          </div>
+          <div class="flex gap-4 items-center px-6 py-4">
+            <span class="material-symbols-outlined text-teal-500 shrink-0" style="font-variation-settings:'FILL' 1">laptop_mac</span>
+            <div class="text-sm text-slate-500 w-28 shrink-0 font-medium">장소</div>
+            <div class="font-semibold text-on-surface">온라인 (Zoom, Notion, KakaoTalk)</div>
+          </div>
+          <div class="flex gap-4 items-center px-6 py-4 bg-teal-50">
+            <span class="material-symbols-outlined text-teal-600 shrink-0" style="font-variation-settings:'FILL' 1">payments</span>
+            <div class="text-sm text-teal-700 w-28 shrink-0 font-medium">참가비</div>
+            <div class="font-bold text-teal-700 text-lg">55,000원</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 메이커 메시지 + CTA ===== -->
+    <section class="bg-gradient-to-br from-teal-800 to-emerald-900 rounded-2xl p-8 md:p-12 text-white">
+      <div class="mb-6">
+        <p class="text-teal-200 text-base leading-relaxed italic mb-2">
+          "불안은 '열심히 살고 싶다'는 마음의 또 다른 이름이에요. 3주 동안 함께 소란스러움은 비워내고, 그 빈자리에 진짜 필요한 것들을 채워봐요. 우리, 같이 청소할까요?"
+        </p>
+        <p class="text-teal-400 text-sm">— 라이야🐾, LAB SERIES 01 메이커</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="px-3 py-1 rounded-full bg-white/10 text-teal-200 text-sm">#멘탈정리</span>
+        <span class="px-3 py-1 rounded-full bg-white/10 text-teal-200 text-sm">#불안데이터화</span>
+        <span class="px-3 py-1 rounded-full bg-white/10 text-teal-200 text-sm">#기록트레이닝</span>
+      </div>
+
+      <div class="border-t border-white/20 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="text-teal-200 text-sm mb-1">오늘은 10분만 해도 충분해요.</div>
+          <div class="text-white text-xl font-bold">우리, 같이 해볼까요? 🌿</div>
+          <div class="text-teal-300 text-xs mt-2">문의: official@login.co.kr</div>
+        </div>
+        <a href="/program" class="px-8 py-3 bg-white/15 border border-white/30 text-white rounded-xl font-semibold hover:bg-white/25 transition-colors shrink-0">← 목록으로</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- 하단 네비 (모바일) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
+      <span class="material-symbols-outlined text-[17px]">info</span>
+      <span class="text-[8.5px] font-medium">About</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="/program">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/insight">
+      <span class="material-symbols-outlined text-[17px]">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/community">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/mypage">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
+    </a>
+  </div>
+</nav>
+
+<script src="/header-auth.js"></script>
+</body>
+</html>

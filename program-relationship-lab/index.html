@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>관계 회복력 실험실 - LOGIN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "outline-variant": "#c3c6d7",
+          "primary": "#004ac6",
+          "on-primary": "#ffffff",
+          "background": "#f7f9fb",
+          "surface": "#f7f9fb",
+        },
+        spacing: {
+          "margin-desktop": "64px",
+          "margin-mobile": "16px",
+          "gutter": "24px",
+          "unit": "8px",
+          "container-max": "1200px"
+        },
+        fontSize: {
+          "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: max(884px, 100dvh); background: #f7f9fb; }
+  .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .accordion-content.open { max-height: 600px; }
+  .accordion-icon { transition: transform 0.3s ease; }
+  .accordion-icon.open { transform: rotate(180deg); }
+
+  /* ════════════════════════════════════════
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
+  :root {
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
+  }
+
+  html, body {
+    background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
+    color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  header {
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
+
+  nav.fixed.bottom-0 {
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
+  }
+  nav.fixed.bottom-0 a { color: #666 !important; }
+
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
+
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  .text-slate-300                 { color: #B8B4A8 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
+
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
+
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
+
+  input, textarea, select {
+    background-color: #FFFFFF !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
+
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- 상단 헤더 -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-4">
+      <a href="/program" class="flex items-center gap-1 text-slate-500 hover:text-emerald-600 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">프로그램 목록</span>
+      </a>
+      <div class="w-px h-5 bg-slate-200 hidden sm:block"></div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
+        <span class="font-extrabold tracking-tighter text-xl text-blue-600">LOGIN</span>
+      </div>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="/program">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='/mypage'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 pb-32 max-w-[800px] mx-auto px-4 md:px-8">
+
+  <!-- Hero 섹션 -->
+  <section class="relative -mx-4 md:-mx-8 mb-10">
+    <div class="bg-gradient-to-br from-emerald-500 via-teal-600 to-teal-800 px-6 pt-12 pb-10 md:px-16 md:pt-16 md:pb-14">
+      <!-- 배지 -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-5 backdrop-blur-sm">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1,'wght' 500;">diversity_3</span>
+        관계 · 애착이론 · ACT 기반
+      </div>
+      <!-- 기수 뱃지 -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-300/30 text-emerald-100 text-[11px] font-bold ml-2 backdrop-blur-sm">
+        4기 모집중
+      </div>
+      <h1 class="text-white text-3xl md:text-4xl font-extrabold leading-tight mt-4 mb-3">
+        관계 회복력 실험실
+      </h1>
+      <p class="text-emerald-100 text-base md:text-lg leading-relaxed max-w-xl mb-8">
+        8명이 5주 동안 함께, 실제 관계 기술을 실험하고 훈련합니다.<br class="hidden md:block"/> 관계가 소진이 아닌 충전이 되는 경험.
+      </p>
+      <!-- 정보 행 -->
+      <div class="flex flex-wrap gap-4 md:gap-6">
+        <div class="flex items-center gap-2 text-emerald-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">calendar_month</span>
+          <span>5주 (오프라인, 서울 마포)</span>
+        </div>
+        <div class="flex items-center gap-2 text-emerald-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">group</span>
+          <span>8명 극소수 정예</span>
+        </div>
+        <div class="flex items-center gap-2 text-emerald-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">location_on</span>
+          <span>LOGIN 연구소 (마포구)</span>
+        </div>
+        <div class="flex items-center gap-2 text-emerald-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">play_circle</span>
+          <span>4기 · 2026년 6월 21일 시작</span>
+        </div>
+        <div class="flex items-center gap-2 text-emerald-100 text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">payments</span>
+          <span class="font-bold text-white">248,000원</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-6 bg-background" style="clip-path: ellipse(55% 100% at 50% 100%); margin-top: -1px;"></div>
+  </section>
+
+  <!-- 프로그램 소개 -->
+  <section class="mb-12 px-1">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-emerald-500 rounded-full inline-block"></span>
+      왜 이 프로그램인가
+    </h2>
+    <div class="space-y-4 text-on-surface-variant leading-relaxed text-[15px]">
+      <p>
+        LOGIN Vol.9 연구에 따르면, SNS 사용시간이 늘어날수록 외로움이 <strong class="text-on-surface">2.7배 증가</strong>합니다. 더 많이 연결될수록 더 외로워지는 역설. 그 이유는 연결의 양이 아니라 질의 문제이기 때문입니다. 우리는 더 많은 사람과 연결되어 있지만, 진짜 관계 기술은 오히려 퇴화하고 있습니다.
+      </p>
+      <p>
+        이 프로그램은 관계심리학, 애착이론, ACT(수용전념치료)에 기반합니다. 내 애착 유형이 어떻게 관계 패턴에 영향을 미치는지, 왜 경계를 설정하지 못하고 소진되는지, 갈등이 생겼을 때 왜 같은 방식으로 반응하는지 — 이 모든 것을 <strong class="text-on-surface">머리가 아닌 몸으로 배웁니다</strong>.
+      </p>
+      <p>
+        8명이라는 극소수 인원이 이 프로그램의 핵심입니다. 서울 마포 LOGIN 연구소에서 5주 동안 매주 만나, 실습하고, 피드백하고, 진짜 연결을 경험합니다. 관계가 소진의 원인이 아닌 충전의 원천이 될 수 있다는 것을, 이 공간에서 처음 경험하는 참가자들이 많습니다.
+      </p>
+    </div>
+
+    <!-- 하이라이트 인용구 -->
+    <div class="mt-6 bg-emerald-50 border-l-4 border-emerald-400 rounded-r-2xl p-5">
+      <p class="text-emerald-800 text-[14px] leading-relaxed italic">
+        "SNS 사용시간이 늘어날수록 외로움이 2.7배 증가한다는 데이터는, 연결의 방식을 바꿔야 한다는 신호입니다. 더 많이 연결되는 것이 아니라, 더 깊이 연결되는 법을 훈련해야 합니다."
+      </p>
+      <div class="text-emerald-600 text-[12px] font-semibold mt-2">— LOGIN 연구보고서 Vol.9, 디지털 고립과 관계 회복력</div>
+    </div>
+  </section>
+
+  <!-- 주요 특징 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-emerald-500 rounded-full inline-block"></span>
+      주요 특징
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1;">favorite</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">8명 극소수 정예</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">LOGIN 전체 프로그램 중 가장 작은 규모. 8명이기 때문에 가능한 깊이의 연결이 있습니다. 서로를 진짜 알게 되는 5주.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1;">psychology_alt</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">애착이론 기반 자기 이해</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">성인 애착 유형 검사로 내 관계 패턴의 뿌리를 이해합니다. "왜 나는 항상 이렇게 반응하는가"에 대한 답을 찾습니다.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1;">sports_martial_arts</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">실습 중심 훈련</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">롤플레이, NVC 실습, 갈등 시뮬레이션으로 머리로만 아는 것이 아니라 몸에 새겨지는 훈련. 강의 비율 30%, 실습 70%.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1;">location_city</span>
+        </div>
+        <h3 class="font-bold text-on-surface text-[15px] mb-2">오프라인 전용 공간</h3>
+        <p class="text-on-surface-variant text-[13px] leading-relaxed">서울 마포 LOGIN 연구소에서 진행. 화면이 아닌 같은 공간에 있어야 가능한 것들을 경험합니다. 비언어적 소통과 현존.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 커리큘럼 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-emerald-500 rounded-full inline-block"></span>
+      5주 커리큘럼
+    </h2>
+    <div class="space-y-3">
+
+      <!-- 1주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-700 font-extrabold text-sm">1주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">나의 애착 유형 발견</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">내 관계 패턴의 뿌리를 이해한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>성인 애착 검사(ECR)</strong> — 회피형, 불안형, 안정형 애착 유형 파악 및 해석</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>관계 패턴 분석</strong> — 내 반복되는 관계 시나리오를 시각화하고 패턴 인식</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>개인 역사 탐색</strong> — 현재 관계 패턴이 형성된 배경을 안전한 그룹 안에서 나누기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-700 font-extrabold text-sm">2주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">경계 설정 실습</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">"아니오"라고 말할 수 있는 사람이 된다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>경계 없음의 패턴</strong> — 왜 항상 손해 보는 선택을 하게 되는지 심리적 메커니즘 이해</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>"아니오" 말하기 연습</strong> — 죄책감 없이 거절하는 언어 훈련, 실제 상황 시뮬레이션</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>롤플레이 실습</strong> — 직장, 가족, 연애 등 상황별 경계 설정 롤플레이와 그룹 피드백</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-700 font-extrabold text-sm">3주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">갈등 해결 시뮬레이션</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">갈등을 파괴가 아닌 연결의 기회로 다루는 법을 익힌다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>비폭력 대화(NVC) 실습</strong> — 관찰 → 감정 → 필요 → 요청의 4단계 구조 훈련</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>감정 인식 → 표현 → 요청</strong> — 내 감정을 정확히 인식하고, 공격 없이 전달하는 훈련</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>갈등 시뮬레이션</strong> — 실제 갈등 상황을 재현하고, 새로운 방식으로 응답해보는 실험</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-700 font-extrabold text-sm">4주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">느슨한 연대 만들기</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">1인 가구 시대, 의존하지 않으면서도 연결되는 공동체를 설계한다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>1인 가구의 공동체 설계</strong> — 가족도 연인도 아닌, 선택한 연대를 어떻게 만드는지</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>필요를 나누는 방법</strong> — 짐이 되지 않으면서도 서로에게 의지할 수 있는 관계 언어</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>나의 관계 지도 그리기</strong> — 현재 내 관계망을 시각화하고, 어디를 채우고 싶은지 명확화</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5주차 -->
+      <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+        <button class="accordion-btn w-full flex items-center gap-4 px-5 py-4 text-left" onclick="toggleAccordion(this)">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-700 font-extrabold text-sm">5주</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-on-surface text-[15px]">관계 회복력 내면화</div>
+            <div class="text-on-surface-variant text-[13px] mt-0.5">5주의 변화를 정리하고, 지속 실천의 구조를 만든다</div>
+          </div>
+          <span class="material-symbols-outlined accordion-icon text-slate-400">expand_more</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-5 pb-5 pt-1">
+            <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>그룹 피드백 세션</strong> — 5주간 서로 관찰한 변화를 나누는 따뜻하고 구체적인 피드백</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>변화 정리 워크숍</strong> — 1주차와 비교해 달라진 것들을 문서화하고, 언어로 표현하기</span>
+              </div>
+              <div class="flex items-start gap-2 text-[13px] text-emerald-900">
+                <span class="material-symbols-outlined text-emerald-500 text-base mt-0.5" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                <span><strong>지속 실천 계획</strong> — 이후 일상에서 관계 회복력을 유지·발전시키는 개인 행동 계획 수립</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 참가자 후기 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-emerald-500 rounded-full inline-block"></span>
+      참가자 후기
+    </h2>
+    <div class="space-y-4">
+
+      <!-- 후기 1 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">하</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">하나영</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">26세 · 대학원생</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-semibold">3기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "인간관계가 항상 소진의 원인이었는데, 여기서 처음으로 관계가 충전이 될 수 있다는 걸 경험했어요. 8명이라는 숫자가 처음엔 부담이었는데, 덕분에 진짜 연결이 생겼어요. 5주가 끝나고도 계속 만나는 사이가 됐습니다."
+        </p>
+      </div>
+
+      <!-- 후기 2 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-emerald-700 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">윤</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">윤재민</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">30세 · 직장인</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-semibold">2기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "경계 설정 세션이 압도적이었어요. 나는 왜 항상 손해 보는 선택을 했는지 처음으로 이해했습니다. 실습이 많아서 머리로만 아는 게 아니라 몸에 새겨지는 느낌이었어요. 직장에서 처음으로 '그 부분은 어렵겠습니다'라고 말했을 때의 기분이 아직도 생생해요."
+        </p>
+      </div>
+
+      <!-- 후기 3 -->
+      <div class="bg-white rounded-2xl border border-outline-variant p-6 shadow-sm">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-teal-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-base">임</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <span class="font-bold text-on-surface text-[15px]">임소희</span>
+                <span class="text-on-surface-variant text-[13px] ml-2">32세 · 간호사</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-semibold">3기 참가</span>
+            </div>
+            <div class="flex items-center gap-0.5 mt-1">
+              <span class="text-amber-400 text-base">★★★★★</span>
+              <span class="text-on-surface-variant text-[12px] ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant text-[14px] leading-relaxed">
+          "직업 특성상 감정 소진이 심했는데, 이 프로그램이 제 관계 기준점을 다시 잡아줬어요. 소수 정예라 집중도가 달랐고, 연구원분들도 정말 따뜻했습니다. 환자와의 관계에서도, 동료와의 관계에서도 이전과 다른 제가 되었어요."
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 장소 안내 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-on-surface mb-5 flex items-center gap-2">
+      <span class="w-1 h-6 bg-emerald-500 rounded-full inline-block"></span>
+      진행 장소
+    </h2>
+    <div class="bg-white rounded-2xl border border-outline-variant p-5 shadow-sm">
+      <div class="flex items-start gap-4">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-emerald-600" style="font-variation-settings:'FILL' 1;">location_on</span>
+        </div>
+        <div>
+          <div class="font-bold text-on-surface text-[15px] mb-1">LOGIN 연구소</div>
+          <div class="text-on-surface-variant text-[13px] mb-3">서울특별시 마포구 · 지하철 6호선 마포역 도보 5분</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-50 text-emerald-700 text-[12px] font-semibold px-3 py-1 rounded-full">소그룹 세미나실</span>
+            <span class="bg-emerald-50 text-emerald-700 text-[12px] font-semibold px-3 py-1 rounded-full">전용 실습 공간</span>
+            <span class="bg-emerald-50 text-emerald-700 text-[12px] font-semibold px-3 py-1 rounded-full">자료 무상 제공</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 신청 섹션 -->
+  <section class="mb-8">
+    <div class="bg-gradient-to-br from-emerald-500 to-teal-700 rounded-3xl p-8 text-center shadow-xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-bold mb-4">
+        <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;">schedule</span>
+        4기 · 2026년 6월 21일 시작
+      </div>
+      <h2 class="text-white text-2xl font-extrabold mb-2">지금 신청하기</h2>
+      <p class="text-emerald-100 text-sm mb-1">관계 회복력 실험실</p>
+      <div class="text-white text-3xl font-extrabold mb-2">248,000원</div>
+      <p class="text-emerald-200 text-xs mb-6">남은 자리 <strong class="text-white">3자리</strong> / 총 8명</p>
+      <!-- 진행 바 -->
+      <div class="w-full bg-white/20 rounded-full h-2 mb-6">
+        <div class="bg-white rounded-full h-2" style="width: 62.5%;"></div>
+      </div>
+      <!-- 긴급 문구 -->
+      <div class="bg-white/15 rounded-xl px-4 py-2.5 mb-5 text-white text-[13px] font-medium">
+        <span class="material-symbols-outlined text-sm align-middle mr-1" style="font-variation-settings:'FILL' 1;">warning</span>
+        8명 정원으로 진행되는 프로그램입니다. 마감 후 추가 신청이 불가합니다.
+      </div>
+      <button class="w-full py-4 bg-white text-emerald-700 rounded-2xl font-extrabold text-base hover:bg-emerald-50 transition-colors active:scale-95 duration-200 mb-4">
+        4기 신청하기
+      </button>
+      <div class="flex items-center justify-center gap-2 text-emerald-100 text-xs">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">mail</span>
+        <span>문의: program@login.kr</span>
+        <span class="mx-2">·</span>
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">chat</span>
+        <span>카카오채널 @LOGIN</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 하단 모바일 네비게이션 -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
+      <span class="material-symbols-outlined text-[17px]">info</span>
+      <span class="text-[8.5px] font-medium">About</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="/program">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/insight">
+      <span class="material-symbols-outlined text-[17px]">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/community">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/mypage">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector('.accordion-icon');
+    const isOpen = content.classList.contains('open');
+
+    document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.accordion-icon').forEach(el => el.classList.remove('open'));
+
+    if (!isOpen) {
+      content.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+</script>
+<script src="/header-auth.js"></script>
+</body>
+</html>

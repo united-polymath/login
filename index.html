@@ -200,20 +200,20 @@
 <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
   <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
     <!-- Logo -->
-    <a href="index.html" class="flex items-center">
+    <a href="/" class="flex items-center">
       <img src="logo2.jpg" alt="LOGIN" class="h-11 w-auto rounded-lg"/>
     </a>
     <!-- Desktop Nav -->
     <div class="hidden md:flex gap-8 items-center">
-      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="index.html">홈</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="about.html">About Us</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="프로그램.html">프로그램</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="인사이트.html">인사이트</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="커뮤니티.html">커뮤니티</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="마이페이지.html">마이페이지</a>
+      <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/program">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/mypage">마이페이지</a>
     </div>
     <!-- Profile -->
-    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='마이페이지.html'" style="cursor:pointer">
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='/mypage'" style="cursor:pointer">
       <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
     </div>
   </div>
@@ -247,11 +247,11 @@
         </p>
         <!-- CTAs -->
         <div class="fade-up-3 flex flex-col sm:flex-row gap-4">
-          <a href="program-quiz.html" class="inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-base active:scale-95 duration-150 transition-all" style="background:#C8E600;color:#0E0E0E;border-radius:4px;box-shadow:4px 4px 0 #A8C400;">
+          <a href="/program-quiz" class="inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-base active:scale-95 duration-150 transition-all" style="background:#C8E600;color:#0E0E0E;border-radius:4px;box-shadow:4px 4px 0 #A8C400;">
             <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1">quiz</span>
             내 프로그램 찾기 (5분)
           </a>
-          <a href="인사이트.html" class="inline-flex items-center justify-center gap-2 px-7 py-4 font-semibold text-base active:scale-95 duration-150 transition-all" style="background:transparent;color:#FFFFFF;border:1.5px solid rgba(255,255,255,0.25);border-radius:4px;">
+          <a href="/insight" class="inline-flex items-center justify-center gap-2 px-7 py-4 font-semibold text-base active:scale-95 duration-150 transition-all" style="background:transparent;color:#FFFFFF;border:1.5px solid rgba(255,255,255,0.25);border-radius:4px;">
             최신 인사이트 보기
             <span class="material-symbols-outlined text-xl">arrow_forward</span>
           </a>
@@ -261,7 +261,7 @@
 
     <!-- Floating program pills (desktop) -->
     <div class="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
-      <a href="program-dopamine-detox.html" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
+      <a href="/program-dopamine-detox" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
         <div class="w-8 h-8 flex items-center justify-center flex-shrink-0" style="background:#C8E600;border-radius:2px;">
           <span class="material-symbols-outlined text-sm text-[#0E0E0E]" style="font-variation-settings:'FILL' 1">self_improvement</span>
         </div>
@@ -270,7 +270,7 @@
           <div class="text-[13px] font-semibold">도파민 디톡스 코호트</div>
         </div>
       </a>
-      <a href="program-ai-career.html" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
+      <a href="/program-ai-career" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
         <div class="w-8 h-8 flex items-center justify-center flex-shrink-0" style="background:rgba(200,230,0,0.2);border-radius:2px;">
           <span class="material-symbols-outlined text-sm" style="color:#C8E600;font-variation-settings:'FILL' 1">rocket_launch</span>
         </div>
@@ -279,7 +279,7 @@
           <div class="text-[13px] font-semibold">AI 커리어 리디자인</div>
         </div>
       </a>
-      <a href="program-emotional-literacy.html" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
+      <a href="/program-emotional-literacy" class="program-pill flex items-center gap-3 px-4 py-3 text-white" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;">
         <div class="w-8 h-8 flex items-center justify-center flex-shrink-0" style="background:rgba(200,230,0,0.2);border-radius:2px;">
           <span class="material-symbols-outlined text-sm" style="color:#C8E600;font-variation-settings:'FILL' 1">favorite</span>
         </div>
@@ -322,7 +322,7 @@
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6B8700;margin-bottom:8px;">// LOGIN Programs</div>
         <h2 class="text-headline-lg font-headline-lg text-on-surface">지금 모집 중인 프로그램</h2>
       </div>
-      <a href="프로그램.html" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
+      <a href="/program" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
         전체보기
         <span class="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">chevron_right</span>
       </a>
@@ -332,7 +332,7 @@
     <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0">
 
       <!-- Program 1 -->
-      <a href="program-dopamine-detox.html" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
+      <a href="/program-dopamine-detox" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
         <div class="aspect-square overflow-hidden relative">
           <img src="program 1.png" alt="도파민 디톡스" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
@@ -350,7 +350,7 @@
       </a>
 
       <!-- Program 2 -->
-      <a href="program-ai-career.html" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
+      <a href="/program-ai-career" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
         <div class="aspect-square overflow-hidden relative">
           <img src="program 2.png" alt="AI 시대 커리어" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
           <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
@@ -368,7 +368,7 @@
       </a>
 
       <!-- Program 3 -->
-      <a href="program-emotional-literacy.html" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
+      <a href="/program-emotional-literacy" class="flex-shrink-0 w-72 md:w-auto bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden group">
         <div class="h-36 bg-gradient-to-br from-rose-500 to-pink-700 relative flex items-center justify-center">
           <span class="material-symbols-outlined text-white text-5xl opacity-60" style="font-variation-settings:'FILL' 1,'wght' 200">favorite</span>
           <div class="absolute top-3 left-3 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-white text-[11px] font-bold">⭐ 만족도 4.9</div>
@@ -387,7 +387,7 @@
 
     <!-- Mobile: 전체보기 -->
     <div class="md:hidden mt-5 text-center">
-      <a href="프로그램.html" class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm border border-primary/30 rounded-xl px-5 py-2.5 hover:bg-blue-50 transition-colors">
+      <a href="/program" class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm border border-primary/30 rounded-xl px-5 py-2.5 hover:bg-blue-50 transition-colors">
         프로그램 전체보기
         <span class="material-symbols-outlined text-base">chevron_right</span>
       </a>
@@ -396,7 +396,7 @@
 
   <!-- ===== QUIZ CTA BANNER ===== -->
   <section class="max-w-[1200px] mx-auto px-5 md:px-margin-desktop py-8">
-    <a href="program-quiz.html" class="block p-6 md:p-8 hover:opacity-95 transition-opacity active:scale-[0.99] duration-150 relative overflow-hidden" style="background:#0E0E0E;border-radius:4px;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;">
+    <a href="/program-quiz" class="block p-6 md:p-8 hover:opacity-95 transition-opacity active:scale-[0.99] duration-150 relative overflow-hidden" style="background:#0E0E0E;border-radius:4px;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-5 relative z-10">
         <div>
           <div class="text-[11px] font-bold uppercase tracking-widest mb-2" style="color:#C8E600;font-family:'IBM Plex Mono',monospace;">// 5분 자가진단</div>
@@ -420,14 +420,14 @@
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6B8700;margin-bottom:8px;">// LOGIN Insights</div>
         <h2 class="text-headline-lg font-headline-lg text-on-surface">2030이 꼭 알아야 할 인사이트</h2>
       </div>
-      <a href="인사이트.html" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
+      <a href="/insight" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
         전체보기 <span class="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">chevron_right</span>
       </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <!-- Featured Insight -->
-      <a href="insight-dopamine.html" class="md:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden group flex flex-col md:flex-row">
+      <a href="/insight-dopamine" class="md:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden group flex flex-col md:flex-row">
         <div class="md:w-5/12 h-48 md:h-auto flex items-center justify-center flex-shrink-0 relative overflow-hidden" style="background:#F4F1E8;">
           <div class="absolute inset-0 bg-gradient-to-br from-violet-400/20 to-purple-600/30"></div>
           <span class="material-symbols-outlined text-violet-400 text-6xl" style="font-variation-settings:'FILL' 1,'wght' 200">self_improvement</span>
@@ -445,7 +445,7 @@
 
       <!-- Side insights -->
       <div class="flex flex-col gap-4">
-        <a href="insight-ai-anxiety.html" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
+        <a href="/insight-ai-anxiety" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
           <div class="flex items-start gap-4">
             <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
               <span class="material-symbols-outlined text-blue-500 text-xl" style="font-variation-settings:'FILL' 1">smart_toy</span>
@@ -456,7 +456,7 @@
             </div>
           </div>
         </a>
-        <a href="insight-ai-skillset.html" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
+        <a href="/insight-ai-skillset" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
           <div class="flex items-start gap-4">
             <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
               <span class="material-symbols-outlined text-amber-500 text-xl" style="font-variation-settings:'FILL' 1">workspace_premium</span>
@@ -467,7 +467,7 @@
             </div>
           </div>
         </a>
-        <a href="insight-njob.html" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
+        <a href="/insight-njob" class="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 p-5 group">
           <div class="flex items-start gap-4">
             <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
               <span class="material-symbols-outlined text-emerald-500 text-xl" style="font-variation-settings:'FILL' 1">work_history</span>
@@ -482,7 +482,7 @@
     </div>
 
     <div class="md:hidden mt-5 text-center">
-      <a href="인사이트.html" class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm border border-primary/30 rounded-xl px-5 py-2.5 hover:bg-blue-50 transition-colors">
+      <a href="/insight" class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm border border-primary/30 rounded-xl px-5 py-2.5 hover:bg-blue-50 transition-colors">
         인사이트 전체보기 <span class="material-symbols-outlined text-base">chevron_right</span>
       </a>
     </div>
@@ -495,13 +495,13 @@
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6B8700;margin-bottom:8px;">// Research Reports</div>
         <h2 class="text-headline-lg font-headline-lg text-on-surface">최신 연구 리포트</h2>
       </div>
-      <a href="인사이트.html" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
+      <a href="/insight" class="hidden md:flex items-center gap-1 text-primary font-semibold text-sm group hover:opacity-80 transition-opacity">
         전체보기 <span class="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">chevron_right</span>
       </a>
     </div>
 
     <div class="space-y-3">
-      <a href="report-mental-health.html" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
+      <a href="/report-mental-health" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
         <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
           <span class="text-[11px] font-extrabold text-violet-600 text-center leading-tight">Vol<br/>12</span>
         </div>
@@ -515,7 +515,7 @@
         <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors flex-shrink-0">chevron_right</span>
       </a>
 
-      <a href="report-ai-jobs.html" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
+      <a href="/report-ai-jobs" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
         <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
           <span class="text-[11px] font-extrabold text-center leading-tight" style="color:#0E0E0E;">Vol<br/>12</span>
         </div>
@@ -529,7 +529,7 @@
         <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors flex-shrink-0">chevron_right</span>
       </a>
 
-      <a href="report-digital-isolation.html" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
+      <a href="/report-digital-isolation" class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-5 group hover:shadow-md hover:border-blue-100 transition-all duration-200">
         <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center flex-shrink-0">
           <span class="text-[11px] font-extrabold text-rose-600 text-center leading-tight">Vol<br/>9</span>
         </div>
@@ -559,7 +559,7 @@
           <p class="text-slate-400 text-sm leading-relaxed">같은 고민을 가진 2030들이 이야기를 나누는 공간입니다.</p>
         </div>
         <div class="flex-shrink-0">
-          <a href="커뮤니티.html" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl font-bold text-sm hover:bg-slate-100 transition-colors">
+          <a href="/community" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl font-bold text-sm hover:bg-slate-100 transition-colors">
             <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">forum</span>
             커뮤니티 가기
           </a>
@@ -572,27 +572,27 @@
 
 <!-- ===== BOTTOM NAV ===== -->
 <nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-1 md:hidden">
-  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="index.html">
+  <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/">
     <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1">home</span>
     <span class="text-[8.5px] font-medium">홈</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="about.html">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
     <span class="material-symbols-outlined text-[17px]">info</span>
     <span class="text-[8.5px] font-medium">About</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="프로그램.html">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/program">
     <span class="material-symbols-outlined text-[17px]">school</span>
     <span class="text-[8.5px] font-medium">프로그램</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="인사이트.html">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/insight">
     <span class="material-symbols-outlined text-[17px]">auto_graph</span>
     <span class="text-[8.5px] font-medium">인사이트</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="커뮤니티.html">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/community">
     <span class="material-symbols-outlined text-[17px]">forum</span>
     <span class="text-[8.5px] font-medium">커뮤니티</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="마이페이지.html">
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/mypage">
     <span class="material-symbols-outlined text-[17px]">person</span>
     <span class="text-[8.5px] font-medium">마이페이지</span>
   </a>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>LOGIN - 도파민 디톡스: 숏폼 중독에서 벗어나는 뇌 리셋 7일 프로그램</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ac6", "primary-container": "#2563eb", "on-primary": "#ffffff",
+            "primary-fixed": "#dbe1ff", "on-primary-fixed": "#00174b",
+            "secondary": "#006c49", "secondary-fixed": "#6ffbbe", "on-secondary-fixed-variant": "#005236",
+            "tertiary": "#ad0033", "tertiary-fixed": "#ffdadb", "on-tertiary-fixed": "#40000d",
+            "surface": "#f7f9fb", "background": "#f7f9fb", "on-background": "#191c1e",
+            "on-surface": "#191c1e", "on-surface-variant": "#434655",
+            "surface-container": "#eceef0", "surface-container-high": "#e6e8ea",
+            "surface-container-lowest": "#ffffff", "outline-variant": "#c3c6d7",
+          },
+          spacing: { "margin-desktop": "64px", "gutter": "24px" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Pretendard', 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .prose p { margin-bottom: 1.5rem; line-height: 1.85; }
+    .prose h3 { margin-top: 2.5rem; margin-bottom: 1rem; }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(46,16,101,0.55) 0%, rgba(76,29,149,0.7) 50%, rgba(30,10,60,0.88) 100%);
+    }
+    .section-border-violet {
+      border-left: 4px solid #7c3aed;
+      padding-left: 1rem;
+    }
+  
+  /* ════════════════════════════════════════
+   LOGIN EDITORIAL DESIGN
+   ════════════════════════════════════════ */
+  :root {
+    --lime: #C8E600;
+    --lime-dim: #A8C400;
+    --lime-bg: #EEF7B5;
+    --bg:      #FAFAF5;
+    --surface: #F4F1E8;
+    --card:    #FFFFFF;
+    --raised:  #EDE9DF;
+    --border:  #E5E2D7;
+    --border2: #D8D5CA;
+    --text1:   #0E0E0E;
+    --text2:   #555555;
+    --text3:   #8A8A8A;
+  }
+
+  html, body {
+    background-color: var(--bg) !important;
+    background-image: linear-gradient(rgba(14,14,14,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,14,14,0.03) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed !important;
+    color: var(--text1) !important;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  header {
+    background-color: rgba(14,14,14,0.97) !important;
+    border-bottom-color: #2A2A2A !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.5) !important;
+  }
+  header a.text-slate-600, header a.text-slate-600:hover { color: #8A8A8A !important; }
+  header a.text-slate-600:hover { color: #FFFFFF !important; }
+  header img { border-radius: 4px !important; }
+
+  nav.fixed.bottom-0 {
+    background-color: rgba(14,14,14,0.98) !important;
+    border-top-color: #2A2A2A !important;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.5) !important;
+  }
+  nav.fixed.bottom-0 a { color: #666 !important; }
+
+  .bg-white                         { background-color: var(--card) !important; }
+  .bg-slate-50                      { background-color: var(--surface) !important; }
+  .bg-slate-100                     { background-color: var(--raised) !important; }
+  .bg-slate-200                     { background-color: #E5E2D7 !important; }
+  .bg-slate-300                     { background-color: #D8D5CA !important; }
+  .bg-gray-50                       { background-color: var(--surface) !important; }
+  .bg-gray-100                      { background-color: var(--raised) !important; }
+  .bg-background                    { background-color: var(--bg) !important; }
+  .bg-surface, .bg-surface-bright,
+  .bg-surface-container-lowest      { background-color: var(--surface) !important; }
+  .bg-surface-container-low         { background-color: var(--card) !important; }
+  .bg-surface-container             { background-color: var(--raised) !important; }
+  .bg-surface-container-high        { background-color: #E5E2D7 !important; }
+  .bg-surface-container-highest     { background-color: #D8D5CA !important; }
+
+  .border-slate-100, .border-outline-variant { border-color: var(--border) !important; }
+  .border-slate-200 { border-color: var(--border2) !important; }
+  .border-slate-300 { border-color: #CCC9BE !important; }
+  .divide-slate-100 > * + * { border-color: var(--border) !important; }
+
+  .text-slate-300                 { color: #B8B4A8 !important; }
+  .text-slate-400                 { color: var(--text3) !important; }
+  .text-slate-500                 { color: #777 !important; }
+  .text-slate-600, .text-outline  { color: var(--text2) !important; }
+  .text-slate-700                 { color: #333 !important; }
+  .text-slate-800                 { color: #1A1A1A !important; }
+  .text-slate-900                 { color: var(--text1) !important; }
+  .text-on-surface                { color: var(--text1) !important; }
+  .text-on-surface-variant        { color: var(--text2) !important; }
+  .text-on-background             { color: var(--text1) !important; }
+
+  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .bg-blue-600, .bg-primary,
+  .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
+  .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
+  .bg-blue-50, .bg-blue-100       { background-color: var(--lime-bg) !important; }
+  .text-blue-200                  { color: #8A8A8A !important; }
+  .hover\:bg-blue-700:hover,
+  .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
+  .text-on-primary                { color: #0E0E0E !important; }
+  .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
+  .text-on-primary-container      { color: #6B8700 !important; }
+
+  .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
+  .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
+  .shadow-sm { box-shadow: 0 2px 8px rgba(14,14,14,0.08) !important; }
+  .shadow-md { box-shadow: 0 6px 20px rgba(14,14,14,0.10) !important; }
+
+  .hover\:bg-slate-50:hover  { background-color: var(--surface) !important; }
+  .hover\:bg-slate-100:hover { background-color: var(--raised) !important; }
+  .hover\:bg-slate-200:hover { background-color: #E5E2D7 !important; }
+
+  input, textarea, select {
+    background-color: #FFFFFF !important;
+    border-color: var(--border2) !important;
+    color: var(--text1) !important;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text3) !important; }
+  input:focus, textarea:focus, select:focus {
+    border-color: #0E0E0E !important;
+    box-shadow: 0 0 0 3px var(--lime-bg) !important;
+  }
+
+  section.bg-white, div.bg-white { background-color: var(--card) !important; }
+
+  nav a.text-blue-600 span { color: var(--lime) !important; }
+  nav a.text-blue-600      { color: var(--lime) !important; }
+
+  .rounded-2xl { border-radius: 4px !important; }
+  .rounded-xl  { border-radius: 4px !important; }
+  .rounded-lg  { border-radius: 4px !important; }
+
+  .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-background text-on-background">
+
+  <!-- 상단 헤더 nav -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-6 w-full max-w-[1200px] mx-auto">
+    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+      <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
+      <span class="font-extrabold tracking-tighter text-xl text-blue-600">LOGIN</span>
+    </a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/program">프로그램</a>
+      <a class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-0.5" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
+    </div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.href='/mypage'" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+  <main class="pt-0 pb-28">
+
+    <!-- 히어로 섹션 -->
+    <section class="relative w-full h-[460px] overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9IoqXjrUA5qQJHdPaWA989SDFvITdSk3fcLQyQl_4ygE5aO1eCATkXggUbClOjkV8JmfmPh4u1Spj0cmkazU3d3XQbVarjav5Kp1M7-bxwQX7S52I7H12m7vyCozGdLYdhF5XfRsQCCvh3s8zs5xSrZtCqYKuJQfhYN3MPgfJbNei46tv--xlq1KIe8SlnSgJWBsFBsLnHk7Ip6m2UlSI18M33Y3TPXqK1WknqIuRi0o71yQivPEmZzF_g6DO36MnnjQBQ4h1H0E"
+        alt="도파민 디톡스 히어로 이미지"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="hero-gradient absolute inset-0"></div>
+      <div class="absolute inset-0 flex flex-col justify-end px-4 md:px-8 pb-24 max-w-screen-xl mx-auto left-0 right-0">
+        <span class="inline-flex items-center gap-1.5 bg-violet-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full w-fit mb-4">
+          <span class="material-symbols-outlined text-sm">psychology</span>
+          멘탈케어
+        </span>
+        <h1 class="text-white text-2xl md:text-3xl font-bold leading-tight max-w-2xl">
+          도파민 디톡스: 숏폼 중독에서 벗어나는<br class="hidden md:block"/> 뇌 리셋 7일 프로그램
+        </h1>
+        <div class="flex items-center gap-3 mt-4 text-white/80 text-sm">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">person</span>김민준 신경심리 연구원</span>
+          <span>·</span>
+          <span>2026.04.15</span>
+          <span>·</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>6분 읽기</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 브레드크럼 + 뒤로가기 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-4">
+      <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+        <a href="/insight" class="flex items-center gap-1 hover:text-primary transition-colors font-medium">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          인사이트로 돌아가기
+        </a>
+        <span>/</span>
+        <span class="text-violet-700 font-medium">멘탈케어</span>
+        <span>/</span>
+        <span class="text-on-surface truncate max-w-xs">도파민 디톡스</span>
+      </div>
+    </div>
+
+    <!-- 아티클 컨테이너 -->
+    <div class="max-w-3xl mx-auto px-4 md:px-8 -mt-4">
+      <div class="bg-white rounded-2xl shadow-lg border border-outline-variant/30 overflow-hidden">
+
+        <!-- 아티클 헤더 -->
+        <div class="p-6 md:p-10 border-b border-outline-variant/30">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full">멘탈케어</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">뇌과학</span>
+            <span class="bg-surface-container text-on-surface-variant text-xs px-3 py-1.5 rounded-full">디지털 웰빙</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold text-on-surface leading-tight mb-6">
+            도파민 디톡스: 숏폼 중독에서 벗어나는 뇌 리셋 7일 프로그램
+          </h2>
+          <div class="flex flex-wrap items-center gap-4 text-sm text-on-surface-variant">
+            <div class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-violet-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-violet-600 text-lg">psychology</span>
+              </div>
+              <div>
+                <p class="font-semibold text-on-surface text-sm">김민준</p>
+                <p class="text-xs">신경심리 연구원</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span>2026.04.15</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span>6분 읽기</div>
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-base">visibility</span>12,483 조회</div>
+          </div>
+        </div>
+
+        <!-- 본문 -->
+        <div class="p-6 md:p-10 prose max-w-none text-on-surface text-[15px] leading-relaxed">
+
+          <!-- 섹션 1 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              왜 지금, 뇌가 리셋을 요구하는가
+            </h3>
+            <p>
+              2026년 현재, 국내 20-30대가 숏폼 콘텐츠를 소비하는 시간은 하루 평균 <strong class="text-violet-700">4.2시간</strong>에 달합니다. 이는 수면 시간을 제외한 일상의 약 30%에 해당하는 수치입니다. 틱톡, 유튜브 쇼츠, 인스타그램 릴스로 대표되는 숏폼 플랫폼은 우리의 여가를 잠식하는 것을 넘어, 뇌의 구조적 변화를 유발하기 시작했습니다.
+            </p>
+
+            <!-- 강조 박스 -->
+            <div class="bg-violet-50 border border-violet-200 rounded-xl p-5 my-6">
+              <div class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-violet-600 mt-0.5">bar_chart</span>
+                <div>
+                  <p class="font-bold text-violet-800 text-sm mb-2">2026 국내 20-30대 숏폼 소비 현황</p>
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                    <div>
+                      <p class="text-2xl font-black text-violet-700">4.2h</p>
+                      <p class="text-xs text-violet-600">일일 평균 소비시간</p>
+                    </div>
+                    <div>
+                      <p class="text-2xl font-black text-violet-700">78%</p>
+                      <p class="text-xs text-violet-600">기상 후 30분 이내 확인</p>
+                    </div>
+                    <div>
+                      <p class="text-2xl font-black text-violet-700">63%</p>
+                      <p class="text-xs text-violet-600">"줄이고 싶다" 응답</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              뇌과학적으로, 숏폼 콘텐츠는 <strong>도파민 보상 회로(측좌핵-전전두엽 회로)</strong>를 정밀하게 자극합니다. 측좌핵(Nucleus Accumbens)은 쾌락과 동기를 담당하는 뇌 영역으로, 새롭고 자극적인 콘텐츠를 만날 때마다 도파민을 방출합니다. 문제는 숏폼이 이 메커니즘을 초고속으로 반복 활성화한다는 점입니다. 15초마다 새로운 보상이 주어지는 구조에서, 뇌는 점점 더 강한 자극을 요구하게 됩니다.
+            </p>
+            <p>
+              특히 주목해야 할 것은 무한 스크롤이 활용하는 <strong>'가변 보상 스케줄(Variable Reward Schedule)'</strong>입니다. 카지노의 슬롯머신과 동일한 원리입니다. 언제 재미있는 영상이 나올지 모르기 때문에, 우리는 멈추지 못하고 계속 스크롤합니다. 예측 불가능한 보상이 예측 가능한 보상보다 훨씬 강한 행동 강화를 만들어냅니다. 이는 의지력의 문제가 아닌, 진화적으로 설계된 뇌의 반응입니다.
+            </p>
+
+            <!-- 인터뷰 인용 -->
+            <blockquote class="border-l-4 border-violet-400 pl-5 py-2 bg-violet-50/50 rounded-r-lg my-6 italic">
+              <p class="text-on-surface-variant text-sm leading-relaxed mb-2">
+                "두 시간 동안 영상을 봤는데, 뭘 봤는지 기억이 안 나요. 뭔가를 소비했는데 아무것도 채워지지 않은 느낌... 오히려 더 공허해진다는 게 맞는 표현인 것 같아요."
+              </p>
+              <p class="text-violet-600 font-semibold text-xs not-italic">— LOGIN 연구 참여자, 26세 직장인</p>
+            </blockquote>
+
+            <p>
+              이 공허함의 정체는 무엇일까요? 도파민은 실제로 '쾌락'의 물질이 아니라 '기대'와 '탐색'의 물질입니다. 숏폼 소비는 도파민을 과도하게 소모하면서도, 실제 깊은 만족감을 주는 세로토닌이나 옥시토신 분비로는 이어지지 않습니다. 뇌는 피로하지만 채워지지 않는 역설적 상태에 놓이게 됩니다.
+            </p>
+          </div>
+
+          <!-- 섹션 2 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              숏폼이 실제로 뇌를 바꾸는 방법
+            </h3>
+            <p>
+              숏폼 중독이 뇌를 변화시킨다는 것은 더 이상 가설이 아닙니다. 2025년 발표된 연구들은 과도한 숏폼 소비가 전전두엽(Prefrontal Cortex)의 <strong class="text-violet-700">회백질 밀도를 실제로 감소</strong>시킨다는 것을 보여줍니다. 전전두엽은 실행 기능, 계획 수립, 충동 조절을 담당하는 영역입니다. 이 영역이 약해질수록 집중력은 떨어지고, 긴 콘텐츠나 책을 읽는 것이 점점 더 힘들어집니다.
+            </p>
+
+            <div class="bg-violet-50 border border-violet-200 rounded-xl p-5 my-6 space-y-4">
+              <p class="font-bold text-violet-800 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-violet-600">neurology</span>
+                숏폼이 유발하는 뇌 변화 4가지
+              </p>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <div class="w-6 h-6 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span class="text-violet-700 text-xs font-bold">1</span>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">전전두엽 회백질 밀도 감소</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">집중력·충동 조절 능력 저하, 장기 계획 수립 어려움</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <div class="w-6 h-6 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span class="text-violet-700 text-xs font-bold">2</span>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">도파민 수용체 하향 조절(Down-regulation)</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">일상적 자극에 무감각해지고 더 강한 자극이 필요해짐</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <div class="w-6 h-6 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span class="text-violet-700 text-xs font-bold">3</span>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">수면의 질 저하</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">청색광과 각성 상태 유지로 멜라토닌 분비 억제, 깊은 수면 감소</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white rounded-lg p-3">
+                  <div class="w-6 h-6 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span class="text-violet-700 text-xs font-bold">4</span>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">작업 기억(Working Memory) 감소</p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">멀티태스킹 착각 속에 실제 정보 처리 능력은 떨어짐</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              도파민 수용체 하향 조절은 중독의 핵심 메커니즘입니다. 뇌는 과도한 도파민 자극에 적응하기 위해 수용체의 수를 줄입니다. 결과적으로, 같은 수준의 만족을 얻으려면 더 강하거나 더 많은 자극이 필요해집니다. 영상이 점점 더 자극적이어야 하고, 스크롤 시간이 점점 더 길어지는 이유입니다. 이는 약물 내성과 동일한 신경생물학적 원리입니다.
+            </p>
+            <p>
+              또한 잠자리에 들기 전 숏폼 시청은 수면에 치명적입니다. 스마트폰의 청색광(Blue Light)이 멜라토닌 분비를 억제할 뿐만 아니라, 콘텐츠 자체가 뇌를 각성 상태로 유지시킵니다. 연구 결과, <strong class="text-violet-700">디톡스 시작 후 72시간이 가장 힘든 시간</strong>입니다. 이 시기에는 무기력함, 불안, 집중 어려움이 최고조에 달합니다. 마치 금단 증상처럼요. 그러나 이 고비를 넘기면 뇌는 자체 도파민 생성 능력을 회복하기 시작합니다.
+            </p>
+          </div>
+
+          <!-- 섹션 3 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              LOGIN 7일 도파민 디톡스 프로그램
+            </h3>
+            <p>
+              LOGIN이 설계한 7일 도파민 디톡스는 '완전 차단'이 아닌 '단계적 재조정'을 목표로 합니다. 각 단계는 신경과학적 근거를 바탕으로 설계되었으며, 현실적으로 실천 가능한 수준의 변화를 추구합니다.
+            </p>
+
+            <!-- Day 1-2 -->
+            <div class="border border-violet-200 rounded-xl overflow-hidden my-6">
+              <div class="bg-violet-600 px-5 py-3 flex items-center gap-3">
+                <span class="text-white font-black text-lg">Day 1–2</span>
+                <span class="text-violet-100 text-sm font-semibold">알아차리기 (Awareness)</span>
+              </div>
+              <div class="bg-white p-5 space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">smartphone</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">스크린 타임 기록</p>
+                    <p class="text-sm text-on-surface-variant">아이폰 스크린 타임 또는 안드로이드 디지털 웰빙 기능으로 앱별 사용 시간을 정확히 파악합니다. 대부분의 사람은 자신의 실제 사용 시간을 40% 이상 과소평가합니다.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">crisis_alert</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">트리거 파악</p>
+                    <p class="text-sm text-on-surface-variant">언제, 어떤 감정 상태일 때 숏폼을 열게 되는지 메모합니다. 지루함인지, 불안인지, 외로움인지 — 트리거를 알아야 대안을 설계할 수 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Day 3-4 -->
+            <div class="border border-violet-200 rounded-xl overflow-hidden my-6">
+              <div class="bg-violet-700 px-5 py-3 flex items-center gap-3">
+                <span class="text-white font-black text-lg">Day 3–4</span>
+                <span class="text-violet-100 text-sm font-semibold">환경 설계 (Environment Design)</span>
+              </div>
+              <div class="bg-white p-5 space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">notifications_off</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">앱 알림 전체 끄기</p>
+                    <p class="text-sm text-on-surface-variant">TikTok, YouTube, Instagram의 푸시 알림을 완전히 비활성화합니다. 알림은 강제적인 도파민 자극 장치입니다. 알림이 없으면 앱을 열 이유가 줄어듭니다.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">electrical_services</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">폰 충전 위치 변경</p>
+                    <p class="text-sm text-on-surface-variant">침실 밖에서 충전합니다. 잠들기 전과 기상 직후의 숏폼 소비는 하루 전체 패턴에 가장 큰 영향을 미칩니다. 물리적 거리만으로도 행동 패턴이 달라집니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Day 5-6 -->
+            <div class="border border-violet-200 rounded-xl overflow-hidden my-6">
+              <div class="bg-violet-800 px-5 py-3 flex items-center gap-3">
+                <span class="text-white font-black text-lg">Day 5–6</span>
+                <span class="text-violet-100 text-sm font-semibold">대체 보상 찾기 (Reward Replacement)</span>
+              </div>
+              <div class="bg-white p-5 space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">menu_book</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">슬로우 미디어 도입</p>
+                    <p class="text-sm text-on-surface-variant">책, 긴 형식의 글(롱폼 아티클), 팟캐스트. 처음에는 10분도 힘들 수 있습니다. 집중력 근육을 재건하는 시간입니다. 억지로 길게 하려 하지 말고, 짧게 자주 시작합니다.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">directions_walk</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">산책과 아날로그 취미</p>
+                    <p class="text-sm text-on-surface-variant">이어폰 없이 걷기, 손으로 무언가 만들기, 요리, 그림 그리기 — 즉각적 보상은 없지만, 완성의 만족감은 숏폼이 줄 수 없는 깊은 종류의 것입니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="border border-violet-200 rounded-xl overflow-hidden my-6">
+              <div class="bg-violet-900 px-5 py-3 flex items-center gap-3">
+                <span class="text-white font-black text-lg">Day 7</span>
+                <span class="text-violet-100 text-sm font-semibold">통합 (Integration)</span>
+              </div>
+              <div class="bg-white p-5">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-violet-500 text-xl mt-0.5">auto_awesome</span>
+                  <div>
+                    <p class="font-semibold text-sm text-on-surface">지속 가능한 디지털 루틴 설계</p>
+                    <p class="text-sm text-on-surface-variant">7일의 실험을 돌아보며 자신만의 디지털 규칙을 만듭니다. "숏폼은 점심 식사 후 20분만", "밤 10시 이후 폰 서랍에 넣기" 등 구체적이고 실천 가능한 약속을 스스로와 맺습니다. 완전 금지보다 명확한 경계선이 장기적으로 훨씬 효과적입니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 4 -->
+          <div class="mb-10">
+            <h3 class="section-border-violet text-xl font-bold text-on-surface mb-5">
+              완전 끊기보다 '의식적 소비'로
+            </h3>
+            <p>
+              7일간의 디톡스를 마친 후, 중요한 질문이 남습니다. "이제 어떻게 살지?" 완전한 금욕주의(Digital Abstinence)는 지속 가능하지 않습니다. 스마트폰과 소셜미디어는 현대 사회에서 필수적인 커뮤니케이션 도구이기도 합니다. 더 현실적이고 강력한 대안은 <strong>디지털 미니멀리즘</strong>입니다.
+            </p>
+            <p>
+              디지털 미니멀리즘은 기술을 거부하는 것이 아니라 <strong>'기술과의 관계를 재정의'</strong>하는 것입니다. "이 앱이 나에게 진짜 가치를 주는가?" 라는 질문으로 각 앱의 존재를 의식적으로 검토합니다. 수동적 소비자가 아닌 능동적 선택자로 기술을 다루는 것입니다.
+            </p>
+
+            <div class="bg-violet-50 border border-violet-200 rounded-xl p-5 my-6">
+              <p class="font-bold text-violet-800 text-sm mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-violet-600">weekend</span>
+                주간 디지털 안식일(Digital Sabbath) 실천법
+              </p>
+              <p class="text-sm text-on-surface-variant mb-3">일주일에 하루, 혹은 하루 중 특정 시간을 완전한 오프라인 시간으로 지정합니다. 종교적 안식일처럼, 디지털 자극으로부터 뇌를 완전히 쉬게 하는 시간입니다.</p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-5 h-5 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-white text-xs">check</span>
+                  </span>
+                  <span class="text-on-surface">매주 일요일 오전 9시~12시는 폰 없이 지내기</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-5 h-5 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-white text-xs">check</span>
+                  </span>
+                  <span class="text-on-surface">식사 중에는 스마트폰 테이블 위에 두지 않기</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-5 h-5 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-white text-xs">check</span>
+                  </span>
+                  <span class="text-on-surface">아침 기상 후 30분은 스마트폰 없이 시작하기</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 핵심 정리 박스 -->
+          <div class="mt-12 bg-violet-50 border-l-4 border-violet-600 rounded-r-xl p-6 md:p-8">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="material-symbols-outlined text-violet-600">lightbulb</span>
+              <p class="font-bold text-violet-800 text-base">핵심 정리 — Key Takeaways</p>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">도파민 리셋은 의지의 문제가 아닌 환경 설계의 문제다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">스스로를 탓하지 마세요. 알림을 끄고, 폰을 멀리 두는 것이 의지력 강화보다 훨씬 효과적입니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">첫 72시간이 가장 힘들고, 그 이후 집중력이 회복되기 시작한다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">금단 증상 같은 무기력함과 불안은 정상입니다. 뇌가 재조정되는 과정입니다. 3일만 버티면 변화가 시작됩니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-on-surface text-sm">목표는 단절이 아닌 '의식적 소비'로의 전환이다</p>
+                  <p class="text-on-surface-variant text-sm mt-1">디지털 금욕주의는 지속 불가능합니다. 기술과의 관계를 재정의하고, 내가 선택한 시간에, 내가 선택한 콘텐츠를 보는 것이 목표입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 관련 아티클 섹션 -->
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-on-surface">관련 아티클</h2>
+        <a href="/insight-ai-anxiety" class="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
+          전체 보기<span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 관련 1 -->
+        <a href="/insight" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhEF_tr6dkXrWDoZc1IbPFKvQ5IFZkqLPUX1YmxLpCUbDDjP569BCScg9dV2cGYCynMroP3lR_minlFu06JuIEIBsiLh3wVmE1Zmdbldv5MRneCpbvx8g5k9yIzBYZ_tiWb8FkWkLwMdzc2x1inkp0LhTbag_Kt7i1FDfECw296pNRCoCXFokmR6GqsBX89Aa_fp4UiTPjemqFoUBNpIg_TZY7RoWVd-LFmKni0SXqLseJUL7ZFEDGe6mVQrNXREc9MERDW1g" alt="AI 불안 아티클" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-violet-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">멘탈케어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">"AI에게 대체될까?" — 실존적 불안을 다루는 심리 방어 메커니즘</h3>
+            <p class="text-xs text-on-surface-variant">이수아 임상심리사 · 7분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 2 -->
+        <a href="/insight-n-choice" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuLvZc8Bq30AgfIQMVMCnVNkGUTqW3DFYUJpCmdd6Ym8uiGutlCmCPTvx9-NULJHqlCLAnCiEc0SgFRJ8pMbD9DYTBOIee0fh3B_r9WfDaAnOBW7euArKKJRxagF54kBvvaeyKxNm5nKbHEG-UnaDHP86jiiAn8vbTgtBFDBw_iJsxrKUxbSrxPlGjeh_voqRBtWXJoHd-mxF480s-voOT3C-pRZ_QeBrUNWS9cOx4w5I8-_ZHN3WlC2N8MxJYlGlaKOkV8GktRm8" alt="N선택 아티클" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-rose-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">사회·관계</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">N포를 넘어 N선택으로: 2030이 새로 쓰는 삶의 공식</h3>
+            <p class="text-xs text-on-surface-variant">박지원 사회학 연구원 · 8분 읽기</p>
+          </div>
+        </a>
+
+        <!-- 관련 3 -->
+        <a href="/insight-ai-skillset" class="bg-white rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="relative h-44 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAny1MAd6VtMkiW7wv-SQB5wcTtV1WIPpNE_XGwhzDc8D0V9963JvgJ5lQWIFOSJ-pRe9EM-ja3t-wHKQS_U2B0UyR2gSGjmKmxp9F7p6r6EdQ1pGVOydcXrYr2KqyTZWs4ytYRXAyd7jHQ5eCrnWD6eVsbJfS47ocdXn_9jACTNB1bi6fj_U5Nkxqj1qLWdsMMTYuJDgpXbPrWzcL7nSc2djjqzJKXQopsLkiTreqEcofsEbvvI61XItE1-PHTOTDUigsvPqm5mK0" alt="T자형 인재 아티클" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-2.5 py-1 rounded-full">커리어</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-on-surface text-sm leading-snug mb-2 group-hover:text-primary transition-colors">AI와 협업하는 T자형 인재: 2026 하이브리드 스킬셋 전략</h3>
+            <p class="text-xs text-on-surface-variant">최유진 커리어 코치 · 5분 읽기</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 하단 모바일 nav -->
+  <nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+  <div class="flex justify-around items-center h-20 pb-safe px-0">
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/">
+      <span class="material-symbols-outlined text-[17px]">home</span>
+      <span class="text-[8.5px] font-medium mt-0.5">홈</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
+      <span class="material-symbols-outlined text-[17px]">info</span>
+      <span class="text-[8.5px] font-medium">About</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/program">
+      <span class="material-symbols-outlined text-[17px]">school</span>
+      <span class="text-[8.5px] font-medium mt-0.5">프로그램</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-blue-600 font-bold rounded-full w-11 h-11 active:scale-90 transition-transform" href="/insight">
+      <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1;">auto_graph</span>
+      <span class="text-[8.5px] font-medium mt-0.5">인사이트</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/community">
+      <span class="material-symbols-outlined text-[17px]">forum</span>
+      <span class="text-[8.5px] font-medium mt-0.5">커뮤니티</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform" href="/mypage">
+      <span class="material-symbols-outlined text-[17px]">person</span>
+      <span class="text-[8.5px] font-medium mt-0.5">마이페이지</span>
+    </a>
+  </div>
+</nav>
+
+<script src="/header-auth.js"></script>
+</body>
+</html>
