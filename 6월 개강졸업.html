@@ -2333,6 +2333,7 @@
             {
                 id: 1,
                 emoji: '☕',
+                img: 'https://i.ifh.cc/NlKHGP.jpg',
                 text: '오늘 아무것도 안 해도 되는 <em>자유 시간</em>,<br>나는 자연스럽게 무엇을 하나요?',
                 hint: '억지로 한 것 말고, 나도 모르게 하게 되는 것을 고르세요',
                 options: [
@@ -2345,6 +2346,7 @@
             {
                 id: 2,
                 emoji: '👥',
+                img: 'https://i.ifh.cc/pkJ2KV.jpg',
                 text: '팀 프로젝트에서 나는<br>어떤 역할을 <em>자연스럽게</em> 맡나요?',
                 hint: '가장 편하게, 잘 할 수 있는 역할을 고르세요',
                 options: [
@@ -2357,6 +2359,7 @@
             {
                 id: 3,
                 emoji: '💭',
+                img: 'https://i.ifh.cc/ADr1mM.jpg',
                 text: '미래 직업을 생각할 때<br>가장 <em>중요하게</em> 여기는 건?',
                 hint: '솔직하게, 가장 먼저 떠오르는 것을 고르세요',
                 options: [
@@ -2369,6 +2372,7 @@
             {
                 id: 4,
                 emoji: '😔',
+                img: 'https://i.ifh.cc/d8Xypa.jpg',
                 text: '가장 힘들었던 순간을 떠올리면<br>주로 어떤 상황인가요?',
                 hint: '직장·학교·일상 모두 포함해서 생각해보세요',
                 options: [
@@ -2381,6 +2385,7 @@
             {
                 id: 5,
                 emoji: '💬',
+                img: 'https://i.ifh.cc/lDacPX.jpg',
                 text: '친구들 사이에서 나는 보통<br>어떤 <em>사람으로 불리나요</em>?',
                 hint: '스스로 생각하는 것보다, 주변에서 자주 하는 말을 고르세요',
                 options: [
@@ -2393,6 +2398,7 @@
             {
                 id: 6,
                 emoji: '🔮',
+                img: 'https://i.ifh.cc/F67hjB.jpg',
                 text: '10년 후, 내가 가장 <em>뿌듯할 것 같은</em><br>모습은 어떤 건가요?',
                 hint: '현실적인 조건보다 진짜 원하는 모습을 골라주세요',
                 options: [
@@ -2405,6 +2411,7 @@
             {
                 id: 7,
                 emoji: '⚡',
+                img: 'https://i.ifh.cc/nG2Mg5.jpg',
                 text: '일할 때 가장 에너지가 <em>올라가는</em><br>순간은 언제인가요?',
                 hint: '실제로 경험한 것, 또는 그럴 것 같다는 느낌으로 골라주세요',
                 options: [
@@ -2621,7 +2628,7 @@
 
             document.getElementById('q-slot').innerHTML = `
     <div class="q-img-wrap">
-      <div class="q-img-emoji">${q.emoji}</div>
+      ${q.img ? `<img src="${q.img}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />` : `<div class="q-img-emoji">${q.emoji}</div>`}
     </div>
     <div class="q-inner">
       <div class="q-num-badge">Q${q.id}</div>
