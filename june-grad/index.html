@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login · 졸업 후 나에게 맞는 직업유형 테스트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
+<style>
+    #tri-job-test-app {
+        --indigo: #CCFF00;
+        --indigo-dark: #A8D400;
+        --indigo-deep: #0E0E0E;
+        --indigo-soft: #EEF7B5;
+        --violet: #A8D400;
+        --bg: #FAFAF5;
+        --white: #FFFFFF;
+        --gray-100: #F0EFE8;
+        --gray-300: #D1D0C8;
+        --gray-500: #6B6B65;
+        --gray-700: #2A2A2A;
+        --text: #0E0E0E;
+    }
+
+    #tri-job-test-app,
+    #tri-job-test-app * {
+        box-sizing: border-box;
+    }
+
+    #tri-job-test-app {
+        font-family: 'Noto Sans KR', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+        padding: 48px 20px 80px;
+    }
+
+    #tri-job-test-app>.screen {
+        max-width: 520px;
+        margin: 0 auto;
+        box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+    }
+
+    .screen {
+        display: none;
+    }
+
+    .screen.active {
+        display: block;
+    }
+
+    /* ═══════════════════════════════════════
+   COVER
+═══════════════════════════════════════ */
+    #screen-cover {
+        background: #0C0B1E;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 60px 28px 72px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+    }
+
+    #screen-cover.active {
+        display: flex;
+    }
+
+    #screen-cover::before {
+        content: '';
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(204, 255, 0, 0.2) 0%, transparent 65%);
+        top: -140px;
+        left: -140px;
+        pointer-events: none;
+    }
+
+    #screen-cover::after {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(168, 196, 0, 0.15) 0%, transparent 65%);
+        bottom: -100px;
+        right: -100px;
+        pointer-events: none;
+    }
+
+    .cover-inner {
+        width: 100%;
+        max-width: 452px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cover-logo {
+        font-size: 11px;
+        letter-spacing: 5px;
+        font-weight: 700;
+        color: #D9F050;
+        text-transform: uppercase;
+    }
+
+    .cover-card {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 52px 36px;
+        text-align: center;
+        backdrop-filter: blur(12px);
+    }
+
+    .cover-emoji-row {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+    }
+
+    .cover-job-pill {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 13px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .cover-badge {
+        display: inline-block;
+        background: rgba(204, 255, 0, 0.2);
+        border: 1px solid rgba(204, 255, 0, 0.4);
+        color: #D9F050;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        letter-spacing: 1px;
+    }
+
+    .cover-title {
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.45;
+        margin-bottom: 8px;
+    }
+
+    .cover-title em {
+        color: #D9F050;
+        font-style: normal;
+    }
+
+    .cover-sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.7;
+        margin-bottom: 22px;
+    }
+
+    .cover-stats {
+        display: flex;
+        gap: 1px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 18px;
+    }
+
+    .cover-stat {
+        flex: 1;
+        padding: 14px 8px;
+        text-align: center;
+    }
+
+    .cover-stat-num {
+        font-size: 19px;
+        font-weight: 900;
+        color: #D9F050;
+    }
+
+    .cover-stat-label {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 3px;
+    }
+
+    .cover-hint {
+        font-size: 12px;
+        color: rgba(165, 180, 252, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        animation: pulse-down 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse-down {
+
+        0%,
+        100% {
+            transform: translateY(0);
+            opacity: .6
+        }
+
+        50% {
+            transform: translateY(5px);
+            opacity: 1
+        }
+    }
+
+    .btn-start {
+        width: 100%;
+        padding: 18px;
+        background: var(--indigo);
+        border: none;
+        border-radius: 50px;
+        font-size: 17px;
+        font-weight: 900;
+        color: #0E0E0E;
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .2s;
+        box-shadow: 0 6px 28px rgba(204, 255, 0, 0.45);
+        letter-spacing: -0.3px;
+    }
+
+    .btn-start:hover {
+        background: var(--indigo-dark);
+        color: #0E0E0E;
+        transform: translateY(-2px);
+    }
+
+    .btn-start:active {
+        transform: translateY(0);
+    }
+
+    /* 참여자 카운터 */
+    .cv-counter {
+        width: 100%;
+        background: rgba(204, 255, 0, 0.12);
+        border: 1px solid rgba(204, 255, 0, 0.3);
+        border-radius: 14px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .cv-counter-num {
+        font-size: 26px;
+        font-weight: 900;
+        color: #F59E0B;
+        letter-spacing: -1px;
+        transition: transform .15s ease, color .15s ease;
+    }
+
+    .cv-counter-label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.4;
+    }
+
+    .cv-counter-label b {
+        color: #fff;
+    }
+
+    .cv-feed {
+        width: 100%;
+        height: 44px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .cv-feed-item {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50px;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.85);
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .cv-feed-item.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .cv-feed-item.hide {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+
+    .cv-feed-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4ADE80;
+        flex-shrink: 0;
+        box-shadow: 0 0 6px #4ADE80;
+        animation: glow-blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes glow-blink {
+
+        0%,
+        100% {
+            opacity: 1
+        }
+
+        50% {
+            opacity: 0.3
+        }
+    }
+
+    /* ═══════════════════════════════════════
+   QUESTIONS
+═══════════════════════════════════════ */
+    #screen-questions {
+        background: var(--white);
+        display: none;
+        flex-direction: column;
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    #screen-questions.active {
+        display: flex;
+    }
+
+    .q-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-100);
+        padding: 14px 20px;
+    }
+
+    .q-progress-track {
+        height: 6px;
+        background: var(--gray-100);
+        border-radius: 10px;
+    }
+
+    .q-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--indigo), var(--indigo-dark));
+        border-radius: 10px;
+        transition: width .5s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .q-step-wrap {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .q-step-text {
+        display: inline-block;
+        background: #0E0E0E;
+        color: var(--indigo);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        padding: 4px 14px;
+        border-radius: 20px;
+    }
+
+    .q-content {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .q-img-wrap {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(160deg, #0E0E0E 0%, #2A2A2A 60%, #5A5A45 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .q-img-wrap::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(circle at 20% 30%, rgba(200,230,0,0.15) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(204,255,0,0.08) 0%, transparent 40%);
+        pointer-events: none;
+    }
+
+    .q-img-emoji {
+        font-size: 90px;
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 6px 20px rgba(0,0,0,0.25));
+    }
+
+    .q-inner {
+        padding: 28px 24px 36px;
+    }
+
+    .q-num-badge {
+        display: inline-block;
+        background: #0E0E0E;
+        color: var(--indigo);
+        font-size: 11px;
+        font-weight: 900;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    .q-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1.55;
+        margin-bottom: 12px;
+    }
+
+    .q-title em {
+        color: #0E0E0E;
+        font-style: normal;
+        background: linear-gradient(180deg, transparent 58%, var(--indigo) 58%);
+        padding: 0 4px;
+        font-weight: 900;
+    }
+
+    .q-instruction {
+        font-size: 12px;
+        color: var(--gray-500);
+        margin-bottom: 28px;
+    }
+
+    .q-options {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 32px;
+    }
+
+    .q-opt {
+        padding: 0;
+        border: 2px solid var(--gray-300);
+        border-radius: 14px;
+        background: var(--white);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .18s;
+        text-align: left;
+        overflow: hidden;
+    }
+
+    .q-opt:hover {
+        border-color: var(--indigo);
+        background: var(--indigo-soft);
+    }
+
+    .q-opt.selected {
+        border-color: #0E0E0E;
+        background: #0E0E0E;
+    }
+
+    .q-opt-inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 20px 20px;
+    }
+
+    .q-opt-marker {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--gray-300);
+        flex-shrink: 0;
+        margin-top: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .18s;
+    }
+
+    .q-opt.selected .q-opt-marker {
+        border-color: var(--indigo);
+        background: var(--indigo);
+    }
+
+    .q-opt.selected .q-opt-marker::after {
+        content: '✓';
+        font-size: 12px;
+        color: #0E0E0E;
+        font-weight: 900;
+    }
+
+    .q-opt-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.55;
+        flex: 1;
+    }
+
+    .q-opt.selected .q-opt-text {
+        color: var(--white);
+        font-weight: 700;
+    }
+
+    .q-nav {
+        display: flex;
+        gap: 10px;
+        padding-bottom: 4px;
+    }
+
+    .btn-q-prev {
+        padding: 14px 20px;
+        border-radius: 50px;
+        border: 2px solid var(--gray-300);
+        background: var(--white);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-500);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .15s;
+    }
+
+    .btn-q-prev:hover {
+        border-color: var(--gray-700);
+        color: var(--gray-700);
+    }
+
+    .btn-q-next {
+        flex: 1;
+        padding: 15px;
+        background: #0E0E0E;
+        border: none;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--indigo);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .18s;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-q-next:hover:not(:disabled) {
+        background: var(--indigo);
+        color: #0E0E0E;
+        transform: translateY(-1px);
+    }
+
+    .btn-q-next:disabled {
+        background: var(--gray-300);
+        color: var(--gray-500);
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    /* ═══════════════════════════════════════
+   INFO — 간소화된 정보 입력 (3 fields)
+═══════════════════════════════════════ */
+    #screen-info {
+        background: var(--white);
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    .info-hero {
+        background: var(--indigo);
+        padding: 40px 28px 36px;
+    }
+
+    .info-hero-eyebrow {
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .info-hero-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--white);
+        margin-bottom: 4px;
+    }
+
+    .info-hero-sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+    }
+
+    .info-body {
+        padding: 36px 24px 12px;
+    }
+
+    .info-field {
+        margin-bottom: 28px;
+    }
+
+    .info-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+    }
+
+    .info-req {
+        color: var(--indigo);
+    }
+
+    .info-sub {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--gray-500);
+    }
+
+    .info-input,
+    .info-select {
+        width: 100%;
+        padding: 16px 18px;
+        border: 2px solid var(--gray-300);
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: 'Noto Sans KR', sans-serif;
+        color: var(--text);
+        outline: none;
+        transition: border .15s;
+        background: var(--white);
+    }
+
+    .info-input:focus,
+    .info-select:focus {
+        border-color: var(--indigo);
+    }
+
+    .info-input::placeholder {
+        color: #B0B8C1;
+    }
+
+    .info-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+    }
+
+    .info-textarea {
+        width: 100%;
+        padding: 16px 18px;
+        border: 2px solid var(--gray-300);
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: 'Noto Sans KR', sans-serif;
+        color: var(--text);
+        outline: none;
+        transition: border .15s;
+        background: var(--white);
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .info-textarea:focus {
+        border-color: var(--indigo);
+    }
+
+    .info-textarea::placeholder {
+        color: #B0B8C1;
+    }
+
+    .info-interview-box {
+        background: var(--bg);
+        border-radius: 14px;
+        padding: 18px;
+        margin-top: 4px;
+    }
+
+    .info-interview-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .info-interview-sub {
+        font-size: 12px;
+        color: var(--gray-500);
+        margin-bottom: 12px;
+        line-height: 1.55;
+    }
+
+    .info-interview-reward {
+        background: #CCFF00;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-size: 13px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .info-interview-check-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        padding: 12px 14px;
+        border: 2px solid var(--gray-300);
+        border-radius: 12px;
+        transition: all .15s;
+    }
+
+    .info-interview-check-row:has(input:checked) {
+        border-color: var(--indigo);
+        background: var(--indigo-soft);
+    }
+
+    .info-interview-check-row input {
+        accent-color: var(--indigo);
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .info-interview-check-label {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .info-privacy {
+        margin: 0 20px 20px;
+        padding: 14px 16px;
+        background: var(--bg);
+        border-radius: 12px;
+        font-size: 11px;
+        color: var(--gray-500);
+        line-height: 1.6;
+    }
+
+    .info-bottom-nav {
+        display: flex;
+        gap: 10px;
+        padding: 20px 24px 36px;
+        border-top: 1px solid var(--gray-100);
+    }
+
+    .btn-info-prev {
+        padding: 14px 20px;
+        border-radius: 50px;
+        border: 2px solid var(--gray-300);
+        background: var(--white);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-500);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .15s;
+    }
+
+    .btn-submit {
+        flex: 1;
+        padding: 15px;
+        background: #0E0E0E;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 900;
+        color: var(--indigo);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .18s;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-submit:hover {
+        background: var(--indigo);
+        color: #0E0E0E;
+    }
+
+    /* ═══════════════════════════════════════
+   RESULT
+═══════════════════════════════════════ */
+    #screen-result {
+        background: var(--bg);
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    .result-topbar {
+        padding: 24px 24px 20px;
+        text-align: center;
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-100);
+    }
+
+    .result-topbar-brand {
+        font-size: 10px;
+        letter-spacing: 3px;
+        color: var(--indigo);
+        font-weight: 700;
+    }
+
+    .result-topbar-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        margin-top: 2px;
+    }
+
+    .result-hero {
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 28px;
+    }
+
+    .result-hero-bg {
+        padding: 52px 28px 72px;
+        text-align: center;
+        position: relative;
+    }
+
+    .result-hero-bg::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: var(--bg);
+        clip-path: ellipse(60% 100% at 50% 100%);
+    }
+
+    .result-type-icon {
+        font-size: 90px;
+        display: block;
+        margin-bottom: 16px;
+        line-height: 1;
+    }
+
+    .result-type-label {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+    }
+
+    .result-type-name {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--white);
+    }
+
+    .result-type-quote {
+        margin-top: 16px;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    .result-body {
+        padding: 0 24px;
+    }
+
+    .rs {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 28px;
+        margin-bottom: 20px;
+    }
+
+    .rs-title {
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: var(--accent-solid, var(--indigo));
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .rs-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 14px;
+        background: var(--accent-solid, var(--indigo));
+        border-radius: 2px;
+    }
+
+    .rs-desc {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--gray-700);
+    }
+
+    .rs-desc p+p {
+        margin-top: 10px;
+    }
+
+    .rs-strengths {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .rs-strength {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 18px 20px;
+        background: var(--accent-soft, #F5F7FA);
+        border-radius: 12px;
+        border-left: 3px solid var(--accent-solid, var(--indigo));
+    }
+
+    .rs-strength-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .rs-strength-text {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.6;
+        color: var(--text);
+    }
+
+    .rs-strength-text strong {
+        font-weight: 700;
+        color: var(--text);
+        display: block;
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+    .rs-moments {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .rs-moment {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 16px 18px;
+        background: var(--bg);
+        border-radius: 10px;
+    }
+
+    .rs-moment-q {
+        font-size: 15px;
+        flex-shrink: 0;
+    }
+
+    .rs-moment-text {
+        font-size: 13px;
+        color: var(--gray-700);
+        line-height: 1.6;
+    }
+
+    .rs-tags {
+        display: flex;
+        gap: 10px;
+    }
+
+    .rs-tag {
+        flex: 1;
+        padding: 16px 10px;
+        text-align: center;
+        background: var(--accent-soft, #F5F7FA);
+        border-radius: 14px;
+        border: 1.5px solid var(--accent-border, var(--gray-300));
+    }
+
+    .rs-tag-icon {
+        font-size: 26px;
+        margin-bottom: 6px;
+    }
+
+    .rs-tag-label {
+        font-size: 10px;
+        color: var(--gray-500);
+        margin-bottom: 3px;
+    }
+
+    .rs-tag-value {
+        font-size: 14px;
+        font-weight: 900;
+        color: var(--text);
+    }
+
+    .rs-jobs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .rs-job-pill {
+        padding: 10px 14px;
+        background: var(--accent-soft, #F5F7FA);
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        text-align: center;
+        border: 1.5px solid var(--accent-border, var(--gray-300));
+    }
+
+    .rs-advice {
+        background: var(--accent-solid, var(--indigo));
+        border-radius: 16px;
+        padding: 26px;
+        color: var(--white);
+    }
+
+    .rs-advice-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        opacity: 0.7;
+        margin-bottom: 8px;
+    }
+
+    .rs-advice-text {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.7;
+    }
+
+    /* ─── 결과 하단 랜딩 블록 ─── */
+    .rs-landing {
+        margin: 0 0 14px;
+    }
+
+    /* 리포트 배너 */
+    .rs-report-banner {
+        background: var(--indigo-deep);
+        border-radius: 20px;
+        padding: 28px 24px;
+        margin: 0 24px 20px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .rs-report-cover {
+        width: 56px;
+        height: 78px;
+        background: var(--white);
+        border-radius: 6px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+    }
+
+    .rs-report-cover-label {
+        font-size: 7px;
+        font-weight: 900;
+        color: var(--indigo-deep);
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .rs-report-info {
+        color: var(--white);
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .rs-report-info strong {
+        color: #CCFF00;
+    }
+
+    /* 데이터 포인트 */
+    .rs-data-section {
+        background: #0E0E0E;
+        border-radius: 20px;
+        padding: 32px 24px;
+        margin: 0 24px 20px;
+    }
+
+    .rs-data-title {
+        font-size: 17px;
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    .rs-data-title em {
+        color: #CCFF00;
+        font-style: normal;
+    }
+
+    .rs-data-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .rs-data-item {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* 인터뷰 참여 박스 */
+    .rs-interview-box {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 28px;
+        margin: 0 24px 20px;
+        border: 2px solid var(--indigo-soft);
+    }
+
+    .rs-interview-title {
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 4px;
+    }
+
+    .rs-interview-sub {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.55;
+        margin-bottom: 14px;
+    }
+
+    .rs-interview-reward {
+        background: #CCFF00;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .rs-interview-check-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        padding: 12px 14px;
+        border: 2px solid var(--gray-300);
+        border-radius: 12px;
+        transition: all .15s;
+    }
+
+    .rs-interview-check-row:has(input:checked) {
+        border-color: var(--indigo);
+        background: var(--indigo-soft);
+    }
+
+    .rs-interview-check-row input {
+        accent-color: var(--indigo);
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .rs-interview-check-label {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .rs-interview-note {
+        font-size: 11px;
+        color: var(--gray-500);
+        line-height: 1.65;
+        margin-top: 12px;
+    }
+
+    /* 추천 대상 */
+    .rs-reco-section {
+        background: #CCFF00;
+        border-radius: 20px;
+        padding: 32px 24px;
+        margin: 0 24px 20px;
+    }
+
+    .rs-reco-title {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 14px;
+    }
+
+    .rs-reco-title em {
+        color: #0E0E0E;
+        font-style: normal;
+        background: var(--indigo);
+        padding: 0 6px;
+        border-radius: 4px;
+    }
+
+    .rs-reco-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .rs-reco-item {
+        background: #0E0E0E;
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+    }
+
+    .rs-reco-item strong {
+        color: #CCFF00;
+    }
+
+    /* 하단 재시작 */
+    .result-cta {
+        padding: 20px 24px 48px;
+        text-align: center;
+    }
+
+    .btn-restart {
+        width: 100%;
+        padding: 15px;
+        background: var(--white);
+        border: 2px solid var(--gray-300);
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--text);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .15s;
+    }
+
+    .btn-restart:hover {
+        border-color: var(--indigo);
+        color: var(--indigo);
+    }
+
+    .result-note {
+        font-size: 11px;
+        color: var(--gray-500);
+        margin-top: 12px;
+        line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+   LANDING
+═══════════════════════════════════════ */
+    #screen-landing {
+        background: var(--white);
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+        #tri-job-test-app {
+            padding: 44px 14px 64px;
+        }
+
+        #tri-job-test-app>.screen {
+            max-width: none;
+        }
+
+        #screen-cover {
+            padding: 48px 18px 56px;
+        }
+    }
+
+    .ls1 {
+        padding: 44px 28px;
+    }
+
+    .ls1-card {
+        border: 2.5px solid var(--indigo);
+        border-radius: 22px;
+        padding: 36px 28px;
+        text-align: center;
+        margin-bottom: 28px;
+        background: var(--indigo-soft);
+    }
+
+    .ls1-icon {
+        font-size: 38px;
+        margin-bottom: 10px;
+    }
+
+    .ls1-title {
+        font-size: 21px;
+        font-weight: 900;
+        line-height: 1.45;
+    }
+
+    .ls1-title em {
+        color: var(--indigo);
+        font-style: normal;
+    }
+
+    .ls1-divider {
+        height: 1px;
+        background: var(--gray-100);
+        margin: 28px 0;
+    }
+
+    .ls1-checks {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .ls1-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        background: var(--bg);
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .ls1-badge {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .badge-no {
+        background: #FDECEA;
+        color: #C0392B;
+    }
+
+    .badge-yes {
+        background: #E8F5E9;
+        color: #2E7D32;
+    }
+
+    .ls1-answer {
+        margin-top: 28px;
+        background: var(--indigo-deep);
+        border-radius: 16px;
+        padding: 28px;
+        color: var(--white);
+        display: flex;
+        gap: 14px;
+    }
+
+    .ls1-answer-tag {
+        background: var(--white);
+        color: var(--indigo-deep);
+        font-size: 11px;
+        font-weight: 900;
+        padding: 3px 9px;
+        border-radius: 6px;
+        flex-shrink: 0;
+        height: fit-content;
+    }
+
+    .ls1-answer-text {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.6;
+    }
+
+    .ls1-answer-text em {
+        color: #D9F050;
+        font-style: normal;
+    }
+
+    .ls2 {
+        background: var(--indigo);
+        padding: 44px 28px;
+    }
+
+    .ls2-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.5;
+        margin-bottom: 28px;
+    }
+
+    .ls2-cards {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .ls2-card {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.13);
+        border-radius: 16px;
+        padding: 22px 10px;
+        text-align: center;
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    .ls2-card-icon {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .ls2-bottom {
+        background: rgba(0, 0, 0, 0.22);
+        border-radius: 18px;
+        padding: 28px;
+    }
+
+    .ls2-bottom-note {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 4px;
+    }
+
+    .ls2-bottom-main {
+        font-size: 19px;
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.4;
+    }
+
+    .ls2-bottom-main em {
+        color: #CCFF00;
+        font-style: normal;
+    }
+
+    .ls3-top {
+        padding: 44px 28px 36px;
+        background: var(--bg);
+    }
+
+    .ls3-context {
+        font-size: 13px;
+        color: var(--gray-500);
+        margin-bottom: 8px;
+    }
+
+    .ls3-top-title {
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 1.55;
+        margin-bottom: 14px;
+    }
+
+    .ls3-highlight {
+        background: var(--indigo-deep);
+        color: #D9F050;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-style: normal;
+    }
+
+    .ls3-violet {
+        background: var(--violet);
+        padding: 36px 28px;
+    }
+
+    .ls3-violet-head {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--white);
+        margin-bottom: 14px;
+    }
+
+    .ls3-violet-box {
+        background: var(--white);
+        border-radius: 14px;
+        padding: 28px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.9;
+        color: var(--text);
+    }
+
+    .ls3-violet-box strong {
+        color: var(--violet);
+        font-size: 15px;
+        font-weight: 900;
+    }
+
+    .ls4 {
+        padding: 44px 28px;
+        background: var(--indigo);
+    }
+
+    .ls4-pre {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 6px;
+    }
+
+    .ls4-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.5;
+        margin-bottom: 22px;
+    }
+
+    .ls4-title em {
+        color: #CCFF00;
+        font-style: normal;
+    }
+
+    .ls4-items {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 36px;
+    }
+
+    .ls4-item {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        padding: 20px 22px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .ls4-check {
+        font-size: 16px;
+    }
+
+    .ls4-report {
+        background: rgba(0, 0, 0, 0.22);
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .ls4-report-cover {
+        width: 56px;
+        height: 78px;
+        background: var(--white);
+        border-radius: 6px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+    }
+
+    .ls4-report-cover-label {
+        font-size: 7px;
+        font-weight: 900;
+        color: var(--indigo-deep);
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .ls4-report-text {
+        color: var(--white);
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .ls5-top {
+        background: #CCFF00;
+        padding: 44px 28px 40px;
+    }
+
+    .ls5-title {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 20px;
+    }
+
+    .ls5-title em {
+        color: var(--indigo);
+        font-style: normal;
+    }
+
+    .ls5-recs {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .ls5-rec {
+        background: #0E0E0E;
+        border-radius: 14px;
+        padding: 20px 24px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--white);
+    }
+
+    .ls5-rec strong {
+        color: #CCFF00;
+    }
+
+    .ls5-cta {
+        background: var(--indigo-deep);
+        padding: 44px 28px;
+    }
+
+    .ls5-report-shot {
+        margin-bottom: 16px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .ls5-report-shot img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .ls5-report-fallback {
+        padding: 18px 16px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        line-height: 1.7;
+    }
+
+    .ls5-cta-title {
+        font-size: 16px;
+        font-weight: 900;
+        color: var(--white);
+        margin-bottom: 6px;
+    }
+
+    .ls5-cta-title em {
+        color: #CCFF00;
+        font-style: normal;
+    }
+
+    .ls5-cta-desc {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.65;
+        margin-bottom: 32px;
+    }
+
+    .btn-to-info {
+        width: 100%;
+        padding: 17px;
+        background: #CCFF00;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 900;
+        color: var(--text);
+        cursor: pointer;
+        font-family: 'Noto Sans KR', sans-serif;
+        transition: all .18s;
+        letter-spacing: -0.3px;
+    }
+
+    .btn-to-info:hover {
+        background: #fcd34d;
+        transform: translateY(-1px);
+    }
+
+
+    /* ── 아임웹 전역 리셋 여백 강제 복원 ── */
+    #tri-job-test-app .cover-logo { margin-bottom: 0 !important; }
+    #tri-job-test-app .cover-badge { margin-bottom: 20px !important; }
+    #tri-job-test-app .cover-title { margin-bottom: 12px !important; }
+    #tri-job-test-app .cover-sub { margin-bottom: 28px !important; }
+    #tri-job-test-app .cover-stats { margin-bottom: 24px !important; }
+    #tri-job-test-app .cover-hint { margin-bottom: 0 !important; }
+    #tri-job-test-app .cover-stat-num { margin-bottom: 0 !important; }
+    #tri-job-test-app .cover-stat-label { margin-top: 4px !important; }
+    #tri-job-test-app .cover-emoji-row { margin-bottom: 22px !important; }
+    #tri-job-test-app .q-num-badge { margin-bottom: 16px !important; }
+    #tri-job-test-app .q-title { margin-bottom: 12px !important; }
+    #tri-job-test-app .q-instruction { margin-bottom: 28px !important; }
+    #tri-job-test-app .q-options { margin-bottom: 32px !important; }
+    #tri-job-test-app .q-step-wrap { margin-top: 10px !important; }
+    #tri-job-test-app .info-hero-eyebrow { margin-bottom: 8px !important; }
+    #tri-job-test-app .info-hero-title { margin-bottom: 6px !important; }
+    #tri-job-test-app .info-label { margin-bottom: 10px !important; }
+    #tri-job-test-app .info-field { margin-bottom: 28px !important; }
+    #tri-job-test-app .info-interview-title { margin-bottom: 6px !important; }
+    #tri-job-test-app .info-interview-sub { margin-bottom: 14px !important; }
+    #tri-job-test-app .info-interview-reward { margin-bottom: 14px !important; }
+    #tri-job-test-app .rs-title { margin-bottom: 16px !important; }
+    #tri-job-test-app .rs { margin-bottom: 20px !important; }
+    #tri-job-test-app .rs-advice-label { margin-bottom: 10px !important; }
+    #tri-job-test-app .rs-strength-text strong { margin-bottom: 4px !important; }
+    #tri-job-test-app .result-type-icon { margin-bottom: 20px !important; }
+    #tri-job-test-app .result-type-label { margin-bottom: 8px !important; }
+    #tri-job-test-app .result-type-quote { margin-top: 20px !important; }
+    #tri-job-test-app .result-topbar-title { margin-top: 4px !important; }
+    #tri-job-test-app .rs-data-title { margin-bottom: 20px !important; }
+    #tri-job-test-app .rs-data-items { gap: 12px !important; }
+    #tri-job-test-app .rs-interview-title { margin-bottom: 6px !important; }
+    #tri-job-test-app .rs-interview-sub { margin-bottom: 16px !important; }
+    #tri-job-test-app .rs-interview-reward { margin-bottom: 16px !important; }
+    #tri-job-test-app .rs-interview-note { margin-top: 16px !important; }
+    #tri-job-test-app .rs-reco-title { margin-bottom: 18px !important; }
+    #tri-job-test-app .rs-reco-items { gap: 12px !important; }
+    #tri-job-test-app .rs-report-info strong { display: block; margin-bottom: 6px !important; }
+    #tri-job-test-app .ls1-icon { margin-bottom: 14px !important; }
+    #tri-job-test-app .ls1-title { margin-bottom: 0 !important; }
+    #tri-job-test-app .ls2-bottom-note { margin-bottom: 6px !important; }
+    #tri-job-test-app .ls3-context { margin-bottom: 10px !important; }
+    #tri-job-test-app .ls3-top-title { margin-bottom: 18px !important; }
+    #tri-job-test-app .ls3-violet-head { margin-bottom: 18px !important; }
+    #tri-job-test-app .ls4-pre { margin-bottom: 8px !important; }
+    #tri-job-test-app .ls4-title { margin-bottom: 28px !important; }
+    #tri-job-test-app .ls5-title { margin-bottom: 28px !important; }
+    #tri-job-test-app .ls5-cta-title { margin-bottom: 10px !important; }
+    #tri-job-test-app .cv-counter-label b { display: inline !important; }
+    #tri-job-test-app .cv-counter-num { margin-bottom: 0 !important; }
+
+    /* ── 모바일 반응형 (480px 이하) ── */
+    @media (max-width: 480px) {
+        #tri-job-test-app { padding: 28px 12px 56px; }
+        #screen-cover { padding: 36px 18px 52px; }
+        .cover-card { padding: 36px 22px; }
+        .cover-title { font-size: 22px; }
+        .btn-start { padding: 16px; font-size: 16px; }
+        .cv-counter { padding: 16px 18px; }
+        .cv-counter-num { font-size: 22px; }
+        .q-inner { padding: 20px 18px 28px; }
+        .q-options { gap: 10px !important; margin-bottom: 24px !important; }
+        .q-opt-inner { padding: 16px 16px; }
+        .q-opt-text { font-size: 13px; }
+        .q-title { font-size: 18px; }
+        .info-hero { padding: 32px 20px 28px; }
+        .info-body { padding: 28px 18px 8px; }
+        .info-field { margin-bottom: 22px !important; }
+        .result-body { padding: 0 16px; }
+        .rs { padding: 22px 18px; margin-bottom: 14px !important; }
+        .rs-report-banner { margin: 0 16px 14px; padding: 22px 18px; }
+        .rs-data-section { margin: 0 16px 14px; padding: 24px 18px; }
+        .rs-interview-box { margin: 0 16px 14px; padding: 22px 18px; }
+        .rs-reco-section { margin: 0 16px 14px; padding: 24px 18px; }
+        .result-cta { padding: 16px 16px 36px; }
+        .ls1 { padding: 32px 18px; }
+        .ls1-card { padding: 28px 18px; }
+        .ls2 { padding: 32px 18px; }
+        .ls3-top { padding: 32px 18px 26px; }
+        .ls3-violet { padding: 28px 18px; }
+        .ls4 { padding: 32px 18px; }
+        .ls5-top { padding: 32px 18px 28px; }
+        .ls5-cta { padding: 32px 18px; }
+    }
+
+    /* ══ 유형별 컬러 테마 (블랙 + 라임 통일) ══ */
+    .rtype-C, .rtype-E, .rtype-F, .rtype-I, .rtype-S {
+        --accent-solid: #0E0E0E;
+        --accent-soft: #EEF7B5;
+        --accent-border: #CCFF00;
+    }
+    .rtype-C .result-hero-bg,
+    .rtype-E .result-hero-bg,
+    .rtype-F .result-hero-bg,
+    .rtype-I .result-hero-bg,
+    .rtype-S .result-hero-bg {
+        background: linear-gradient(160deg, #0E0E0E 0%, #2A2A2A 55%, #A8D400 100%);
+    }
+
+    .rtype-C .result-type-label,
+    .rtype-E .result-type-label,
+    .rtype-F .result-type-label,
+    .rtype-I .result-type-label,
+    .rtype-S .result-type-label { color: rgba(255, 255, 255, 0.6) !important; }
+
+    .rtype-C .result-type-name,
+    .rtype-E .result-type-name,
+    .rtype-F .result-type-name,
+    .rtype-I .result-type-name,
+    .rtype-S .result-type-name { color: #ffffff !important; }
+
+    .rtype-C .result-type-quote,
+    .rtype-E .result-type-quote,
+    .rtype-F .result-type-quote,
+    .rtype-I .result-type-quote,
+    .rtype-S .result-type-quote {
+        color: rgba(255, 255, 255, 0.9) !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .rtype-C .result-hero-bg::after,
+    .rtype-E .result-hero-bg::after,
+    .rtype-F .result-hero-bg::after,
+    .rtype-I .result-hero-bg::after,
+    .rtype-S .result-hero-bg::after { background: var(--bg); }
+
+    /* ═══════════════════════════════════════
+       NEW LANDING (Section 1, 2, Form, CTA)
+    ═══════════════════════════════════════ */
+
+    /* Section 1: Intro / Hook */
+    .nl1 {
+        background: var(--indigo);
+        padding: 56px 28px 56px;
+        color: #0E0E0E;
+        position: relative;
+        overflow: hidden;
+    }
+    .nl1-hero { text-align: center; margin-bottom: 32px; position: relative; z-index: 1; }
+    .nl1-emoji { font-size: 56px; margin-bottom: 14px; line-height: 1; }
+    .nl1-title {
+        font-size: 23px; font-weight: 900; line-height: 1.45; color: #0E0E0E;
+    }
+    .nl1-title em {
+        color: #0E0E0E;
+        font-style: normal;
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+    }
+
+    .nl1-bubbles {
+        display: flex; flex-direction: column; gap: 12px;
+        margin-bottom: 36px; position: relative; z-index: 1;
+    }
+    .nl1-bubble {
+        background: #0E0E0E;
+        border: none;
+        border-radius: 14px;
+        padding: 18px 22px;
+        font-size: 14px;
+        line-height: 1.65;
+        color: rgba(255,255,255,0.95);
+        font-weight: 500;
+    }
+    .nl1-bubble::before {
+        content: '"'; color: var(--indigo); font-weight: 900; margin-right: 4px;
+    }
+    .nl1-bubble::after {
+        content: '"'; color: var(--indigo); font-weight: 900; margin-left: 2px;
+    }
+
+    .nl1-msg {
+        background: #0E0E0E;
+        border: none;
+        border-radius: 18px;
+        padding: 28px 22px;
+        position: relative; z-index: 1;
+    }
+    .nl1-msg p {
+        margin: 0;
+        font-size: 14.5px;
+        line-height: 1.75;
+        color: rgba(255,255,255,0.95);
+        text-align: center;
+    }
+    .nl1-msg p strong {
+        color: var(--indigo);
+        font-weight: 900;
+    }
+    .nl1-msg-quote {
+        background: rgba(204,255,0,0.1);
+        border: 1px solid rgba(204,255,0,0.3);
+        padding: 20px 18px;
+        margin: 18px 0;
+        border-radius: 14px;
+        text-align: center;
+        color: #fff;
+        font-size: 15.5px;
+        font-weight: 800;
+        line-height: 1.6;
+        position: relative;
+    }
+    .nl1-msg-quote::before {
+        content: '"';
+        position: absolute;
+        top: -2px; left: 12px;
+        color: var(--indigo);
+        font-size: 38px;
+        font-weight: 900;
+        line-height: 1;
+        opacity: 0.7;
+    }
+    .nl1-msg-gift {
+        background: rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin: 14px 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .nl1-msg-gift-emoji { font-size: 32px; flex-shrink: 0; line-height: 1; }
+    .nl1-msg-gift-text {
+        flex: 1;
+        font-size: 13.5px;
+        color: rgba(255,255,255,0.92);
+        line-height: 1.6;
+    }
+    .nl1-msg-gift-text strong { color: var(--indigo); font-weight: 900; }
+    .nl1-msg-final {
+        text-align: center;
+        background: var(--indigo);
+        color: #0E0E0E;
+        padding: 14px 18px;
+        border-radius: 12px;
+        margin-top: 18px;
+        font-size: 15px;
+        font-weight: 900;
+    }
+
+    /* Section 2: Reward */
+    .nl2 {
+        background: var(--bg);
+        padding: 56px 24px;
+    }
+    .nl2-eyebrow {
+        display: inline-block;
+        background: #0E0E0E;
+        color: var(--indigo);
+        font-size: 11px; letter-spacing: 3px; font-weight: 900;
+        padding: 5px 14px; border-radius: 20px;
+        margin: 0 auto 14px; text-align: center;
+    }
+    .nl2-eyebrow-wrap { text-align: center; }
+    .nl2-title {
+        font-size: 22px; font-weight: 900; line-height: 1.45;
+        text-align: center; color: var(--text); margin-bottom: 12px;
+    }
+    .nl2-title em {
+        color: #0E0E0E;
+        font-style: normal;
+        background: linear-gradient(180deg, transparent 55%, var(--indigo) 55%);
+        padding: 0 4px;
+    }
+    .nl2-sub {
+        font-size: 13px; line-height: 1.7; color: var(--gray-700);
+        text-align: center; margin-bottom: 32px;
+    }
+    .nl2-sub strong { color: var(--text); font-weight: 900; }
+
+    .nl2-rewards {
+        display: flex; flex-direction: column; gap: 14px;
+        margin-bottom: 28px;
+    }
+    .nl2-reward {
+        background: #fff;
+        border: 2px solid var(--gray-100);
+        border-radius: 18px;
+        padding: 24px 22px;
+        position: relative;
+        transition: all .2s;
+    }
+    .nl2-reward:hover {
+        border-color: var(--indigo);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(204, 255, 0,0.12);
+    }
+    .nl2-reward-tag {
+        display: inline-block;
+        background: #0E0E0E;
+        color: var(--indigo);
+        font-size: 10px;
+        font-weight: 900;
+        padding: 5px 11px;
+        border-radius: 20px;
+        letter-spacing: 0.8px;
+        margin-bottom: 14px;
+    }
+    .nl2-reward-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+    .nl2-reward-title {
+        font-size: 16px; font-weight: 900; color: var(--text);
+        line-height: 1.4; margin-bottom: 8px;
+    }
+    .nl2-reward-desc {
+        font-size: 12.5px; line-height: 1.65; color: var(--gray-500);
+    }
+    .nl2-bottom {
+        text-align: center; font-size: 15px;
+        line-height: 1.65; color: var(--gray-700);
+        padding: 14px 0;
+    }
+    .nl2-bottom strong {
+        color: var(--indigo); font-weight: 900; font-size: 17px;
+        display: block; margin-top: 4px;
+    }
+
+    /* Section 3: Form (개인정보 입력) */
+    .nl3 {
+        background: #fff;
+        padding: 48px 24px 28px;
+    }
+    .nl3-eyebrow {
+        display: inline-block;
+        background: #0E0E0E;
+        color: var(--indigo);
+        font-size: 11px; letter-spacing: 3px; font-weight: 900;
+        padding: 5px 14px; border-radius: 20px;
+        margin: 0 auto 14px; text-align: center;
+    }
+    .nl3-eyebrow-wrap { text-align: center; }
+    .nl3-title {
+        font-size: 21px; font-weight: 900; color: var(--text);
+        text-align: center; margin-bottom: 8px;
+    }
+    .nl3-sub {
+        font-size: 13px; color: var(--gray-500);
+        text-align: center; line-height: 1.75; margin-bottom: 32px;
+    }
+    .nl3-sub strong {
+        color: var(--text); font-weight: 900;
+    }
+    .nl3 .info-field { margin-bottom: 22px !important; }
+
+    /* CTA */
+    .nl-cta {
+        background: #fff;
+        padding: 8px 24px 48px;
+    }
+    .nl-cta .btn-submit {
+        width: 100%;
+        padding: 18px;
+        font-size: 17px;
+        box-shadow: 0 8px 28px rgba(204, 255, 0,0.4);
+    }
+    .nl-cta-hint {
+        font-size: 12px; color: var(--gray-500);
+        text-align: center; margin-top: 14px; line-height: 1.65;
+    }
+
+    @media (max-width: 480px) {
+        .nl1 { padding: 44px 20px; }
+        .nl1-title { font-size: 21px; }
+        .nl2 { padding: 44px 18px; }
+        .nl2-title { font-size: 20px; }
+        .nl2-reward { padding: 20px 18px; }
+        .nl3 { padding: 36px 18px 20px; }
+        .nl-cta { padding: 8px 18px 36px; }
+    }
+</style>
+</head>
+<body>
+<div id="tri-job-test-app">
+
+    <!-- ════════════════════════════════════════
+     COVER
+════════════════════════════════════════ -->
+    <div id="screen-cover" class="screen active">
+        <div class="cover-inner">
+            <div class="cover-logo">Login</div>
+            <div class="cover-card">
+                <div class="cover-emoji-row">
+                    <span class="cover-job-pill">⚖️ 변호사</span>
+                    <span class="cover-job-pill">🎨 크리에이터</span>
+                    <span class="cover-job-pill">🏛️ 공무원</span>
+                    <span class="cover-job-pill">💻 개발자</span>
+                    <span class="cover-job-pill">🚀 창업가</span>
+                </div>
+                <div class="cover-badge">졸업 후 나에게 맞는 직업유형 테스트</div>
+                <div class="cover-title">나 졸업하고<br><em>뭐 해야 하지?</em></div>
+                <div class="cover-sub">
+                    전공도, 스펙도 쌓았는데<br>왜 아직 방향이 안 잡히는 걸까요?<br>내 성향에 맞는 직업유형을 찾아드립니다.
+                </div>
+                <div class="cover-stats">
+                    <div class="cover-stat">
+                        <div class="cover-stat-num">1,200</div>
+                        <div class="cover-stat-label">취준생 참여</div>
+                    </div>
+                    <div class="cover-stat">
+                        <div class="cover-stat-num">7</div>
+                        <div class="cover-stat-label">핵심 질문</div>
+                    </div>
+                    <div class="cover-stat">
+                        <div class="cover-stat-num">5</div>
+                        <div class="cover-stat-label">직업 유형</div>
+                    </div>
+                </div>
+                <div class="cover-hint">▼ 3분이면 충분해요</div>
+            </div>
+            <div class="cv-counter">
+                <div class="cv-counter-num" id="cv-cnt">1,312</div>
+                <div class="cv-counter-label"><b>명</b>이 이미<br>테스트 완료했어요</div>
+            </div>
+            <div class="cv-feed">
+                <div class="cv-feed-item" id="cv-feed-item">
+                    <div class="cv-feed-dot"></div>
+                    <span id="cv-feed-text">서울시 관악구 · 24세 · 방금 테스트 완료</span>
+                </div>
+            </div>
+            <button class="btn-start" onclick="startQuiz()">지금 바로 테스트하기 →</button>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+     QUESTIONS
+════════════════════════════════════════ -->
+    <div id="screen-questions" class="screen">
+        <div class="q-topbar">
+            <div class="q-progress-track">
+                <div class="q-progress-fill" id="q-fill" style="width:14.3%"></div>
+            </div>
+            <div class="q-step-wrap"><div class="q-step-text" id="q-step-text">1 / 7</div></div>
+        </div>
+        <div class="q-content">
+            <div id="q-slot"></div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+     LANDING — Section 1, 2 + Form + CTA
+════════════════════════════════════════ -->
+    <div id="screen-landing" class="screen">
+
+        <!-- Section 1: Intro / Hook -->
+        <div class="nl1">
+            <div class="nl1-hero">
+                <div class="nl1-emoji">😮‍💨</div>
+                <div class="nl1-title">요즘 이런 생각<br><em>해본 적 없나요?</em></div>
+            </div>
+
+            <div class="nl1-bubbles">
+                <div class="nl1-bubble">다들 갓생 산다는데, 나만 매일 제자리걸음인 것 같고…</div>
+                <div class="nl1-bubble">청년 정책? 혜택? 나한테 진짜 필요한 게 뭔지 찾기조차 귀찮아.</div>
+                <div class="nl1-bubble">누가 내 현실적인 고민 좀 듣고 속 시원하게 해결해 주면 안 되나?</div>
+            </div>
+
+            <div class="nl1-msg">
+                <p>매일 똑같은 일상,<br>막막한 미래에 지친 여러분.</p>
+
+                <div class="nl1-msg-quote">
+                    청년들의 찐 고민을 직접 듣고,<br>
+                    피부에 와닿는 정책으로 바꿔보자!
+                </div>
+
+                <p>여러분이 들려주시는 <strong>이야기(login)</strong> 하나하나가<br>답답한 현실을 바꿀 <strong>진짜 힘</strong>이 됩니다.</p>
+
+                <div class="nl1-msg-gift">
+                    <span class="nl1-msg-gift-emoji">🎁</span>
+                    <span class="nl1-msg-gift-text">목소리를 듣기 전,<br>팍팍한 일상에 작은 숨통이 트이길 바라며<br><strong>선물</strong>을 준비했어요</span>
+                </div>
+
+                <div class="nl1-msg-final">⚡ 딱 1분이면 충분해요</div>
+            </div>
+        </div>
+
+        <!-- Section 2: Reward -->
+        <div class="nl2">
+            <div class="nl2-eyebrow-wrap"><div class="nl2-eyebrow">REWARD</div></div>
+            <div class="nl2-title">🎁 내 유형에 맞는 선물은?<br><em>(두구두구..)</em></div>
+            <div class="nl2-sub">
+                테스트를 완료하신 분들께는 우리의 진심을 담은<br>
+                <strong>3가지 리워드 중 단 하나</strong>가 지급됩니다.
+            </div>
+
+            <div class="nl2-rewards">
+                <div class="nl2-reward">
+                    <div class="nl2-reward-tag">초대박 찬스</div>
+                    <div class="nl2-reward-icon">📱</div>
+                    <div class="nl2-reward-title">갓생러의 완성<br>애플 아이패드</div>
+                    <div class="nl2-reward-desc">어떤 고민이든 무적의 치트키가 되어줄 단 하나의 완벽한 장비.</div>
+                </div>
+                <div class="nl2-reward">
+                    <div class="nl2-reward-tag">고민 해결</div>
+                    <div class="nl2-reward-icon">💊</div>
+                    <div class="nl2-reward-title">내 상황을 저격하는<br>맞춤형 인사이트 PDF</div>
+                    <div class="nl2-reward-desc">취준·직장생활·멘탈케어·트렌드 등 지금 내 머릿속 복잡한 고민을 시원하게 뚫어줄 핵심 요약 처방전.</div>
+                </div>
+                <div class="nl2-reward">
+                    <div class="nl2-reward-tag">취향 저격</div>
+                    <div class="nl2-reward-icon">✨</div>
+                    <div class="nl2-reward-title">내 취향 조각 모음<br>배경화면 & 디지털 굿즈</div>
+                    <div class="nl2-reward-desc">내 무드와 기분에 찰떡같이 어울리는 감성 100% 폰·아이패드 배경화면과 디지털 문방구 세트.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Section 3: 개인정보 입력 폼 -->
+        <div class="nl3">
+            <div class="nl3-eyebrow-wrap"><div class="nl3-eyebrow">STEP · LAST</div></div>
+            <div class="nl3-title">📋 마지막 단계예요</div>
+            <div class="nl3-sub">
+                입력해 주신 정보로 <strong>당첨된 리워드 안내 연락</strong>을 드릴 예정이에요.<br>
+                꼭 정확한 정보를 적어주셔야 리워드를 받으실 수 있으니<br>
+                꼼꼼히 한 번 더 확인해 주세요 🎁
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">성함 <span class="info-req">*</span></label>
+                <input type="text" class="info-input" id="info-name" placeholder="이름을 입력해 주세요">
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">나이 <span class="info-req">*</span></label>
+                <input type="text" class="info-input" id="info-age" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="ex) 24" oninput="formatAge(this)">
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">연락처 <span class="info-req">*</span></label>
+                <input type="tel" class="info-input" id="info-phone" placeholder="010-0000-0000" maxlength="13" oninput="formatPhoneNumber(this)">
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">현재 상태 <span class="info-req">*</span></label>
+                <select class="info-select" id="info-job">
+                    <option value="">선택해 주세요</option>
+                    <option>대학교 재학중</option>
+                    <option>대학교 휴학중</option>
+                    <option>취업 준비중</option>
+                    <option>대학원생</option>
+                    <option>직장인</option>
+                    <option>기타</option>
+                </select>
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">
+                    거주 중인 시/군/구 <span class="info-req">*</span>
+                    <span class="info-sub"> (서울·경기권 확인용)</span>
+                </label>
+                <input type="text" class="info-input" id="info-district" placeholder="ex) 서울시 마포구, 경기도 수원시">
+            </div>
+
+            <div class="info-field">
+                <label class="info-label">
+                    지금 가장 고민되는 진로 이야기를 적어주세요 <span class="info-req">*</span>
+                    <span class="info-sub"> (구체적일수록 좋아요)</span>
+                </label>
+                <textarea class="info-textarea" id="info-concern"
+                    placeholder=""></textarea>
+            </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div class="nl-cta">
+            <button class="btn-submit" onclick="handleSubmit()">지금 바로 신청하기 →</button>
+            <div class="nl-cta-hint">
+                · 입력하신 정보는 연구 목적으로만 사용되며 익명 처리됩니다.<br>
+                · Login 공식 웹페이지에서 상세 안내를 확인하실 수 있습니다.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ════════════════════════════════════════
+     INFO — (이제 사용 안 함, landing에 통합됨)
+════════════════════════════════════════ -->
+    <div id="screen-info" class="screen"></div>
+
+    <!-- ════════════════════════════════════════
+     RESULT
+════════════════════════════════════════ -->
+    <div id="screen-result" class="screen">
+        <div class="result-topbar">
+            <div class="result-topbar-brand">Login</div>
+            <div class="result-topbar-title">나의 직업 유형 결과</div>
+        </div>
+        <div id="result-mount"></div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+    <script>
+        const QUESTIONS = [
+            {
+                id: 1,
+                emoji: '☕',
+                text: '오늘 아무것도 안 해도 되는 <em>자유 시간</em>,<br>나는 자연스럽게 무엇을 하나요?',
+                hint: '억지로 한 것 말고, 나도 모르게 하게 되는 것을 고르세요',
+                options: [
+                    { text: '유튜브·인스타 보다가 "나도 이거 만들어볼 수 있겠는데?" 라는 생각이 들고, 뭔가 만들거나 꾸미기 시작한다', type: 'C' },
+                    { text: '요즘 뜨는 비즈니스 콘텐츠나 스타트업 뉴스를 보면서 "이거 내가 해도 되겠다"는 아이디어를 메모한다', type: 'E' },
+                    { text: '관심 있는 주제를 깊이 검색하거나 책·논문을 찾아보면서, 어느새 2-3시간이 지나있다', type: 'I' },
+                    { text: '정해진 루틴대로 움직이거나 계획한 것들을 하나씩 처리하면서 안정감을 느낀다', type: 'S' }
+                ]
+            },
+            {
+                id: 2,
+                emoji: '👥',
+                text: '팀 프로젝트에서 나는<br>어떤 역할을 <em>자연스럽게</em> 맡나요?',
+                hint: '가장 편하게, 잘 할 수 있는 역할을 고르세요',
+                options: [
+                    { text: '발표 자료나 기획서를 시각적으로 예쁘고 설득력 있게 만드는 역할 — PPT·디자인·영상 편집 등', type: 'C' },
+                    { text: '팀 전체 방향을 잡고, 아이디어를 내고, 사람들을 설득해서 끌고 가는 리더 역할', type: 'E' },
+                    { text: '팀원들이 잘 있는지 살피고, 분위기를 이어주고, 빠진 부분을 묵묵히 채워주는 역할', type: 'F' },
+                    { text: '자료를 꼼꼼하게 리서치하고, 논리적으로 구조를 잡고, 완성도를 높이는 역할', type: 'I' }
+                ]
+            },
+            {
+                id: 3,
+                emoji: '💭',
+                text: '미래 직업을 생각할 때<br>가장 <em>중요하게</em> 여기는 건?',
+                hint: '솔직하게, 가장 먼저 떠오르는 것을 고르세요',
+                options: [
+                    { text: '내 창의성·감각·개성을 표현할 수 있어야 한다 — 기획, 디자인, 콘텐츠, 글쓰기 등', type: 'C' },
+                    { text: '사람들에게 직접 도움을 주고, 내 일이 누군가의 삶에 변화를 만들어야 한다', type: 'F' },
+                    { text: '전문성을 깊이 쌓아서, 그 분야에서 진짜 전문가로 인정받고 싶다', type: 'I' },
+                    { text: '안정적인 수입과 규칙적인 생활, 사회적으로 신뢰받는 직업이어야 한다', type: 'S' }
+                ]
+            },
+            {
+                id: 4,
+                emoji: '😔',
+                text: '가장 힘들었던 순간을 떠올리면<br>주로 어떤 상황인가요?',
+                hint: '직장·학교·일상 모두 포함해서 생각해보세요',
+                options: [
+                    { text: '내가 하고 싶은 것, 표현하고 싶은 것을 억누르고 틀에 맞춰야 할 때', type: 'C' },
+                    { text: '아이디어가 있는데 실행할 권한이 없거나, 누군가에게 통제받는 느낌이 들 때', type: 'E' },
+                    { text: '주변 사람이 힘든데 내가 아무것도 해줄 수 없다는 무력감이 들 때', type: 'F' },
+                    { text: '앞으로 어떻게 될지 불확실하고, 기준이나 규칙이 없어서 뭘 해야 할지 모를 때', type: 'S' }
+                ]
+            },
+            {
+                id: 5,
+                emoji: '💬',
+                text: '친구들 사이에서 나는 보통<br>어떤 <em>사람으로 불리나요</em>?',
+                hint: '스스로 생각하는 것보다, 주변에서 자주 하는 말을 고르세요',
+                options: [
+                    { text: '"너는 감각이 있어", "이런 거 어떻게 생각해냈어?", "네가 만든 거 진짜 예쁘다/잘됐다"', type: 'C' },
+                    { text: '"너는 추진력이 있어", "말만 하면 실제로 하더라", "뭔가 사업 할 것 같아"', type: 'E' },
+                    { text: '"너한테는 뭔가 털어놓게 된다", "넌 항상 챙겨줘", "옆에 있으면 편해"', type: 'F' },
+                    { text: '"너는 믿음직해", "약속 칼같이 지킨다", "안정적이야"', type: 'S' }
+                ]
+            },
+            {
+                id: 6,
+                emoji: '🔮',
+                text: '10년 후, 내가 가장 <em>뿌듯할 것 같은</em><br>모습은 어떤 건가요?',
+                hint: '현실적인 조건보다 진짜 원하는 모습을 골라주세요',
+                options: [
+                    { text: '내 이름이 붙은 작품, 콘텐츠, 브랜드가 세상에 남아있는 것', type: 'C' },
+                    { text: '내가 만든 회사나 서비스가 사람들의 삶에 영향을 주고 있는 것', type: 'E' },
+                    { text: '내 도움으로 실제로 변화한 사람들이 생긴 것', type: 'F' },
+                    { text: '특정 분야에서 전문가로 인정받고, 내 이름으로 강의·연구·자문이 이루어지는 것', type: 'I' }
+                ]
+            },
+            {
+                id: 7,
+                emoji: '⚡',
+                text: '일할 때 가장 에너지가 <em>올라가는</em><br>순간은 언제인가요?',
+                hint: '실제로 경험한 것, 또는 그럴 것 같다는 느낌으로 골라주세요',
+                options: [
+                    { text: '내가 만든 것에 "이거 누가 만든 거야?"라는 반응이 올 때 — 창작물의 완성도에서 오는 뿌듯함', type: 'C' },
+                    { text: '내 아이디어로 실제로 무언가가 만들어지거나 결과가 나타날 때 — 실행에서 오는 성취감', type: 'E' },
+                    { text: '복잡한 것을 완벽하게 이해하거나, 아무도 몰랐던 것을 내가 먼저 알아낼 때 — 앎에서 오는 쾌감', type: 'I' },
+                    { text: '맡은 일을 실수 없이 마무리하고 "역시 믿을 수 있다"는 신뢰를 받을 때 — 안정에서 오는 만족감', type: 'S' }
+                ]
+            },
+        ];
+
+        const RESULTS = {
+            C: {
+                icon: '🎨', name: '표현하는 크리에이터형',
+                quote: '"내가 만든 게 세상에 남는 게 좋아요."',
+                typeClass: 'rtype-C',
+                intro: [
+                    '감각적으로 무언가를 만들고 표현하는 데서 에너지를 얻는 사람이에요.',
+                    '기획, 디자인, 글쓰기, 영상, 브랜딩 — 어떤 형태든 자신만의 색깔을 담아 결과물을 만들어내는 과정에서 가장 살아있는 느낌을 받아요.',
+                    '틀에 맞추거나 정해진 대로만 해야 할 때 답답함을 느끼지만, 그만큼 자신만의 시각과 감각이 뚜렷한 사람이에요. 이 능력은 점점 더 가치 있어지고 있습니다.'
+                ],
+                strengths: [
+                    { icon: '✏️', title: '뛰어난 창의적 감각', desc: '아이디어를 시각·언어·형태로 표현하는 능력이 탁월해요. 사람들이 그냥 지나치는 것에서 새로운 가능성을 발견합니다.' },
+                    { icon: '🌈', title: '개성 있는 세계관', desc: '자신만의 관점과 감성이 있어요. 대세를 따르기보다 자신의 방향을 개척하는 힘이 있습니다.' },
+                    { icon: '💬', title: '공감을 이끄는 스토리텔링', desc: '복잡한 것도 쉽고 매력적으로 전달하는 능력이 있어요. 글·영상·브랜딩 모든 분야에서 차별화된 강점입니다.' },
+                    { icon: '🔥', title: '창작 몰입 능력', desc: '좋아하는 것에는 집중력이 극도로 올라가요. 이 몰입 능력은 성과를 만들어내는 핵심 엔진이 됩니다.' }
+                ],
+                moments: [
+                    { q: '🎬', text: '유튜브 보다가 "이 편집, 나도 할 수 있을 것 같은데" 하고 직접 해봤다' },
+                    { q: '📝', text: '과제나 발표 자료를 만들 때, 남들보다 훨씬 신경 써서 꾸미게 된다' },
+                    { q: '😤', text: '형식에 맞춰서 대충 제출하는 것보다, 완성도가 낮아도 내 스타일로 만들고 싶다' },
+                    { q: '💡', text: '"이거 내가 브랜드 만들면 어떻게 될까?" 하는 상상을 수시로 한다' }
+                ],
+                keyword: '창의성', keywordIcon: '🎨', style: '표현 중심형', styleIcon: '✨',
+                jobs: ['콘텐츠 크리에이터', 'UX/UI 디자이너', '브랜드 마케터', '광고기획자', '영상 PD / 감독', '작가 / 카피라이터'],
+                advice: '당신의 감각과 창의성은 AI가 대체하기 가장 어려운 능력이에요. 지금 당장 취업이 안정적이지 않아 보여도, 자신만의 포트폴리오와 작품을 쌓아가는 것이 가장 강력한 커리어 전략입니다. 일단 만들기 시작하세요.'
+            },
+            E: {
+                icon: '🚀', name: '돌진하는 기업가형',
+                quote: '"아이디어만 있으면 일단 해봐요."',
+                typeClass: 'rtype-E',
+                intro: [
+                    '생각에서 행동으로 넘어가는 속도가 빠른 사람이에요.',
+                    '기회를 보면 먼저 잡고 싶고, 누군가가 만들어놓은 틀 안에서 일하는 것보다 내가 직접 방향을 정하고 싶어해요. 사람을 설득하고, 끌어모으고, 무언가를 실제로 만들어내는 과정에서 에너지를 얻어요.',
+                    '실패를 두려워하기보다 "해보면서 배우면 된다"는 생각이 강해요. 이 추진력이 때로는 무모하게 느껴질 수 있지만, 그게 바로 창업가·기업인 유형의 핵심 강점이에요.'
+                ],
+                strengths: [
+                    { icon: '⚡', title: '아이디어를 행동으로 바꾸는 추진력', desc: '생각을 실제로 실행하는 능력이 있어요. 환경이 갖춰지길 기다리지 않고 일단 시작합니다.' },
+                    { icon: '🎯', title: '기회를 포착하는 눈', desc: '남들이 그냥 지나치는 것에서 가능성을 보는 능력이 있어요. 새로운 시장이나 아이디어를 먼저 발견합니다.' },
+                    { icon: '🗣️', title: '사람을 움직이는 설득력', desc: '자신의 비전을 명확하게 전달하고, 사람들이 함께 하고 싶게 만드는 매력이 있어요.' },
+                    { icon: '💪', title: '실패에서 다시 일어서는 회복력', desc: '잘 안 됐을 때 포기하기보다 다른 방법을 찾는 편이에요. 역경이 오히려 성장의 자료가 됩니다.' }
+                ],
+                moments: [
+                    { q: '💼', text: '"이거 창업해도 되겠는데?" 하는 생각이 일상에서 자주 든다' },
+                    { q: '😤', text: '누군가 내 아이디어에 "현실적으로 안 된다"고 하면, 오히려 더 해보고 싶어진다' },
+                    { q: '🏃', text: '팀 프로젝트에서 다들 고민할 때 내가 먼저 방향을 제시하고 끌고 가게 된다' },
+                    { q: '📱', text: '뭔가 문제를 보면 "내가 직접 해결하면 어떨까?" 하고 시뮬레이션해본다' }
+                ],
+                keyword: '실행력', keywordIcon: '🚀', style: '주도형', styleIcon: '⚡',
+                jobs: ['스타트업 창업가', '사업개발 / BizDev', '마케팅 디렉터', '프로덕트 매니저', '영업 전략가', '사내기업가(인트라프레너)'],
+                advice: '당신의 추진력은 점점 더 희귀해지는 능력이에요. 지금 당장 스케일이 크지 않아도 괜찮아요. 작은 것부터 직접 실행해보고, 실패에서 배우는 경험을 쌓아가세요. 방향은 달리면서 잡을 수 있어요.'
+            },
+            F: {
+                icon: '🌱', name: '연결하는 현장·돌봄형',
+                quote: '"사람이 좋아서, 돕는 게 자연스러워요."',
+                typeClass: 'rtype-F',
+                intro: [
+                    '사람과 사람 사이를 이어주고, 누군가에게 필요한 존재가 되는 것에서 보람을 느끼는 유형이에요.',
+                    '관계 안에서 에너지를 얻고, 상대방의 감정과 상태를 빠르게 읽어내는 능력이 있어요. 가르치거나 돕거나 지지하는 과정에서 "이 일을 위해 태어났다"는 느낌을 받을 수 있어요.',
+                    '자신의 감정보다 타인을 먼저 챙기다가 지칠 수 있어요. 하지만 이 따뜻함과 공감 능력은 사람을 대하는 모든 직업에서 가장 중요한 자산이에요.'
+                ],
+                strengths: [
+                    { icon: '💛', title: '탁월한 공감·소통 능력', desc: '말 한마디에 담긴 감정까지 읽어내는 능력이 있어요. 사람들이 편안하게 마음을 열게 만드는 분위기를 만들어냅니다.' },
+                    { icon: '🤝', title: '갈등을 부드럽게 해결하는 능력', desc: '충돌 상황에서 양쪽 입장을 다 이해하고 중재할 수 있어요. 팀의 긴장을 자연스럽게 풀어주는 역할을 합니다.' },
+                    { icon: '🌿', title: '지속적인 돌봄과 헌신', desc: '단발적인 도움이 아니라, 꾸준히 곁에 있어주고 관계를 이어나가는 능력이 있어요.' },
+                    { icon: '👁️', title: '사람을 빠르게 파악하는 눈', desc: '처음 만난 사람도 빠르게 파악하고 맞춤형으로 대응할 수 있어요. 이 능력은 모든 대인 관계 직업에서 핵심 강점이 됩니다.' }
+                ],
+                moments: [
+                    { q: '🫂', text: '친구가 힘들다고 하면, 조언보다 먼저 들어주고 싶다는 생각이 자연스럽게 든다' },
+                    { q: '😢', text: '주변에 힘든 사람이 있는데 내가 아무것도 못 해줄 때 오히려 내가 더 힘들다' },
+                    { q: '📚', text: '가르치거나 설명해주는 상황에서 "이게 나한테는 쉽고 재밌다"는 걸 느낀 적이 있다' },
+                    { q: '💬', text: '사람들이 처음 만난 나에게도 고민을 털어놓는 경우가 자주 있다' }
+                ],
+                keyword: '공감력', keywordIcon: '💛', style: '관계 중심형', styleIcon: '🌱',
+                jobs: ['교사 / 교육 전문가', '사회복지사 / 상담사', '간호사 / 의료 종사자', 'HR·조직 문화 담당자', '커뮤니티 매니저', '비영리 기관 실무자'],
+                advice: '사람을 위해 쓰는 에너지의 일부는 꼭 나 자신에게도 써야 해요. 당신의 따뜻함은 진짜 능력이지만, 나를 소진시키면서 도우면 오래 갈 수 없어요. 경계선을 갖는 것도 전문성의 일부입니다.'
+            },
+            I: {
+                icon: '🔬', name: '파고드는 전문직·연구형',
+                quote: '"제대로 알고 싶어요. 끝까지요."',
+                typeClass: 'rtype-I',
+                intro: [
+                    '하나를 알면 열을 파고드는 사람이에요.',
+                    '관심 분야가 생기면 누가 시키지 않아도 깊이 탐구하고, 그 분야에서 진짜 전문가가 되고 싶다는 욕구가 있어요. 증거와 논리에 기반해서 생각하고, 근거 없이 "그냥 해"라는 말이 불편하게 느껴지죠.',
+                    '빠른 의사결정보다 정확한 판단을 선호하기 때문에 가끔 느리다는 말을 들을 수 있어요. 하지만 이 신중함이 전문직에서는 가장 강력한 무기가 됩니다.'
+                ],
+                strengths: [
+                    { icon: '🔍', title: '깊이 파고드는 분석력', desc: '남들이 그냥 넘어가는 디테일까지 확인하고, 패턴과 근거를 찾아내는 능력이 있어요.' },
+                    { icon: '📐', title: '논리적인 구조화 능력', desc: '복잡한 정보를 체계적으로 정리하고 단계별로 설명할 수 있어요. 이 능력은 연구·기획·법·의학 모든 분야에서 핵심 역량입니다.' },
+                    { icon: '📚', title: '방대한 지식 흡수력', desc: '새로운 개념을 빠르게 이해하고 기존 지식과 연결하는 능력이 있어요. 공부 자체를 즐기는 편이라 전문성을 쌓는 속도가 빠릅니다.' },
+                    { icon: '🛡️', title: '높은 기준과 완성도', desc: '대충 하는 것이 불편해요. 이 높은 기준이 결과물의 신뢰도를 높이고, 전문가로서의 평판이 됩니다.' }
+                ],
+                moments: [
+                    { q: '📖', text: '모르는 게 생기면 "대충 알겠다"는 상태로 넘어가기 불편하다. 완전히 이해할 때까지 찾아보게 된다' },
+                    { q: '💭', text: '발표나 글을 제출할 때, 근거가 없는 주장을 쓰는 게 마음에 걸려서 자꾸 다시 검토하게 된다' },
+                    { q: '😤', text: '"왜요?"라고 물었을 때 "그냥 원래 그래"라는 답이 돌아오면 납득이 안 된다' },
+                    { q: '🔬', text: '관심 있는 분야에 대해서는 아무도 물어보지 않았는데 혼자 깊이 파고든 경험이 있다' }
+                ],
+                keyword: '전문성', keywordIcon: '🔬', style: '분석 중심형', styleIcon: '📐',
+                jobs: ['변호사 / 법무사', '의사 / 약사', '연구원 / 데이터 사이언티스트', '개발자 / 엔지니어', '교수 / 강사', '컨설턴트 / 회계사'],
+                advice: '당신의 전문성은 오랫동안 쌓을수록 폭발적인 가치를 가져요. 단기적으로 힘든 자격증·공부 과정도, 결국 남들이 넘볼 수 없는 전문가 영역을 만들어냅니다. 지금 공부하는 것이 절대 헛되지 않아요.'
+            },
+            S: {
+                icon: '🏛️', name: '지키는 안정·공공형',
+                quote: '"믿을 수 있는 사람이 되고 싶어요."',
+                typeClass: 'rtype-S',
+                intro: [
+                    '안정적이고 예측 가능한 환경에서 성과를 내는 사람이에요.',
+                    '규칙을 지키고, 맡은 일을 끝까지 완수하고, 신뢰를 쌓아가는 과정에서 만족감을 느껴요. 사회적으로 의미 있는 일을 하면서 내 생활도 안정적으로 유지하고 싶은 욕구가 있어요.',
+                    '변화가 잦거나 기준이 없는 환경에서 불안함을 느낄 수 있지만, 그만큼 규칙과 체계를 만들고 유지하는 능력이 탁월해요. 이 안정성은 어느 조직에서나 핵심 인재로 인정받게 해줍니다.'
+                ],
+                strengths: [
+                    { icon: '🗓️', title: '높은 신뢰도와 책임감', desc: '맡은 것은 끝까지 하는 사람이에요. 이 믿음직스러움은 조직에서 가장 빠르게 인정받는 자질입니다.' },
+                    { icon: '⚙️', title: '체계적인 운영 능력', desc: '복잡한 프로세스도 단계별로 정리하고 효율적으로 운영하는 능력이 있어요. 팀이나 조직의 안정적인 기반을 만들어줍니다.' },
+                    { icon: '🔒', title: '원칙을 지키는 일관성', desc: '단기적 이익보다 장기적 신뢰를 선택하는 편이에요. 이 일관성이 시간이 쌓일수록 강력한 평판이 됩니다.' },
+                    { icon: '🌐', title: '공공·사회적 가치 지향', desc: '개인의 이익을 넘어 사회에 기여하고 싶은 마음이 있어요. 이 방향성이 공공 분야에서 진정성 있는 힘이 됩니다.' }
+                ],
+                moments: [
+                    { q: '📋', text: '할 일 목록을 만들고, 하나씩 지워가면서 "다 됐다"는 느낌을 좋아한다' },
+                    { q: '😰', text: '갑작스러운 변경이나 "이건 상황 봐서 결정할게요"라는 말이 불안하게 느껴진다' },
+                    { q: '🏅', text: '남들이 대충 넘어갈 때도 제대로 해야 직성이 풀린다. 실수하는 게 싫다' },
+                    { q: '🤝', text: '"넌 진짜 믿을 수 있어"라는 말을 들을 때 가장 뿌듯하다' }
+                ],
+                keyword: '신뢰성', keywordIcon: '🏛️', style: '안정 추구형', styleIcon: '⚙️',
+                jobs: ['공무원 / 공공기관', '교사 / 교육직', '행정직 / 인사관리자', '금융·보험 전문가', '군인·경찰·소방관', '대기업 안정 직군'],
+                advice: '안정을 원하는 것은 결코 소극적인 게 아니에요. 사회가 돌아가려면 신뢰할 수 있는 사람들이 꼭 필요하고, 그게 바로 당신이에요. 다만, 안정 안에서도 자신이 진짜 의미를 찾을 수 있는 분야를 선택하는 것이 중요해요.'
+            }
+        };
+
+        // ─── STATE ───
+        let currentQ = 0;
+        let answers = new Array(QUESTIONS.length).fill(null);
+        let answerTypes = new Array(QUESTIONS.length).fill(null);
+
+        // ─── NAVIGATION ───
+        function goTo(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (id === 'questions') renderQuestion(currentQ);
+        }
+
+        // ─── 커버 소셜 프루프 ───
+        (function () {
+            let count = 1312 + Math.floor(Math.random() * 90);
+            const el = document.getElementById('cv-cnt');
+            function fmt(n) { return n.toLocaleString('ko-KR'); }
+            el.textContent = fmt(count);
+            function tickCount() {
+                count += Math.floor(Math.random() * 3) + 1;
+                el.style.transform = 'scale(1.15)'; el.style.color = '#fff';
+                setTimeout(() => { el.textContent = fmt(count); el.style.transform = 'scale(1)'; el.style.color = ''; }, 150);
+                setTimeout(tickCount, 15000 + Math.random() * 30000);
+            }
+            setTimeout(tickCount, 9000 + Math.random() * 8000);
+
+            const feeds = [
+                '서울시 관악구 · 24세 · 방금 테스트 완료', '경기도 수원시 · 23세 · 결과 확인 중',
+                '서울시 강남구 · 25세 · 방금 테스트 완료', '인천시 부평구 · 22세 · 방금 참여했어요',
+                '서울시 마포구 · 26세 · 방금 테스트 완료', '경기도 성남시 · 23세 · 결과 확인 중',
+                '서울시 동작구 · 21세 · 방금 참여했어요', '경기도 고양시 · 24세 · 방금 테스트 완료',
+                '서울시 광진구 · 22세 · 결과 확인 중', '경기도 용인시 · 25세 · 방금 테스트 완료',
+                '서울시 노원구 · 20세 · 방금 참여했어요', '서울시 강서구 · 23세 · 결과 확인 중',
+                '부산시 해운대구 · 24세 · 방금 테스트 완료', '대구시 수성구 · 22세 · 방금 참여했어요',
+            ];
+            let fi = Math.floor(Math.random() * feeds.length);
+            const feedItem = document.getElementById('cv-feed-item');
+            const feedText = document.getElementById('cv-feed-text');
+            function showFeed() {
+                fi = (fi + 1) % feeds.length;
+                feedItem.classList.remove('show'); feedItem.classList.add('hide');
+                setTimeout(() => { feedText.textContent = feeds[fi]; feedItem.classList.remove('hide'); feedItem.classList.add('show'); }, 500);
+                setTimeout(showFeed, 4000 + Math.random() * 3000);
+            }
+            setTimeout(() => { feedText.textContent = feeds[fi]; feedItem.classList.add('show'); setTimeout(showFeed, 4000 + Math.random() * 3000); }, 1200);
+        })();
+
+        function startQuiz() {
+            currentQ = 0;
+            answers = new Array(QUESTIONS.length).fill(null);
+            answerTypes = new Array(QUESTIONS.length).fill(null);
+            goTo('questions');
+        }
+
+        // ─── QUESTION RENDER ───
+        function renderQuestion(idx) {
+            const q = QUESTIONS[idx];
+            const pct = ((idx + 1) / QUESTIONS.length * 100).toFixed(1);
+            document.getElementById('q-fill').style.width = pct + '%';
+            document.getElementById('q-step-text').textContent = `${idx + 1} / ${QUESTIONS.length}`;
+
+            const optionsHTML = q.options.map((opt, i) => {
+                const sel = answers[idx] === i;
+                return `<button class="q-opt${sel ? ' selected' : ''}" onclick="selectOpt(${idx},${i},'${opt.type}')">
+      <div class="q-opt-inner"><span class="q-opt-marker"></span><span class="q-opt-text">${opt.text}</span></div>
+    </button>`;
+            }).join('');
+
+            const hasAnswer = answers[idx] !== null;
+            const prevBtn = idx === 0
+                ? `<button class="btn-q-prev" onclick="goTo('cover')">← 처음</button>`
+                : `<button class="btn-q-prev" onclick="navQ(-1)">← 이전</button>`;
+            const nextLabel = idx < QUESTIONS.length - 1 ? '다음 질문 →' : '결과 확인하기 →';
+
+            document.getElementById('q-slot').innerHTML = `
+    <div class="q-img-wrap">
+      <div class="q-img-emoji">${q.emoji}</div>
+    </div>
+    <div class="q-inner">
+      <div class="q-num-badge">Q${q.id}</div>
+      <div class="q-title">${q.text}</div>
+      <div class="q-instruction">${q.hint}</div>
+      <div class="q-options">${optionsHTML}</div>
+      <div class="q-nav">
+        ${prevBtn}
+        <button class="btn-q-next" onclick="navQ(1)" ${hasAnswer ? '' : 'disabled'}>${nextLabel}</button>
+      </div>
+    </div>`;
+        }
+
+        function selectOpt(qIdx, optIdx, type) {
+            answers[qIdx] = optIdx; answerTypes[qIdx] = type;
+            renderQuestion(qIdx);
+        }
+
+        function navQ(dir) {
+            if (dir === 1) {
+                if (currentQ < QUESTIONS.length - 1) {
+                    currentQ++; renderQuestion(currentQ);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    goTo('landing');
+                }
+            } else {
+                if (currentQ > 0) {
+                    currentQ--; renderQuestion(currentQ);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        // ─── RESULT CALC ───
+        function calcType() {
+            const scores = { C: 0, E: 0, F: 0, I: 0, S: 0 };
+            answerTypes.forEach(t => { if (t) scores[t]++; });
+            return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+        }
+
+        // ─── 구글 시트 연동 ───
+        const GS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxlwq3t2XGwdbwhyGrE5nyGgrnZDif3lY8Sde_HJZiD1z_nRvnbe1XNL2U4nHxcWT0ycw/exec';
+        const GS_WEBHOOK = 'https://wnsk0427.simon-up-n8n.work/webhook/careerB';
+
+        function sendToSheet(data) {
+            if (GS_SCRIPT) {
+                fetch(GS_SCRIPT, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).catch(e => console.log('Sheet sync error:', e));
+            }
+            if (GS_WEBHOOK) {
+                fetch(GS_WEBHOOK, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).catch(e => console.log('Sheet sync error:', e));
+            }
+        }
+
+        // 연락처 자동 포맷팅 함수
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            if (value.length <= 3) {
+                input.value = value;
+            } else if (value.length <= 7) {
+                input.value = value.slice(0, 3) + '-' + value.slice(3);
+            } else {
+                input.value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7);
+            }
+        }
+
+        // 나이 입력 제한 함수
+        function formatAge(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.slice(0, 2);
+            }
+            input.value = value;
+        }
+
+        // 연락처 유효성 검사 함수
+        function isValidPhoneNumber(phone) {
+            const phoneNumber = phone.replace(/\D/g, '');
+            return phoneNumber.length === 11;
+        }
+
+        // ─── SUBMIT ───
+        function handleSubmit() {
+            const btn = event ? event.target : null;
+            if (btn && btn.disabled) return;
+
+            const name = document.getElementById('info-name').value.trim();
+            const age = document.getElementById('info-age').value.trim();
+            const phone = document.getElementById('info-phone').value.trim();
+            const job = document.getElementById('info-job').value;
+            const district = document.getElementById('info-district').value.trim();
+            const concern = document.getElementById('info-concern').value.trim();
+            const interviewEl = document.getElementById('info-interview');
+            const interview = interviewEl ? interviewEl.checked : false;
+
+            if (!name) { alert('성함을 입력해 주세요.'); return; }
+            if (!age) { alert('나이를 입력해 주세요.'); return; }
+            if (age.length < 2) { alert('나이를 2자리로 입력해주세요.'); return; }
+            if (!phone) { alert('연락처를 입력해 주세요.'); return; }
+            if (!isValidPhoneNumber(phone)) { alert('핸드폰번호를 형식에 맞게 잘 입력해주세요.'); return; }
+            if (!job) { alert('현재 상태를 선택해 주세요.'); return; }
+            if (!district) { alert('거주 중인 시/군/구를 입력해 주세요.'); return; }
+            if (!concern) { alert('진로 고민을 입력해 주세요.'); return; }
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = "분석 중...";
+                btn.style.opacity = "0.7";
+            }
+
+            const typeCode = calcType();
+            const typeName = RESULTS[typeCode]?.name || typeCode;
+
+            sendToSheet({ name, age, phone, job, district, concern, interview: interview ? 'Y' : 'N', type: typeCode, typeName, timestamp: new Date().toISOString() });
+
+            renderResult();
+            goTo('result');
+        }
+
+        // ─── RESULT RENDER ───
+        function renderResult() {
+            const typeCode = calcType();
+            const r = RESULTS[typeCode];
+
+            const introHTML = r.intro.map(p => `<p>${p}</p>`).join('');
+            const strengthsHTML = r.strengths.map(s => `
+    <div class="rs-strength">
+      <span class="rs-strength-icon">${s.icon}</span>
+      <span class="rs-strength-text"><strong>${s.title}</strong>${s.desc}</span>
+    </div>`).join('');
+            const momentsHTML = r.moments.map(m => `
+    <div class="rs-moment">
+      <span class="rs-moment-q">${m.q}</span>
+      <span class="rs-moment-text">${m.text}</span>
+    </div>`).join('');
+            const jobsHTML = r.jobs.map(j => `<div class="rs-job-pill">${j}</div>`).join('');
+
+            document.getElementById('result-mount').innerHTML = `
+    <div class="${r.typeClass}">
+
+      <!-- 히어로 -->
+      <div class="result-hero">
+        <div class="result-hero-bg">
+          <span class="result-type-icon">${r.icon}</span>
+          <div class="result-type-label">나의 직업 유형은</div>
+          <div class="result-type-name">${r.name}</div>
+          <div class="result-type-quote">${r.quote}</div>
+        </div>
+      </div>
+
+      <div class="result-body">
+
+        <div class="rs">
+          <div class="rs-title">당신은 어떤 사람인가요</div>
+          <div class="rs-desc">${introHTML}</div>
+        </div>
+
+        <div class="rs">
+          <div class="rs-title">당신의 진짜 강점</div>
+          <div class="rs-strengths">${strengthsHTML}</div>
+        </div>
+
+        <div class="rs">
+          <div class="rs-title">이런 경험, 공감하나요</div>
+          <div class="rs-moments">${momentsHTML}</div>
+        </div>
+
+        <div class="rs">
+          <div class="rs-title">유형 요약</div>
+          <div class="rs-tags">
+            <div class="rs-tag">
+              <div class="rs-tag-icon">${r.keywordIcon}</div>
+              <div class="rs-tag-label">핵심 키워드</div>
+              <div class="rs-tag-value">${r.keyword}</div>
+            </div>
+            <div class="rs-tag">
+              <div class="rs-tag-icon">${r.styleIcon}</div>
+              <div class="rs-tag-label">일하는 스타일</div>
+              <div class="rs-tag-value">${r.style}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rs">
+          <div class="rs-title">맞는 직업 유형</div>
+          <div class="rs-jobs-grid">${jobsHTML}</div>
+        </div>
+
+        <div class="rs">
+          <div class="rs-title">Login의 한마디</div>
+          <div class="rs-advice">
+            <div class="rs-advice-label">ADVICE FOR YOU</div>
+            <div class="rs-advice-text">${r.advice}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="result-cta">
+        <button class="btn-restart" onclick="restart()">🔄 처음부터 다시하기</button>
+        <div class="result-note">
+          · 모든 응답은 익명 처리되며 연구 목적으로만 사용됩니다.<br>
+          · Login 공식 웹페이지에서 상세 안내를 확인할 수 있습니다.
+        </div>
+      </div>
+
+    </div>`;
+        }
+
+        function restart() {
+            currentQ = 0;
+            answers = new Array(QUESTIONS.length).fill(null);
+            answerTypes = new Array(QUESTIONS.length).fill(null);
+            goTo('cover');
+        }
+    </script>
+</div>
+</body>
+</html>
