@@ -1064,11 +1064,15 @@
         try { window.scrollTo(0, root.getBoundingClientRect().top + window.pageYOffset - 60); } catch (e) {}
     }
 
+    const tlqScreenHash = { cover: 'cover', questions: 'q1', landing: 'form', result: 'result' };
     function tlqGoTo(sc) {
         document.querySelectorAll('#tlq-root .tlq-screen').forEach(s => s.classList.remove('tlq-active'));
         document.getElementById('tlq-sc-' + sc).classList.add('tlq-active');
         tlqScrollTop();
         if (sc === 'questions') tlqRenderQ(tlqCurQ);
+        const hash = sc === 'questions' ? 'q' + (tlqCurQ + 1) : (tlqScreenHash[sc] || sc);
+        history.pushState(null, '', '#' + hash);
+        if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: location.pathname + '#' + hash, page_title: document.title + ' | ' + hash });
     }
 
     (function () {
@@ -1111,6 +1115,9 @@
         const questionNumber = step.type === 'question' ? step.questionIndex + 1 : answeredCount;
         document.getElementById('tlq-qpb').style.width = (answeredCount / tlqQs.length * 100) + '%';
         document.getElementById('tlq-qpb-lbl').textContent = `나에게 딱 맞는 전공테스트 (${questionNumber}/${tlqQs.length})`;
+        const hash = 'q' + questionNumber;
+        history.pushState(null, '', '#' + hash);
+        if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: location.pathname + '#' + hash, page_title: document.title + ' | ' + hash });
 
         const back = i > 0
             ? `<button class="tlq-btn-back" onclick="tlqPrevQ()">← 뒤로</button>`

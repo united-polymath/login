@@ -2629,11 +2629,15 @@
         let answerTypes = new Array(QUESTIONS.length).fill(null);
 
         // ─── NAVIGATION ───
+        const screenHash = { cover: 'cover', questions: 'q1', landing: 'form', result: 'result' };
         function goTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-' + id).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (id === 'questions') renderQuestion(currentQ);
+            const hash = id === 'questions' ? 'q' + (currentQ + 1) : (screenHash[id] || id);
+            history.pushState(null, '', '#' + hash);
+            if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: location.pathname + '#' + hash, page_title: document.title + ' | ' + hash });
         }
 
         // ─── 커버 소셜 프루프 ───
@@ -2684,6 +2688,9 @@
             const pct = ((idx + 1) / QUESTIONS.length * 100).toFixed(1);
             document.getElementById('q-fill').style.width = pct + '%';
             document.getElementById('q-step-text').textContent = `${idx + 1} / ${QUESTIONS.length}`;
+            const hash = 'q' + (idx + 1);
+            history.pushState(null, '', '#' + hash);
+            if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: location.pathname + '#' + hash, page_title: document.title + ' | ' + hash });
 
             const optionsHTML = q.options.map((opt, i) => {
                 const sel = answers[idx] === i;
