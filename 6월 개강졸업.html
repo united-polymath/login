@@ -2103,6 +2103,78 @@
         .nl3 { padding: 36px 18px 20px; }
         .nl-cta { padding: 8px 18px 36px; }
     }
+
+    /* ═══════════════════════════════════════
+       DESKTOP (768px+)
+    ═══════════════════════════════════════ */
+    @media (min-width: 768px) {
+        #tri-job-test-app {
+            padding: 60px 40px 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #tri-job-test-app > .screen {
+            max-width: 880px;
+            width: 100%;
+            box-shadow: 0 32px 80px rgba(15, 23, 42, 0.12);
+        }
+
+        /* Cover */
+        #screen-cover { padding: 72px 72px; }
+        .cover-card { padding: 60px 72px; border-radius: 32px; }
+        .cover-title { font-size: 30px; }
+        .cover-sub { font-size: 16px; }
+        .btn-start { font-size: 18px; padding: 20px; }
+        .cv-counter { padding: 22px 28px; }
+        .cv-counter-num { font-size: 30px; }
+
+        /* Question: 2열 레이아웃 */
+        #q-slot {
+            display: flex;
+            flex-direction: row;
+            min-height: 520px;
+        }
+        .q-img-wrap {
+            width: 360px;
+            height: auto;
+            min-height: 520px;
+            flex-shrink: 0;
+            border-radius: 0;
+        }
+        .q-inner {
+            flex: 1;
+            padding: 36px 44px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+        .q-num-badge { font-size: 12px; margin-bottom: 14px; }
+        .q-title { font-size: 22px; margin-bottom: 12px !important; }
+        .q-instruction { font-size: 13px; margin-bottom: 24px !important; }
+        .q-options { gap: 12px !important; margin-bottom: 28px !important; }
+        .q-opt-inner { padding: 16px 20px; }
+        .q-opt-text { font-size: 14px; }
+        .q-topbar { padding: 16px 28px; }
+        .q-nav { margin-top: 0 !important; }
+
+        /* Landing (신청폼) */
+        .info-hero { padding: 48px 60px; }
+        .info-body { padding: 40px 60px 16px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+        .info-field { margin-bottom: 28px !important; }
+
+        /* Result */
+        .result-body { padding: 0 40px; }
+        .rs { padding: 32px 36px; }
+        .rs-report-banner { margin: 0 40px 20px; padding: 28px 36px; }
+        .rs-data-section { margin: 0 40px 20px; padding: 32px 36px; }
+        .rs-interview-box { margin: 0 40px 20px; padding: 28px 36px; }
+        .rs-reco-section { margin: 0 40px 20px; padding: 32px 36px; }
+        .result-cta { padding: 24px 40px 48px; }
+    }
 </style>
 </head>
 <body>

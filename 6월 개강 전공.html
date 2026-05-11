@@ -661,6 +661,79 @@
         .nl-cta { padding: 8px 18px 36px; }
     }
 
+
+    /* ═══════════════════════════════════════
+       DESKTOP (768px+)
+    ═══════════════════════════════════════ */
+    @media (min-width: 768px) {
+        #tlq-root {
+            min-height: 100vh;
+        }
+
+        /* Cover */
+        #tlq-sc-cover { padding: 64px 40px 80px; }
+        .tlq-cv-wrap { max-width: 860px; gap: 32px; }
+        .tlq-cv-card { padding: 72px 80px 64px; border-radius: 32px; }
+        .tlq-cv-brand { font-size: 12px; margin-bottom: 40px !important; }
+        .tlq-cv-title { font-size: 30px; }
+        .tlq-cv-desc { font-size: 17px; }
+        .tlq-btn-cta { font-size: 20px; padding: 26px; border-radius: 60px; }
+        .tlq-cv-counter { border-radius: 24px; padding: 28px 40px; }
+        .tlq-cv-counter-num { font-size: 38px; }
+        .tlq-cv-counter-label { font-size: 16px; }
+
+        /* Question screen */
+        #tlq-sc-questions { max-width: 860px; margin: 0 auto; width: 100%; }
+        .tlq-qhdr { padding: 20px 48px 0; }
+        .tlq-qbody {
+            padding: 0 0 56px;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            grid-template-rows: auto 1fr auto auto;
+            gap: 0;
+        }
+        .tlq-q-img-wrap {
+            grid-column: 1;
+            grid-row: 1 / 5;
+            height: 100%;
+            min-height: 480px;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+        .tlq-q-label {
+            grid-column: 2;
+            grid-row: 1;
+            padding: 36px 44px 0;
+            margin: 0 !important;
+        }
+        .tlq-q-text {
+            grid-column: 2;
+            grid-row: 2;
+            padding: 0 44px;
+            font-size: 22px;
+            margin: 0 !important;
+            padding-top: 12px;
+        }
+        .tlq-q-opts {
+            grid-column: 2;
+            grid-row: 3;
+            padding: 0 44px;
+            margin: 0 !important;
+            gap: 12px;
+        }
+        .tlq-q-opt { padding: 18px 22px; font-size: 14px; }
+        .tlq-q-nav {
+            grid-column: 2;
+            grid-row: 4;
+            padding: 20px 44px 0;
+            margin: 0 !important;
+        }
+
+        /* Landing (신청폼) */
+        .tlq-ld1-card { max-width: 860px; margin: 0 auto; }
+        .tlq-bridge-card { max-width: 860px; margin: 0 auto; }
+        .tlq-mid-card { max-width: 860px; margin: 0 auto; }
+    }
 </style>
 
 <div id="tlq-root">
