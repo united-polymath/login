@@ -12,7 +12,7 @@
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LOGin Lab · A/S 부탁드립니다 — 고장난 20대 일상 수리 공모전</title>
+<title>LOGin Lab · 청년 번아웃 회복 프로젝트 신청</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
@@ -108,7 +108,10 @@
   .header-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
 
   /* Logo */
-  .logo { display: inline-block; margin-bottom: 28px; }
+  .logo {
+    display: inline-block;
+    margin-bottom: 28px;
+  }
   .logo-svg { display: block; }
 
   .lab-tag {
@@ -273,7 +276,9 @@
     letter-spacing: -0.2px;
   }
 
-  .section-body { padding: 28px 32px; }
+  .section-body {
+    padding: 28px 32px;
+  }
 
   .section-desc {
     font-size: 14px;
@@ -286,7 +291,9 @@
   }
 
   /* FIELDS */
-  .field { margin-bottom: 22px; }
+  .field {
+    margin-bottom: 22px;
+  }
   .field:last-child { margin-bottom: 0; }
 
   label {
@@ -303,17 +310,6 @@
     color: var(--lime-deep);
     background: var(--ink);
     padding: 2px 6px;
-    border-radius: 2px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.05em;
-  }
-
-  label .opt {
-    color: var(--ink-soft);
-    background: var(--bg-warm);
-    border: 1px solid var(--line-strong);
-    padding: 1px 6px;
     border-radius: 2px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -355,7 +351,7 @@
   input[type="text"],
   input[type="tel"],
   input[type="email"],
-  input[type="number"],
+  input[type="date"],
   textarea,
   select {
     width: 100%;
@@ -380,16 +376,6 @@
     resize: vertical;
     font-family: inherit;
   }
-
-  .char-counter {
-    font-size: 11px;
-    color: var(--ink-light);
-    text-align: right;
-    margin-top: 6px;
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: 0.05em;
-  }
-  .char-counter.warn { color: var(--lime-deep); font-weight: 600; }
 
   /* OPTIONS */
   .options {
@@ -505,6 +491,94 @@
     color: rgba(255, 255, 255, 0.65);
   }
 
+  /* FILE UPLOAD */
+  .file-upload {
+    border: 1.5px dashed var(--line-strong);
+    border-radius: 4px;
+    padding: 22px 18px;
+    text-align: center;
+    background: #fff;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .file-upload:hover {
+    border-color: var(--ink);
+    background: var(--lime-soft);
+  }
+
+  .file-upload input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .file-upload-icon {
+    display: inline-block;
+    width: 36px; height: 36px;
+    background: var(--ink);
+    color: var(--lime);
+    border-radius: 4px;
+    line-height: 36px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .file-upload-text {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .file-upload-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.03em;
+  }
+
+  .file-name {
+    font-size: 13px;
+    color: var(--ink);
+    margin-top: 8px;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .file-name:not(:empty)::before {
+    content: "✓ ";
+    color: var(--lime-deep);
+  }
+
+  .badge-required {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--lime);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .badge-optional {
+    display: inline-block;
+    background: var(--bg-warm);
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
   /* CALLOUT */
   .callout {
     background: var(--bg-warm);
@@ -523,7 +597,10 @@
   .callout p { color: var(--ink-soft); font-size: 14.5px; }
 
   /* PRIZE TABLE */
-  .prize-list { display: grid; gap: 12px; }
+  .prize-list {
+    display: grid;
+    gap: 12px;
+  }
   .prize-row {
     padding: 18px 20px;
     background: #fff;
@@ -559,6 +636,10 @@
     padding: 4px 10px;
     border-radius: 2px;
     font-weight: 700;
+  }
+  .prize-row.grand .prize-rank {
+    background: var(--lime);
+    color: var(--ink);
   }
   .prize-name {
     font-size: 17px;
@@ -790,43 +871,6 @@
     margin-top: 1px;
   }
 
-  /* SCHEDULE TABLE */
-  .schedule-table {
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .schedule-row {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    border-bottom: 1px solid var(--line);
-  }
-  .schedule-row:last-child { border-bottom: none; }
-  .schedule-label {
-    background: var(--bg-warm);
-    padding: 14px 18px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink);
-    font-weight: 600;
-    border-right: 1px solid var(--line);
-  }
-  .schedule-value {
-    padding: 14px 18px;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-  .schedule-value strong {
-    color: var(--ink);
-    font-weight: 700;
-  }
-  @media (max-width: 540px) {
-    .schedule-row { grid-template-columns: 1fr; }
-    .schedule-label { border-right: none; border-bottom: 1px solid var(--line); }
-  }
-
   /* FOOTER */
   .footer {
     background: var(--ink);
@@ -951,14 +995,14 @@
     <span class="topbar-dot"></span>
     <span>LOGin Lab · Recruiting Now</span>
   </div>
-  <div>FORM ID: LQN-2026-AS-001</div>
+  <div>FORM ID: LQN-2026-BR-001</div>
 </div>
 
 <!-- HEADER -->
 <header class="header">
   <div class="header-inner">
 
-    <!-- LOGin Logo -->
+    <!-- LOGin Logo (SVG recreation) -->
     <div class="logo">
       <svg class="logo-svg" width="260" height="84" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" aria-label="LOGin">
         <defs>
@@ -967,21 +1011,23 @@
             .lime-shadow { fill: #8DA200; }
           </style>
         </defs>
+        <!-- 3D shadow layer -->
         <g class="lime-shadow" transform="translate(8, 8)">
           <text x="0" y="80" font-family="'Noto Sans KR', sans-serif" font-size="96" font-weight="900" letter-spacing="-4">LOGin</text>
         </g>
+        <!-- Front layer -->
         <g class="lime-front">
           <text x="0" y="80" font-family="'Noto Sans KR', sans-serif" font-size="96" font-weight="900" letter-spacing="-4">LOGin</text>
         </g>
       </svg>
     </div>
-    <div><span class="lab-tag">Youth Policy Insight Lab</span></div>
+    <div><span class="lab-tag">Youth Wellness Research Lab</span></div>
 
-    <h1 class="header-title">A/S 부탁드립니다,<br><span class="accent">고장난</span> 20대의 일상.</h1>
-    <p class="header-sub">청년 정책 인사이트 공모전 — 참가자 모집 신청서</p>
+    <h1 class="header-title">버티는 청년에서,<br><span class="accent">회복하는</span> 청년으로.</h1>
+    <p class="header-sub">청년 번아웃 회복 프로젝트 — 참가자 모집 신청서</p>
 
     <div class="header-meta">
-      <span>PROJECT · <strong>POLICY INSIGHT</strong></span>
+      <span>PROJECT · <strong>BURNOUT RECOVERY</strong></span>
       <span>YEAR · <strong>2026</strong></span>
       <span>AGE · <strong>19~29</strong></span>
     </div>
@@ -993,16 +1039,16 @@
   <!-- WELCOME -->
   <section class="welcome">
     <div class="welcome-label">// Welcome</div>
-    <h2 class="welcome-q">거창한 정책 제안서? NO!</h2>
-    <p>월급은 그대로인데 월세는 오르고, 청년 혜택은 있다는데 어디서 신청하는지 모르겠고, 단기 알바는 했는데 임금은 늦게 들어오고. <strong>LOGin Lab</strong>의 &lt;A/S 부탁드립니다&gt;는 무거운 연구 보고서가 아닌, 20대 청년들이 일상에서 겪는 생생한 <span class="highlight">'가장 답답했던 문제'</span>를 수집하는 프로젝트입니다.</p>
-    <p>완벽한 제안서가 아니어도 좋아요. 당신이 매일 마주하는 작은 불편함과, "이렇게 바뀌면 좋겠다" 싶은 진심을 들려주세요. <span class="highlight">내 일상의 불편함이 세상을 바꾸는 진짜 인사이트가 됩니다.</span></p>
+    <h2 class="welcome-q">요즘 마음은 좀 어떠신가요?</h2>
+    <p>오늘도 하루를 꿋꿋하게 버텨낸 당신에게 박수를 보냅니다. <strong>LOGin Lab</strong>의 &lt;청년 번아웃 회복 프로젝트&gt;는 "더 열심히 해라"라는 채찍질 대신, 우리가 다시 웃음을 찾을 수 있는 <span class="highlight">'작은 틈'</span>을 만들어보려는 시도입니다.</p>
+    <p>거창한 기획서가 아니어도 괜찮습니다. 당신이 경험한 번아웃과 그것을 이겨내고 싶은 작은 진심을 들려주세요. <span class="highlight">당신의 아이디어가 누군가에게는 다시 시작할 용기가 됩니다.</span></p>
   </section>
 
   <!-- PRIZE -->
   <section class="welcome" style="border-top: 4px solid var(--ink);">
     <div class="welcome-label">// Prizes &amp; Rewards · 시상 안내</div>
-    <h2 class="welcome-q">총 109명 · 상금 130만 원 상당.</h2>
-    <p style="font-size: 14px; color: var(--ink-mid); margin-bottom: 18px;">선정된 인사이트는 상금과 함께 LOGin Lab의 정책 리포트로 발행되어 실제 지자체 정책 제안에 활용됩니다.</p>
+    <h2 class="welcome-q">당신의 아이디어, 이렇게 보답할게요.</h2>
+    <p style="font-size: 14px; color: var(--ink-mid); margin-bottom: 18px;">선정된 아이디어는 상금과 함께 LOGin Lab의 실행 지원을 통해 실제 프로젝트로 연결됩니다.</p>
 
     <div class="prize-list">
 
@@ -1014,11 +1060,11 @@
         </div>
         <div class="prize-rewards">
           <div class="reward-cell">
-            <div class="reward-label">// Reward · 상금</div>
+            <div class="reward-label">// Reward · 물질적 보상</div>
             <div class="reward-value"><strong>상금 100만 원</strong></div>
           </div>
           <div class="reward-cell">
-            <div class="reward-label">// Career Spec · 커리어 보상</div>
+            <div class="reward-label">// Career Spec · 성장·커리어 보상</div>
             <div class="reward-value">
               <strong>'2026 청년 정책 인사이트 리포트' 공동 저자 등재</strong>
               <div class="reward-sub">포트폴리오에 강력하게 활용 가능한 공식 크레딧</div>
@@ -1035,7 +1081,7 @@
         </div>
         <div class="prize-rewards">
           <div class="reward-cell">
-            <div class="reward-label">// Reward · 상금</div>
+            <div class="reward-label">// Reward · 물질적 보상</div>
             <div class="reward-value"><strong>상금 30만 원</strong></div>
           </div>
           <div class="reward-cell">
@@ -1046,7 +1092,7 @@
                 <li>퍼블리(Publy) · 폴인(fol:in)</li>
                 <li>밀리의 서재 · 롱블랙</li>
               </ul>
-              <div class="reward-sub">위 4종 중 1종 택 1</div>
+              <div class="reward-sub">위 4종 중 1종 택 1 (1년 구독 기준)</div>
             </div>
           </div>
         </div>
@@ -1060,7 +1106,7 @@
         </div>
         <div class="prize-rewards">
           <div class="reward-cell">
-            <div class="reward-label">// Reward · 스펙 혜택</div>
+            <div class="reward-label">// Reward · 물질적 보상</div>
             <div class="reward-value">
               <strong>20대 맞춤 스펙 혜택</strong>
               <div class="reward-sub">아래 3가지 중 택 1~2 선택 가능</div>
@@ -1071,7 +1117,7 @@
             <div class="reward-value">
               <ul>
                 <li>① 현직자 1:1 온라인 커피챗 + 포트폴리오 첨삭</li>
-                <li>② '청년 인사이트' 공식 수료증</li>
+                <li>② '청년 인사이트 해커' 공식 수료증 (LinkedIn 등록용)</li>
                 <li>③ 정책 실무진 · 전문가 네트워킹 밋업 초대</li>
               </ul>
             </div>
@@ -1115,7 +1161,7 @@
         <div class="section-num">01</div>
         <div class="section-titles">
           <div class="section-meta">PARTICIPANT INFO</div>
-          <h3 class="section-title">기본 정보</h3>
+          <h3 class="section-title">기본 정보 — 우리 조금 더 알아가요</h3>
         </div>
       </header>
       <div class="section-body">
@@ -1133,23 +1179,9 @@
         </div>
 
         <div class="field">
-          <label>현재 신분 <span class="req">REQUIRED</span></label>
-          <select name="status" required>
-            <option value="">선택해주세요</option>
-            <option>대학(원)생</option>
-            <option>취업준비생</option>
-            <option>직장인</option>
-            <option>프리랜서 / N잡러</option>
-            <option>창업 / 스타트업</option>
-            <option>구직활동 중</option>
-            <option>기타</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>거주지 (시 / 구 / 동·읍·면) <span class="req">REQUIRED</span></label>
-          <input type="text" name="residence" placeholder="예) 서울특별시 마포구 연남동" required />
-          <p class="hint">// 지역별 청년 문제 특성 분석 및 지자체 맞춤형 정책 제안을 위한 통계 데이터로만 활용됩니다.</p>
+          <label>거주지 (시 / 구 / 동) <span class="req">REQUIRED</span></label>
+          <input type="text" name="residence" placeholder="예) 서울시 마포구 연남동" required />
+          <p class="hint">// 지역 기반 오프라인 회복 모임 매칭 및 청년 번아웃 지역별 데이터 분석 자료로만 활용됩니다.</p>
         </div>
 
         <div class="field">
@@ -1166,177 +1198,113 @@
       </div>
     </section>
 
-    <!-- 2. 카테고리 선택 -->
+    <!-- 2. 공모 분야 -->
     <section class="section">
       <header class="section-head">
         <div class="section-num">02</div>
         <div class="section-titles">
           <div class="section-meta">PROJECT CATEGORY</div>
-          <h3 class="section-title">가장 답답했던 문제는 무엇인가요?</h3>
+          <h3 class="section-title">공모 분야 선택 — 어떤 이야기를 들려주실 건가요?</h3>
         </div>
       </header>
       <div class="section-body">
-        <p class="section-desc">가장 공감하고 직접 겪어본 카테고리를 골라주세요. 중복 선택도 가능합니다.</p>
+        <p class="section-desc">가장 자신 있는 분야를 골라주세요. 중복 선택도 가능하지만, 제출물은 분야마다 각각 준비해주셔야 합니다.</p>
 
         <div class="options options-vertical">
           <div class="option checkbox">
-            <input type="checkbox" id="cat-1" name="category" value="취업&알바" />
+            <input type="checkbox" id="cat-1" name="category" value="회복 루틴 - 작은 습관 아이디어 내기" />
             <label for="cat-1">
-              <span><span class="opt-tag">CAT.A</span><strong>취업 & 알바</strong> · <em>N잡러, 프리랜서, 취준생의 일과 돈</em></span>
+              <span><span class="opt-tag">CAT.A</span><strong>회복 루틴</strong> · <em>작은 습관 아이디어 내기</em><div class="opt-desc">예: 퇴근 후 10분 멍 때리기 루틴 / 아침 5분 회복 루틴</div></span>
             </label>
           </div>
           <div class="option checkbox">
-            <input type="checkbox" id="cat-2" name="category" value="주거&독립" />
+            <input type="checkbox" id="cat-2" name="category" value="공감 콘텐츠 - 창작물 만들어 제출하기" />
             <label for="cat-2">
-              <span><span class="opt-tag">CAT.B</span><strong>주거 & 독립</strong> · <em>1인 가구 주거·금융 이슈</em></span>
+              <span><span class="opt-tag">CAT.B</span><strong>공감 콘텐츠</strong> · <em>창작물 만들어 제출하기</em><div class="opt-desc">예: 번아웃 공감 웹툰, 짧은 영상, 에세이, 일러스트</div></span>
             </label>
           </div>
           <div class="option checkbox">
-            <input type="checkbox" id="cat-3" name="category" value="멘탈&일상" />
+            <input type="checkbox" id="cat-3" name="category" value="캠페인 기획 - 캠페인 기획서 제출" />
             <label for="cat-3">
-              <span><span class="opt-tag">CAT.C</span><strong>멘탈 & 일상</strong> · <em>20대 마음 챙김</em></span>
+              <span><span class="opt-tag">CAT.C</span><strong>캠페인 기획</strong> · <em>캠페인 기획서 제출</em><div class="opt-desc">예: "답장 늦어도 괜찮아" 캠페인 기획안</div></span>
             </label>
           </div>
           <div class="option checkbox">
-            <input type="checkbox" id="cat-4" name="category" value="정책&지원" />
+            <input type="checkbox" id="cat-4" name="category" value="서비스 아이디어 - 앱 제작 기획서 내기" />
             <label for="cat-4">
-              <span><span class="opt-tag">CAT.D</span><strong>정책 & 지원</strong> · <em>있어도 못 찾는 정책 접근성</em></span>
+              <span><span class="opt-tag">CAT.D</span><strong>서비스 아이디어</strong> · <em>앱 제작 기획서 내기</em><div class="opt-desc">예: 감정 기록 앱, 회복 챌린지 앱 기획서</div></span>
+            </label>
+          </div>
+          <div class="option checkbox">
+            <input type="checkbox" id="cat-5" name="category" value="공간·커뮤니티 - 커뮤니티 아이디어 내기" />
+            <label for="cat-5">
+              <span><span class="opt-tag">CAT.E</span><strong>공간·커뮤니티</strong> · <em>어떤 커뮤니티가 만들어지면 좋을지 아이디어 내기</em><div class="opt-desc">예: 조용한 회복 라운지 모임, 동네 회복 살롱</div></span>
             </label>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Q1 한 문장 표현 -->
+    <!-- 3. 아이디어 -->
     <section class="section">
       <header class="section-head">
         <div class="section-num">03</div>
         <div class="section-titles">
-          <div class="section-meta">YOUR INSIGHT · Q1</div>
-          <h3 class="section-title">억울하고 답답했던 심정을 한 문장으로</h3>
+          <div class="section-meta">YOUR IDEA</div>
+          <h3 class="section-title">아이디어 들려주기 — 부담 없이 쓱쓱!</h3>
         </div>
       </header>
       <div class="section-body">
-        <p class="section-desc">억울하고 답답했던 심정을 <strong>한 문장</strong>으로 표현 해주세요.</p>
+        <p class="section-desc">당신의 반짝이는 생각을 짧게 요약해주세요. 완성된 글이 아니어도, 구상 단계의 메모여도 괜찮습니다.</p>
 
         <div class="field">
-          <label>한 문장 표현 <span class="req">REQUIRED</span></label>
-          <textarea name="q1" maxlength="300" placeholder="" required></textarea>
-          <div class="char-counter"><span id="q1Count">0</span> / 300자</div>
-          <div class="guide">"쌩신입은 대체 어디서 경력을 쌓나요?", "만원으로 밥 먹기 눈치 게임" 처럼 짧고 솔직하게!</div>
+          <label>프로젝트(아이디어) 이름 <span class="req">REQUIRED</span></label>
+          <input type="text" name="ideaName" placeholder="기억하기 쉽고 따뜻한 이름이면 더 좋아요" required />
+          <div class="guide">기억하기 쉽고 따뜻한 이름이면 더 좋아요!</div>
+        </div>
+
+        <div class="field">
+          <label>이 프로젝트를 생각하게 된 이유 (참여 동기) <span class="req">REQUIRED</span></label>
+          <textarea name="motivation" placeholder="여기에 솔직한 이야기를 들려주세요..." maxlength="500" required></textarea>
+          <div class="guide">내가 겪었던 번아웃 경험이나, 주변 친구들을 보며 느꼈던 솔직한 생각을 들려주세요. 500자 내외면 충분합니다!</div>
+        </div>
+
+        <div class="field">
+          <label>아이디어 핵심 내용 <span class="req">REQUIRED</span></label>
+          <textarea name="ideaCore" placeholder="무엇을, 어떻게 할 것인지 핵심만 간단히 적어주세요." required></textarea>
+          <div class="guide">"무엇을, 어떻게" 할 것인지 핵심만 간단히 적어주세요.</div>
+        </div>
+
+        <div class="field">
+          <label>이것이 실행된다면 어떤 변화가 생길까요? (기대 효과) <span class="req">REQUIRED</span></label>
+          <textarea name="impact" placeholder="이 아이디어를 통해 청년들의 마음이 어떻게 회복될지 상상해 보세요." maxlength="500" required></textarea>
+          <div class="guide">이 아이디어를 통해 청년들의 마음이 어떻게 회복될지 상상해 보세요. 500자 내외</div>
         </div>
       </div>
     </section>
 
-    <!-- 4. Q2 찐 경험담 -->
+    <!-- 4. 후속 안내 (전화 검증) -->
     <section class="section">
       <header class="section-head">
         <div class="section-num">04</div>
         <div class="section-titles">
-          <div class="section-meta">YOUR INSIGHT · Q2 ★</div>
-          <h3 class="section-title">나의 찐 경험담 — 가장 중요한 이야기</h3>
-        </div>
-      </header>
-      <div class="section-body">
-        <p class="section-desc">본인 또는 주변의 생생한 경험과 구체적 곤란함을 자유롭게 적어주세요. <strong>이 부분이 심사의 핵심</strong>입니다.</p>
-
-        <div class="field">
-          <label>찐 경험담 <span class="req">REQUIRED</span></label>
-          <textarea name="q2" maxlength="2000" rows="8" placeholder="" required></textarea>
-          <div class="char-counter"><span id="q2Count">0</span> / 2,000자</div>
-          <div class="guide">언제·어디서·무엇이 어떻게 곤란했는지 / 그 상황의 감정 / 어디에 도움 요청했고 어떤 답을 들었는지 / 비슷한 친구들 사례까지 자세할수록 좋아요.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Q3 수리 아이디어 -->
-    <section class="section">
-      <header class="section-head">
-        <div class="section-num">05</div>
-        <div class="section-titles">
-          <div class="section-meta">YOUR INSIGHT · Q3</div>
-          <h3 class="section-title">이렇게 수리 해주세요! <span style="font-size: 13px; font-weight: 500; color: var(--ink-light); letter-spacing: 0; margin-left: 6px;">(나만의 작은 아이디어)</span></h3>
-        </div>
-      </header>
-      <div class="section-body">
-        <p class="section-desc">완벽한 정책이 아니어도 좋습니다.</p>
-
-        <div class="field">
-          <label>해결 아이디어 <span class="req">REQUIRED</span></label>
-          <textarea name="q3" maxlength="1500" rows="6" placeholder="" required></textarea>
-          <div class="char-counter"><span id="q3Count">0</span> / 1,500자</div>
-          <div class="guide">사소한 아이디어 1개로도 충분합니다. 떠오르는 대로 자유롭게 적어주세요.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. 인사이트 콜링 -->
-    <section class="section">
-      <header class="section-head">
-        <div class="section-num">06</div>
-        <div class="section-titles">
           <div class="section-meta">FOLLOW-UP CALL</div>
-          <h3 class="section-title">인사이트 콜링 — 전화 인터뷰 안내</h3>
+          <h3 class="section-title">제출 이후 — 전화 인터뷰 안내</h3>
         </div>
       </header>
       <div class="section-body">
         <div class="callout">
           <div class="callout-tag">// PHONE INTERVIEW</div>
-          <p style="margin:0 0 8px;"><strong>1차 심사 단계에서 운영팀이 직접 전화드릴 수 있습니다.</strong></p>
-          <p style="margin:0; color: var(--ink-mid); font-size: 14px; line-height: 1.7;">제출해주신 아이디어의 배경을 더 깊이 이해하고, 청년들의 생생한 목소리를 직접 듣기 위함입니다. 약 15~20분 내외의 <strong>가벼운 통화입니다.</strong></p>
-        </div>
-
-        <div style="margin-top: 18px;">
-          <label style="margin-bottom: 12px;">가능 시간대 <span class="req">REQUIRED</span></label>
-          <div class="options">
-            <div class="option">
-              <input type="radio" id="call-am" name="calling" value="오전 09:00-11:30" required />
-              <label for="call-am">🌅 오전 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-left: 4px;">09:00-11:30</span></label>
-            </div>
-            <div class="option">
-              <input type="radio" id="call-pm" name="calling" value="오후 12:30-16:30" required />
-              <label for="call-pm">☀️ 오후 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-left: 4px;">12:30-16:30</span></label>
-            </div>
-            <div class="option">
-              <input type="radio" id="call-eve" name="calling" value="저녁 17:00-20:00" required />
-              <label for="call-eve">🌙 저녁 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-left: 4px;">17:00-20:00</span></label>
-            </div>
-          </div>
+          <p style="margin:0 0 8px;"><strong>제출 완료 후, LOGin Lab 운영팀이 직접 전화드립니다.</strong></p>
+          <p style="margin:0; color: var(--ink-mid); font-size: 14px; line-height: 1.7;">서류만으로는 다 담기지 않은 당신의 진심과 아이디어 배경을 짧게 더 여쭤보기 위함입니다. 5~10분 내외의 부담 없는 통화이며, 평가가 아닌 <strong>이해의 시간</strong>입니다. 기재해주신 연락처로 영업일 기준 7일 이내 연락드립니다.</p>
         </div>
       </div>
     </section>
 
-    <!-- 7. 일정 -->
+    <!-- 5. 동의 -->
     <section class="section">
       <header class="section-head">
-        <div class="section-num">07</div>
-        <div class="section-titles">
-          <div class="section-meta">SCHEDULE</div>
-          <h3 class="section-title">진행 일정 — 한눈에 보기</h3>
-        </div>
-      </header>
-      <div class="section-body">
-        <div class="schedule-table">
-          <div class="schedule-row">
-            <div class="schedule-label">// Application</div>
-            <div class="schedule-value"><strong>2026. 05. 06 (수) ~ 2026. 05. 22 (금)</strong> · 접수 기간</div>
-          </div>
-          <div class="schedule-row">
-            <div class="schedule-label">// 1st Review</div>
-            <div class="schedule-value">~ <strong>2026. 05. 27 (수)</strong> · 1차 서류 심사 & 인사이트 콜링</div>
-          </div>
-          <div class="schedule-row">
-            <div class="schedule-label">// Final Review</div>
-            <div class="schedule-value">~ <strong>2026. 06. 10 (수)</strong> · 2차 발표 심사 (캐주얼 밋업)</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. 동의 -->
-    <section class="section">
-      <header class="section-head">
-        <div class="section-num">08</div>
+        <div class="section-num">05</div>
         <div class="section-titles">
           <div class="section-meta">CONSENT</div>
           <h3 class="section-title">개인정보 수집 및 이용 동의</h3>
@@ -1347,23 +1315,15 @@
 
         <div class="consent">
           <strong>// Data Collection Notice</strong>
-          수집 항목: 성함, 생년월일, 신분, 거주지, 연락처, 이메일 주소, 제출 콘텐츠.<br>
-          이용 목적: 공모전 심사, 결과 안내, 시상금 지급, 인사이트 리포트 작성, 지역별 청년 정책 통계 분석.<br>
-          보유 기간: 공모전 종료 후 6개월 이내 안전하게 파기 (시상자는 1년).
+          수집 항목: 성함, 생년월일, 연락처, 이메일 주소.<br>
+          이용 목적: 본 공모전의 참가자 확인, 심사 결과 안내, 시상 및 행사 운영.<br>
+          보유 기간: 공모전 종료 후 3개월 이내 안전하게 파기.
         </div>
 
-        <div class="options options-vertical">
-          <div class="option checkbox">
-            <input type="checkbox" id="agree-1" name="agree_privacy" required />
-            <label for="agree-1">[필수] 개인정보 수집 및 이용에 동의합니다.</label>
-          </div>
-          <div class="option checkbox">
-            <input type="checkbox" id="agree-2" name="agree_use" required />
-            <label for="agree-2">[필수] 제출한 콘텐츠가 '2026 청년 정책 인사이트 리포트'에 익명으로 인용될 수 있음에 동의합니다.</label>
-          </div>
-          <div class="option checkbox">
-            <input type="checkbox" id="agree-3" name="agree_marketing" />
-            <label for="agree-3">[선택] 향후 LOGin Lab의 청년 프로젝트 소식을 이메일로 받겠습니다.</label>
+        <div class="options">
+          <div class="option checkbox" style="flex: 1 1 100%;">
+            <input type="checkbox" id="agree" name="agree" required />
+            <label for="agree">위 내용에 동의하며, 신청서를 제출합니다.</label>
           </div>
         </div>
       </div>
@@ -1387,11 +1347,15 @@
     </div>
     <div class="tip-item">
       <div class="tip-num">02</div>
-      <div><strong>지원 자격</strong> · 만 19~29세, 개인 신청에 한합니다. 팀 단위 불가.</div>
+      <div><strong>지원 자격</strong> · 만 19~29세, 개인 신청에 한합니다.</div>
     </div>
     <div class="tip-item">
       <div class="tip-num">03</div>
-      <div><strong>전형 절차</strong> · 서류 검토 → 인사이트 콜링(15~20분) → 2차 발표 심사 → 시상</div>
+      <div><strong>전형 절차</strong> · 서류 검토 → 운영팀 전화 인터뷰(5~10분) → 최종 발표</div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">04</div>
+      <div><strong>문의</strong> · <span class="mono" style="background: var(--bg-warm); padding: 2px 6px; border-radius: 2px;">login.lab@official.com</span></div>
     </div>
   </section>
 
@@ -1399,11 +1363,11 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-msg">오늘 하루도 정말 고생 많으셨습니다. <span class="accent">🌱</span></div>
-  <div class="footer-sub">당신이 견뎌낸 일상의 작은 불편함이<br>다음 세대 20대들에게는 당연한 권리가 되기를 바랍니다.</div>
+  <div class="footer-msg">오늘 하루도 정말 고생 많으셨습니다. <span class="accent">🍃</span></div>
+  <div class="footer-sub">당신이 머문 이 시간이 잠시 멈춰 서서<br>스스로를 돌보는 시간이 되었기를 바랍니다.</div>
   <div class="footer-meta">
     <span>© 2026 LOGIN LAB</span>
-    <span>YOUTH POLICY INSIGHT</span>
+    <span>YOUTH WELLNESS RESEARCH</span>
     <span>FORM v1.0</span>
   </div>
 </footer>
@@ -1413,127 +1377,26 @@
   <div class="modal">
     <div class="modal-tag">SUBMITTED · 제출 완료</div>
     <h3>제출해주셔서 감사합니다!</h3>
-    <p>꼼꼼히 읽어본 뒤, 1차 심사 단계에서<br>운영팀이 직접 전화로 짧은 인터뷰(15~20분)를<br>요청드릴 수 있습니다.<br><br>당신의 일상이 더 이상 고장나지 않도록,<br>우리가 진지하게 듣겠습니다.</p>
+    <p>꼼꼼히 읽어본 뒤, 영업일 기준 7일 이내<br>운영팀이 직접 전화로 짧은 인터뷰(5~10분)를<br>요청드릴 예정입니다.<br><br>결과와 상관없이, 이 폼을 작성하는 시간 자체가<br>스스로를 돌보는 시간이 되었기를 바랍니다.</p>
     <button class="modal-btn" onclick="closeModal()">확인</button>
   </div>
 </div>
 
 <script>
-  // 글자 수 카운터
-  ['q1', 'q2', 'q3'].forEach(function(id) {
-    var ta = document.querySelector('textarea[name="' + id + '"]');
-    var counter = document.getElementById(id + 'Count');
-    if (ta && counter) {
-      ta.addEventListener('input', function() {
-        counter.textContent = ta.value.length.toLocaleString();
-        var max = parseInt(ta.getAttribute('maxlength'));
-        var counterEl = counter.parentElement;
-        if (ta.value.length > max * 0.9) {
-          counterEl.classList.add('warn');
-        } else {
-          counterEl.classList.remove('warn');
-        }
-      });
-    }
-  });
-
-  // ⚠️ 여기에 Apps Script 배포 후 받은 "웹 앱 URL"을 붙여넣으세요.
-  // 예: 'https://script.google.com/macros/s/AKfycby.../exec'
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbxJQ3ue408AR9uK075tA9aMrudszrbBOYfhXBSimJZ_TaAZLBMBF-hIiWsMyerbw5I6/exec';
-
   function handleSubmit(e) {
     e.preventDefault();
-    var form = document.getElementById('applyForm');
-
     var cats = document.querySelectorAll('input[name="category"]:checked');
     if (cats.length === 0) {
-      alert('카테고리를 1개 이상 선택해주세요.');
+      alert('공모 분야를 1개 이상 선택해주세요.');
       return false;
     }
-
-    if (!GAS_URL || GAS_URL.indexOf('YOUR_APPS_SCRIPT') === 0) {
-      alert('관리자 설정 오류: Apps Script URL이 입력되지 않았습니다.');
-      return false;
-    }
-
-    // 폼 데이터 수집
-    var data = {
-      name: form.name.value.trim(),
-      birth: form.birth.value.trim(),
-      status: form.status.value,
-      residence: form.residence.value.trim(),
-      phone: form.phone.value.trim(),
-      email: form.email.value.trim(),
-      category: Array.from(cats).map(function(c) { return c.value; }),
-      q1: form.q1.value.trim(),
-      q2: form.q2.value.trim(),
-      q3: form.q3.value.trim(),
-      calling: (form.calling.value || ''),
-      agree_privacy: form.agree_privacy.checked,
-      agree_use: form.agree_use.checked,
-      agree_marketing: form.agree_marketing.checked
-    };
-
-    // 버튼 잠금 (중복 제출 방지)
-    var btn = document.querySelector('.submit-btn');
-    var originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = '제출 중...';
-    btn.style.opacity = '0.6';
-    btn.style.cursor = 'not-allowed';
-
-    // Supabase에 저장 (fire-and-forget)
-    fetch('https://atzyvbifvrlhwploqmpr.supabase.co/rest/v1/login_contest_a', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({
-        name: data.name, birth: data.birth, status: data.status,
-        residence: data.residence, phone: data.phone, email: data.email,
-        category: Array.isArray(data.category) ? data.category.join(', ') : data.category,
-        q1: data.q1, q2: data.q2, q3: data.q3, calling: data.calling,
-        agree_privacy: data.agree_privacy, agree_use: data.agree_use, agree_marketing: data.agree_marketing
-      })
-    }).catch(function(e) { console.log('Supabase error:', e); });
-
-    // Apps Script로 전송
-    // text/plain으로 보내는 이유: CORS preflight를 피하기 위해서 (Apps Script는 CORS 헤더 설정이 까다로움)
-    fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(data)
-    })
-    .then(function() {
-      // no-cors 모드에서는 응답 본문을 읽을 수 없지만, 에러가 안 났으면 성공으로 간주
-      document.getElementById('modal').classList.add('show');
-    })
-    .catch(function(err) {
-      console.error(err);
-      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-    })
-    .finally(function() {
-      btn.disabled = false;
-      btn.textContent = originalText;
-      btn.style.opacity = '';
-      btn.style.cursor = '';
-    });
-
+    document.getElementById('modal').classList.add('show');
     return false;
   }
 
   function closeModal() {
     document.getElementById('modal').classList.remove('show');
     document.getElementById('applyForm').reset();
-    // 카운터 초기화
-    ['q1Count', 'q2Count', 'q3Count'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = '0';
-    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>

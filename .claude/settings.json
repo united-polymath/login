@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3)",
+      "Bash(open \"http://localhost:8080/about.html\")",
+      "Bash(open \"http://localhost:8080/마이페이지.html\")",
+      "Bash(python3 -)",
+      "Bash(cp \"photo_2026-05-09 16.42.47.jpeg\" prog_img_01.jpg)",
+      "Bash(cp \"photo_2026-05-09 16.42.51.jpeg\" prog_img_02.jpg)",
+      "Bash(cp \"photo_2026-05-09 16.42.56.jpeg\" prog_img_03.jpg)",
+      "Bash(cp \"photo_2026-05-09 16.43.00.jpeg\" prog_img_04.jpg)",
+      "Bash(cp \"photo_2026-05-09 16.43.05.jpeg\" prog_img_05.jpg)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
