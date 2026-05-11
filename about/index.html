@@ -493,126 +493,161 @@
           <h2 class="text-headline-md text-on-surface mb-2">연구진 소개</h2>
           <p class="text-on-surface-variant text-sm mb-10">알고리즘 밖의 삶을 함께 연구하는 사람들입니다.</p>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <style>
+            .tm-card { background:#fff; border-radius:20px; overflow:hidden; border:1px solid #E5E2D7; display:flex; flex-direction:column; }
+            .tm-top { background:#F4F1E8; padding:20px 20px 0; flex:1; }
+            .tm-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2px; }
+            .tm-name { font-size:22px; font-weight:800; color:#0E0E0E; }
+            .tm-mbti { font-size:13px; font-weight:700; color:#6B8700; font-family:'IBM Plex Mono',monospace; }
+            .tm-role { font-size:13px; color:#8A8A8A; margin-bottom:12px; }
+            .tm-img { width:100%; height:190px; display:flex; align-items:flex-end; justify-content:center; overflow:hidden; }
+            .tm-img img { height:180px; width:auto; object-fit:contain; mix-blend-mode:multiply; }
+            .tm-bottom { padding:20px 22px; }
+            .tm-team { font-size:15px; font-weight:700; margin-bottom:10px; }
+            .tm-duties { list-style:none; padding:0; margin:0; font-size:13px; line-height:1.9; }
+            .tm-duties li::before { content:"· "; }
+          </style>
 
-            <!-- 1. 고우철 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-1.png" class="w-full h-full object-cover" alt="고우철" />
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            <!-- 김서연 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">김서연</span>
+                  <span class="tm-mbti">ISFJ</span>
+                </div>
+                <div class="tm-role">운영팀장</div>
+                <div class="tm-img"><img src="/gemini-team-2.png" alt="김서연" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ENTP</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">고우철</h3>
-              <p class="text-xs text-slate-400 mb-3">연구소장</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>랩 로그인 비전·전략 총괄</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>청년 문화 연구 기획</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>외부 강연 및 파트너십</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#0E0E0E;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">운영팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>프로그램 운영 전반 관리</li>
+                  <li>참여자 온보딩 & 케어</li>
+                  <li>팀 내부 커뮤니케이션</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 2. 김서연 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-2.png" class="w-full h-full object-cover" alt="김서연" />
+            <!-- 이준혁 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">이준혁</span>
+                  <span class="tm-mbti">INTJ</span>
+                </div>
+                <div class="tm-role">데이터 분석 연구원</div>
+                <div class="tm-img"><img src="/gemini-team-3.png" alt="이준혁" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ISFJ</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">김서연</h3>
-              <p class="text-xs text-slate-400 mb-3">운영팀장</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>프로그램 운영 전반 관리</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>참여자 온보딩 & 케어</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>팀 내부 커뮤니케이션</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#1A2C1A;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">연구팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>청년 행동 데이터 분석</li>
+                  <li>리서치 방법론 설계</li>
+                  <li>인사이트 보고서 작성</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 3. 이준혁 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-3.png" class="w-full h-full object-cover" alt="이준혁" />
+            <!-- 박지원 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">박지원</span>
+                  <span class="tm-mbti">ENFP</span>
+                </div>
+                <div class="tm-role">콘텐츠 연구원</div>
+                <div class="tm-img"><img src="/gemini-team-4.png" alt="박지원" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">INTJ</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">이준혁</h3>
-              <p class="text-xs text-slate-400 mb-3">데이터 분석 연구원</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>청년 행동 데이터 분석</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>리서치 방법론 설계</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>인사이트 보고서 작성</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#1A2C1A;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">연구팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>아티클 & 뉴스레터 기획</li>
+                  <li>SNS 콘텐츠 전략 수립</li>
+                  <li>청년 트렌드 리서치</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 4. 박지원 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-4.png" class="w-full h-full object-cover" alt="박지원" />
+            <!-- 최민아 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">최민아</span>
+                  <span class="tm-mbti">INFJ</span>
+                </div>
+                <div class="tm-role">정책 기획 연구원</div>
+                <div class="tm-img"><img src="/gemini-team-5.png" alt="최민아" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ENFP</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">박지원</h3>
-              <p class="text-xs text-slate-400 mb-3">콘텐츠 연구원</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>아티클 & 뉴스레터 기획</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>SNS 콘텐츠 전략 수립</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>청년 트렌드 리서치</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#1A2C1A;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">연구팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>청년 정책 아젠다 발굴</li>
+                  <li>정부·기관 협력 기획</li>
+                  <li>사회 실험 프로토타입 설계</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 5. 최민아 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-5.png" class="w-full h-full object-cover" alt="최민아" />
+            <!-- 한동훈 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">한동훈</span>
+                  <span class="tm-mbti">ESFJ</span>
+                </div>
+                <div class="tm-role">커뮤니티 매니저</div>
+                <div class="tm-img"><img src="/gemini-team-6.png" alt="한동훈" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">INFJ</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">최민아</h3>
-              <p class="text-xs text-slate-400 mb-3">정책 기획 연구원</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>청년 정책 아젠다 발굴</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>정부·기관 협력 기획</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>사회 실험 프로토타입 설계</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#0E0E0E;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">운영팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>온라인 커뮤니티 운영</li>
+                  <li>멤버 참여 활성화 기획</li>
+                  <li>오프라인 네트워킹 이벤트</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 6. 한동훈 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-6.png" class="w-full h-full object-cover" alt="한동훈" />
+            <!-- 오승현 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">오승현</span>
+                  <span class="tm-mbti">ISTP</span>
+                </div>
+                <div class="tm-role">브랜드 디자이너</div>
+                <div class="tm-img"><img src="/gemini-team-7.png" alt="오승현" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ESFJ</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">한동훈</h3>
-              <p class="text-xs text-slate-400 mb-3">커뮤니티 매니저</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>온라인 커뮤니티 운영</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>멤버 참여 활성화 기획</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>오프라인 네트워킹 이벤트</span></li>
-              </ul>
+              <div class="tm-bottom" style="background:#2A1A00;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">크리에이티브팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>브랜드 아이덴티티 관리</li>
+                  <li>UI/UX 및 콘텐츠 디자인</li>
+                  <li>인쇄물·굿즈 제작 총괄</li>
+                </ul>
+              </div>
             </div>
 
-            <!-- 7. 오승현 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="/gemini-team-7.png" class="w-full h-full object-cover" alt="오승현" />
+            <!-- 유나영 -->
+            <div class="tm-card">
+              <div class="tm-top">
+                <div class="tm-header">
+                  <span class="tm-name">유나영</span>
+                  <span class="tm-mbti">ENFJ</span>
+                </div>
+                <div class="tm-role">워크숍 퍼실리테이터</div>
+                <div class="tm-img"><img src="/gemini-team-1.png" alt="유나영" /></div>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ISTP</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">오승현</h3>
-              <p class="text-xs text-slate-400 mb-3">브랜드 디자이너</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>브랜드 아이덴티티 관리</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>UI/UX 및 콘텐츠 디자인</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>인쇄물·굿즈 제작 총괄</span></li>
-              </ul>
-            </div>
-
-            <!-- 8. 유나영 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 ring-4 ring-[#EEF7B5] group-hover:ring-[#C8E600] transition-all duration-300 bg-slate-100">
-                <img src="https://api.dicebear.com/8.x/personas/svg?seed=YuNaYoung&backgroundColor=ffd5dc" class="w-full h-full object-cover" alt="유나영" />
+              <div class="tm-bottom" style="background:#2A1A00;color:#fff;">
+                <div class="tm-team" style="color:#C8E600;">크리에이티브팀</div>
+                <ul class="tm-duties" style="color:rgba(255,255,255,0.78);">
+                  <li>워크숍 커리큘럼 설계</li>
+                  <li>그룹 역동 촉진 & 피드백</li>
+                  <li>참여자 성장 모니터링</li>
+                </ul>
               </div>
-              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2" style="background:#EEF7B5;color:#6B8700;">ENFJ</span>
-              <h3 class="font-bold text-on-surface text-sm md:text-base mb-0.5">유나영</h3>
-              <p class="text-xs text-slate-400 mb-3">워크숍 퍼실리테이터</p>
-              <ul class="text-xs text-slate-400 text-left space-y-1 leading-relaxed w-full">
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>워크숍 커리큘럼 설계</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>그룹 역동 촉진 & 피드백</span></li>
-                <li class="flex gap-1.5"><span style="color:#C8E600;">·</span><span>참여자 성장 모니터링</span></li>
-              </ul>
             </div>
 
           </div>
