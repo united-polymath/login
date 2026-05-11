@@ -242,4 +242,11 @@
 <span class="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-medium">커뮤니케이션</span>
 </a>
 </nav>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
 </body></html>

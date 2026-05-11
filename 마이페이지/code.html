@@ -275,4 +275,11 @@
 <span class="material-symbols-outlined" data-icon="add">add</span>
 </button>
 </div>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
 </body></html>

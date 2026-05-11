@@ -1468,5 +1468,12 @@ function restartTest(){
   window.scrollTo(0,0);
 }
 </script>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
 </body>
 </html>

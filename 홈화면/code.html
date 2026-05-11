@@ -284,4 +284,11 @@
 <button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
 <span class="material-symbols-outlined" data-icon="add">add</span>
 </button>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
 </body></html>

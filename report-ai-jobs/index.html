@@ -701,5 +701,12 @@
     function openDlModal(){const m=document.getElementById('dlModal');m.classList.remove('hidden');m.classList.add('flex');}
     function closeDlModal(){const m=document.getElementById('dlModal');m.classList.add('hidden');m.classList.remove('flex');}
   </script>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
 </body>
 </html>
