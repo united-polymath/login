@@ -922,14 +922,14 @@ async function handleAvatarUpload(event) {
     if (currentProfile) currentProfile.avatar_url = publicUrl;
 
     // 화면 반영
-    avatarEl.innerHTML = `<img src="/${publicUrl}" class="w-full h-full object-cover" />`;
+    avatarEl.innerHTML = `<img src="${publicUrl}" class="w-full h-full object-cover" />`;
     updateHeaderAvatar(currentProfile?.name || '');
 
   } catch (e) {
     // Storage 없을 경우 base64 로컬 fallback
     const reader = new FileReader();
     reader.onload = (ev) => {
-      avatarEl.innerHTML = `<img src="/${ev.target.result}" class="w-full h-full object-cover" />`;
+      avatarEl.innerHTML = `<img src="${ev.target.result}" class="w-full h-full object-cover" />`;
     };
     reader.readAsDataURL(file);
   }
