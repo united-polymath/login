@@ -491,9 +491,15 @@ async function loadProfile() {
 function updateHeaderAvatar() {
   const el = document.getElementById('header-avatar');
   if (!el || !currentProfile?.name) return;
-  el.innerHTML = `<span class="text-sm font-bold text-blue-700">${currentProfile.name.charAt(0).toUpperCase()}</span>`;
-  el.classList.remove('bg-slate-200');
-  el.classList.add('bg-blue-100');
+  const initial = currentProfile.name.charAt(0).toUpperCase();
+  if (currentProfile.avatar_url) {
+    el.innerHTML = `<img src="${currentProfile.avatar_url}" class="w-full h-full object-cover rounded-full" onerror="this.parentElement.innerHTML='<span class=\\'text-sm font-bold text-blue-700\\'>${initial}</span>'" />`;
+    el.classList.remove('bg-blue-100');
+  } else {
+    el.innerHTML = `<span class="text-sm font-bold text-blue-700">${initial}</span>`;
+    el.classList.remove('bg-slate-200');
+    el.classList.add('bg-blue-100');
+  }
 }
 
 function updateWriteBar() {
@@ -502,8 +508,13 @@ function updateWriteBar() {
   if (currentUser && currentProfile) {
     loginBanner.classList.add('hidden');
     const initial = currentProfile.name ? currentProfile.name.charAt(0).toUpperCase() : '?';
-    avatar.innerHTML = `<span class="text-white font-bold text-sm">${initial}</span>`;
-    avatar.className = 'w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0';
+    if (currentProfile.avatar_url) {
+      avatar.innerHTML = `<img src="${currentProfile.avatar_url}" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=\\'text-white font-bold text-sm\\'>${initial}</span>'" />`;
+      avatar.className = 'w-10 h-10 rounded-full flex-shrink-0 overflow-hidden';
+    } else {
+      avatar.innerHTML = `<span class="text-white font-bold text-sm">${initial}</span>`;
+      avatar.className = 'w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0';
+    }
   } else if (currentUser) {
     loginBanner.classList.add('hidden');
   } else {
@@ -569,7 +580,7 @@ async function loadFeed() {
     const controller = new AbortController();
     setTimeout(() => controller.abort(), 8000);
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/posts?channel=eq.${currentChannel}&select=*,profiles(name,role)&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/posts?channel=eq.${currentChannel}&select=*,profiles(name,role,avatar_url)&order=created_at.desc`,
       { signal: controller.signal, headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' } }
     );
     if (!res.ok) throw new Error('fetch failed');
@@ -669,13 +680,16 @@ function postRowHTML(post, idx, total) {
 
   const avatarColors = ['#3b82f6','#8b5cf6','#10b981','#f43f5e','#f59e0b','#6366f1','#14b8a6'];
   const avatarColor  = avatarColors[name.charCodeAt(0) % avatarColors.length];
+  const avatarHtml   = profile.avatar_url
+    ? `<img src="${profile.avatar_url}" class="w-full h-full object-cover" onerror="this.parentElement.style.background='${avatarColor}';this.parentElement.innerHTML='<span class=\\'text-white font-bold text-sm\\'>${name.charAt(0).toUpperCase()}</span>'" />`
+    : name.charAt(0).toUpperCase();
 
   return `
   <div class="post-card rounded-2xl border border-[#E5E2D7] bg-white p-4">
     <!-- Header -->
     <div class="flex items-start gap-3 mb-3">
-      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:${avatarColor}">
-        ${name.charAt(0).toUpperCase()}
+      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 overflow-hidden" style="background:${profile.avatar_url ? 'transparent' : avatarColor}">
+        ${avatarHtml}
       </div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-1.5 flex-wrap">
@@ -856,7 +870,14 @@ function openWriteModal() {
     return;
   }
   const name = currentProfile?.name || '사용자';
-  document.getElementById('modal-avatar').textContent = name.charAt(0).toUpperCase();
+  const modalAvatarEl = document.getElementById('modal-avatar');
+  if (currentProfile?.avatar_url) {
+    modalAvatarEl.innerHTML = `<img src="${currentProfile.avatar_url}" class="w-full h-full object-cover rounded-full" />`;
+    modalAvatarEl.className = 'w-9 h-9 rounded-full flex-shrink-0 overflow-hidden';
+  } else {
+    modalAvatarEl.textContent = name.charAt(0).toUpperCase();
+    modalAvatarEl.className = 'w-9 h-9 rounded-full bg-[#C8E600] flex items-center justify-center text-black font-bold text-sm flex-shrink-0';
+  }
   document.getElementById('modal-username').textContent = name;
   const labels = { public:'전체 피드', manager:'매니저 라운지', admin:'관리자 채널' };
   document.getElementById('modal-channel-label').textContent = labels[currentChannel] || '전체 피드';
