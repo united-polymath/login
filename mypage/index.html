@@ -731,7 +731,7 @@ async function loadProfileData(user) {
         updateHeaderAvatar(displayName);
         const avatarEl = document.getElementById('profile-avatar');
         if (profile.avatar_url) {
-          avatarEl.innerHTML = `<img src="/${profile.avatar_url}" class="w-full h-full object-cover" />`;
+          avatarEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full object-cover" />`;
         } else {
           avatarEl.textContent = (displayName[0] || '?').toUpperCase();
         }
