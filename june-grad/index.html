@@ -2639,6 +2639,8 @@
 
         // ─── NAVIGATION ───
         const screenHash = { cover: 'cover', questions: 'q1', landing: 'form', result: 'result' };
+        let _landingEnterTime = null;
+
         function goTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-' + id).classList.add('active');
@@ -2647,6 +2649,8 @@
             const hash = id === 'questions' ? 'q' + (currentQ + 1) : (screenHash[id] || id);
             history.pushState(null, '', '#' + hash);
             if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: location.pathname + '#' + hash, page_title: document.title + ' | ' + hash });
+            // 랜딩(폼) 진입 시 타이머 시작
+            if (id === 'landing') _landingEnterTime = Date.now();
         }
 
         // ─── 커버 소셜 프루프 ───
@@ -2688,6 +2692,7 @@
             currentQ = 0;
             answers = new Array(QUESTIONS.length).fill(null);
             answerTypes = new Array(QUESTIONS.length).fill(null);
+            gtag('event', 'quiz_start', { quiz_name: 'june_grad' });
             goTo('questions');
         }
 
@@ -2732,6 +2737,7 @@
 
         function selectOpt(qIdx, optIdx, type) {
             answers[qIdx] = optIdx; answerTypes[qIdx] = type;
+            gtag('event', 'quiz_answer', { quiz_name: 'june_grad', question: qIdx + 1, answer_type: type });
             renderQuestion(qIdx);
         }
 
@@ -2856,6 +2862,11 @@
             const typeName = RESULTS[typeCode]?.name || typeCode;
 
             sendToSheet({ name, age, phone, job, district, concern, interview: interview ? 'Y' : 'N', type: typeCode, typeName, timestamp: new Date().toISOString() });
+
+            // GA4: 폼 제출 완료 + 결과 유형 + 랜딩 체류시간
+            const landingSeconds = _landingEnterTime ? Math.round((Date.now() - _landingEnterTime) / 1000) : 0;
+            gtag('event', 'form_complete', { quiz_name: 'june_grad', result_type: typeCode, result_name: typeName, landing_seconds: landingSeconds });
+            gtag('event', 'result_view', { quiz_name: 'june_grad', result_type: typeCode, result_name: typeName });
 
             renderResult();
             goTo('result');
