@@ -1069,6 +1069,17 @@
   // ⚠️ 공모전_B와 동일한 Apps Script 웹 앱 URL (같은 시트로 전송)
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzFuyuYUD7JlGza2W6AwyZiukWEJj9iBcUD93AZpyRB-1iga3xZZlomwqRobKAdzi4j/exec';
 
+  // GA4: 첫 입력 시 form_start
+  (function() {
+    var started = false;
+    document.getElementById('applyForm').addEventListener('focusin', function() {
+      if (!started) {
+        started = true;
+        gtag('event', 'form_start', { form_name: 'contest_b' });
+      }
+    }, { once: false });
+  })();
+
   function handleSubmit(e) {
     e.preventDefault();
     var form = e.target;
@@ -1078,6 +1089,9 @@
       alert('관리자 설정 오류: Apps Script URL이 입력되지 않았습니다.');
       return false;
     }
+
+    // GA4: 제출 시도
+    gtag('event', 'form_submit', { form_name: 'contest_b' });
 
     // FormData로 일반 필드 수집
     var formData = new FormData(form);
@@ -1121,10 +1135,12 @@
       body: JSON.stringify(data)
     })
     .then(function() {
+      gtag('event', 'form_complete', { form_name: 'contest_b' });
       document.getElementById('modal').classList.add('show');
     })
     .catch(function(err) {
       console.error(err);
+      gtag('event', 'form_error', { form_name: 'contest_b', error: err.message || 'unknown' });
       alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     })
     .finally(function() {
