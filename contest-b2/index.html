@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHG5NNPNLF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZHG5NNPNLF');
+</script>
+
+<!-- Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18166635976"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18166635976');
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>청년 취업 1:1 동행 사업 · 참가 신청서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF5;
+    --bg-warm: #F4F1E8;
+    --card: #FFFFFF;
+    --ink: #0E0E0E;
+    --ink-soft: #2A2A2A;
+    --ink-mid: #555555;
+    --ink-light: #8A8A8A;
+    --line: #E5E2D7;
+    --line-strong: #2A2A2A;
+    --lime: #C8E600;
+    --lime-deep: #A8C400;
+    --lime-soft: #EEF7B5;
+    --warm: #FFE7B5;
+    --shadow-sm: 0 2px 8px rgba(20, 20, 20, 0.04);
+    --shadow-md: 0 6px 20px rgba(20, 20, 20, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(20, 20, 20, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20, 20, 20, 0.025) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    color: var(--ink);
+    line-height: 1.65;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .topbar-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--lime);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 24px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+
+  .wordmark { display: inline-block; margin-bottom: 24px; }
+  .wordmark-svg { display: block; }
+
+  .lab-tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 14px;
+    border: 1px solid var(--lime);
+    color: var(--lime);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-radius: 999px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    margin: 24px 0 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+  }
+  .header-title .accent { color: var(--lime); position: relative; }
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .header-meta span strong { color: var(--lime); font-weight: 500; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 760px;
+    margin: -40px auto 0;
+    padding: 0 20px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* WELCOME */
+  .welcome {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .welcome::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 48px; height: 4px;
+    background: var(--lime);
+  }
+  .welcome-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+  }
+  .welcome-q {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 18px;
+    letter-spacing: -0.3px;
+  }
+  .welcome p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+  }
+  .welcome p:last-child { margin-bottom: 0; }
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--lime-soft) 60%);
+    padding: 0 2px;
+    font-weight: 600;
+  }
+
+  /* POLICY BANNER */
+  .policy-banner {
+    margin-top: 22px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 4px;
+    padding: 22px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .policy-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+  }
+  .policy-banner .pb-num {
+    position: relative;
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: var(--lime);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+  .policy-banner .pb-body { position: relative; }
+  .policy-banner .pb-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 6px;
+  }
+  .policy-banner .pb-title {
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    line-height: 1.45;
+    color: #fff;
+  }
+  .policy-banner .pb-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .policy-banner .pb-desc b { color: var(--lime); font-weight: 600; }
+
+  /* SECTIONS */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .section-head {
+    border-bottom: 1px solid var(--line);
+    padding: 22px 32px;
+    background: var(--bg-warm);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--ink);
+    color: var(--lime);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .section-titles { flex: 1; min-width: 0; }
+  .section-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.2px;
+  }
+  .section-body { padding: 28px 32px; }
+
+  .section-desc {
+    font-size: 14px;
+    color: var(--ink-mid);
+    margin: 0 0 24px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-left: 3px solid var(--lime);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* FIELDS */
+  .field { margin-bottom: 22px; }
+  .field:last-child { margin-bottom: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 540px) { .row { grid-template-columns: 1fr; } }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  label .req {
+    color: var(--lime-deep);
+    background: var(--ink);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  label .opt {
+    background: var(--bg-warm);
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .hint {
+    font-size: 12.5px;
+    color: var(--ink-light);
+    margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+  .guide {
+    background: var(--bg-warm);
+    border: 1px dashed var(--line-strong);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    margin-top: 8px;
+    line-height: 1.6;
+    position: relative;
+  }
+  .guide::before {
+    content: "// TIP";
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    background: var(--lime);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: #fff;
+    transition: all 0.15s ease;
+    outline: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px var(--lime-soft);
+  }
+  textarea { min-height: 110px; resize: vertical; font-family: inherit; }
+
+  /* OPTIONS */
+  .options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .option { flex: 1 1 auto; min-width: 140px; position: relative; }
+  .option input { position: absolute; opacity: 0; pointer-events: none; }
+  .option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    transition: all 0.15s ease;
+    color: var(--ink-soft);
+  }
+  .option label::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--line-strong);
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+  }
+  .option.checkbox label::before { border-radius: 3px; }
+  .option label:hover { border-color: var(--ink); background: var(--bg-warm); }
+  .option input:checked + label {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+  .option input:checked + label::before {
+    background: var(--lime);
+    border-color: var(--lime);
+    box-shadow: inset 0 0 0 3px var(--ink);
+  }
+  .option.checkbox input:checked + label::before {
+    background: var(--lime) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E0E0E' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center / 11px no-repeat;
+    box-shadow: none;
+  }
+  .options-vertical .option { flex: 1 1 100%; min-width: 100%; }
+  .options-vertical .option label { align-items: flex-start; line-height: 1.5; }
+  .options-vertical .option label::before { margin-top: 3px; }
+
+  .opt-tag {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 6px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .option input:checked + label .opt-tag { background: var(--lime); color: var(--ink); }
+  .opt-desc {
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--ink-light);
+    margin-top: 2px;
+  }
+  .option input:checked + label .opt-desc { color: rgba(255, 255, 255, 0.65); }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--bg-warm);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--lime-deep);
+    padding: 18px 20px;
+    border-radius: 4px;
+  }
+  .callout-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .callout p { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 8px;}
+  .callout p:last-child { margin-bottom: 0; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-mid); font-size: 13.5px; line-height: 1.7; }
+
+  /* CONSENT */
+  .consent {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .consent strong {
+    color: var(--ink);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .consent ul { margin: 6px 0 0; padding-left: 18px; }
+  .consent ul li { margin-bottom: 3px; }
+
+  /* SUBMIT */
+  .submit-area {
+    text-align: center;
+    margin-top: 36px;
+    padding: 32px;
+    background: var(--ink);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-area::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .submit-area-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    margin-bottom: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .submit-btn {
+    background: var(--lime);
+    color: var(--ink);
+    border: none;
+    padding: 16px 56px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    letter-spacing: 0.5px;
+    position: relative;
+    box-shadow: 4px 4px 0 var(--lime-deep);
+  }
+  .submit-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--lime-deep); }
+  .submit-btn:active { transform: translate(0, 0); box-shadow: 2px 2px 0 var(--lime-deep); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 40px 24px;
+    text-align: center;
+    margin-top: 60px;
+  }
+  .footer-msg { font-size: 16px; color: #fff; margin-bottom: 12px; font-weight: 500; }
+  .footer-msg .accent { color: var(--lime); }
+  .footer-sub { font-size: 13px; line-height: 1.7; margin-bottom: 24px; }
+  .footer-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .container { padding: 0 14px 60px; }
+    .header { padding: 40px 20px 60px; }
+    .header-title { font-size: 24px; }
+    .section-head, .section-body, .welcome { padding-left: 22px; padding-right: 22px; }
+    .submit-btn { padding: 14px 36px; font-size: 14px; }
+    .header-meta { gap: 12px; font-size: 10px; }
+    .policy-banner { flex-direction: column; gap: 12px; }
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--lime);
+    border-radius: 4px;
+    padding: 36px 32px;
+    text-align: center;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: var(--shadow-md);
+  }
+  .modal-tag {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .modal h3 { font-size: 22px; margin: 0 0 12px; font-weight: 700; }
+  .modal p { font-size: 14px; color: var(--ink-mid); line-height: 1.7; margin: 0 0 20px; }
+  .modal-btn {
+    background: var(--ink);
+    color: var(--lime);
+    border: none;
+    padding: 12px 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-dot"></span>
+    <span>Youth Career Lab · Recruiting Now</span>
+  </div>
+  <div>FORM ID: YCL-2026-CAREER-001</div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="wordmark">
+      <svg class="wordmark-svg" width="240" height="84" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg" aria-label="Login">
+        <defs>
+          <style>
+            .lime-front { fill: #C8E600; }
+            .lime-shadow { fill: #8DA200; }
+          </style>
+        </defs>
+        <g class="lime-shadow" transform="translate(7, 7)">
+          <text x="0" y="80" font-family="'Noto Sans KR', sans-serif" font-size="84" font-weight="900" letter-spacing="-3">Login</text>
+        </g>
+        <g class="lime-front">
+          <text x="0" y="80" font-family="'Noto Sans KR', sans-serif" font-size="84" font-weight="900" letter-spacing="-3">Login</text>
+        </g>
+      </svg>
+    </div>
+    <div><span class="lab-tag">Youth Career Policy Research</span></div>
+
+    <h1 class="header-title">한 시간이, <span class="accent">정책 한 줄</span>이 됩니다.</h1>
+    <p class="header-sub">청년 취업 1:1 동행 사업 — 참가자 모집 신청서</p>
+
+    <div class="header-meta">
+      <span>PROJECT · <strong>LOGIN CAREER</strong></span>
+      <span>YEAR · <strong>2026</strong></span>
+      <span>AGE · <strong>20~28</strong></span>
+      <span>SEATS · <strong>5</strong></span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- WELCOME -->
+  <section class="welcome">
+    <div class="welcome-label">// Welcome · 사업 소개</div>
+    <h2 class="welcome-q">이 신청서는, 청년 정책의 첫 줄입니다.</h2>
+    <p>본 사업은 단순한 무료 코칭이 아닙니다. <strong>청년 취업 현장의 실제 목소리</strong>를 모아, 정부·지자체·민간으로 향하는 <span class="highlight">청년 정책 제안 보고서</span>로 환원하기 위한 정책 리서치 동행 사업입니다.</p>
+    <p>비영리 단체와 청년 지원 유관 기관이 공동 운영하며, 청년에게 어떠한 비용도 청구되지 않습니다. 참여 청년의 인터뷰는 익명 처리되어 보고서 외 어떠한 상업적 목적으로도 활용되지 않습니다.</p>
+
+    <div class="policy-banner">
+      <div class="pb-num">POL</div>
+      <div class="pb-body">
+        <div class="pb-tag">// Policy Mission</div>
+        <h3 class="pb-title">우리는 이 신청서를 청년 정책 보고서로 만듭니다.</h3>
+        <p class="pb-desc">코칭 60분 + 정책 리서치 인터뷰 30분이 한 단계로 운영되며, 보고서 발간 후 참여자 전원에게 송부됩니다. <b>지금 작성하시는 답변 한 줄이, 다음 청년 정책의 시작점이 됩니다.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <form id="applyForm" onsubmit="return handleSubmit(event)">
+
+    <!-- 01. 지원 내용 (택1) -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">01</div>
+        <div class="section-titles">
+          <div class="section-meta">CHOOSE ONE</div>
+          <h3 class="section-title">지원 내용 — 한 가지만 받을 수 있어요</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">아래 3가지 중 본인에게 가장 필요한 한 가지를 골라주세요.</p>
+
+        <div class="field">
+          <label>받고 싶은 지원 <span class="req">REQUIRED</span></label>
+          <div class="options options-vertical">
+            <div class="option">
+              <input type="radio" id="menu-1" name="support" value="직무적성검사/직무방향설정" required />
+              <label for="menu-1">
+                <span><span class="opt-tag">01</span><strong>직무 적성검사 · 직무방향 설정</strong><div class="opt-desc">내가 어떤 직무에 맞는지부터 모르겠다면 — 검사 + 결과 해석 + 1:1 직무방향 코칭</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="menu-2" name="support" value="자소서/이력서첨삭" />
+              <label for="menu-2">
+                <span><span class="opt-tag">02</span><strong>자기소개서 · 이력서 첨삭</strong><div class="opt-desc">지원 기업·직무 정보를 사전 제출 → 1:1 첨삭 → 첨삭본 + 라이팅 가이드 수령</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="menu-3" name="support" value="Login모의면접" />
+              <label for="menu-3">
+                <span><span class="opt-tag">03</span><strong>1:1 모의면접 코칭 · 시뮬레이션</strong><div class="opt-desc">실전 모의면접 → 답변 구조화 코칭 → 피드백 노트 (화상 시 영상 자료 포함)</div></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. 현재 구직 상태 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">02</div>
+        <div class="section-titles">
+          <div class="section-meta">CURRENT STATUS</div>
+          <h3 class="section-title">현재 상태 — 지금 어디쯤 와 있나요?</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">사업 지원 대상 — 졸업예정자 / 구직자 / 1년 이내 신입. 본인의 현재 단계를 골라주세요.</p>
+
+        <div class="field">
+          <label>현재 구직 상태 <span class="req">REQUIRED</span></label>
+          <div class="options options-vertical">
+            <div class="option">
+              <input type="radio" id="status-1" name="status" value="졸업예정자" required />
+              <label for="status-1">
+                <span><span class="opt-tag">A</span><strong>졸업예정자</strong> · 재학 중, 1년 이내 졸업 예정<div class="opt-desc">학교 진로취업처와 병행해도 좋습니다.</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="status-2" name="status" value="졸업구직" />
+              <label for="status-2">
+                <span><span class="opt-tag">B</span><strong>졸업 후 구직 중</strong> · 본격 취준 단계<div class="opt-desc">자소서·면접 어디든 1:1로 도와드릴 수 있습니다.</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="status-3" name="status" value="신입" />
+              <label for="status-3">
+                <span><span class="opt-tag">C</span><strong>취업 1년 이내 신입</strong> · 이직 또는 적응 단계<div class="opt-desc">초기 커리어 인터뷰 자료로 큰 도움이 됩니다.</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="status-4" name="status" value="이직준비" />
+              <label for="status-4">
+                <span><span class="opt-tag">D</span><strong>재직 중 이직 준비</strong> · 우선순위 낮을 수 있음<div class="opt-desc">신청은 가능하나 매칭 후순위가 될 수 있습니다.</div></span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="status-5" name="status" value="기타" />
+              <label for="status-5">
+                <span><span class="opt-tag">E</span><strong>기타</strong> · 직접 입력<div class="opt-desc">위 항목에 해당하지 않는다면, 본인의 상태를 짧게 적어주세요.</div></span>
+              </label>
+            </div>
+          </div>
+          <input type="text" name="status_other" id="status_other" placeholder="'기타' 선택 시 직접 입력해 주세요" disabled style="opacity:0.5; cursor:not-allowed; margin-top:10px;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. 기본 정보 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">03</div>
+        <div class="section-titles">
+          <div class="section-meta">PARTICIPANT INFO</div>
+          <h3 class="section-title">기본 정보 — 우리 조금 더 알아가요</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">매칭 안내와 지원 자격(만 20~28세 · 서울·경기 거주) 확인을 위한 정보입니다. 외부에 공유되지 않습니다.</p>
+
+        <div class="field">
+          <label>성함 <span class="req">REQUIRED</span></label>
+          <input type="text" name="name" placeholder="예) 김청년" required />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>만 나이 <span class="req">REQUIRED</span></label>
+            <input type="number" name="age" min="18" max="35" placeholder="예) 25" required />
+            <p class="hint">// 만 20~28세 청년만 신청 가능합니다.</p>
+          </div>
+          <div class="field">
+            <label>성별 <span class="opt">OPTIONAL</span></label>
+            <select name="gender">
+              <option value="">선택 안 함</option>
+              <option value="여성">여성</option>
+              <option value="남성">남성</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>거주지 <span class="req">REQUIRED</span></label>
+          <p class="hint" style="margin-top:0; margin-bottom:10px;">// 서울·경기 거주자 우선. 매칭·지역 정책 분석 자료로만 활용됩니다.</p>
+          <div class="options" id="regionOptions" style="margin-bottom: 12px;">
+            <div class="option">
+              <input type="radio" id="region-seoul" name="region" value="서울시" required />
+              <label for="region-seoul"><span><strong>서울시</strong></span></label>
+            </div>
+            <div class="option">
+              <input type="radio" id="region-gg" name="region" value="경기도" />
+              <label for="region-gg"><span><strong>경기도</strong></span></label>
+            </div>
+            <div class="option">
+              <input type="radio" id="region-etc" name="region" value="그외 지역" />
+              <label for="region-etc"><span><strong>그외 지역</strong></span></label>
+            </div>
+          </div>
+          <input type="text" name="residence_detail" id="residence_detail" placeholder="먼저 위에서 지역을 선택해 주세요" disabled style="opacity:0.5; cursor:not-allowed;" />
+          <p class="hint" id="residence_hint" style="display:none;">// 선택한 지역의 세부 시·구·동을 적어주세요.</p>
+        </div>
+
+        <div class="field">
+          <label>연락처 <span class="req">REQUIRED</span></label>
+          <input type="tel" name="phone" placeholder="01012345678 ('-' 제외)" required />
+          <p class="hint">// 매칭 안내 통화 및 결과 안내에 사용됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. 희망 직무 · 학력 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">04</div>
+        <div class="section-titles">
+          <div class="section-meta">CAREER FOCUS</div>
+          <h3 class="section-title">희망 직무 · 학력 — 어디로 향하고 있나요?</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">코칭의 정확도와 정책 보고서의 직무별 분석을 위한 정보입니다. 아직 탐색 단계여도 그대로 적어주세요.</p>
+
+        <div class="field">
+          <label>희망 직무 · 산업 <span class="req">REQUIRED</span></label>
+          <input type="text" name="job_target" placeholder="예) 마케팅 / IT 개발 / 디자인 / 공공기관 행정 / 아직 탐색 단계" required />
+          <div class="guide">정해지지 않았다면 "아직 탐색 단계"라고 적어주셔도 좋습니다. 그 자체가 의미 있는 정책 데이터입니다.</div>
+        </div>
+
+        <div class="field">
+          <label>학력 · 전공 (간단히) <span class="opt">OPTIONAL</span></label>
+          <input type="text" name="edu" placeholder="예) ○○대학교 경영학과 졸업예정 / 전문대 시각디자인 졸업" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. 참여 동기 + 청년 정책 의견 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">05</div>
+        <div class="section-titles">
+          <div class="section-meta">MOTIVATION &amp; POLICY VOICE</div>
+          <h3 class="section-title">참여 동기 · 청년 정책 의견</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">정답을 적는 칸이 아닙니다. 솔직한 두 줄이면 충분합니다. 이 답변은 정책 보고서의 1차 정성 자료가 됩니다.</p>
+
+        <div class="field">
+          <label>왜 이 사업에 신청하시게 되었나요? (참여 동기) <span class="req">REQUIRED</span></label>
+          <textarea name="motivation" placeholder="예) 자소서 첫 문장이 매번 막혀서 / 면접에서 두괄식으로 답하는 게 어렵다 / 누군가와 한 번이라도 이야기 나눠본 적이 없어서" required></textarea>
+          <div class="guide">완성된 글이 아니어도 좋습니다. 막혀 있는 그 지점, 솔직한 한두 문장이면 충분합니다.</div>
+        </div>
+
+        <div class="field">
+          <label>청년에게 어떤 정책이 있었으면 좋겠나요? <span class="req">REQUIRED</span></label>
+          <textarea name="policy_voice" placeholder="예) 자소서 첨삭이 일회성이 아니라 합격할 때까지 따라가 줬으면 / 면접 후기 데이터가 공공으로 공유되었으면 / 지방 거주자도 화상으로 동일하게 받을 수 있는 코칭 / 청년 멘탈 케어와 취업 코칭이 연결되었으면" required></textarea>
+          <div class="guide">정부·지자체·민간 어느 쪽에서든 좋습니다. 거창하지 않아도, 본인의 경험에서 나온 한 줄이 가장 강력합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. 개인정보 동의 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">06</div>
+        <div class="section-titles">
+          <div class="section-meta">CONSENT</div>
+          <h3 class="section-title">개인정보 수집 · 이용 동의</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <p class="section-desc">아래 동의는 필수이며, 동의하지 않으실 경우 신청이 어렵습니다.</p>
+
+        <div class="consent">
+          <strong>// Personal Data Collection</strong>
+          수집 항목 — 이름, 만 나이, 연락처, 거주지, 구직 상태, 희망 직무, 참여 동기 및 정책 의견.<br>
+          이용 목적 — 신청자 매칭, 코칭·인터뷰 일정 안내, 청년 정책 제안 보고서 작성 및 송부.<br>
+          보유 기간 — 사업 종료 후 1년 이내 파기. 인터뷰·정책 의견은 식별 정보 제거 후 익명 자료로만 보관됩니다.
+        </div>
+        <div class="options">
+          <div class="option checkbox" style="flex: 1 1 100%;">
+            <input type="checkbox" id="agree-privacy" name="agree_privacy" required />
+            <label for="agree-privacy">개인정보 수집·이용에 동의합니다. (필수)</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. 마무리 -->
+    <section class="section">
+      <header class="section-head">
+        <div class="section-num">07</div>
+        <div class="section-titles">
+          <div class="section-meta">ONE LAST THING</div>
+          <h3 class="section-title">마지막으로 한 가지만</h3>
+        </div>
+      </header>
+      <div class="section-body">
+        <div class="field">
+          <label>이 사업을 어디서 알게 되셨나요? <span class="opt">OPTIONAL</span></label>
+          <select name="source">
+            <option value="">선택해 주세요</option>
+            <option value="인스타그램">인스타그램</option>
+            <option value="페이스북">페이스북</option>
+            <option value="에브리타임">에브리타임</option>
+            <option value="대학 진로취업처">대학 진로·취업처</option>
+            <option value="청년센터">청년센터·청년재단</option>
+            <option value="지인 추천">지인 추천</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>담당자에게 미리 전하고 싶은 말 <span class="opt">OPTIONAL</span></label>
+          <textarea name="memo" placeholder="예) 5월 23일 면접이 잡혀 있어 그 전에 코칭을 받으면 좋겠습니다."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <div class="submit-area-text">// Ready to Submit</div>
+      <button type="submit" class="submit-btn">신청서 제출하기 →</button>
+    </div>
+  </form>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-msg">청년의 한 시간이, 정책 한 줄이 됩니다. <span class="accent">→</span></div>
+  <div class="footer-sub">혼자 버티지 말고, 함께 나아가요.<br>당신의 답변은 다음 청년의 한 걸음이 됩니다.</div>
+  <div class="footer-meta">
+    <span>© 2026 YOUTH CAREER LAB</span>
+    <span>LOGIN · POLICY RESEARCH</span>
+    <span>FORM v4.0</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-tag">SUBMITTED · 제출 완료</div>
+    <h3>신청해 주셔서 감사합니다</h3>
+    <p>운영팀이 제출 내용을 검토한 뒤,<br>영업일 기준 2일 이내에 매칭 결과를<br>입력하신 연락처로 안내드릴 예정입니다.<br><br>오늘 작성하신 답변은,<br>청년 정책 보고서의 한 줄이 됩니다.</p>
+    <button class="modal-btn" onclick="closeModal()">확인</button>
+  </div>
+</div>
+
+<script>
+  // 거주지 - 지역 카테고리 선택 시 세부 입력란 활성화 + placeholder 변경
+  (function () {
+    var regionInputs = document.querySelectorAll('input[name="region"]');
+    var detail = document.getElementById('residence_detail');
+    var hint = document.getElementById('residence_hint');
+    var placeholders = {
+      '서울시': '예) 마포구 연남동 / 강남구 역삼동',
+      '경기도': '예) 성남시 분당구 / 수원시 영통구',
+      '그외 지역': '예) 부산광역시 해운대구 / 대전광역시 유성구'
+    };
+    regionInputs.forEach(function (r) {
+      r.addEventListener('change', function () {
+        detail.disabled = false;
+        detail.required = true;
+        detail.style.opacity = '1';
+        detail.style.cursor = 'text';
+        detail.placeholder = placeholders[r.value] || '세부 시·구·동을 적어주세요';
+        hint.style.display = 'block';
+        detail.focus();
+      });
+    });
+  })();
+
+  // 현재 상태 - '기타' 선택 시 직접 입력란 활성화 / 다른 항목 선택 시 비활성화
+  (function () {
+    var statusInputs = document.querySelectorAll('input[name="status"]');
+    var otherInput = document.getElementById('status_other');
+    function setDisabled() {
+      otherInput.disabled = true;
+      otherInput.required = false;
+      otherInput.value = '';
+      otherInput.style.opacity = '0.5';
+      otherInput.style.cursor = 'not-allowed';
+      otherInput.placeholder = "'기타' 선택 시 직접 입력해 주세요";
+    }
+    function setEnabled() {
+      otherInput.disabled = false;
+      otherInput.required = true;
+      otherInput.style.opacity = '1';
+      otherInput.style.cursor = 'text';
+      otherInput.placeholder = '예) 군 복무 중 / 유학 준비 / 창업 준비 등';
+      otherInput.focus();
+    }
+    statusInputs.forEach(function (s) {
+      s.addEventListener('change', function () {
+        if (s.checked && s.value === '기타') setEnabled();
+        else if (s.checked) setDisabled();
+      });
+    });
+  })();
+
+  // ⚠️ 공모전_B와 동일한 Apps Script 웹 앱 URL (같은 시트로 전송)
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzFuyuYUD7JlGza2W6AwyZiukWEJj9iBcUD93AZpyRB-1iga3xZZlomwqRobKAdzi4j/exec';
+
+  // GA4: 첫 입력 시 form_start
+  (function() {
+    var started = false;
+    document.getElementById('applyForm').addEventListener('focusin', function() {
+      if (!started) {
+        started = true;
+        gtag('event', 'form_start', { form_name: 'contest_b' });
+      }
+    }, { once: false });
+  })();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    var form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return false; }
+
+    if (!GAS_URL || GAS_URL.indexOf('YOUR_APPS_SCRIPT') === 0) {
+      alert('관리자 설정 오류: Apps Script URL이 입력되지 않았습니다.');
+      return false;
+    }
+
+    // GA4: 제출 시도
+    gtag('event', 'form_submit', { form_name: 'contest_b' });
+
+    // FormData로 일반 필드 수집
+    var formData = new FormData(form);
+    var data = Object.fromEntries(formData.entries());
+
+    // 체크박스는 checked 상태를 boolean으로 명시 (체크 안 하면 FormData에 안 담김)
+    data.agree_privacy = form.agree_privacy && form.agree_privacy.checked;
+
+    // 텍스트 필드 trim
+    ['name', 'residence_detail', 'phone', 'job_target', 'edu',
+     'motivation', 'policy_voice', 'memo', 'status_other'].forEach(function(k) {
+      if (typeof data[k] === 'string') data[k] = data[k].trim();
+    });
+
+    // 버튼 잠금 (중복 제출 방지)
+    var btn = document.querySelector('.submit-btn');
+    var originalText = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '제출 중...';
+      btn.style.opacity = '0.6';
+      btn.style.cursor = 'not-allowed';
+    }
+
+    // Supabase에 저장 (fire-and-forget)
+    fetch('https://atzyvbifvrlhwploqmpr.supabase.co/rest/v1/AD-login-contest-b', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    }).catch(function(e) { console.log('Supabase error:', e); });
+
+    fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data)
+    })
+    .then(function() {
+      gtag('event', 'form_complete', { form_name: 'contest_b' });
+      document.getElementById('modal').classList.add('show');
+    })
+    .catch(function(err) {
+      console.error(err);
+      gtag('event', 'form_error', { form_name: 'contest_b', error: err.message || 'unknown' });
+      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    })
+    .finally(function() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.opacity = '';
+        btn.style.cursor = '';
+      }
+    });
+
+    return false;
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+    document.getElementById('applyForm').reset();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
+  });
+</script>
+</body>
+</html>
