@@ -139,9 +139,8 @@ const fmt = {
 };
 
 function isoToday() {
-  const d = new Date();
-  const tzOffsetMs = d.getTimezoneOffset() * 60 * 1000;
-  return new Date(d.getTime() - tzOffsetMs).toISOString().slice(0, 10);
+  // KST(Asia/Seoul) 기준 오늘 날짜 — 클라이언트 로컬 타임존 무시
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
 }
 
 /* ============================================================================
@@ -186,7 +185,7 @@ const Auth = {
     if (profile.status === 'pending')   { await sb.auth.signOut(); throw new Error('관리자 승인 대기중입니다.'); }
     if (profile.status === 'rejected')  { await sb.auth.signOut(); throw new Error('가입이 거절되었습니다.'); }
     if (profile.status === 'suspended') { await sb.auth.signOut(); throw new Error('정지된 계정입니다.'); }
-
+    // completed: 챌린지 종료 — 결과 화면만 보여줌 (앱 본 페이지 진입 X)
     return profile;
   },
 
@@ -206,6 +205,8 @@ const Auth = {
   async requireAuth(redirect = 'login.html') {
     const u = await this.currentUser();
     if (!u) { location.replace(redirect); return null; }
+    // 챌린지 종료 사용자는 결과 화면으로
+    if (u.status === 'completed') { location.replace('complete.html'); return null; }
     // 승인 안 된 사용자가 직접 URL로 접근하는 걸 차단
     if (u.status !== 'approved') {
       await this.logout();

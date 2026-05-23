@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>챌린지 완료 — 잡도리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .complete-shell {
+    min-height: 100dvh;
+    padding: 32px 20px 40px;
+    background: var(--bg);
+  }
+  .complete-card {
+    max-width: 440px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+  .complete-hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .complete-hero .badge-emoji { font-size: 48px; line-height: 1; margin-bottom: 8px; }
+  .complete-hero h1 {
+    font-family: 'Gowun Batang', serif;
+    font-size: 24px;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .complete-hero .greet {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .complete-name { font-weight: 700; }
+  .stat-grid {
+    background: #F4F5EE;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 22px 0;
+  }
+  .stat-grid .stat-title {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #DDD9CC;
+  }
+  .stat-row:last-child { border-bottom: none; padding-top: 14px; }
+  .stat-row .l { font-size: 13px; color: var(--ink-soft); }
+  .stat-row .v {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .stat-row.refund .v {
+    font-size: 22px;
+    color: var(--accent-deep);
+  }
+  .info-block {
+    background: #FFF8E1;
+    border: 1px solid #F3DA86;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #7A5A00;
+  }
+  .info-block strong { color: #5A4400; }
+  .info-block .ib-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+  .info-block.next {
+    background: #EEF7B5;
+    border-color: #C8E600;
+    color: #4A5C00;
+  }
+  .info-block.next strong { color: #2A3500; }
+  .complete-footer {
+    text-align: center;
+    font-family: 'Gowun Batang', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 22px 0 18px;
+    line-height: 1.6;
+  }
+  .ack-btn {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<main class="complete-shell">
+  <div class="complete-card" id="complete-card">
+    <div class="complete-hero">
+      <div class="badge-emoji">🎉</div>
+      <h1>14일 챌린지 완료!</h1>
+      <p class="greet">
+        <span class="complete-name" id="user-name">…</span>님,<br>
+        끝까지 함께해주셔서 진심으로 감사드려요.
+      </p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-title">📊 나의 성과</div>
+      <div class="stat-row">
+        <span class="l">완수</span>
+        <span class="v"><span id="stat-approved">—</span>일 / 14일</span>
+      </div>
+      <div class="stat-row">
+        <span class="l">이행률</span>
+        <span class="v"><span id="stat-rate">—</span>%</span>
+      </div>
+      <div class="stat-row refund">
+        <span class="l">환급 예정</span>
+        <span class="v">₩<span id="stat-refund">—</span></span>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="ib-title">💰 환급 안내</div>
+      가입 시 등록하신 계좌로 <strong>2~3일 이내</strong>에 환급됩니다.<br>
+      입금명: <strong>"잡도리 환급-[이름]"</strong>
+    </div>
+
+    <div class="info-block">
+      <div class="ib-title">🎁 선물 안내</div>
+      조교가 <strong>개별 연락</strong> 드릴 예정이에요. 잠시만 기다려 주세요!
+    </div>
+
+    <div class="info-block next">
+      <div class="ib-title">📌 다음 챌린지 안내</div>
+      안내에 따라 다음 챌린저 모집이 진행될 예정입니다.
+    </div>
+
+    <p class="complete-footer">
+      수고하셨어요.<br>
+      잘 다듬어진 14일이 되었길 바라요.
+    </p>
+
+    <button class="btn primary block ack-btn" id="ack-btn">
+      확인하고 마무리하기
+    </button>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  (async function () {
+    const u = await Auth.currentUser();
+    if (!u) { location.replace('login.html'); return; }
+
+    // completed 가 아니면 일반 흐름으로 돌려보냄
+    if (u.status !== 'completed') {
+      if (u.role === 'admin') location.replace('admin.html');
+      else if (u.status === 'approved') location.replace('home.html');
+      else location.replace('login.html');
+      return;
+    }
+
+    document.getElementById('user-name').textContent = u.name || '회원';
+
+    // 최신 차수의 결과 불러오기
+    const { data: result, error } = await sb
+      .from('japdori_challenge_results')
+      .select('*')
+      .eq('user_id', u.id)
+      .eq('round', u.current_round || 1)
+      .maybeSingle();
+
+    if (!result) {
+      alert('결과 데이터를 불러오지 못했어요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    document.getElementById('stat-approved').textContent = result.approved_days;
+    document.getElementById('stat-rate').textContent = Math.round(result.completion_rate * 1000) / 10;
+    document.getElementById('stat-refund').textContent =
+      Number(result.refund_amount).toLocaleString('ko-KR');
+
+    // 완수 일수에 따른 메시지 가변 처리
+    const hero = document.querySelector('.complete-hero .greet');
+    if (result.approved_days === 14) {
+      hero.innerHTML = `<span class="complete-name">${u.name}</span>님,<br>🏆 <strong>완벽한 14일</strong>! 전액 환급됩니다.`;
+    } else if (result.approved_days === 0) {
+      hero.innerHTML = `<span class="complete-name">${u.name}</span>님,<br>이번엔 어려우셨네요. 다음엔 함께 가요.`;
+    }
+
+    // "확인하고 마무리하기" → RPC 호출로 status → pending + 로그아웃
+    document.getElementById('ack-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('ack-btn');
+      btn.disabled = true;
+      btn.textContent = '마무리 중…';
+      try {
+        const { error: rpcErr } = await sb.rpc('japdori_acknowledge_result');
+        if (rpcErr) throw rpcErr;
+        await Auth.logout();
+        alert('수고하셨어요! 다음 챌린지에서 만나요.');
+        location.replace('login.html');
+      } catch (err) {
+        alert('마무리 중 오류가 발생했어요: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '확인하고 마무리하기';
+      }
+    });
+  })();
+</script>
+</body>
+</html>

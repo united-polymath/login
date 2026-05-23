@@ -59,6 +59,7 @@
       const password = form.password.value;
       const u = await Auth.login(email, password);
       if (u.role === 'admin') location.replace('admin.html');
+      else if (u.status === 'completed') location.replace('complete.html');
       else location.replace('home.html');
     } catch (err) {
       showAlert('error', err.message);
@@ -71,7 +72,10 @@
   window.addEventListener('load', async () => {
     const u = await Auth.currentUser();
     if (u) {
-      location.replace(u.role === 'admin' ? 'admin.html' : 'home.html');
+      if (u.role === 'admin') location.replace('admin.html');
+      else if (u.status === 'completed') location.replace('complete.html');
+      else if (u.status === 'approved') location.replace('home.html');
+      // pending / rejected / suspended: 로그인 화면 그대로
     }
   });
 </script>

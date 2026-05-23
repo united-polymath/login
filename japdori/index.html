@@ -26,6 +26,7 @@
     const u = await Auth.currentUser();
     if (!u) location.replace('login.html');
     else if (u.role === 'admin') location.replace('admin.html');
+    else if (u.status === 'completed') location.replace('complete.html');
     else location.replace('home.html');
   });
 </script>
