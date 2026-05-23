@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기록 — 잡도리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <a href="home.html" class="icon-btn" aria-label="뒤로">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </a>
+      <span style="font-size:16px;font-weight:700;">기록</span>
+    </div>
+    <div class="topbar-right">
+      <span class="badge-soft hl" id="gallery-count">0 / 14</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="gallery" id="gallery"></section>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav-item" aria-label="홈" onclick="location.href='home.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>홈</span>
+  </button>
+  <button class="bnav-center" aria-label="인증" onclick="location.href='home.html'">+</button>
+  <button class="bnav-item active" aria-label="기록">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span>기록</span>
+  </button>
+</nav>
+
+<!-- PHOTO VIEWER MODAL -->
+<dialog id="photo-modal" class="photo-modal">
+  <button class="photo-modal-close" data-close aria-label="닫기">&times;</button>
+  <div class="photo-modal-body">
+    <div class="photo-modal-frame" id="pm-frame"></div>
+    <div class="photo-modal-meta">
+      <div class="photo-modal-day" id="pm-day">—</div>
+      <div class="photo-modal-date" id="pm-date">—</div>
+      <div class="photo-modal-mission" id="pm-mission">—</div>
+    </div>
+  </div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  (async function () {
+    const me = await Auth.requireAuth('login.html');
+    if (!me) return;
+
+    const att = await getAttendance(me.id);
+    const galleryEl = document.getElementById('gallery');
+    const total = att.length;
+
+    // path → signedUrl 미리 일괄 조회
+    const photoUrlCache = {};
+    await Promise.all(att.map(async a => {
+      if (a.photo_url) photoUrlCache[a.photo_url] = await getPhotoUrl(a.photo_url);
+    }));
+
+    const photoCount = att.filter(a => !!a.photo_url).length;
+    document.getElementById('gallery-count').textContent = `${photoCount} / ${total}`;
+
+    galleryEl.innerHTML = att.map((a, i) => {
+      const isGift = i === total - 1;
+      const photoUrl = a.photo_url ? photoUrlCache[a.photo_url] : null;
+      const hasPhoto = !!photoUrl;
+      const dayLabel = isGift ? '보너스' : `${a.day_number}일차`;
+      const dateLabel = `${fmt.date(a.date)} · ${fmt.dow(a.date)}`;
+
+      let cellInner;
+      if (isGift) {
+        cellInner = `<div class="g-cell-empty gift"><span class="g-gift-emoji">🎁</span></div>`;
+      } else if (hasPhoto) {
+        cellInner = `<img class="g-photo" src="${photoUrl}" alt="${dayLabel} 인증">`;
+      } else if (a.status === 'failed') {
+        cellInner = `<div class="g-cell-empty failed"><span>미제출</span></div>`;
+      } else if (a.status === 'locked') {
+        cellInner = `<div class="g-cell-empty locked"><span>아직 잠긴 날</span></div>`;
+      } else if (a.status === 'today') {
+        cellInner = `<div class="g-cell-empty today"><span>오늘</span></div>`;
+      } else {
+        cellInner = `<div class="g-cell-empty"><span>—</span></div>`;
+      }
+
+      return `
+        <button class="g-cell ${hasPhoto ? 'has-photo' : ''}" data-day="${a.day_number}" type="button">
+          <div class="g-cell-media">${cellInner}</div>
+          <div class="g-cell-foot">
+            <span class="g-cell-day">${dayLabel}</span>
+            <span class="g-cell-date">${dateLabel}</span>
+          </div>
+        </button>`;
+    }).join('');
+
+    const photoModal = document.getElementById('photo-modal');
+    galleryEl.querySelectorAll('.g-cell').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const day = parseInt(btn.dataset.day, 10);
+        const a = att.find(x => x.day_number === day);
+        if (!a) return;
+        const isGift = day === total;
+        const photoUrl = a.photo_url ? photoUrlCache[a.photo_url] : null;
+
+        const frame = document.getElementById('pm-frame');
+        if (photoUrl) {
+          frame.innerHTML = `<img src="${photoUrl}" alt="${a.day_number}일차">`;
+        } else {
+          frame.innerHTML = `<div class="photo-modal-empty">${
+            isGift ? '🎁 보너스' :
+            a.status === 'failed' ? '사진 미제출' :
+            a.status === 'locked' ? '아직 잠긴 날' :
+            a.status === 'today' ? '오늘 인증을 기다리고 있어요' : '사진 없음'
+          }</div>`;
+        }
+        document.getElementById('pm-day').textContent = isGift ? '🎁 보너스' : `${a.day_number}일차`;
+        document.getElementById('pm-date').textContent = `${fmt.date(a.date)} · ${fmt.dow(a.date)}요일`;
+        document.getElementById('pm-mission').textContent = a.mission || '';
+        photoModal.showModal();
+      });
+    });
+
+    photoModal.querySelectorAll('[data-close]').forEach(b =>
+      b.addEventListener('click', () => photoModal.close())
+    );
+    photoModal.addEventListener('click', (e) => {
+      if (e.target === photoModal) photoModal.close();
+    });
+  })();
+</script>
+
+</body>
+</html>

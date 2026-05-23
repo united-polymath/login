@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잡도리</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="auth-shell">
+  <div class="auth-card text-center">
+    <div class="auth-brand" style="justify-content:center;">
+      <div class="logo-mark">잡</div>
+      <span class="auth-brand-name">잡도리</span>
+    </div>
+    <p class="text-muted" style="margin-bottom:20px;">2주의 약속, 흔들리지 않는 나.</p>
+    <div id="boot-msg" class="text-muted" style="font-size:12px;">잠시만요…</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  window.addEventListener('load', async () => {
+    const u = await Auth.currentUser();
+    if (!u) location.replace('login.html');
+    else if (u.role === 'admin') location.replace('admin.html');
+    else location.replace('home.html');
+  });
+</script>
+</body>
+</html>

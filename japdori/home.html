@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잡도리 — 오늘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="topbar-slot"></div>
+<div id="drawer-slot"></div>
+
+<main class="container">
+
+  <!-- 1. 잡머니 — mission-card style -->
+  <section class="card mission-card" id="deposit-status-card" role="button" tabindex="0">
+    <div class="mission-card-head">
+      <div class="mission-card-title">
+        잡머니 <span class="pct">(<span id="ds-pct">—</span>%)</span>
+      </div>
+      <div class="mission-card-meta">
+        <span id="ds-remain-days">10일 남음</span>
+        <button class="info-btn" aria-label="환급 안내" id="info-btn">ⓘ</button>
+      </div>
+    </div>
+
+    <div class="mission-journey">
+      <div class="mission-progress">
+        <div class="mission-progress-fill" id="ds-fill" style="width:0%"></div>
+        <span class="mission-progress-text">
+          <span id="ds-current-num">—</span> / <span id="ds-total-num">30,000</span>
+        </span>
+      </div>
+      <div class="hamster-box bare" id="hamster-box"></div>
+    </div>
+
+    <div class="mission-row">
+      <div class="mission-info">
+        <div class="mission-info-title">
+          <span id="ds-current">—</span> 남음 <span class="hot">*</span>
+        </div>
+        <div class="mission-info-sub">일당 −<span id="ds-perday">2,143</span>원 차감</div>
+      </div>
+      <button class="btn dark sm mission-cta" type="button">상세</button>
+    </div>
+  </section>
+
+  <!-- 2. 2주 목표 -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-label">2주간의 목표</span>
+      <span class="card-score" id="affirm-day">4일차 / 14일</span>
+    </div>
+    <p class="affirmation-text" id="affirm-text">불러오는 중…</p>
+  </section>
+
+  <!-- 3. TRACKER -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-label">2주 트래커</span>
+      <span class="badge-soft hl" id="tracker-count">3 / 14</span>
+    </div>
+
+    <div class="tracker-grid" id="tracker-grid"></div>
+
+    <div class="tracker-legend">
+      <span class="leg"><span class="leg-sw approved"></span>승인</span>
+      <span class="leg"><span class="leg-sw pending"></span>검토중</span>
+      <span class="leg"><span class="leg-sw failed"></span>실패</span>
+    </div>
+  </section>
+
+  <!-- 4. QUOTE -->
+  <section class="card quote-card">
+    <span class="quote-tag">오늘의 잡도리</span>
+    <p class="quote-body">불러오는 중…</p>
+    <div class="quote-author">잡도리</div>
+  </section>
+
+</main>
+
+<!-- BOTTOM NAV (홈 / + / 기록) -->
+<nav class="bottom-nav">
+  <button class="bnav-item active" aria-label="홈">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>홈</span>
+  </button>
+  <button class="bnav-center" aria-label="인증" id="submit-photo">+</button>
+  <button class="bnav-item" aria-label="기록" id="record-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span>기록</span>
+  </button>
+</nav>
+
+<!-- DAY DETAIL MODAL -->
+<dialog id="day-modal">
+  <div class="modal-head">
+    <div>
+      <div class="day-detail-eyebrow" id="dd-eyebrow">DAY · DATE</div>
+      <div class="day-detail-date" id="dd-date">—</div>
+    </div>
+    <button class="modal-close" data-close>&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="day-detail-head">
+      <span class="status-pill" id="dd-status">—</span>
+      <span class="text-muted" style="font-size:11px;font-family:'JetBrains Mono',monospace;" id="dd-amount">−₩2,143</span>
+    </div>
+
+    <div class="mission-line" id="dd-mission">미션</div>
+
+    <div id="dd-photo-wrap"></div>
+
+    <div class="meta-list" id="dd-meta"></div>
+
+    <div id="dd-note-wrap"></div>
+  </div>
+  <div class="modal-foot" id="dd-foot"></div>
+</dialog>
+
+<!-- SUBMIT MODAL -->
+<dialog id="submit-modal">
+  <div class="modal-head">
+    <div class="modal-title">오늘의 인증 제출</div>
+    <button class="modal-close" data-close>&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="mission-line" id="sm-mission">미션</div>
+    <div class="preview-frame" id="sm-preview"></div>
+    <p class="text-muted text-center" style="font-size:12px;">제출하면 관리자 검토 후 다음날 승인됩니다.</p>
+  </div>
+  <div class="modal-foot">
+    <button class="btn block" data-close>취소</button>
+    <button class="btn primary block" id="sm-confirm">제출</button>
+  </div>
+</dialog>
+
+<!-- PHOTO SOURCE PICKER MODAL -->
+<dialog id="photo-source-modal">
+  <div class="modal-head">
+    <div class="modal-title">사진 선택</div>
+    <button class="modal-close" data-close>&times;</button>
+  </div>
+  <div class="modal-body">
+    <p class="text-muted text-center" style="font-size:12px;margin-bottom:12px;">사진을 어디서 가져올까요?</p>
+  </div>
+  <div class="modal-foot" style="flex-direction:column;gap:8px;">
+    <button class="btn primary block" id="ps-camera">📷 카메라로 촬영</button>
+    <button class="btn dark block" id="ps-gallery">🖼️ 갤러리에서 선택</button>
+    <button class="btn block" data-close>취소</button>
+  </div>
+</dialog>
+
+<!-- AFFIRMATION ONBOARDING MODAL -->
+<dialog id="affirm-onboard-modal">
+  <div class="modal-head">
+    <div class="modal-title">2주 목표 설정</div>
+  </div>
+  <div class="modal-body">
+    <p style="font-size:13px;line-height:1.55;margin-bottom:10px;">
+      잡도리를 시작하기 전에 <strong>2주간의 목표</strong>를 한 줄로 적어주세요.
+    </p>
+    <p class="text-muted" style="font-size:12px;line-height:1.55;margin-bottom:12px;">
+      예) 매일 아침 6시 기상 후 산책하기
+    </p>
+    <div class="field">
+      <textarea class="field-input field-textarea" id="ao-input" placeholder="2주간 지킬 나만의 목표를 적어주세요" maxlength="120" rows="3"></textarea>
+    </div>
+    <div style="background:#FFF8E1;border:1px solid #F3DA86;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.55;color:#7A5A00;margin-top:8px;">
+      ⚠️ <strong>한 번 설정한 목표는 자유롭게 변경할 수 없어요.</strong><br>
+      변경하려면 관리자 승인 절차를 다시 거쳐야 합니다.
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn primary block" id="ao-confirm">목표 저장하고 시작하기</button>
+  </div>
+</dialog>
+
+<input type="file" id="photo-camera" accept="image/*" capture="environment" hidden>
+<input type="file" id="photo-gallery" accept="image/*" hidden>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  (async function () {
+    const me = await Auth.requireAuth('login.html');
+    if (!me) return;
+
+    // ----- topbar + drawer
+    document.getElementById('topbar-slot').innerHTML = buildTopbar();
+    document.getElementById('drawer-slot').innerHTML = await buildDrawer();
+    bindDrawer();
+
+    // ----- hamster rotator
+    startHamsterRotator(document.getElementById('hamster-box'), 15000);
+
+    // 출석 데이터 + 사용자 설정은 한 번 로드해서 캐싱
+    let att = await getAttendance(me.id);
+    const settings = await getUserSettings(me.id);
+
+    // ----- 첫 진입 목표 설정 (affirmation이 비어있으면 강제 입력)
+    async function showAffirmOnboarding() {
+      return new Promise((resolve) => {
+        const modal = document.getElementById('affirm-onboard-modal');
+        const input = document.getElementById('ao-input');
+        const confirmBtn = document.getElementById('ao-confirm');
+        input.value = '';
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = '목표 저장하고 시작하기';
+        modal.showModal();
+        const onConfirm = async () => {
+          const v = input.value.trim();
+          if (!v) { alert('목표를 한 줄 이상 적어주세요.'); return; }
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = '저장 중…';
+          try {
+            await updateUserSettings(me.id, { affirmation: v });
+            settings.affirmation = v;
+            modal.close();
+            confirmBtn.removeEventListener('click', onConfirm);
+            resolve();
+          } catch (err) {
+            alert('저장에 실패했어요. 다시 시도해주세요.');
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = '목표 저장하고 시작하기';
+          }
+        };
+        confirmBtn.addEventListener('click', onConfirm);
+      });
+    }
+
+    if (!settings.affirmation || !settings.affirmation.trim()) {
+      await showAffirmOnboarding();
+    }
+
+    // ----- 2주 목표 (편집은 마이홈에서)
+    document.getElementById('affirm-text').textContent = settings.affirmation || '';
+
+    // ----- 어록 (14일 + 보너스 = 15일)
+    // 모두 검증된 출처의 실제 명언
+    const QUOTES = [
+      {
+        body: '"천 리 길도<br>한 걸음에서 시작된다."<br><span style="font-size:11px;opacity:.7;">千里之行 始於足下</span>',
+        author: '노자 『도덕경』 64장',
+      },
+      {
+        body: '"성공은 매일 반복한<br>작은 노력들의 합이다."',
+        author: '로버트 콜리어 (Robert Collier)',
+      },
+      {
+        body: '"<em>핑계</em>는 가장 정성스럽게<br>만들어진 거짓말이다.<br>그리고 그걸 가장 잘 속는 사람은<br>너 자신이다."',
+        author: '박명수 어록',
+      },
+      {
+        body: '"오늘 할 수 있는 일을<br>내일로 미루지 마라."',
+        author: '벤자민 프랭클린 (Benjamin Franklin)',
+      },
+      {
+        body: '"시작하는 비결은<br>일단 시작하는 것이다."',
+        author: '마크 트웨인 (Mark Twain)',
+      },
+      {
+        body: '"우리는 우리가 반복하는<br>행동의 결과이다.<br>탁월함은 행동이 아니라 습관이다."',
+        author: '윌 듀런트 (아리스토텔레스 사상 요약)',
+      },
+      {
+        body: '"성공의 80%는<br>일단 나타나는 데 있다."',
+        author: '우디 앨런 (Woody Allen)',
+      },
+      {
+        body: '"다시 시도하라.<br>다시 실패하라.<br>더 잘 실패하라."',
+        author: '사무엘 베케트 (Samuel Beckett)',
+      },
+      {
+        body: '"포기는 배추를 셀 때나<br>쓰는 말이다."',
+        author: '박명수 어록',
+      },
+      {
+        body: '"큰일을 이루려면<br>작은 일부터 시작하라."<br><span style="font-size:11px;opacity:.7;">天下大事 必作於細</span>',
+        author: '노자 『도덕경』 63장',
+      },
+      {
+        body: '"인내는 쓰지만,<br>그 열매는 달다."',
+        author: '장 자크 루소 (Jean-Jacques Rousseau)',
+      },
+      {
+        body: '"나무를 심기 가장 좋은 때는<br>20년 전이었고,<br>두 번째로 좋은 때는 바로 지금이다."',
+        author: '중국 속담',
+      },
+      {
+        body: '"노력은 결코<br>배신하지 않는다."<br><span style="font-size:11px;opacity:.7;">努力は裏切らない</span>',
+        author: '일본 속담',
+      },
+      {
+        body: '"끝날 때까지<br>끝난 게 아니다."',
+        author: '요기 베라 (Yogi Berra)',
+      },
+      {
+        body: '🎁<br>"잘 해낸 일에 대한 보상은<br>그것을 해냈다는 사실 그 자체다."',
+        author: '랄프 왈도 에머슨 (Ralph Waldo Emerson)',
+      },
+    ];
+    function renderQuote(dayNum) {
+      const idx = Math.max(1, Math.min(dayNum || 1, QUOTES.length)) - 1;
+      const q = QUOTES[idx];
+      const tag = document.querySelector('.quote-card .quote-tag');
+      const body = document.querySelector('.quote-card .quote-body');
+      const author = document.querySelector('.quote-card .quote-author');
+      if (tag)    tag.textContent = `오늘의 잡도리 · ${idx + 1}일차`;
+      if (body)   body.innerHTML = q.body;
+      if (author) author.textContent = q.author;
+    }
+
+    // ============================================================
+    //  Tracker
+    // ============================================================
+    function statusLabel(s) {
+      return ({ approved:'승인', pending_review:'검토중', failed:'실패', today:'오늘', locked:'잠금' })[s] || s;
+    }
+    function statusMark(s, isGift) {
+      if (isGift) return '🎁';
+      return ({ approved:'✓', pending_review:'⏳', failed:'✕', today:'', locked:'' })[s] || '';
+    }
+
+    // 사진 path → signedUrl 캐싱 (한 번만 조회)
+    const photoUrlCache = {};
+    async function ensurePhotoUrl(path) {
+      if (!path) return null;
+      if (photoUrlCache[path]) return photoUrlCache[path];
+      const url = await getPhotoUrl(path);
+      photoUrlCache[path] = url;
+      return url;
+    }
+
+    async function renderTracker() {
+      const grid = document.getElementById('tracker-grid');
+      const cells = await Promise.all(att.map(async (a, i) => {
+        const isGift = i === att.length - 1;
+        const cls = isGift ? 'gift' : a.status.replace('_', '-');
+        const hasPhoto = !isGift && !!a.photo_url;
+        const photoUrl = hasPhoto ? await ensurePhotoUrl(a.photo_url) : null;
+        const photoLayer = photoUrl ? `<img class="t-photo" src="${photoUrl}" alt="${a.day_number}일차 인증">` : '';
+        return `
+          <button class="t-cell ${cls}${photoUrl ? ' has-photo' : ''}" data-day="${a.day_number}" type="button">
+            ${photoLayer}
+            <span class="t-day-num">${a.day_number}일차</span>
+            <span class="t-mark">${statusMark(a.status, isGift)}</span>
+          </button>`;
+      }));
+      grid.innerHTML = cells.join('');
+      grid.querySelectorAll('.t-cell').forEach(btn => {
+        btn.addEventListener('click', () => openDayModal(parseInt(btn.dataset.day, 10)));
+      });
+
+      const doneCount = att.filter(a => a.status === 'approved').length;
+      document.getElementById('tracker-count').textContent = `${doneCount} / ${att.length}`;
+      const todayIdx = att.findIndex(a => a.status === 'today');
+      const day = todayIdx + 1;
+      document.getElementById('affirm-day').textContent = `${day || 1}일차 / ${att.length}일`;
+      renderQuote(day || 1);
+    }
+
+    // ============================================================
+    //  Day Detail Modal
+    // ============================================================
+    const dayModal = document.getElementById('day-modal');
+
+    async function openDayModal(dayNum) {
+      const a = att.find(x => x.day_number === dayNum);
+      if (!a) return;
+      const isGift = dayNum === att.length;
+
+      document.getElementById('dd-eyebrow').textContent = `${a.day_number}일차 · ${fmt.dow(a.date)}요일`;
+      document.getElementById('dd-date').textContent = fmt.date(a.date);
+
+      const statusEl = document.getElementById('dd-status');
+      statusEl.className = `status-pill ${a.status.replace('_','-')}`;
+      statusEl.textContent = isGift ? '🎁 보너스' : statusLabel(a.status);
+
+      const amountEl = document.getElementById('dd-amount');
+      const PER_DAY = Math.round(SEED.DEPOSIT_AMOUNT / SEED.CHALLENGE_DAYS);
+      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 보존</span>`;
+      else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">− ${fmt.currency(PER_DAY)} 손실</span>`;
+      else                              amountEl.textContent = `보증금 ${fmt.currency(PER_DAY)} 걸려있음`;
+
+      document.getElementById('dd-mission').textContent = a.mission;
+
+      const photoWrap = document.getElementById('dd-photo-wrap');
+      const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;
+      if (photoUrl) {
+        photoWrap.innerHTML = `<div class="photo-frame"><img src="${photoUrl}" alt="인증사진"></div>`;
+      } else if (a.status === 'locked') {
+        photoWrap.innerHTML = `<div class="photo-frame empty">아직 잠긴 미션<br><span style="font-size:11px;">${fmt.date(a.date)}에 열려요</span></div>`;
+      } else if (a.status === 'today') {
+        photoWrap.innerHTML = `<div class="photo-frame empty">오늘 인증을 기다리고 있어요</div>`;
+      } else if (a.status === 'failed') {
+        photoWrap.innerHTML = `<div class="photo-frame empty">사진 미제출 · 차감 처리됨</div>`;
+      } else {
+        photoWrap.innerHTML = `<div class="photo-frame empty">사진 없음</div>`;
+      }
+
+      const rows = [];
+      if (a.submitted_at) rows.push(`<div class="meta-row"><span class="l">제출</span><span class="v">${fmt.dateTime(a.submitted_at)}</span></div>`);
+      if (a.reviewed_at)  rows.push(`<div class="meta-row"><span class="l">검토</span><span class="v">${fmt.dateTime(a.reviewed_at)}</span></div>`);
+      document.getElementById('dd-meta').innerHTML = rows.join('');
+      document.getElementById('dd-note-wrap').innerHTML = a.review_note ? `<div class="review-note">${a.review_note}</div>` : '';
+
+      const foot = document.getElementById('dd-foot');
+      let footHtml = '';
+      if (a.status === 'today' || a.status === 'pending_review') {
+        footHtml += `<button class="btn block" data-close>닫기</button>`;
+        footHtml += `<button class="btn primary block" id="dd-upload">${a.status === 'pending_review' ? '다시 올리기' : '사진 올리기'}</button>`;
+      } else {
+        footHtml += `<button class="btn dark block" data-close>닫기</button>`;
+      }
+      foot.innerHTML = footHtml;
+      foot.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => dayModal.close()));
+      const up = document.getElementById('dd-upload');
+      if (up) up.addEventListener('click', () => { dayModal.close(); startSubmit(a.day_number); });
+
+      dayModal.showModal();
+    }
+
+    // ============================================================
+    //  Submit photo
+    // ============================================================
+    const photoCameraInput  = document.getElementById('photo-camera');
+    const photoGalleryInput = document.getElementById('photo-gallery');
+    const photoSourceModal  = document.getElementById('photo-source-modal');
+    const submitModal = document.getElementById('submit-modal');
+    let pendingFile = null;
+    let pendingDay  = null;
+
+    function startSubmit(dayNum) {
+      pendingDay = dayNum;
+      photoCameraInput.value = '';
+      photoGalleryInput.value = '';
+      photoSourceModal.showModal();
+    }
+
+    document.getElementById('ps-camera').addEventListener('click', () => {
+      photoSourceModal.close();
+      photoCameraInput.click();
+    });
+    document.getElementById('ps-gallery').addEventListener('click', () => {
+      photoSourceModal.close();
+      photoGalleryInput.click();
+    });
+
+    function onPhotoPicked(e) {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      pendingFile = f;
+      const a = att.find(x => x.day_number === pendingDay);
+      document.getElementById('sm-mission').textContent = a?.mission || '미션';
+      const previewUrl = URL.createObjectURL(f);
+      document.getElementById('sm-preview').innerHTML = `<img src="${previewUrl}" alt="미리보기">`;
+      submitModal.showModal();
+    }
+    photoCameraInput.addEventListener('change', onPhotoPicked);
+    photoGalleryInput.addEventListener('change', onPhotoPicked);
+
+    document.getElementById('sm-confirm').addEventListener('click', async () => {
+      if (!pendingFile || !pendingDay) { submitModal.close(); return; }
+      const btn = document.getElementById('sm-confirm');
+      btn.disabled = true;
+      btn.textContent = '업로드 중…';
+      try {
+        await submitProof(me.id, pendingDay, pendingFile);
+        submitModal.close();
+        att = await getAttendance(me.id);   // 새로고침
+        await renderTracker();
+        renderDepositStatus();
+        alert('제출 완료! 관리자 검토 후 승인됩니다.');
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '제출';
+      }
+    });
+
+    // + button shortcut → 오늘 인증
+    document.getElementById('submit-photo').addEventListener('click', () => {
+      const a = att.find(x => x.status === 'today' || x.status === 'pending_review');
+      if (a) startSubmit(a.day_number);
+      else alert('오늘 미션이 없습니다.');
+    });
+
+    // record button → gallery
+    document.getElementById('record-btn').addEventListener('click', () => {
+      location.href = 'records.html';
+    });
+
+    // ----- global modal close
+    document.querySelectorAll('dialog [data-close]').forEach(btn => {
+      btn.addEventListener('click', () => btn.closest('dialog').close());
+    });
+
+    // ----- deposit status card
+    function renderDepositStatus() {
+      const d = computeDeposit(att);
+      const pct = Math.round((d.current / d.total) * 1000) / 10;
+      document.getElementById('ds-pct').textContent = pct;
+      document.getElementById('ds-current').textContent = fmt.currency(d.current);
+      document.getElementById('ds-perday').textContent = fmt.number(d.perDay);
+      document.getElementById('ds-fill').style.width = `${pct}%`;
+      document.getElementById('ds-current-num').textContent = fmt.number(d.current);
+      document.getElementById('ds-total-num').textContent = fmt.number(d.total);
+      document.getElementById('ds-remain-days').textContent = `${d.remaining}일 남음`;
+    }
+    renderDepositStatus();
+
+    document.getElementById('deposit-status-card').addEventListener('click', (e) => {
+      if (e.target.closest('#info-btn')) {
+        e.stopPropagation();
+        alert('환급 안내\n\n· 100% 달성: 전액 환불 + 특별선물\n· 미만: 이행률만큼 환급 + 소정의 선물');
+        return;
+      }
+      location.href = 'profile.html';
+    });
+
+    await renderTracker();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 — 잡도리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner" style="max-width:880px;">
+    <div class="topbar-left">
+      <div class="logo-mark">잡</div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);letter-spacing:.08em;font-weight:600;">JAPDORI</div>
+        <div style="font-size:15px;font-weight:800;letter-spacing:-0.02em;">관리자 패널</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <a class="btn sm" href="home.html">홈으로</a>
+      <button class="btn sm dark" id="logout-btn">로그아웃</button>
+    </div>
+  </div>
+</header>
+
+<main class="admin-shell">
+
+  <div class="admin-tabs" id="tabs">
+    <button class="admin-tab active" data-tab="submissions">인증 검토<span class="count" id="ct-sub">0</span></button>
+    <button class="admin-tab" data-tab="all-subs">전체 인증<span class="count" id="ct-all">0</span></button>
+    <button class="admin-tab" data-tab="users">회원 관리<span class="count" id="ct-users">0</span></button>
+    <button class="admin-tab" data-tab="notices">공지사항</button>
+    <button class="admin-tab" data-tab="telegram">텔레그램 알림</button>
+  </div>
+
+  <!-- ============================================================
+       INCOMING SUBMISSIONS (pending_review)
+       ============================================================ -->
+  <section class="tab-pane" data-pane="submissions">
+    <div class="admin-head">
+      <h1 class="admin-title">검토 대기중인 인증</h1>
+      <span class="text-muted" style="font-size:13px;">실시간 정렬</span>
+    </div>
+    <div class="sub-grid" id="pending-grid"></div>
+  </section>
+
+  <!-- ============================================================
+       ALL SUBMISSIONS
+       ============================================================ -->
+  <section class="tab-pane" data-pane="all-subs" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">전체 인증 기록</h1>
+      <select class="field-input" id="user-filter" style="max-width:200px;padding:9px 12px;font-size:13px;">
+        <option value="all">전체 사용자</option>
+      </select>
+    </div>
+    <div class="sub-grid" id="all-grid"></div>
+  </section>
+
+  <!-- ============================================================
+       USERS
+       ============================================================ -->
+  <section class="tab-pane" data-pane="users" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">회원 관리</h1>
+      <div id="counts" class="text-muted" style="font-size:13px;"></div>
+    </div>
+
+    <div class="admin-tabs" id="user-filter-tabs" style="margin-bottom:14px;">
+      <button class="admin-tab active" data-status="all">전체</button>
+      <button class="admin-tab" data-status="pending">승인 대기</button>
+      <button class="admin-tab" data-status="approved">승인됨</button>
+      <button class="admin-tab" data-status="rejected">거절됨</button>
+      <button class="admin-tab" data-status="suspended">정지</button>
+    </div>
+
+    <div class="user-table" id="user-table"></div>
+  </section>
+
+  <!-- ============================================================
+       NOTICES
+       ============================================================ -->
+  <section class="tab-pane" data-pane="notices" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">공지사항 관리</h1>
+      <button class="btn primary sm" id="new-notice">+ 새 공지</button>
+    </div>
+    <div class="user-table" id="notice-table"></div>
+  </section>
+
+  <!-- ============================================================
+       TELEGRAM
+       ============================================================ -->
+  <section class="tab-pane" data-pane="telegram" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">텔레그램 알림 설정</h1>
+    </div>
+
+    <div class="tg-card">
+      <div class="tg-toggle">
+        <div class="tg-toggle-label">
+          <div class="t">알림 활성화</div>
+          <div class="s">꺼져있으면 메시지가 전송되지 않습니다</div>
+        </div>
+        <div class="switch" id="tg-switch"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">봇 토큰 (Bot Token)</label>
+        <input class="field-input" id="tg-token" placeholder="123456789:ABC-DEF...">
+      </div>
+
+      <div class="field">
+        <label class="field-label">관리자 그룹/채팅 ID (운영 알림 — 가입·검토 요청)</label>
+        <input class="field-input" id="tg-admin" placeholder="-1001234567890   또는   123,456,789 (쉼표 구분)">
+      </div>
+
+      <div class="field">
+        <label class="field-label">공개 채널 ID (응원 브로드캐스트 — 선택)</label>
+        <input class="field-input" id="tg-public" placeholder="@japdori_cheer">
+      </div>
+
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line-soft);">
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;">
+          📌 토픽(스레드) 분리 — 선택
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.55;">
+          관리자 그룹에 포럼 모드(Topics)를 켜셨다면 알림 종류별로 토픽을 나눠 받을 수 있어요.<br>
+          비워두면 그룹 메인 채팅으로 전송됩니다.
+        </p>
+
+        <div class="field">
+          <label class="field-label">가입신청 토픽 thread ID</label>
+          <input class="field-input" id="tg-signup-thread" placeholder="예: 1 (비워두면 메인 채팅)">
+        </div>
+
+        <div class="field">
+          <label class="field-label">사진인증 검토 토픽 thread ID</label>
+          <input class="field-input" id="tg-submit-thread" placeholder="예: 24">
+        </div>
+
+        <div class="field">
+          <label class="field-label">응원 토픽 thread ID (선택)</label>
+          <input class="field-input" id="tg-cheer-thread" placeholder="비워두면 공개 채널 메인">
+        </div>
+      </div>
+
+      <div class="row-between" style="margin-top:14px;gap:8px;">
+        <button class="btn block" id="tg-test">테스트 전송</button>
+        <button class="btn primary block" id="tg-save">저장</button>
+      </div>
+
+      <div class="tg-help">
+        <strong>📌 셋업 가이드</strong><br>
+        1. <a href="https://t.me/botfather" target="_blank">@BotFather</a> 에서 <code>/newbot</code> → 봇 만들고 토큰 받기<br>
+        2. 관리자 + 봇을 한 텔레그램 <strong>그룹</strong>에 초대 (봇은 관리자 권한 부여 필수)<br>
+        3. <strong>chat ID 알아내기</strong>: 그룹에서 메시지 보내고 메시지 우클릭 → "메시지 링크 복사" → 링크 <code>t.me/c/숫자/...</code>의 그 숫자 앞에 <code>-100</code>을 붙이기 (예: <code>3906319092</code> → <code>-1003906319092</code>)<br>
+        4. <strong>토픽 thread ID</strong>: 각 토픽에서 메시지 → 링크 복사 → <code>t.me/c/그룹/토픽ID/메시지ID</code>의 가운데 숫자<br>
+        5. 입력 → [저장] → [테스트 전송]
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  (async function () {
+    const me = await Auth.requireAdmin();
+    if (!me) return;
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await Auth.logout();
+      location.replace('login.html');
+    });
+
+    // ============================================================
+    //  Tab routing
+    // ============================================================
+    document.getElementById('tabs').addEventListener('click', (e) => {
+      const t = e.target.closest('.admin-tab');
+      if (!t) return;
+      document.querySelectorAll('#tabs .admin-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const target = t.dataset.tab;
+      document.querySelectorAll('.tab-pane').forEach(p => { p.hidden = p.dataset.pane !== target; });
+    });
+
+    // ============================================================
+    //  Submissions (pending + all)
+    // ============================================================
+    function statusLabel(s) {
+      return ({
+        approved: '승인됨', pending_review: '검토중', failed: '실패',
+        today: '오늘 진행중', locked: '잠금',
+        pending: '승인 대기', rejected: '거절됨', suspended: '정지',
+      })[s] || s;
+    }
+
+    // 사진 path → signedUrl 캐싱
+    const photoUrlCache = {};
+    async function ensurePhotoUrl(path) {
+      if (!path) return null;
+      if (photoUrlCache[path]) return photoUrlCache[path];
+      const url = await getPhotoUrl(path);
+      photoUrlCache[path] = url;
+      return url;
+    }
+
+    async function subCard(row, opts = {}) {
+      const a = row;
+      const user = a.user;
+      const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;
+      const photo = photoUrl ? `<img src="${photoUrl}" alt="인증">` : '';
+      const statusPill = `<span class="status-pill ${a.status.replace('_','-')}">${statusLabel(a.status)}</span>`;
+      const actions = opts.actions ? `
+        <div class="sub-card-actions">
+          <button class="btn block" data-action="reject">거절</button>
+          <button class="btn primary block" data-action="approve">승인</button>
+        </div>` : '';
+      return `
+        <div class="sub-card" data-user="${user?.id || ''}" data-day="${a.day_number}">
+          <div class="sub-card-photo ${photoUrl ? '' : 'empty'}">
+            ${photo}
+            <div class="sub-card-status">${statusPill}</div>
+          </div>
+          <div class="sub-card-body">
+            <div class="sub-card-user">${user?.name || '?'} <span style="color:var(--muted);font-weight:500;">· ${user?.email || ''}</span></div>
+            <div class="sub-card-meta">DAY ${String(a.day_number).padStart(2,'0')} · ${fmt.dateTime(a.submitted_at || a.date)}</div>
+            <div class="sub-card-mission">🎯 ${a.mission}</div>
+          </div>
+          ${actions}
+        </div>`;
+    }
+
+    async function renderPending() {
+      const rows = await listPendingSubmissions();
+      document.getElementById('ct-sub').textContent = rows.length;
+      const grid = document.getElementById('pending-grid');
+      if (!rows.length) {
+        grid.innerHTML = '<div class="empty">대기중인 인증이 없습니다 🎉</div>';
+        return;
+      }
+      const cards = await Promise.all(rows.map(r => subCard(r, { actions: true })));
+      grid.innerHTML = cards.join('');
+
+      grid.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const card = btn.closest('.sub-card');
+          const userId = card.dataset.user;
+          const day = parseInt(card.dataset.day, 10);
+          const decision = btn.dataset.action;
+          const note = decision === 'reject'
+            ? (prompt('거절 사유 (선택)', '') || '')
+            : (prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '');
+          try {
+            await reviewSubmission(userId, day, decision, me.id, note);
+            await renderPending();
+            await renderAllSubs();
+          } catch (e) { alert(e.message); }
+        });
+      });
+    }
+
+    async function renderAllSubs() {
+      const filter = document.getElementById('user-filter').value;
+      const rows = await listAllSubmissions(filter === 'all' ? null : filter);
+      document.getElementById('ct-all').textContent = rows.length;
+      const grid = document.getElementById('all-grid');
+      if (!rows.length) {
+        grid.innerHTML = '<div class="empty">표시할 인증이 없습니다</div>';
+        return;
+      }
+      const cards = await Promise.all(rows.map(r => subCard(r, { actions: r.status === 'pending_review' })));
+      grid.innerHTML = cards.join('');
+
+      grid.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const card = btn.closest('.sub-card');
+          const userId = card.dataset.user;
+          const day = parseInt(card.dataset.day, 10);
+          const decision = btn.dataset.action;
+          const note = decision === 'reject'
+            ? (prompt('거절 사유 (선택)', '') || '')
+            : (prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '');
+          try {
+            await reviewSubmission(userId, day, decision, me.id, note);
+            await renderPending();
+            await renderAllSubs();
+          } catch (e) { alert(e.message); }
+        });
+      });
+    }
+
+    async function renderUserFilter() {
+      const users = (await listUsers()).filter(u => u.role !== 'admin');
+      const sel = document.getElementById('user-filter');
+      const cur = sel.value;
+      sel.innerHTML = '<option value="all">전체 사용자</option>' +
+        users.map(u => `<option value="${u.id}">${u.name} · ${u.email}</option>`).join('');
+      sel.value = cur || 'all';
+    }
+
+    document.getElementById('user-filter').addEventListener('change', renderAllSubs);
+
+    // ============================================================
+    //  Users management
+    // ============================================================
+    let userFilter = 'all';
+
+    async function renderUsers() {
+      const users = await listUsers();
+      document.getElementById('ct-users').textContent = users.length;
+      const counts = users.reduce((acc, u) => { acc[u.status] = (acc[u.status] || 0) + 1; return acc; }, {});
+      document.getElementById('counts').textContent =
+        `대기 ${counts.pending || 0} · 승인 ${counts.approved || 0} · 거절 ${counts.rejected || 0}`;
+
+      const filtered = userFilter === 'all' ? users : users.filter(u => u.status === userFilter);
+      const table = document.getElementById('user-table');
+      if (!filtered.length) {
+        table.innerHTML = '<div class="empty">표시할 사용자가 없습니다</div>';
+        return;
+      }
+      table.innerHTML = filtered.map(u => `
+        <div class="user-row" data-id="${u.id}">
+          <div>
+            <div class="user-info-name">${u.name} ${u.role === 'admin' ? '<span class="status-pill admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
+            <div class="user-info-meta">${u.email} · ${fmt.date(u.created_at)}</div>
+          </div>
+          <span class="status-pill ${u.status}">${statusLabel(u.status)}</span>
+          <div class="user-actions">${actionsFor(u)}</div>
+        </div>
+      `).join('');
+
+      table.querySelectorAll('[data-uaction]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.closest('.user-row').dataset.id;
+          await handle(id, btn.dataset.uaction);
+        });
+      });
+    }
+
+    function actionsFor(u) {
+      if (u.role === 'admin') return '<span class="text-muted" style="font-size:11px;">관리자</span>';
+      const btns = [];
+      if (u.status === 'pending') {
+        btns.push('<button class="btn primary sm" data-uaction="approve">승인</button>');
+        btns.push('<button class="btn sm" data-uaction="reject">거절</button>');
+      } else if (u.status === 'approved') {
+        btns.push('<button class="btn sm" data-uaction="suspend">정지</button>');
+      } else if (u.status === 'rejected' || u.status === 'suspended') {
+        btns.push('<button class="btn primary sm" data-uaction="approve">복원</button>');
+      }
+      return btns.join('');
+    }
+
+    async function handle(id, action) {
+      const map = {
+        approve:  { status: 'approved'  },
+        reject:   { status: 'rejected'  },
+        suspend:  { status: 'suspended' },
+      };
+      if (map[action]) {
+        await updateUser(id, map[action]);
+        await renderUsers();
+        await renderUserFilter();
+        await renderAllSubs();
+      }
+    }
+
+    document.getElementById('user-filter-tabs').addEventListener('click', (e) => {
+      const t = e.target.closest('.admin-tab');
+      if (!t) return;
+      userFilter = t.dataset.status;
+      document.querySelectorAll('#user-filter-tabs .admin-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      renderUsers();
+    });
+
+    // ============================================================
+    //  Notices
+    // ============================================================
+    async function renderNotices() {
+      const notices = await listNotices();
+      const table = document.getElementById('notice-table');
+      if (!notices.length) {
+        table.innerHTML = '<div class="empty">공지사항이 없습니다</div>';
+        return;
+      }
+      table.innerHTML = notices.map(n => `
+        <div class="user-row" data-id="${n.id}">
+          <div>
+            <div class="user-info-name">${n.pinned ? '<span class="status-pill admin" style="margin-right:6px;font-size:9px;">PIN</span>' : ''}${n.title}</div>
+            <div class="user-info-meta">${n.body}</div>
+          </div>
+          <span class="status-pill">${fmt.date(n.created_at)}</span>
+          <div class="user-actions">
+            <button class="btn sm" data-pin>${n.pinned ? '고정 해제' : '고정'}</button>
+            <button class="btn sm danger" data-del>삭제</button>
+          </div>
+        </div>`).join('');
+
+      table.querySelectorAll('[data-pin]').forEach(b => b.addEventListener('click', async () => {
+        const id = b.closest('.user-row').dataset.id;
+        const { data } = await sb.from('japdori_notices').select('pinned').eq('id', id).maybeSingle();
+        await sb.from('japdori_notices').update({ pinned: !data?.pinned }).eq('id', id);
+        await renderNotices();
+      }));
+      table.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('공지를 삭제할까요?')) return;
+        const id = b.closest('.user-row').dataset.id;
+        await deleteNotice(id);
+        await renderNotices();
+      }));
+    }
+
+    document.getElementById('new-notice').addEventListener('click', async () => {
+      const title = prompt('공지 제목');
+      if (!title) return;
+      const body = prompt('공지 내용') || '';
+      try {
+        await createNotice({ title: title.trim(), body: body.trim(), pinned: false, createdBy: me.id });
+        await renderNotices();
+      } catch (e) { alert(e.message); }
+    });
+
+    // ============================================================
+    //  Telegram settings (DB: japdori_telegram_config)
+    // ============================================================
+    async function renderTelegram() {
+      const cfg = (await Telegram.config()) || {};
+      document.getElementById('tg-token').value          = cfg.bot_token || '';
+      document.getElementById('tg-admin').value          = cfg.admin_chat_id || '';
+      document.getElementById('tg-public').value         = cfg.public_chat_id || '';
+      document.getElementById('tg-signup-thread').value  = cfg.signup_thread_id || '';
+      document.getElementById('tg-submit-thread').value  = cfg.submit_thread_id || '';
+      document.getElementById('tg-cheer-thread').value   = cfg.cheer_thread_id || '';
+      document.getElementById('tg-switch').classList.toggle('on', !!cfg.enabled);
+    }
+
+    document.getElementById('tg-switch').addEventListener('click', async () => {
+      const sw = document.getElementById('tg-switch');
+      sw.classList.toggle('on');
+      try {
+        await Telegram.save({ enabled: sw.classList.contains('on') });
+      } catch (e) { alert(e.message); sw.classList.toggle('on'); }
+    });
+
+    document.getElementById('tg-save').addEventListener('click', async () => {
+      try {
+        await Telegram.save({
+          bot_token:        document.getElementById('tg-token').value.trim(),
+          admin_chat_id:    document.getElementById('tg-admin').value.trim(),
+          public_chat_id:   document.getElementById('tg-public').value.trim(),
+          signup_thread_id: document.getElementById('tg-signup-thread').value.trim(),
+          submit_thread_id: document.getElementById('tg-submit-thread').value.trim(),
+          cheer_thread_id:  document.getElementById('tg-cheer-thread').value.trim(),
+          enabled:          document.getElementById('tg-switch').classList.contains('on'),
+        });
+        alert('저장되었습니다.');
+      } catch (e) { alert(e.message); }
+    });
+
+    document.getElementById('tg-test').addEventListener('click', async () => {
+      const cfg = await Telegram.config();
+      if (!cfg?.enabled) { alert('알림이 비활성화되어 있어요. 토글을 켜주세요.'); return; }
+      if (!cfg.bot_token) { alert('봇 토큰이 비어있어요.'); return; }
+
+      const url = `https://api.telegram.org/bot${cfg.bot_token}/sendMessage`;
+      const tests = [
+        { name: '가입신청', chatId: cfg.admin_chat_id,  threadId: cfg.signup_thread_id, text: '🧪 [가입신청] 테스트' },
+        { name: '사진인증', chatId: cfg.admin_chat_id,  threadId: cfg.submit_thread_id, text: '🧪 [사진인증] 테스트' },
+        { name: '응원',     chatId: cfg.public_chat_id, threadId: cfg.cheer_thread_id,  text: '🧪 [응원] 테스트' },
+      ];
+
+      const results = [];
+      for (const t of tests) {
+        if (!t.chatId) { results.push(`⏭️ ${t.name}: chat ID 비어있음 (건너뜀)`); continue; }
+        const body = { chat_id: t.chatId, text: t.text };
+        const tid = String(t.threadId || '').trim();
+        if (tid) body.message_thread_id = Number(tid);
+        try {
+          const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+          const j = await r.json();
+          if (j.ok) results.push(`✅ ${t.name}: 전송 성공${tid ? ` (thread ${tid})` : ' (메인 채팅)'}`);
+          else results.push(`❌ ${t.name}: ${j.description || '알 수 없는 오류'} (code ${j.error_code || '?'})`);
+        } catch (e) {
+          results.push(`❌ ${t.name}: 네트워크 오류 — ${e.message}`);
+        }
+      }
+      alert(results.join('\n'));
+    });
+
+    // ============================================================
+    //  Init
+    // ============================================================
+    await renderPending();
+    await renderUserFilter();
+    await renderAllSubs();
+    await renderUsers();
+    await renderNotices();
+    await renderTelegram();
+  })();
+</script>
+</body>
+</html>

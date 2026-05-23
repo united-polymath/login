@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인 — 잡도리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="auth-shell">
+  <form class="auth-card" id="login-form" autocomplete="on">
+    <div class="auth-brand">
+      <div class="logo-mark">잡</div>
+      <span class="auth-brand-name">잡도리</span>
+    </div>
+    <h1 class="auth-title">다시 만나서 반가워.</h1>
+    <p class="auth-sub">계정으로 로그인해 오늘의 약속을 이어가요.</p>
+
+    <div id="alert-slot"></div>
+
+    <div class="field">
+      <label class="field-label" for="email">이메일</label>
+      <input class="field-input" type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password">비밀번호</label>
+      <input class="field-input" type="password" id="password" name="password" required placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn primary block" type="submit" id="submit-btn">로그인</button>
+
+    <p class="auth-hint">아직 계정이 없나요? <a href="signup.html">회원가입</a></p>
+
+    <div class="test-creds">
+      <div><strong>관리자 계정 안내</strong></div>
+      <div>3growthlab@gmail.com</div>
+      <div style="margin-top:4px;color:var(--muted);">관리자에게 문의해주세요</div>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  const form = document.getElementById('login-form');
+  const alertSlot = document.getElementById('alert-slot');
+  const submitBtn = document.getElementById('submit-btn');
+
+  function showAlert(type, message) {
+    alertSlot.innerHTML = `<div class="alert ${type}">${message}</div>`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertSlot.innerHTML = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = '로그인 중…';
+    try {
+      const email = form.email.value;
+      const password = form.password.value;
+      const u = await Auth.login(email, password);
+      if (u.role === 'admin') location.replace('admin.html');
+      else location.replace('home.html');
+    } catch (err) {
+      showAlert('error', err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = '로그인';
+    }
+  });
+
+  // already logged in?
+  window.addEventListener('load', async () => {
+    const u = await Auth.currentUser();
+    if (u) {
+      location.replace(u.role === 'admin' ? 'admin.html' : 'home.html');
+    }
+  });
+</script>
+</body>
+</html>

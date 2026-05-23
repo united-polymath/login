@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 — 잡도리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="auth-shell">
+  <form class="auth-card" id="signup-form" autocomplete="on">
+    <div class="auth-brand">
+      <div class="logo-mark">잡</div>
+      <span class="auth-brand-name">잡도리</span>
+    </div>
+    <h1 class="auth-title">시작해볼까요?</h1>
+    <p class="auth-sub">계정을 만들고 관리자 승인 후 챌린지에 합류할 수 있어요.</p>
+
+    <div id="alert-slot"></div>
+
+    <div class="field">
+      <label class="field-label" for="name">이름</label>
+      <input class="field-input" type="text" id="name" name="name" required placeholder="지수" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="email">이메일</label>
+      <input class="field-input" type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password">비밀번호</label>
+      <input class="field-input" type="password" id="password" name="password" required minlength="6" placeholder="6자 이상" autocomplete="new-password">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password2">비밀번호 확인</label>
+      <input class="field-input" type="password" id="password2" name="password2" required minlength="6" autocomplete="new-password">
+    </div>
+
+    <button class="btn primary block" type="submit" id="submit-btn">가입 신청</button>
+
+    <p class="auth-hint">이미 계정이 있나요? <a href="login.html">로그인</a></p>
+  </form>
+</div>
+
+<!-- 가입 완료 모달 -->
+<dialog id="signup-success-modal">
+  <div class="modal-head">
+    <div class="modal-title">가입 신청 완료</div>
+  </div>
+  <div class="modal-body" style="text-align:center;padding-top:8px;">
+    <div style="font-size:42px;margin-bottom:8px;">⏳</div>
+    <p style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;">
+      관리자 승인 대기중입니다
+    </p>
+    <p style="font-size:13px;color:var(--muted);line-height:1.55;">
+      가입 신청이 접수되었어요.<br>
+      관리자가 검토 후 승인하면 로그인할 수 있습니다.
+    </p>
+  </div>
+  <div class="modal-foot">
+    <button class="btn primary block" id="go-login-btn" type="button">로그인 화면으로</button>
+  </div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  const form = document.getElementById('signup-form');
+  const alertSlot = document.getElementById('alert-slot');
+  const submitBtn = document.getElementById('submit-btn');
+
+  function showAlert(type, message) {
+    alertSlot.innerHTML = `<div class="alert ${type}">${message}</div>`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertSlot.innerHTML = '';
+
+    if (form.password.value !== form.password2.value) {
+      showAlert('error', '비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '가입 신청 중…';
+    try {
+      await Auth.signup({
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value,
+      });
+      form.reset();
+      document.getElementById('signup-success-modal').showModal();
+    } catch (err) {
+      showAlert('error', err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = '가입 신청';
+    }
+  });
+
+  document.getElementById('go-login-btn').addEventListener('click', () => {
+    location.replace('login.html');
+  });
+
+  window.addEventListener('load', () => seedOnce());
+</script>
+</body>
+</html>
