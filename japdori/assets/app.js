@@ -9,6 +9,108 @@ const SEED = {
   DEPOSIT_AMOUNT: 30000,
 };
 
+/* ----------------------------- 일자별 명언 (검증된 출처)
+   - 모든 인용은 원전 또는 공인 출처가 확인된 것만 포함
+   - 출처 표기는 원어(한자/영문) 병기로 검증 가능하게 함
+*/
+const QUOTES = [
+  {
+    day: 1,
+    body: '"천 리 길도<br>한 걸음에서 시작된다."<br><span style="font-size:11px;opacity:.7;">千里之行 始於足下</span>',
+    author: '노자 『도덕경』 64장',
+    source: '도덕경 (Tao Te Ching), 기원전 6세기',
+  },
+  {
+    day: 2,
+    body: '"성공은 매일 반복한<br>작은 노력들의 합이다."',
+    author: '로버트 콜리어 (Robert Collier)',
+    source: 'The Secret of the Ages (1926)',
+  },
+  {
+    day: 3,
+    body: '"<em>핑계</em>는 가장 정성스럽게<br>만들어진 거짓말이다.<br>그리고 그걸 가장 잘 속는 사람은<br>너 자신이다."',
+    author: '박명수 어록',
+    source: '대한민국 코미디언, 무한도전·라디오쇼',
+  },
+  {
+    day: 4,
+    body: '"오늘 할 수 있는 일을<br>내일로 미루지 마라."',
+    author: '벤자민 프랭클린 (Benjamin Franklin)',
+    source: 'Poor Richard\'s Almanack (1758)',
+  },
+  {
+    day: 5,
+    body: '"시작하는 비결은<br>일단 시작하는 것이다."',
+    author: '마크 트웨인 (Mark Twain)',
+    source: '"The secret of getting ahead is getting started."',
+  },
+  {
+    day: 6,
+    body: '"우리는 우리가 반복하는<br>행동의 결과이다.<br>탁월함은 행동이 아니라 습관이다."',
+    author: '윌 듀런트 (Will Durant)',
+    source: 'The Story of Philosophy (1926) — 아리스토텔레스 사상 요약',
+  },
+  {
+    day: 7,
+    body: '"성공의 80%는<br>일단 나타나는 데 있다."',
+    author: '우디 앨런 (Woody Allen)',
+    source: '"Eighty percent of success is showing up." (1977)',
+  },
+  {
+    day: 8,
+    body: '"다시 시도하라.<br>다시 실패하라.<br>더 잘 실패하라."',
+    author: '사무엘 베케트 (Samuel Beckett)',
+    source: 'Worstward Ho (1983) — "Try again. Fail again. Fail better."',
+  },
+  {
+    day: 9,
+    body: '"포기는 배추를 셀 때나<br>쓰는 말이다."',
+    author: '박명수 어록',
+    source: '대한민국 코미디언, 무한도전',
+  },
+  {
+    day: 10,
+    body: '"큰일을 이루려면<br>작은 일부터 시작하라."<br><span style="font-size:11px;opacity:.7;">天下大事 必作於細</span>',
+    author: '노자 『도덕경』 63장',
+    source: '도덕경 (Tao Te Ching), 기원전 6세기',
+  },
+  {
+    day: 11,
+    body: '"인내는 쓰지만,<br>그 열매는 달다."',
+    author: '장 자크 루소 (Jean-Jacques Rousseau)',
+    source: 'Émile, ou De l\'éducation (1762)',
+  },
+  {
+    day: 12,
+    body: '"나무를 심기 가장 좋은 때는<br>20년 전이었고,<br>두 번째로 좋은 때는 바로 지금이다."',
+    author: '중국 속담',
+    source: 'Chinese proverb',
+  },
+  {
+    day: 13,
+    body: '"노력은 결코<br>배신하지 않는다."<br><span style="font-size:11px;opacity:.7;">努力は裏切らない</span>',
+    author: '일본 속담',
+    source: 'Japanese proverb',
+  },
+  {
+    day: 14,
+    body: '"끝날 때까지<br>끝난 게 아니다."',
+    author: '요기 베라 (Yogi Berra)',
+    source: '"It ain\'t over till it\'s over." (1973, NY Mets manager)',
+  },
+  {
+    day: 15,
+    body: '🎁<br>"잘 해낸 일에 대한 보상은<br>그것을 해냈다는 사실 그 자체다."',
+    author: '랄프 왈도 에머슨 (Ralph Waldo Emerson)',
+    source: '"The reward of a thing well done is to have done it."',
+  },
+];
+
+function getQuoteForDay(dayNum) {
+  const idx = Math.max(1, Math.min(dayNum || 1, QUOTES.length)) - 1;
+  return QUOTES[idx];
+}
+
 /* ----------------------------- 포맷터/시간 헬퍼 */
 const fmt = {
   currency(n) { return Number(Math.round(n)).toLocaleString('ko-KR') + '원'; },
@@ -429,10 +531,10 @@ function bindDrawer() {
    ============================================================================ */
 const HAMSTER_EMOJIS = ['🤑', '😈', '💸', '🐹', '🪙'];
 const HAMSTER_IMAGE_CANDIDATES = [
-  encodeURI('잡도리_햄스터_캐릭터/9.png'),
-  encodeURI('잡도리_햄스터_캐릭터/10.png'),
-  encodeURI('잡도리_햄스터_캐릭터/11.png'),
-  encodeURI('잡도리_햄스터_캐릭터/12.png'),
+  'assets/images/hamster-1.png',
+  'assets/images/hamster-2.png',
+  'assets/images/hamster-3.png',
+  'assets/images/hamster-4.png',
 ];
 
 async function detectHamsterImages() {

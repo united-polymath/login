@@ -241,77 +241,13 @@
     // ----- 2주 목표 (편집은 마이홈에서)
     document.getElementById('affirm-text').textContent = settings.affirmation || '';
 
-    // ----- 어록 (14일 + 보너스 = 15일)
-    // 모두 검증된 출처의 실제 명언
-    const QUOTES = [
-      {
-        body: '"천 리 길도<br>한 걸음에서 시작된다."<br><span style="font-size:11px;opacity:.7;">千里之行 始於足下</span>',
-        author: '노자 『도덕경』 64장',
-      },
-      {
-        body: '"성공은 매일 반복한<br>작은 노력들의 합이다."',
-        author: '로버트 콜리어 (Robert Collier)',
-      },
-      {
-        body: '"<em>핑계</em>는 가장 정성스럽게<br>만들어진 거짓말이다.<br>그리고 그걸 가장 잘 속는 사람은<br>너 자신이다."',
-        author: '박명수 어록',
-      },
-      {
-        body: '"오늘 할 수 있는 일을<br>내일로 미루지 마라."',
-        author: '벤자민 프랭클린 (Benjamin Franklin)',
-      },
-      {
-        body: '"시작하는 비결은<br>일단 시작하는 것이다."',
-        author: '마크 트웨인 (Mark Twain)',
-      },
-      {
-        body: '"우리는 우리가 반복하는<br>행동의 결과이다.<br>탁월함은 행동이 아니라 습관이다."',
-        author: '윌 듀런트 (아리스토텔레스 사상 요약)',
-      },
-      {
-        body: '"성공의 80%는<br>일단 나타나는 데 있다."',
-        author: '우디 앨런 (Woody Allen)',
-      },
-      {
-        body: '"다시 시도하라.<br>다시 실패하라.<br>더 잘 실패하라."',
-        author: '사무엘 베케트 (Samuel Beckett)',
-      },
-      {
-        body: '"포기는 배추를 셀 때나<br>쓰는 말이다."',
-        author: '박명수 어록',
-      },
-      {
-        body: '"큰일을 이루려면<br>작은 일부터 시작하라."<br><span style="font-size:11px;opacity:.7;">天下大事 必作於細</span>',
-        author: '노자 『도덕경』 63장',
-      },
-      {
-        body: '"인내는 쓰지만,<br>그 열매는 달다."',
-        author: '장 자크 루소 (Jean-Jacques Rousseau)',
-      },
-      {
-        body: '"나무를 심기 가장 좋은 때는<br>20년 전이었고,<br>두 번째로 좋은 때는 바로 지금이다."',
-        author: '중국 속담',
-      },
-      {
-        body: '"노력은 결코<br>배신하지 않는다."<br><span style="font-size:11px;opacity:.7;">努力は裏切らない</span>',
-        author: '일본 속담',
-      },
-      {
-        body: '"끝날 때까지<br>끝난 게 아니다."',
-        author: '요기 베라 (Yogi Berra)',
-      },
-      {
-        body: '🎁<br>"잘 해낸 일에 대한 보상은<br>그것을 해냈다는 사실 그 자체다."',
-        author: '랄프 왈도 에머슨 (Ralph Waldo Emerson)',
-      },
-    ];
+    // ----- 어록: 데이터·로직은 assets/app.js (getQuoteForDay)
     function renderQuote(dayNum) {
-      const idx = Math.max(1, Math.min(dayNum || 1, QUOTES.length)) - 1;
-      const q = QUOTES[idx];
+      const q = getQuoteForDay(dayNum);
       const tag = document.querySelector('.quote-card .quote-tag');
       const body = document.querySelector('.quote-card .quote-body');
       const author = document.querySelector('.quote-card .quote-author');
-      if (tag)    tag.textContent = `오늘의 잡도리 · ${idx + 1}일차`;
+      if (tag)    tag.textContent = `오늘의 잡도리 · ${q.day}일차`;
       if (body)   body.innerHTML = q.body;
       if (author) author.textContent = q.author;
     }
