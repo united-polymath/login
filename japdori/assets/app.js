@@ -446,7 +446,6 @@ function buildTopbar() {
         </div>
         <div class="topbar-right">
           <span class="pro-pill">CHALLENGE</span>
-          <button class="icon-btn" id="bell-btn" aria-label="알림">${Icons.bell}<span class="badge" id="bell-badge">0</span></button>
           <button class="icon-btn" id="menu-btn" aria-label="메뉴">${Icons.menu}</button>
         </div>
       </div>
@@ -508,10 +507,6 @@ function bindDrawer() {
   const menuBtn  = document.getElementById('menu-btn');
   const closeBtn = document.getElementById('drawer-close');
   const logout   = document.getElementById('logout-btn');
-  const bell     = document.getElementById('bell-btn');
-  const bellBadge= document.getElementById('bell-badge');
-
-  if (bellBadge) bellBadge.style.display = 'none';
 
   const open  = () => { drawer.classList.add('open'); backdrop.classList.add('open'); };
   const close = () => { drawer.classList.remove('open'); backdrop.classList.remove('open'); };
@@ -519,7 +514,6 @@ function bindDrawer() {
   if (menuBtn) menuBtn.addEventListener('click', open);
   if (closeBtn) closeBtn.addEventListener('click', close);
   if (backdrop) backdrop.addEventListener('click', close);
-  if (bell) bell.addEventListener('click', () => alert('공지사항은 메뉴(≡)에서 확인하실 수 있어요.'));
   if (logout) logout.addEventListener('click', async () => {
     await Auth.logout();
     location.replace('login.html');
