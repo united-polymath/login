@@ -345,7 +345,7 @@
       else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">− ${fmt.currency(PER_DAY)} 손실</span>`;
       else                              amountEl.textContent = `보증금 ${fmt.currency(PER_DAY)} 걸려있음`;
 
-      document.getElementById('dd-mission').textContent = a.mission;
+      document.getElementById('dd-mission').textContent = settings.affirmation || a.mission;
 
       const photoWrap = document.getElementById('dd-photo-wrap');
       const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;

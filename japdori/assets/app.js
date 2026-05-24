@@ -311,7 +311,7 @@ async function reviewSubmission(userId, day, decision, reviewerId, note = '') {
 async function listPendingSubmissions() {
   const { data, error } = await sb
     .from('japdori_attendance')
-    .select(`*, user:japdori_users!user_id(id, name, email)`)
+    .select(`*, user:japdori_users!user_id(id, name, email, settings:japdori_user_settings(affirmation))`)
     .eq('status', 'pending_review')
     .order('submitted_at', { ascending: false });
   if (error) { console.warn(error); return []; }
@@ -321,7 +321,7 @@ async function listPendingSubmissions() {
 async function listAllSubmissions(filterUserId = null) {
   let q = sb
     .from('japdori_attendance')
-    .select(`*, user:japdori_users!user_id(id, name, email)`)
+    .select(`*, user:japdori_users!user_id(id, name, email, settings:japdori_user_settings(affirmation))`)
     .order('date', { ascending: false });
   if (filterUserId) q = q.eq('user_id', filterUserId);
   const { data, error } = await q;

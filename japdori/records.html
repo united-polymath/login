@@ -66,6 +66,7 @@
     if (!me) return;
 
     const att = await getAttendance(me.id);
+    const settings = await getUserSettings(me.id);
     const galleryEl = document.getElementById('gallery');
     const total = att.length;
 
@@ -132,7 +133,7 @@
         }
         document.getElementById('pm-day').textContent = isGift ? '🎁 보너스' : `${a.day_number}일차`;
         document.getElementById('pm-date').textContent = `${fmt.date(a.date)} · ${fmt.dow(a.date)}요일`;
-        document.getElementById('pm-mission').textContent = a.mission || '';
+        document.getElementById('pm-mission').textContent = settings.affirmation || a.mission || '';
         photoModal.showModal();
       });
     });

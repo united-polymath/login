@@ -216,6 +216,9 @@
     async function subCard(row, opts = {}) {
       const a = row;
       const user = a.user;
+      // 사용자가 설정한 목표(affirmation) 우선, 없으면 기본 mission
+      const userAffirmation = user?.settings?.affirmation;
+      const missionText = (userAffirmation && userAffirmation.trim()) || a.mission;
       const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;
       const photo = photoUrl ? `<img src="${photoUrl}" alt="인증">` : '';
       const statusPill = `<span class="status-pill ${a.status.replace('_','-')}">${statusLabel(a.status)}</span>`;
@@ -233,7 +236,7 @@
           <div class="sub-card-body">
             <div class="sub-card-user">${user?.name || '?'} <span style="color:var(--muted);font-weight:500;">· ${user?.email || ''}</span></div>
             <div class="sub-card-meta">DAY ${String(a.day_number).padStart(2,'0')} · ${fmt.dateTime(a.submitted_at || a.date)}</div>
-            <div class="sub-card-mission">🎯 ${a.mission}</div>
+            <div class="sub-card-mission">🎯 ${missionText}</div>
           </div>
           ${actions}
         </div>`;
