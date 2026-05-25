@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잡도리 — 2주의 약속</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* DARK + subtle ambient */
+    --bg: #0A0E08;
+    --paper: #14180F;
+    --paper-soft: #1B1F16;
+    --paper-strong: #232820;
+    --ink: #F4F6EC;
+    --ink-soft: #C5C8BD;
+    --muted: #767A6E;
+    --line: #262A22;
+    --line-soft: #1E2218;
+    /* ACCENT — extracted lime */
+    --accent: #C5F23F;
+    --accent-strong: #D6FF52;
+    --accent-soft: rgba(197, 242, 63, 0.55);
+    --accent-pale: rgba(197, 242, 63, 0.12);
+    --accent-ink: #16210A;
+    --danger: #FF6B5B;
+    --warn: #FFC94B;
+    --coin: #E8C26A;
+    --coin-dark: #B7912E;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(197,242,63,0.10) 0%, transparent 55%),
+      radial-gradient(900px 600px at 88% 18%, rgba(110,200,80,0.045) 0%, transparent 60%),
+      radial-gradient(800px 600px at 8% 60%, rgba(80,140,60,0.04) 0%, transparent 60%),
+      linear-gradient(180deg, #0D110A 0%, #080B07 100%);
+    padding-bottom: 120px;
+    position: relative;
+  }
+
+  /* Subtle star/noise dust */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 12% 22%, rgba(197,242,63,0.35), transparent 50%),
+      radial-gradient(1px 1px at 78% 14%, rgba(197,242,63,0.22), transparent 50%),
+      radial-gradient(1px 1px at 42% 78%, rgba(197,242,63,0.18), transparent 50%),
+      radial-gradient(1px 1px at 88% 62%, rgba(197,242,63,0.20), transparent 50%),
+      radial-gradient(1px 1px at 25% 55%, rgba(197,242,63,0.15), transparent 50%),
+      radial-gradient(1px 1px at 62% 88%, rgba(197,242,63,0.18), transparent 50%);
+    z-index: 0;
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 14, 8, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .nav-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Instrument Serif', 'Nanum Myeongjo', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    transform: rotate(-6deg);
+  }
+
+  .nav-search {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s;
+  }
+
+  .nav-search:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* MAIN */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 26px 22px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HELLO */
+  .hello-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .hello-mini-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background:
+      linear-gradient(135deg, var(--accent) 0%, #6BA300 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--accent-ink);
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hello-text { flex: 1; }
+
+  .hello-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .hello-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 22px; }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .section-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ============================ */
+  /* 1. AFFIRMATION CARD          */
+  /* ============================ */
+  .affirm-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 26px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .affirm-card::before {
+    content: '"';
+    position: absolute;
+    top: 4px;
+    left: 18px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 72px;
+    color: var(--accent);
+    opacity: 0.20;
+    line-height: 1;
+  }
+
+  .affirm-text {
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+    margin: 10px 0 16px;
+    position: relative;
+  }
+
+  .affirm-text .underline {
+    background: linear-gradient(180deg, transparent 65%, var(--accent-pale) 65%);
+    padding: 0 4px;
+    color: var(--accent);
+  }
+
+  .affirm-edit {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border-radius: 100px;
+    transition: all 0.18s;
+  }
+
+  .affirm-edit:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ============================ */
+  /* 2. MONEY GAUGE CARD          */
+  /* ============================ */
+  .gauge-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 26px 22px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gauge-card::after {
+    content: '';
+    position: absolute;
+    inset: -40% -10% auto auto;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(197,242,63,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .gauge-header {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .gauge-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .gauge-main {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .gauge-main .amount {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .gauge-main .unit {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .gauge-sub {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .gauge-sub .sep {
+    width: 3px;
+    height: 3px;
+    background: var(--muted);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  /* TRACK */
+  .gauge-track {
+    position: relative;
+    height: 86px;
+    margin: 32px 12px 0;
+  }
+
+  .gauge-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--paper-strong);
+    border-radius: 100px;
+    transform: translateY(-50%);
+    overflow: hidden;
+  }
+
+  .gauge-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 85.7%;
+    background: linear-gradient(90deg, #6BA300 0%, var(--accent) 100%);
+    border-radius: 100px;
+    box-shadow: 0 0 12px rgba(197, 242, 63, 0.45);
+  }
+
+  /* MARKER: me (profile) */
+  .gauge-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .gauge-marker.me {
+    left: 85.7%;
+  }
+
+  .gauge-marker.end {
+    left: 100%;
+  }
+
+  .gauge-avatar-wrap {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    padding: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(197, 242, 63, 0.18);
+    cursor: pointer;
+  }
+
+  .gauge-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      linear-gradient(135deg, #2A3320 0%, #14180F 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 24px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border: 2px solid #14180F;
+  }
+
+  .gauge-avatar.has-photo {
+    color: transparent;
+  }
+
+  .gauge-avatar-cam {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--accent-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--paper);
+  }
+
+  .gauge-avatar-cam svg { width: 10px; height: 10px; }
+
+  /* COIN icon */
+  .coin {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #FFD982 0%, #C99A2A 100%);
+    box-shadow:
+      inset 0 -3px 0 rgba(0,0,0,0.18),
+      inset 0 3px 0 rgba(255,255,255,0.18),
+      0 6px 18px rgba(184, 138, 28, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 3px solid #B8881C;
+  }
+
+  .coin::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255, 234, 170, 0.55);
+  }
+
+  .coin-text {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #4A3308;
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .gauge-label {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    background: rgba(20, 24, 15, 0.85);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .gauge-label.me { color: var(--accent); border-color: rgba(197,242,63,0.35); }
+
+  /* gauge footer chips */
+  .gauge-footer {
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .gauge-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: var(--paper-soft);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .gauge-chip.hl {
+    background: var(--accent-pale);
+    color: var(--accent);
+    border-color: rgba(197,242,63,0.25);
+  }
+
+  .gauge-chip .strike { text-decoration: line-through; opacity: 0.65; }
+
+  /* hidden file input */
+  #avatar-input { display: none; }
+
+  /* ============================ */
+  /* 3. TRACKER (clean)           */
+  /* ============================ */
+  .tracker-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px 20px 22px;
+  }
+
+  .tracker-tabs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 22px;
+    padding: 0 4px;
+  }
+
+  .tracker-tab {
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 0;
+    position: relative;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    font-family: 'Pretendard', sans-serif;
+  }
+
+  .tracker-tab.active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .tracker-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 100px;
+  }
+
+  .tracker-head-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 0 4px 10px;
+  }
+
+  .tracker-dow {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .tracker-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 4px;
+  }
+
+  .t-day {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    background: transparent;
+    position: relative;
+    gap: 4px;
+  }
+
+  .t-day:hover { background: rgba(255,255,255,0.025); }
+
+  .t-day .num {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+  }
+
+  .t-day .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .t-day.done .dot { background: var(--accent); }
+  .t-day.failed .dot { background: var(--danger); }
+  .t-day.pending .num { color: var(--muted); }
+
+  .t-day.today {
+    background: var(--accent);
+  }
+  .t-day.today .num { color: var(--accent-ink); font-weight: 700; }
+  .t-day.today .dot { background: var(--accent-ink); }
+
+  .tracker-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .tracker-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tracker-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tracker-stat .v {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .tracker-stat .l {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .tracker-stat.hl .v { color: var(--accent); }
+
+  .tracker-legend {
+    display: flex;
+    gap: 12px;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .leg {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .leg-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .leg-dot.done { background: var(--accent); }
+  .leg-dot.failed { background: var(--danger); }
+  .leg-dot.pending { background: var(--muted); opacity: 0.4; }
+
+  /* RANK CARD */
+  .rank-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px 22px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: end;
+  }
+
+  .rank-text { padding-top: 4px; }
+
+  .rank-title { font-size: 14px; color: var(--ink-soft); margin-bottom: 4px; }
+
+  .rank-percent {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .rank-percent .hl {
+    background: var(--accent-pale);
+    color: var(--accent);
+    padding: 0 6px;
+    border-radius: 6px;
+  }
+
+  .rank-foot {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .rank-bars {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+    height: 100px;
+  }
+
+  .rb-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .rb-val {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .rb-val.me { color: var(--accent); }
+
+  .rb {
+    width: 24px;
+    border-radius: 100px 100px 4px 4px;
+    background: linear-gradient(180deg, var(--paper-strong) 0%, var(--paper-soft) 100%);
+  }
+
+  .rb.me { background: linear-gradient(180deg, var(--accent) 0%, #6BA300 100%); }
+
+  .rb-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* QUOTE */
+  .quote-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 28px 22px;
+    text-align: center;
+  }
+
+  .quote-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+  }
+
+  .quote-body {
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .quote-body em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .quote-author {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .quote-author::before { content: '— '; }
+
+  /* SUBMIT */
+  .submit-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px 22px;
+    text-align: center;
+  }
+
+  .submit-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .submit-title {
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+
+  .submit-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .submit-area {
+    border: 2px dashed var(--line);
+    border-radius: 18px;
+    padding: 36px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--paper-soft);
+  }
+
+  .submit-area:hover {
+    border-color: var(--accent);
+    background: rgba(197, 242, 63, 0.04);
+  }
+
+  .submit-icon {
+    font-size: 36px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .submit-cta { font-size: 14px; color: var(--ink); font-weight: 500; margin-bottom: 4px; }
+  .submit-hint { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+
+  /* CALENDAR */
+  .calendar-card {
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px 22px;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cal-month { font-size: 18px; color: var(--ink); font-weight: 600; }
+
+  .cal-nav { display: flex; gap: 8px; }
+
+  .cal-arrow {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    cursor: pointer;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.18s;
+  }
+
+  .cal-arrow:hover { border-color: var(--accent); color: var(--accent); }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-dow {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 8px 0;
+    letter-spacing: 0.1em;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .cal-day:hover { background: var(--paper-soft); }
+
+  .cal-day.outside { color: rgba(118, 122, 110, 0.35); cursor: default; }
+  .cal-day.outside:hover { background: transparent; }
+
+  .cal-day.has-photo {
+    background-size: cover;
+    background-position: center;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .cal-day.has-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  .cal-day.has-photo .cal-num { position: relative; z-index: 1; }
+
+  .cal-day.today {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 800;
+  }
+
+  .cal-day.failed::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 5px;
+    height: 5px;
+    background: var(--danger);
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .photo-a { background-image: linear-gradient(135deg, #C19A6B 0%, #8B6B47 100%); }
+  .photo-b { background-image: linear-gradient(135deg, #6B8E5A 0%, #4A6741 100%); }
+  .photo-c { background-image: linear-gradient(135deg, #D4A574 0%, #B8956A 100%); }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 100px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    z-index: 200;
+    width: min(420px, calc(100% - 40px));
+    justify-content: space-between;
+  }
+
+  .bnav-item {
+    flex: 1;
+    height: 48px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(20, 24, 15, 0.45);
+    cursor: pointer;
+    transition: all 0.18s;
+    background: transparent;
+    border: none;
+  }
+
+  .bnav-item:hover { color: var(--accent-ink); }
+
+  .bnav-item.active {
+    background: var(--accent);
+    color: var(--accent-ink);
+    flex: 0 0 56px;
+  }
+
+  .bnav-item svg { width: 22px; height: 22px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .container { padding: 20px 16px 40px; }
+    .nav-inner { padding: 14px 18px; }
+    .gauge-main .amount { font-size: 36px; }
+    .gauge-track { margin: 28px 8px 0; height: 80px; }
+    .gauge-avatar-wrap, .coin { width: 46px; height: 46px; }
+    .coin-text { font-size: 16px; }
+    .gauge-label { font-size: 11px; padding: 3px 8px; }
+    .section-title { font-size: 18px; }
+    .affirm-text { font-size: 18px; }
+    .tracker-grid { gap: 6px; }
+    .t-day { border-radius: 12px; }
+    .t-day .num { font-size: 13px; }
+    .quote-body { font-size: 18px; }
+    .submit-title { font-size: 19px; }
+    .rank-percent { font-size: 24px; }
+    .rank-bars { height: 86px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <span class="logo-mark">잡</span>
+      <span>잡도리</span>
+    </div>
+    <button class="nav-search" aria-label="검색">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HELLO -->
+  <div class="hello-row">
+    <div class="hello-mini-avatar" id="mini-avatar">지</div>
+    <div class="hello-text">
+      <div class="hello-title">안녕, 지수</div>
+      <div class="hello-sub">TODAY · 13 MAY · 2026 · DAY 04</div>
+    </div>
+  </div>
+
+  <!-- 1. AFFIRMATION -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">나의 확언</h2>
+      <span class="section-meta">MY AFFIRMATION</span>
+    </div>
+    <div class="affirm-card">
+      <p class="affirm-text">
+        나는 매일 아침 6시에 일어나<br>
+        <span class="underline">스스로와의 약속</span>을 지키는 사람이다.
+      </p>
+      <button class="affirm-edit" onclick="editAffirmation()">수정하기 ›</button>
+    </div>
+  </div>
+
+  <!-- 2. MONEY GAUGE -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">남은 보증금</h2>
+      <span class="section-meta">DEPOSIT GAUGE</span>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-header">
+        <div class="gauge-date">26.05.13 · DAY 04 / 14</div>
+        <div class="gauge-main">
+          <span class="amount">25,710</span><span class="unit">원</span>
+        </div>
+        <div class="gauge-sub">
+          <span>85.7% 유지</span>
+          <span class="sep"></span>
+          <span>−₩4,290 차감됨</span>
+        </div>
+      </div>
+
+      <div class="gauge-track">
+        <div class="gauge-line">
+          <div class="gauge-line-fill"></div>
+        </div>
+
+        <!-- profile marker (user-set image) -->
+        <div class="gauge-marker me">
+          <div class="gauge-avatar-wrap" onclick="document.getElementById('avatar-input').click()" title="프로필 사진 변경">
+            <div class="gauge-avatar" id="gauge-avatar">지</div>
+            <div class="gauge-avatar-cam" aria-label="사진 변경">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="gauge-label me">25,710원</div>
+        </div>
+
+        <!-- coin end marker -->
+        <div class="gauge-marker end">
+          <div class="coin">
+            <span class="coin-text">₩</span>
+          </div>
+          <div class="gauge-label">30,000원</div>
+        </div>
+      </div>
+
+      <div class="gauge-footer">
+        <span class="gauge-chip hl">● LIVE</span>
+        <span class="gauge-chip"><span class="strike">시작 ₩30,000</span></span>
+        <span class="gauge-chip">남은 일수 10일</span>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="avatar-input" accept="image/*">
+
+  <!-- 3. TRACKER -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">2주의 흔적</h2>
+      <span class="section-meta">3 / 14 STAMPED</span>
+    </div>
+    <div class="tracker-card">
+      <div class="tracker-tabs">
+        <button class="tracker-tab active">2주차</button>
+        <button class="tracker-tab">월간</button>
+        <button class="tracker-tab">전체</button>
+      </div>
+
+      <div class="tracker-head-row">
+        <div class="tracker-dow">일</div>
+        <div class="tracker-dow">월</div>
+        <div class="tracker-dow">화</div>
+        <div class="tracker-dow">수</div>
+        <div class="tracker-dow">목</div>
+        <div class="tracker-dow">금</div>
+        <div class="tracker-dow">토</div>
+      </div>
+
+      <div class="tracker-grid">
+        <!-- 14 days -->
+        <div class="t-day done"><span class="num">10</span><span class="dot"></span></div>
+        <div class="t-day done"><span class="num">11</span><span class="dot"></span></div>
+        <div class="t-day failed"><span class="num">12</span><span class="dot"></span></div>
+        <div class="t-day today"><span class="num">13</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">14</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">15</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">16</span><span class="dot"></span></div>
+
+        <div class="t-day pending"><span class="num">17</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">18</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">19</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">20</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">21</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">22</span><span class="dot"></span></div>
+        <div class="t-day pending"><span class="num">23</span><span class="dot"></span></div>
+      </div>
+
+      <div class="tracker-summary">
+        <div class="tracker-summary-left">
+          <div class="tracker-stat hl">
+            <span class="v">02</span>
+            <span class="l">완료</span>
+          </div>
+          <div class="tracker-stat">
+            <span class="v">01</span>
+            <span class="l">실패</span>
+          </div>
+          <div class="tracker-stat">
+            <span class="v">11</span>
+            <span class="l">남음</span>
+          </div>
+        </div>
+        <div class="tracker-legend">
+          <span class="leg"><span class="leg-dot done"></span>완료</span>
+          <span class="leg"><span class="leg-dot failed"></span>실패</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANK -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">동료 중 나의 위치</h2>
+      <span class="section-meta">RANK</span>
+    </div>
+    <div class="rank-card">
+      <div class="rank-text">
+        <div class="rank-title">2주 챌린지 참여자 중</div>
+        <div class="rank-percent">상위 <span class="hl">28.4%</span></div>
+        <div class="rank-foot">3일 연속 인증 · 평균보다 +1.2일</div>
+      </div>
+      <div class="rank-bars">
+        <div class="rb-wrap">
+          <div class="rb-val me">3.2일</div>
+          <div class="rb me" style="height: 78%;"></div>
+          <div class="rb-label">나</div>
+        </div>
+        <div class="rb-wrap">
+          <div class="rb-val">2.0일</div>
+          <div class="rb" style="height: 50%;"></div>
+          <div class="rb-label">평균</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="section">
+    <div class="quote-card">
+      <span class="quote-tag">오늘의 잡도리 · DAY 04</span>
+      <p class="quote-body">
+        "<em>핑계</em>는 가장 정성스럽게 만들어진 거짓말이다.<br>
+        그리고 그걸 가장 잘 속는 사람은<br>너 자신이다."
+      </p>
+      <div class="quote-author">박명수의 어록 中</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">오늘의 인증</h2>
+      <span class="section-meta">DEADLINE · 23:59</span>
+    </div>
+    <div class="submit-card">
+      <div class="submit-status">● 대기중</div>
+      <h3 class="submit-title">사진으로 증명해.</h3>
+      <p class="submit-sub">관리자 컨펌이 완료되면 내일의 도장이 채워집니다</p>
+      <div class="submit-area" onclick="alert('카메라/갤러리 열기')">
+        <span class="submit-icon">+</span>
+        <div class="submit-cta">탭해서 사진 올리기</div>
+        <div class="submit-hint">JPG · PNG · 최대 10MB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="section">
+    <div class="section-head">
+      <h2 class="section-title">지나온 날들</h2>
+      <span class="section-meta">PHOTO ARCHIVE</span>
+    </div>
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <div class="cal-month">2026년 5월</div>
+        <div class="cal-nav">
+          <button class="cal-arrow">‹</button>
+          <button class="cal-arrow">›</button>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-dow">일</div>
+        <div class="cal-dow">월</div>
+        <div class="cal-dow">화</div>
+        <div class="cal-dow">수</div>
+        <div class="cal-dow">목</div>
+        <div class="cal-dow">금</div>
+        <div class="cal-dow">토</div>
+
+        <div class="cal-day outside"><span class="cal-num">26</span></div>
+        <div class="cal-day outside"><span class="cal-num">27</span></div>
+        <div class="cal-day outside"><span class="cal-num">28</span></div>
+        <div class="cal-day outside"><span class="cal-num">29</span></div>
+        <div class="cal-day outside"><span class="cal-num">30</span></div>
+        <div class="cal-day"><span class="cal-num">1</span></div>
+        <div class="cal-day"><span class="cal-num">2</span></div>
+
+        <div class="cal-day"><span class="cal-num">3</span></div>
+        <div class="cal-day"><span class="cal-num">4</span></div>
+        <div class="cal-day"><span class="cal-num">5</span></div>
+        <div class="cal-day"><span class="cal-num">6</span></div>
+        <div class="cal-day"><span class="cal-num">7</span></div>
+        <div class="cal-day"><span class="cal-num">8</span></div>
+        <div class="cal-day has-photo photo-a"><span class="cal-num">9</span></div>
+
+        <div class="cal-day has-photo photo-b"><span class="cal-num">10</span></div>
+        <div class="cal-day has-photo photo-c"><span class="cal-num">11</span></div>
+        <div class="cal-day failed"><span class="cal-num">12</span></div>
+        <div class="cal-day today"><span class="cal-num">13</span></div>
+        <div class="cal-day"><span class="cal-num">14</span></div>
+        <div class="cal-day"><span class="cal-num">15</span></div>
+        <div class="cal-day"><span class="cal-num">16</span></div>
+
+        <div class="cal-day"><span class="cal-num">17</span></div>
+        <div class="cal-day"><span class="cal-num">18</span></div>
+        <div class="cal-day"><span class="cal-num">19</span></div>
+        <div class="cal-day"><span class="cal-num">20</span></div>
+        <div class="cal-day"><span class="cal-num">21</span></div>
+        <div class="cal-day"><span class="cal-num">22</span></div>
+        <div class="cal-day"><span class="cal-num">23</span></div>
+
+        <div class="cal-day"><span class="cal-num">24</span></div>
+        <div class="cal-day"><span class="cal-num">25</span></div>
+        <div class="cal-day"><span class="cal-num">26</span></div>
+        <div class="cal-day"><span class="cal-num">27</span></div>
+        <div class="cal-day"><span class="cal-num">28</span></div>
+        <div class="cal-day"><span class="cal-num">29</span></div>
+        <div class="cal-day"><span class="cal-num">30</span></div>
+
+        <div class="cal-day"><span class="cal-num">31</span></div>
+        <div class="cal-day outside"><span class="cal-num">1</span></div>
+        <div class="cal-day outside"><span class="cal-num">2</span></div>
+        <div class="cal-day outside"><span class="cal-num">3</span></div>
+        <div class="cal-day outside"><span class="cal-num">4</span></div>
+        <div class="cal-day outside"><span class="cal-num">5</span></div>
+        <div class="cal-day outside"><span class="cal-num">6</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">JAPDORI · 2주의 약속 · MADE WITH 잡도리</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav-item active" aria-label="오늘">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  </button>
+  <button class="bnav-item" aria-label="기록">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
+  <button class="bnav-item" aria-label="통계">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+  </button>
+  <button class="bnav-item" aria-label="나">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </button>
+</nav>
+
+<script>
+  // Affirmation
+  function editAffirmation() {
+    const text = document.querySelector('.affirm-text');
+    const next = prompt('확언을 수정해보세요', text.textContent.trim());
+    if (next && next.trim()) text.textContent = next;
+  }
+
+  // Avatar upload — apply to both gauge and hello mini avatar, persist in localStorage
+  const avatarInput = document.getElementById('avatar-input');
+  const gaugeAvatar = document.getElementById('gauge-avatar');
+  const miniAvatar  = document.getElementById('mini-avatar');
+
+  function applyAvatar(dataUrl) {
+    [gaugeAvatar, miniAvatar].forEach(el => {
+      el.style.backgroundImage = `url(${dataUrl})`;
+      el.textContent = '';
+      el.classList.add('has-photo');
+    });
+  }
+
+  const saved = localStorage.getItem('japdori_avatar');
+  if (saved) applyAvatar(saved);
+
+  avatarInput.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const url = ev.target.result;
+      localStorage.setItem('japdori_avatar', url);
+      applyAvatar(url);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Tracker tabs
+  document.querySelectorAll('.tracker-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tracker-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+
+  // Tracker day tap
+  document.querySelectorAll('.t-day').forEach(s => {
+    s.addEventListener('click', () => {
+      s.style.transform = 'scale(0.92)';
+      setTimeout(() => s.style.transform = 'scale(1)', 150);
+    });
+  });
+
+  // Bottom nav
+  document.querySelectorAll('.bnav-item').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.bnav-item').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

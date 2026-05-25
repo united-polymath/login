@@ -29,10 +29,12 @@
     </div>
 
     <div class="mission-journey">
-      <div class="mission-progress">
-        <div class="mission-progress-fill" id="ds-fill" style="width:0%"></div>
+      <div class="mission-progress" title="초록: 적립, 회색: 적립 대기, 빨강: 미적립">
+        <div class="mission-progress-fill approved" id="ds-fill-approved" style="width:0%"></div>
+        <div class="mission-progress-fill pending" id="ds-fill-pending" style="width:0%"></div>
+        <div class="mission-progress-fill failed" id="ds-fill-failed" style="width:0%"></div>
         <span class="mission-progress-text">
-          <span id="ds-current-num">—</span> / <span id="ds-total-num">30,000</span>
+          <span id="ds-current-num">—</span> / 최대 <span id="ds-total-num">30,000</span> 가능
         </span>
       </div>
       <div class="hamster-box bare" id="hamster-box"></div>
@@ -41,9 +43,9 @@
     <div class="mission-row">
       <div class="mission-info">
         <div class="mission-info-title">
-          <span id="ds-current">—</span> 남음 <span class="hot">*</span>
+          <span id="ds-current">—</span> 모음 <span class="hot">*</span>
         </div>
-        <div class="mission-info-sub">일당 −<span id="ds-perday">2,143</span>원 차감</div>
+        <div class="mission-info-sub">일당 +<span id="ds-perday">2,143</span>원 적립</div>
       </div>
       <button class="btn dark sm mission-cta" type="button">상세</button>
     </div>
@@ -320,9 +322,9 @@
 
       const amountEl = document.getElementById('dd-amount');
       const PER_DAY = Math.round(SEED.DEPOSIT_AMOUNT / SEED.CHALLENGE_DAYS);
-      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 보존</span>`;
-      else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">− ${fmt.currency(PER_DAY)} 손실</span>`;
-      else                              amountEl.textContent = `보증금 ${fmt.currency(PER_DAY)} 걸려있음`;
+      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 적립</span>`;
+      else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">0원 (미적립)</span>`;
+      else                              amountEl.textContent = `일당 ${fmt.currency(PER_DAY)} 적립 예정`;
 
       document.getElementById('dd-mission').textContent = settings.affirmation || a.mission;
 
@@ -445,9 +447,16 @@
       document.getElementById('ds-pct').textContent = pct;
       document.getElementById('ds-current').textContent = fmt.currency(d.current);
       document.getElementById('ds-perday').textContent = fmt.number(d.perDay);
-      document.getElementById('ds-fill').style.width = `${pct}%`;
+      
+      const pctApproved = (d.preserved / d.total) * 100;
+      const pctPending = (d.pending / d.total) * 100;
+      const pctFailed = (d.lost / d.total) * 100;
+      document.getElementById('ds-fill-approved').style.width = `${pctApproved}%`;
+      document.getElementById('ds-fill-pending').style.width = `${pctPending}%`;
+      document.getElementById('ds-fill-failed').style.width = `${pctFailed}%`;
+
       document.getElementById('ds-current-num').textContent = fmt.number(d.current);
-      document.getElementById('ds-total-num').textContent = fmt.number(d.total);
+      document.getElementById('ds-total-num').textContent = fmt.number(d.total - d.lost);
       document.getElementById('ds-remain-days').textContent = `${d.remaining}일 남음`;
     }
     renderDepositStatus();

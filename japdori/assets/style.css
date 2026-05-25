@@ -404,15 +404,16 @@ img { display: block; max-width: 100%; }
   background: var(--card-soft);
   border-radius: 100px;
   overflow: hidden;
+  display: flex;
 }
 
 .mission-progress-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  background: linear-gradient(90deg, var(--accent-pale) 0%, var(--accent) 100%);
-  border-radius: 100px;
+  height: 100%;
   transition: width 0.4s ease;
 }
+.mission-progress-fill.approved { background: linear-gradient(90deg, var(--accent-pale) 0%, var(--accent) 100%); }
+.mission-progress-fill.pending { background: var(--line); }
+.mission-progress-fill.failed { background: var(--danger-pale); }
 
 .mission-progress-text {
   position: absolute;

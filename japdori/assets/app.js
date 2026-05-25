@@ -344,7 +344,7 @@ function computeDeposit(att) {
   const total = att?.length || SEED.CHALLENGE_DAYS;
   const remaining = total - passed;
   const pending = remaining * PER_DAY;
-  const current = TOTAL - lost;
+  const current = preserved;
   return { total: TOTAL, perDay: PER_DAY, lost, preserved, pending, current, approved, failed, remaining };
 }
 

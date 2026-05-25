@@ -51,7 +51,7 @@
     <div class="deposit-top">
       <div>
         <div class="deposit-amount"><span id="dp-current">—</span><span class="unit">원</span></div>
-        <div class="deposit-sub">시작 ₩30,000 · 일당 ₩2,143</div>
+        <div class="deposit-sub">목표 ₩30,000 · 일당 ₩2,143</div>
       </div>
       <div class="donut">
         <svg width="92" height="92" viewBox="0 0 92 92">
@@ -69,11 +69,11 @@
     <div class="deposit-summary">
       <div class="ds-item plus">
         <span class="v" id="dp-preserved">—</span>
-        <span class="l">보존</span>
+        <span class="l">적립</span>
       </div>
       <div class="ds-item minus">
         <span class="v" id="dp-lost">—</span>
-        <span class="l">손실</span>
+        <span class="l">미적립</span>
       </div>
       <div class="ds-item">
         <span class="v" id="dp-pending">—</span>
@@ -341,9 +341,9 @@
 
       const PER_DAY = Math.round(SEED.DEPOSIT_AMOUNT / SEED.CHALLENGE_DAYS);
       const amountEl = document.getElementById('dd-amount');
-      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 보존</span>`;
-      else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">− ${fmt.currency(PER_DAY)} 손실</span>`;
-      else                              amountEl.textContent = `보증금 ${fmt.currency(PER_DAY)} 걸려있음`;
+      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 적립</span>`;
+      else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">0원 (미적립)</span>`;
+      else                              amountEl.textContent = `일당 ${fmt.currency(PER_DAY)} 적립 예정`;
 
       document.getElementById('dd-mission').textContent = settings.affirmation || a.mission;
 
