@@ -297,10 +297,10 @@
 
       const doneCount = att.filter(a => a.status === 'approved').length;
       document.getElementById('tracker-count').textContent = `${doneCount} / ${att.length}`;
-      const todayIdx = att.findIndex(a => a.status === 'today');
-      const day = todayIdx + 1;
-      document.getElementById('affirm-day').textContent = `${day || 1}일차 / ${att.length}일`;
-      renderQuote(day || 1);
+      const currentTask = att.find(a => a.status === 'today' || a.status === 'pending_review' || a.status === 'locked');
+      const day = currentTask ? currentTask.day_number : (att.length > 0 ? att[att.length - 1].day_number : 1);
+      document.getElementById('affirm-day').textContent = `${day}일차 / ${att.length}일`;
+      renderQuote(day);
     }
 
     // ============================================================
