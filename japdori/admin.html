@@ -368,7 +368,7 @@
     let userFilter = 'all';
 
     async function renderUsers() {
-      const users = await listUsers();
+      const users = (await listUsers()).filter(u => u.role !== 'admin');
       document.getElementById('ct-users').textContent = users.length;
       const counts = users.reduce((acc, u) => { acc[u.status] = (acc[u.status] || 0) + 1; return acc; }, {});
       document.getElementById('counts').textContent =
