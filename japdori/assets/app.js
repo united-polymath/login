@@ -205,6 +205,21 @@ const Auth = {
   async requireAuth(redirect = 'login.html') {
     const u = await this.currentUser();
     if (!u) { location.replace(redirect); return null; }
+
+    // VIEW-AS: 관리자가 다른 회원 화면을 미리보기 (읽기 전용)
+    if (u.role === 'admin') {
+      const target = await ViewAs.maybeActivate(u);
+      if (target) {
+        if (target.status === 'completed') { location.replace('complete.html'); return null; }
+        if (target.status !== 'approved') {
+          alert(`${target.name} 회원의 상태가 '${target.status}'이라 이 화면을 볼 수 없어요.`);
+          location.replace('admin.html');
+          return null;
+        }
+        return target;
+      }
+    }
+
     // 챌린지 종료 사용자는 결과 화면으로
     if (u.status === 'completed') { location.replace('complete.html'); return null; }
     // 승인 안 된 사용자가 직접 URL로 접근하는 걸 차단
@@ -228,6 +243,112 @@ const Auth = {
     }
     if (u.role !== 'admin') { alert('관리자만 접근 가능합니다.'); location.replace(redirect); return null; }
     return u;
+  },
+};
+
+/* ============================================================================
+   ViewAs — 관리자가 다른 회원의 화면을 미리보는 모드 (읽기 전용)
+   URL 쿼리 ?view_as=<userId>가 있고 현재 로그인 사용자가 관리자일 때만 활성
+   ============================================================================ */
+const ViewAs = {
+  isActive: false,
+  admin: null,
+  target: null,
+
+  async maybeActivate(adminUser) {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('view_as');
+    if (!id || id === adminUser.id) return null;
+    const { data: target } = await sb
+      .from('japdori_users')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
+    if (!target) return null;
+    this.isActive = true;
+    this.admin = adminUser;
+    this.target = target;
+    this._showBanner();
+    return target;
+  },
+
+  _showBanner() {
+    if (document.getElementById('view-as-banner')) return;
+    const b = document.createElement('div');
+    b.id = 'view-as-banner';
+    b.innerHTML =
+      `<span>👀 <b>${this.target.name}</b> 회원으로 보는 중 · 변경 불가</span>` +
+      `<a href="admin.html">← 관리자 페이지</a>`;
+    b.style.cssText =
+      'position:fixed;top:0;left:0;right:0;z-index:9999;background:#FF6B35;color:#fff;' +
+      'padding:10px 16px;font-size:13px;display:flex;justify-content:space-between;' +
+      'align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:inherit;';
+    b.querySelector('a').style.cssText = 'color:#fff;text-decoration:underline;font-weight:600;';
+    const attach = () => {
+      document.body.appendChild(b);
+      document.body.style.paddingTop = '44px';
+      this._rewriteNav();
+    };
+    if (document.body) attach();
+    else document.addEventListener('DOMContentLoaded', attach);
+  },
+
+  _rewriteNav() {
+    const internalPages = ['home.html', 'profile.html', 'records.html', 'complete.html'];
+    const targetId = this.target.id;
+    const isInternal = (url) => internalPages.some(p => url === p || url.startsWith(p + '?') || url.startsWith(p + '#'));
+    const withViewAs = (url) => {
+      const u = new URL(url, location.href);
+      u.searchParams.set('view_as', targetId);
+      return u.pathname.split('/').pop() + u.search + u.hash;
+    };
+
+    // <a href="..."> 링크에 view_as 붙이기 (admin.html은 제외 — 돌아가기용)
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href && isInternal(href)) a.href = withViewAs(href);
+    });
+
+    // onclick="location.href='...'" 패턴 치환 (records/profile 하단 nav 등)
+    document.querySelectorAll('[onclick]').forEach(el => {
+      const orig = el.getAttribute('onclick');
+      if (!orig || !orig.includes('location.href')) return;
+      const replaced = orig.replace(/location\.href\s*=\s*['"]([^'"]+)['"]/g, (m, url) => {
+        return isInternal(url) ? `location.href='${withViewAs(url)}'` : m;
+      });
+      if (replaced !== orig) el.setAttribute('onclick', replaced);
+    });
+
+    // JS에서 직접 location.href를 바꾸는 알려진 nav 버튼 — 캡처 단계에서 가로채기
+    const navMap = {
+      'record-btn': 'records.html',
+      'deposit-status-card': 'profile.html',
+    };
+    window.addEventListener('click', (e) => {
+      const t = e.target.closest('[id]');
+      if (!t) return;
+      // 로그아웃은 미리보기 모드에서 막고 관리자 페이지로
+      if (t.id === 'logout-btn') {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        alert('미리보기 모드입니다. 관리자 페이지로 돌아갑니다.');
+        location.href = 'admin.html';
+        return;
+      }
+      const dest = navMap[t.id];
+      if (dest) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        location.href = withViewAs(dest);
+      }
+    }, true);
+  },
+
+  guard(actionName = '이 작업') {
+    if (this.isActive) {
+      alert(`${actionName}은(는) 미리보기 모드에서 할 수 없어요.`);
+      throw new Error('VIEW_AS_BLOCKED');
+    }
   },
 };
 
@@ -263,6 +384,7 @@ async function getAttendance(userId) {
 
 /* 사진 인증 제출 — Storage 업로드 + DB 업데이트 */
 async function submitProof(userId, day, file) {
+  ViewAs.guard('사진 인증');
   const ext = (file.name || '').split('.').pop() || 'jpg';
   const path = `${userId}/day-${day}-${Date.now()}.${ext}`;
   const { error: upErr } = await sb.storage.from('japdori-proofs').upload(path, file, { upsert: true });
@@ -330,6 +452,18 @@ async function listAllSubmissions(filterUserId = null) {
 }
 
 /* ============================================================================
+   참작 처리 여부 — review_note가 '[참작]'으로 시작하면 관리자 예외 승인.
+   DB 상태는 'approved'로 보증금에는 그대로 적립되지만 UI에서는 '참작'으로 표시.
+   ============================================================================ */
+function isLenient(a) {
+  return a && a.status === 'approved' && typeof a.review_note === 'string'
+    && a.review_note.trim().startsWith('[참작]');
+}
+function displayStatus(a) {
+  return isLenient(a) ? 'lenient' : a.status;
+}
+
+/* ============================================================================
    보증금 계산 (순수)
    ============================================================================ */
 function computeDeposit(att) {
@@ -388,6 +522,7 @@ async function getUserSettings(userId) {
 }
 
 async function updateUserSettings(userId, patch) {
+  ViewAs.guard('설정 변경');
   const { data, error } = await sb
     .from('japdori_user_settings')
     .upsert({ user_id: userId, ...patch })

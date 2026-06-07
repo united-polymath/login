@@ -548,6 +548,14 @@ img { display: block; max-width: 100%; }
 .t-cell.approved .t-day-num { color: var(--accent-ink); }
 .t-cell.approved .t-mark { color: var(--accent-ink); font-weight: 800; }
 
+.t-cell.lenient {
+  background: var(--accent-pale);
+  border-color: var(--accent-dark);
+  border-style: dashed;
+}
+.t-cell.lenient .t-day-num { color: var(--accent-ink); }
+.t-cell.lenient .t-mark { color: var(--accent-ink); font-weight: 800; font-size: 11px; letter-spacing: 0.04em; }
+
 .t-cell.failed {
   background: var(--danger-pale);
   border-color: var(--danger);
@@ -1166,6 +1174,7 @@ dialog::backdrop {
   letter-spacing: 0.04em;
 }
 .status-pill.approved { background: var(--accent-pale); color: var(--accent-deep); }
+.status-pill.lenient  { background: var(--accent-pale); color: var(--accent-deep); border: 1px dashed var(--accent-dark); padding: 4px 9px; }
 .status-pill.pending_review,
 .status-pill.pending  { background: var(--warn-pale); color: var(--warn-deep); }
 .status-pill.failed   { background: var(--danger-pale); color: var(--danger); }
@@ -1455,6 +1464,8 @@ dialog::backdrop {
 .btn.dark:hover { background: #1A1B14; }
 .btn.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
 .btn.ghost { background: transparent; }
+.btn.lenient { background: var(--accent-pale); color: var(--accent-deep); border: 1px dashed var(--accent-dark); }
+.btn.lenient:hover { background: var(--accent); color: var(--accent-ink); border-style: solid; }
 .btn.block { width: 100%; }
 .btn.sm { padding: 7px 12px; font-size: 12px; }
 
@@ -1865,4 +1876,324 @@ dialog::backdrop {
   .modal-head { padding: 18px 18px 12px; }
   .deposit-summary { padding: 12px; }
   .ds-item .v { font-size: 13px; }
+}
+
+/* ============================================================
+   참여 현황 (admin > 참여 현황 탭)
+   ============================================================ */
+
+/* 상단 요약 카드 */
+.status-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.ss-card {
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 12px;
+  text-align: left;
+}
+.ss-card.ok     { background: var(--accent-pale); border-color: var(--accent-dark); }
+.ss-card.warn   { background: var(--warn-pale); border-color: var(--warn); }
+.ss-card.danger { background: var(--danger-pale); border-color: var(--danger); }
+.ss-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.ss-card.ok .ss-label     { color: var(--accent-ink); }
+.ss-card.warn .ss-label   { color: var(--warn-deep); }
+.ss-card.danger .ss-label { color: var(--danger); }
+.ss-value {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.ss-card.ok .ss-value     { color: var(--accent-ink); }
+.ss-card.warn .ss-value   { color: var(--warn-deep); }
+.ss-card.danger .ss-value { color: var(--danger); }
+.ss-unit {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-left: 3px;
+  letter-spacing: 0.02em;
+}
+.ss-card.ok .ss-unit     { color: var(--accent-ink); opacity: 0.75; }
+.ss-card.warn .ss-unit   { color: var(--warn-deep); opacity: 0.75; }
+.ss-card.danger .ss-unit { color: var(--danger); opacity: 0.75; }
+
+/* 필터 chips */
+.status-filters {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.status-filter {
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.status-filter:hover { border-color: var(--line); }
+.status-filter.active {
+  background: var(--ink);
+  color: var(--accent);
+  border-color: var(--ink);
+}
+
+/* 컴팩트 한 줄 회원 행 */
+.member-line {
+  display: grid;
+  grid-template-columns: 80px auto 50px 90px 32px;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+.member-line:hover { border-color: var(--line); }
+.member-line.gold { background: linear-gradient(90deg, #FFFBF0 0%, var(--card) 80%); }
+.member-line.inactive { opacity: 0.55; grid-template-columns: 80px auto; }
+
+.ml-view-as {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--card-soft);
+  border: 1px solid var(--line-soft);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background .15s, transform .1s;
+}
+.ml-view-as:hover { background: var(--accent-pale); transform: scale(1.08); }
+
+.ml-name {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ml-tracker {
+  display: flex;
+  gap: 3px;
+  flex-wrap: nowrap;
+}
+
+.ml-pct {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  letter-spacing: -0.02em;
+}
+.member-line.gold .ml-pct { color: #B8881C; }
+.member-line.fail .ml-pct { color: var(--danger); }
+
+.ml-status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 100px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.ml-status.ok     { background: var(--accent-pale); color: var(--accent-deep); }
+.ml-status.warn   { background: var(--warn-pale); color: var(--warn-deep); }
+.ml-status.danger { background: var(--danger-pale); color: var(--danger); }
+.ml-status.mute   { background: var(--card-soft); color: var(--muted); }
+
+@media (max-width: 600px) {
+  .member-line {
+    grid-template-columns: 70px 1fr 40px 28px;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .member-line .ml-status { display: none; }
+  .ml-tracker { gap: 2px; }
+  .ml-tracker .mini-dot { width: 14px; height: 14px; }
+  .ml-view-as { width: 24px; height: 24px; font-size: 12px; }
+}
+
+/* 회원 카드 (예전 형식 — 참고용 유지) */
+.member-card {
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  transition: border-color .15s;
+}
+.member-card:hover { border-color: var(--line); }
+
+.member-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.member-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.member-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 14px;
+  flex-shrink: 0;
+}
+.member-name {
+  font-size: 14px; font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.member-email {
+  font-size: 11px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 1px;
+}
+
+.member-pct {
+  text-align: right;
+  flex-shrink: 0;
+}
+.member-pct-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.member-pct-unit {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-left: 1px;
+}
+.member-pct-sub {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+  margin-top: 4px;
+}
+.member-card.gold .member-pct-num { color: #B8881C; }
+.member-card.high .member-pct-num { color: var(--accent-deep); }
+.member-card.mid  .member-pct-num { color: var(--ink); }
+.member-card.low  .member-pct-num { color: var(--warn-deep); }
+.member-card.fail .member-pct-num { color: var(--danger); }
+
+.member-card.gold { border-color: #B8881C; background: linear-gradient(180deg, #FFFBF0 0%, var(--card) 60%); }
+.member-card.high { border-color: var(--accent-dark); }
+.member-card.fail { border-color: var(--danger); }
+.member-card.inactive { background: var(--card-soft); opacity: 0.85; }
+.member-card.inactive .member-avatar { background: var(--card-strong); color: var(--muted); }
+
+.account-status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.account-status-badge.pending   { background: var(--warn-pale); color: var(--warn-deep); }
+.account-status-badge.rejected  { background: var(--danger-pale); color: var(--danger); }
+.account-status-badge.suspended { background: var(--card-strong); color: var(--ink-soft); }
+
+.today-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.today-badge.ok     { background: var(--accent-pale); color: var(--accent-deep); }
+.today-badge.warn   { background: var(--warn-pale); color: var(--warn-deep); }
+.today-badge.danger { background: var(--danger-pale); color: var(--danger); }
+.today-badge.mute   { background: var(--card-soft); color: var(--muted); }
+
+/* 미니 14일 트래커 */
+.mini-tracker {
+  display: flex; gap: 3px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.mini-dot {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: var(--card-soft);
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+.mini-dot.locked         { background: var(--card-soft); }
+.mini-dot.today          { background: var(--ink); }
+.mini-dot.approved       { background: var(--accent); border-color: var(--accent-dark); }
+.mini-dot.lenient        { background: var(--accent-pale); border: 1px dashed var(--accent-dark); }
+.mini-dot.pending-review { background: var(--warn-pale); border: 1px dashed var(--warn); }
+.mini-dot.failed         { background: var(--danger-pale); border-color: var(--danger); }
+
+.member-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.member-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.member-deposit {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* chip 공통 (참여현황 + 다른 곳도 재사용) */
+.rate-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+  background: var(--card-soft);
+  color: var(--muted);
+}
+.rate-chip.approved { background: var(--accent-pale); color: var(--accent-deep); }
+.rate-chip.lenient  { background: var(--accent-pale); color: var(--accent-deep); border: 1px dashed var(--accent-dark); padding: 2px 7px; }
+.rate-chip.failed   { background: var(--danger-pale); color: var(--danger); }
+.rate-chip.pending  { background: var(--warn-pale); color: var(--warn-deep); }
+
+@media (max-width: 600px) {
+  .status-summary { grid-template-columns: repeat(2, 1fr); }
+  .ss-value { font-size: 19px; }
+  .mini-dot { width: 16px; height: 16px; }
+  .member-card { padding: 12px 14px; }
 }

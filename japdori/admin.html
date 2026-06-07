@@ -32,6 +32,7 @@
   <div class="admin-tabs" id="tabs">
     <button class="admin-tab active" data-tab="submissions">인증 검토<span class="count" id="ct-sub">0</span></button>
     <button class="admin-tab" data-tab="all-subs">전체 인증<span class="count" id="ct-all">0</span></button>
+    <button class="admin-tab" data-tab="rates">참여 현황<span class="count" id="ct-rates">0</span></button>
     <button class="admin-tab" data-tab="users">회원 관리<span class="count" id="ct-users">0</span></button>
     <button class="admin-tab" data-tab="notices">공지사항</button>
     <button class="admin-tab" data-tab="telegram">텔레그램 알림</button>
@@ -59,6 +60,29 @@
       </select>
     </div>
     <div class="sub-grid" id="all-grid"></div>
+  </section>
+
+  <!-- ============================================================
+       COMPLETION RATES (per user)
+       ============================================================ -->
+  <section class="tab-pane" data-pane="rates" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">참여 현황</h1>
+    </div>
+
+    <!-- summary cards -->
+    <div class="status-summary" id="status-summary"></div>
+
+    <!-- filter chips -->
+    <div class="status-filters" id="status-filters">
+      <button class="status-filter active" data-filter="all">전체</button>
+      <button class="status-filter" data-filter="missing">오늘 미제출</button>
+      <button class="status-filter" data-filter="pending">검토 대기</button>
+      <button class="status-filter" data-filter="done">오늘 완료</button>
+    </div>
+
+    <!-- member list -->
+    <div id="member-list"></div>
   </section>
 
   <!-- ============================================================
@@ -197,7 +221,7 @@
     // ============================================================
     function statusLabel(s) {
       return ({
-        approved: '승인됨', pending_review: '검토중', failed: '실패',
+        approved: '승인됨', lenient: '참작', pending_review: '검토중', failed: '실패',
         today: '오늘 진행중', locked: '잠금',
         pending: '승인 대기', rejected: '거절됨', suspended: '정지',
       })[s] || s;
@@ -221,12 +245,24 @@
       const missionText = (userAffirmation && userAffirmation.trim()) || a.mission;
       const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;
       const photo = photoUrl ? `<img src="${photoUrl}" alt="인증">` : '';
-      const statusPill = `<span class="status-pill ${a.status.replace('_','-')}">${statusLabel(a.status)}</span>`;
-      const actions = opts.actions ? `
-        <div class="sub-card-actions">
-          <button class="btn block" data-action="reject">거절</button>
-          <button class="btn primary block" data-action="approve">승인</button>
-        </div>` : '';
+      const ds = displayStatus(a);
+      const statusPill = `<span class="status-pill ${ds.replace('_','-')}">${statusLabel(ds)}</span>`;
+      let actions = '';
+      if (opts.actions !== false) {
+        if (a.status === 'pending_review') {
+          actions = `
+            <div class="sub-card-actions">
+              <button class="btn block" data-action="reject">거절</button>
+              <button class="btn lenient block" data-action="lenient">참작</button>
+              <button class="btn primary block" data-action="approve">승인</button>
+            </div>`;
+        } else if (a.status === 'failed' || a.status === 'today') {
+          actions = `
+            <div class="sub-card-actions">
+              <button class="btn lenient block" data-action="lenient">참작 처리</button>
+            </div>`;
+        }
+      }
       return `
         <div class="sub-card" data-user="${user?.id || ''}" data-day="${a.day_number}">
           <div class="sub-card-photo ${photoUrl ? '' : 'empty'}">
@@ -258,10 +294,17 @@
           const card = btn.closest('.sub-card');
           const userId = card.dataset.user;
           const day = parseInt(card.dataset.day, 10);
-          const decision = btn.dataset.action;
-          const note = decision === 'reject'
-            ? (prompt('거절 사유 (선택)', '') || '')
-            : (prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '');
+          const action = btn.dataset.action;
+          const decision = action === 'reject' ? 'reject' : 'approve';
+          let note;
+          if (action === 'reject') {
+            note = prompt('거절 사유 (선택)', '') || '';
+          } else if (action === 'lenient') {
+            const reason = prompt('참작 사유 (선택)', '') || '';
+            note = reason ? `[참작] ${reason}` : '[참작]';
+          } else {
+            note = prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '';
+          }
           try {
             await reviewSubmission(userId, day, decision, me.id, note);
             await renderPending();
@@ -280,7 +323,7 @@
         grid.innerHTML = '<div class="empty">표시할 인증이 없습니다</div>';
         return;
       }
-      const cards = await Promise.all(rows.map(r => subCard(r, { actions: r.status === 'pending_review' })));
+      const cards = await Promise.all(rows.map(r => subCard(r)));
       grid.innerHTML = cards.join('');
 
       grid.querySelectorAll('[data-action]').forEach(btn => {
@@ -288,10 +331,17 @@
           const card = btn.closest('.sub-card');
           const userId = card.dataset.user;
           const day = parseInt(card.dataset.day, 10);
-          const decision = btn.dataset.action;
-          const note = decision === 'reject'
-            ? (prompt('거절 사유 (선택)', '') || '')
-            : (prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '');
+          const action = btn.dataset.action;
+          const decision = action === 'reject' ? 'reject' : 'approve';
+          let note;
+          if (action === 'reject') {
+            note = prompt('거절 사유 (선택)', '') || '';
+          } else if (action === 'lenient') {
+            const reason = prompt('참작 사유 (선택)', '') || '';
+            note = reason ? `[참작] ${reason}` : '[참작]';
+          } else {
+            note = prompt('승인 코멘트 (선택)', '잘 했어요 👏') || '';
+          }
           try {
             await reviewSubmission(userId, day, decision, me.id, note);
             await renderPending();
@@ -501,11 +551,204 @@
     });
 
     // ============================================================
+    //  참여 현황 (member status dashboard)
+    // ============================================================
+    let memberStatusRows = [];
+    let statusFilter = 'all';
+
+    function todayStateOf(att) {
+      // 오늘 = status가 'today'거나, 가장 최근에 잠금 풀린 날
+      const todayRow = att.find(a => a.status === 'today');
+      if (todayRow) return { row: todayRow, state: 'today_pending' };  // 진행중이지만 미제출
+      // 'today'가 없으면 가장 큰 day_number 중 pending_review/approved/failed 확인
+      const sorted = [...att].sort((a, b) => b.day_number - a.day_number);
+      const latest = sorted.find(a => a.status !== 'locked');
+      if (!latest) return { row: null, state: 'none' };
+      if (latest.status === 'pending_review') return { row: latest, state: 'today_pending_review' };
+      if (latest.status === 'approved') return { row: latest, state: 'today_done' };
+      if (latest.status === 'failed')   return { row: latest, state: 'today_failed' };
+      return { row: latest, state: 'none' };
+    }
+
+    async function renderRates() {
+      // 1. 회원 목록 (관리자 제외)
+      const users = await listUsers();
+      const allMembers = (users || []).filter(u => u.role !== 'admin');
+
+      // 2. 모든 출석 데이터 한 번에 가져오기
+      const { data: attRows, error: attErr } = await sb
+        .from('japdori_attendance')
+        .select('user_id, day_number, status, review_note, date, photo_url');
+      if (attErr) {
+        console.error('출석 데이터 조회 실패:', attErr);
+        document.getElementById('member-list').innerHTML =
+          `<div class="empty">데이터 로드 실패: ${attErr.message}</div>`;
+        return;
+      }
+
+      // user_id별로 그룹핑
+      const attByUser = {};
+      (attRows || []).forEach(a => {
+        (attByUser[a.user_id] = attByUser[a.user_id] || []).push(a);
+      });
+      // 각 회원 객체에 japdori_attendance 붙이기 (이후 코드 호환)
+      allMembers.forEach(u => { u.japdori_attendance = attByUser[u.id] || []; });
+      document.getElementById('ct-rates').textContent = allMembers.length;
+
+      const list = document.getElementById('member-list');
+      if (!allMembers.length) {
+        list.innerHTML = '<div class="empty">회원이 없습니다</div>';
+        document.getElementById('status-summary').innerHTML = '';
+        memberStatusRows = [];
+        return;
+      }
+
+      // 사용자별 계산
+      const PER_DAY = Math.round(SEED.DEPOSIT_AMOUNT / SEED.CHALLENGE_DAYS);
+      memberStatusRows = allMembers.map(u => {
+        const att = (u.japdori_attendance || []).slice().sort((a, b) => a.day_number - b.day_number);
+        const counts = { approved: 0, lenient: 0, pending_review: 0, failed: 0, today: 0, locked: 0 };
+        att.forEach(a => { counts[displayStatus(a)] = (counts[displayStatus(a)] || 0) + 1; });
+        const done = counts.approved + counts.lenient;
+        const participated = done + counts.pending_review + counts.failed;
+        const total = att.length || SEED.CHALLENGE_DAYS;
+        // 분모 = 진행한 일수 (잠금 풀린 모든 일) = total - locked
+        const denom = Math.max(1, total - counts.locked);
+        const participationPct = Math.round((participated / denom) * 1000) / 10;
+        const completionPct = Math.round((done / denom) * 1000) / 10;
+        const totalPct = Math.round((done / total) * 1000) / 10; // 14일 기준 진행률
+        const deposit = done * PER_DAY;
+        const today = todayStateOf(att);
+        return { u, att, counts, total, denom, done, participated, participationPct, completionPct, totalPct, deposit, today };
+      });
+
+      // 정렬: 승인된 회원 먼저 (오늘 미제출 → 검토중 → 완료) → 가입대기/거절/정지는 아래
+      const accountPriority = { approved: 0, pending: 1, suspended: 2, rejected: 3 };
+      const todayPriority = { today_pending: 0, today_pending_review: 1, today_failed: 2, today_done: 3, none: 4 };
+      memberStatusRows.sort((a, b) => {
+        const ap = (accountPriority[a.u.status] ?? 9) - (accountPriority[b.u.status] ?? 9);
+        if (ap !== 0) return ap;
+        const tp = (todayPriority[a.today.state] ?? 9) - (todayPriority[b.today.state] ?? 9);
+        if (tp !== 0) return tp;
+        return (a.u.name || '').localeCompare(b.u.name || '');
+      });
+
+      // 요약 카드 (승인된 회원 기준으로 통계)
+      const totalMembers = memberStatusRows.length;
+      const activeMembers = memberStatusRows.filter(r => r.u.status === 'approved');
+      const todayDone    = activeMembers.filter(r => r.today.state === 'today_done').length;
+      const todayPending = activeMembers.filter(r => r.today.state === 'today_pending_review').length;
+      const todayMissing = activeMembers.filter(r => r.today.state === 'today_pending' || r.today.state === 'today_failed').length;
+
+      document.getElementById('status-summary').innerHTML = `
+        <div class="ss-card">
+          <div class="ss-label">총 회원</div>
+          <div class="ss-value">${totalMembers}<span class="ss-unit">명</span></div>
+        </div>
+        <div class="ss-card ok">
+          <div class="ss-label">오늘 완료</div>
+          <div class="ss-value">${todayDone}<span class="ss-unit">/ ${activeMembers.length}</span></div>
+        </div>
+        <div class="ss-card warn">
+          <div class="ss-label">검토 대기</div>
+          <div class="ss-value">${todayPending}<span class="ss-unit">건</span></div>
+        </div>
+        <div class="ss-card danger">
+          <div class="ss-label">오늘 미제출</div>
+          <div class="ss-value">${todayMissing}<span class="ss-unit">명</span></div>
+        </div>
+      `;
+
+      applyMemberFilter();
+    }
+
+    function applyMemberFilter() {
+      const list = document.getElementById('member-list');
+      let rows = memberStatusRows;
+      if (statusFilter === 'missing') {
+        rows = rows.filter(r => r.today.state === 'today_pending' || r.today.state === 'today_failed');
+      } else if (statusFilter === 'pending') {
+        rows = rows.filter(r => r.today.state === 'today_pending_review');
+      } else if (statusFilter === 'done') {
+        rows = rows.filter(r => r.today.state === 'today_done');
+      }
+
+      if (!rows.length) {
+        list.innerHTML = '<div class="empty">해당하는 회원이 없습니다</div>';
+        return;
+      }
+
+      const todayLabel = {
+        today_pending:        { cls: 'danger', text: '오늘 미제출' },
+        today_pending_review: { cls: 'warn',   text: '검토 대기' },
+        today_done:           { cls: 'ok',     text: '오늘 완료' },
+        today_failed:         { cls: 'danger', text: '오늘 실패' },
+        none:                 { cls: 'mute',   text: '—' },
+      };
+
+      list.innerHTML = rows.map(r => {
+        const u = r.u;
+        const initial = (u.name || u.email || '?').trim().charAt(0);
+        const t = todayLabel[r.today.state] || todayLabel.none;
+
+        // 14개 미니 셀
+        const cells = [];
+        for (let i = 1; i <= r.total; i++) {
+          const a = r.att.find(x => x.day_number === i);
+          const ds = a ? displayStatus(a) : 'locked';
+          const cls = ds.replace('_', '-');
+          cells.push(`<span class="mini-dot ${cls}" title="DAY ${i}: ${ds}"></span>`);
+        }
+
+        const lenientChip = r.counts.lenient
+          ? `<span class="rate-chip lenient">참작 ${r.counts.lenient}</span>` : '';
+        const pendingChip = r.counts.pending_review
+          ? `<span class="rate-chip pending">검토 ${r.counts.pending_review}</span>` : '';
+
+        const pctTier =
+          r.totalPct >= 100 ? 'gold' :
+          r.totalPct >= 90  ? 'high' :
+          r.totalPct >= 70  ? 'mid'  :
+          r.totalPct >= 50  ? 'low'  : 'fail';
+
+        const isApproved = u.status === 'approved';
+        const accountLabel = ({pending:'가입 대기', rejected:'거절', suspended:'정지'})[u.status];
+
+        if (!isApproved) {
+          return `
+            <div class="member-line inactive">
+              <span class="ml-name">${u.name || '—'}</span>
+              <span class="ml-status mute">${accountLabel || '—'}</span>
+            </div>`;
+        }
+
+        return `
+          <div class="member-line ${pctTier}">
+            <span class="ml-name">${u.name || '—'}</span>
+            <div class="ml-tracker">${cells.join('')}</div>
+            <span class="ml-pct">${r.totalPct}%</span>
+            <span class="ml-status ${t.cls}">${t.text}</span>
+            <a class="ml-view-as" href="home.html?view_as=${u.id}" target="_blank" rel="noopener" title="${u.name}으로 보기">👀</a>
+          </div>`;
+      }).join('');
+    }
+
+    document.getElementById('status-filters').addEventListener('click', (e) => {
+      const t = e.target.closest('.status-filter');
+      if (!t) return;
+      statusFilter = t.dataset.filter;
+      document.querySelectorAll('#status-filters .status-filter').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      applyMemberFilter();
+    });
+
+    // ============================================================
     //  Init
     // ============================================================
     await renderPending();
     await renderUserFilter();
     await renderAllSubs();
+    await renderRates();
     await renderUsers();
     await renderNotices();
     await renderTelegram();

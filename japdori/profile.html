@@ -289,14 +289,14 @@
 
     function statusLabel(s) {
       return ({
-        approved: '승인', pending_review: '검토중', failed: '실패',
+        approved: '승인', lenient: '참작', pending_review: '검토중', failed: '실패',
         today: '오늘', locked: '잠금',
       })[s] || s;
     }
 
     function statusMark(s, isGift) {
       if (isGift) return '🎁';
-      return ({ approved: '✓', pending_review: '⏳', failed: '✕', today: '', locked: '' })[s] || '';
+      return ({ approved: '✓', lenient: '참작', pending_review: '⏳', failed: '✕', today: '', locked: '' })[s] || '';
     }
 
     // ============================================================
@@ -306,7 +306,8 @@
       const grid = document.getElementById('profile-tracker');
       const cells = await Promise.all(att.map(async (a, i) => {
         const isGift = i === att.length - 1;
-        const cls = isGift ? 'gift' : a.status.replace('_', '-');
+        const ds = displayStatus(a);
+        const cls = isGift ? 'gift' : ds.replace('_', '-');
         const photoUrl = a.photo_url ? await ensurePhotoUrl(a.photo_url) : null;
         const hasPhoto = !isGift && !!photoUrl;
         const photoLayer = hasPhoto ? `<img class="t-photo" src="${photoUrl}" alt="${a.day_number}일차 인증">` : '';
@@ -314,7 +315,7 @@
           <button class="t-cell ${cls}${hasPhoto ? ' has-photo' : ''}" data-day="${a.day_number}" type="button">
             ${photoLayer}
             <span class="t-day-num">${a.day_number}일차</span>
-            <span class="t-mark">${statusMark(a.status, isGift)}</span>
+            <span class="t-mark">${statusMark(ds, isGift)}</span>
           </button>`;
       }));
       grid.innerHTML = cells.join('');
@@ -335,13 +336,15 @@
       document.getElementById('dd-eyebrow').textContent = `${a.day_number}일차 · ${fmt.dow(a.date)}요일`;
       document.getElementById('dd-date').textContent = fmt.date(a.date);
 
+      const ds = displayStatus(a);
       const statusEl = document.getElementById('dd-status');
-      statusEl.className = `status-pill ${a.status.replace('_','-')}`;
-      statusEl.textContent = isGift ? '🎁 보너스' : statusLabel(a.status);
+      statusEl.className = `status-pill ${ds.replace('_','-')}`;
+      statusEl.textContent = isGift ? '🎁 보너스' : statusLabel(ds);
 
       const PER_DAY = Math.round(SEED.DEPOSIT_AMOUNT / SEED.CHALLENGE_DAYS);
       const amountEl = document.getElementById('dd-amount');
-      if (a.status === 'approved')      amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 적립</span>`;
+      if (ds === 'lenient')             amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 적립 (참작)</span>`;
+      else if (a.status === 'approved') amountEl.innerHTML = `<span style="color:var(--accent-deep)">+ ${fmt.currency(PER_DAY)} 적립</span>`;
       else if (a.status === 'failed')   amountEl.innerHTML = `<span style="color:var(--danger)">0원 (미적립)</span>`;
       else                              amountEl.textContent = `일당 ${fmt.currency(PER_DAY)} 적립 예정`;
 
