@@ -33,6 +33,7 @@
     <button class="admin-tab active" data-tab="submissions">인증 검토<span class="count" id="ct-sub">0</span></button>
     <button class="admin-tab" data-tab="all-subs">전체 인증<span class="count" id="ct-all">0</span></button>
     <button class="admin-tab" data-tab="rates">참여 현황<span class="count" id="ct-rates">0</span></button>
+    <button class="admin-tab" data-tab="results">지난 회차<span class="count" id="ct-results">0</span></button>
     <button class="admin-tab" data-tab="users">회원 관리<span class="count" id="ct-users">0</span></button>
     <button class="admin-tab" data-tab="notices">공지사항</button>
     <button class="admin-tab" data-tab="telegram">텔레그램 알림</button>
@@ -83,6 +84,18 @@
 
     <!-- member list -->
     <div id="member-list"></div>
+  </section>
+
+  <!-- ============================================================
+       PAST CHALLENGE RESULTS
+       ============================================================ -->
+  <section class="tab-pane" data-pane="results" hidden>
+    <div class="admin-head">
+      <h1 class="admin-title">지난 회차 결과</h1>
+      <span class="text-muted" style="font-size:13px;">완료된 챌린지의 최종 환급액</span>
+    </div>
+    <div class="status-summary" id="results-summary"></div>
+    <div id="results-list"></div>
   </section>
 
   <!-- ============================================================
@@ -727,6 +740,7 @@
             <span class="ml-name">${u.name || '—'}</span>
             <div class="ml-tracker">${cells.join('')}</div>
             <span class="ml-pct">${r.totalPct}%</span>
+            <span class="ml-amount">${fmt.currency(r.deposit)}</span>
             <span class="ml-status ${t.cls}">${t.text}</span>
             <a class="ml-view-as" href="home.html?view_as=${u.id}" target="_blank" rel="noopener" title="${u.name}으로 보기">👀</a>
           </div>`;
@@ -743,12 +757,77 @@
     });
 
     // ============================================================
+    //  지난 회차 결과 (past challenge results)
+    // ============================================================
+    async function renderResults() {
+      const { data, error } = await sb
+        .from('japdori_challenge_results')
+        .select('round, approved_days, total_days, completion_rate, refund_amount, end_date, user:japdori_users!user_id(name, email)')
+        .order('end_date', { ascending: false });
+
+      if (error) {
+        console.error('지난 회차 조회 실패:', error);
+        document.getElementById('results-list').innerHTML =
+          `<div class="empty">데이터 로드 실패: ${error.message}</div>`;
+        return;
+      }
+
+      const rows = data || [];
+      document.getElementById('ct-results').textContent = rows.length;
+
+      if (!rows.length) {
+        document.getElementById('results-summary').innerHTML = '';
+        document.getElementById('results-list').innerHTML =
+          '<div class="empty">아직 완료된 회차가 없습니다</div>';
+        return;
+      }
+
+      const totalRefund = rows.reduce((s, r) => s + (r.refund_amount || 0), 0);
+      const avgRate = rows.reduce((s, r) => s + Number(r.completion_rate || 0), 0) / rows.length;
+      document.getElementById('results-summary').innerHTML = `
+        <div class="ss-card">
+          <div class="ss-label">완료된 회차</div>
+          <div class="ss-value">${rows.length}<span class="ss-unit">건</span></div>
+        </div>
+        <div class="ss-card ok">
+          <div class="ss-label">총 환급액</div>
+          <div class="ss-value" style="font-size:18px;">${fmt.currency(totalRefund)}</div>
+        </div>
+        <div class="ss-card warn">
+          <div class="ss-label">평균 이행률</div>
+          <div class="ss-value">${(avgRate * 100).toFixed(1)}<span class="ss-unit">%</span></div>
+        </div>
+      `;
+
+      document.getElementById('results-list').innerHTML = rows.map(r => {
+        const u = r.user || {};
+        const ratePct = Math.round(Number(r.completion_rate || 0) * 1000) / 10;
+        const tier = ratePct >= 100 ? 'gold' :
+                     ratePct >= 90  ? 'high' :
+                     ratePct >= 70  ? 'mid'  :
+                     ratePct >= 50  ? 'low'  : 'fail';
+        return `
+          <div class="result-row ${tier}">
+            <div class="result-info">
+              <div class="result-name">${u.name || '—'} <span class="result-round">${r.round}회차</span></div>
+              <div class="result-meta">${u.email || ''} · ${fmt.date(r.end_date)} 종료</div>
+            </div>
+            <span class="result-days">${r.approved_days}/${r.total_days || 14}일</span>
+            <span class="result-rate">${ratePct}%</span>
+            <span class="result-refund">${fmt.currency(r.refund_amount || 0)}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ============================================================
     //  Init
     // ============================================================
     await renderPending();
     await renderUserFilter();
     await renderAllSubs();
     await renderRates();
+    await renderResults();
     await renderUsers();
     await renderNotices();
     await renderTelegram();
