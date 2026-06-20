@@ -210,6 +210,30 @@
     .sec-title { font-size: 30px; }
     .sun { width: 100px; height: 100px; right: 20px; }
   }
+
+  /* ── 데스크톱: 배경 위 가운데 카드형 시트 ── */
+  @media (min-width: 600px) {
+    body {
+      background:
+        radial-gradient(1100px 520px at 50% -160px, #BFE0F4 0%, rgba(191,224,244,0) 60%),
+        linear-gradient(180deg, #DCEEF9 0%, #EAF2F2 34%, #F2EADd 100%);
+      background-attachment: fixed;
+      padding: 48px 20px 56px;
+    }
+    .wrap {
+      max-width: 620px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 36px 90px rgba(70,90,120,0.20), 0 6px 18px rgba(70,90,120,0.10);
+    }
+    section { padding-left: 40px; padding-right: 40px; }
+    .form-body { padding-left: 40px; padding-right: 40px; }
+    .trust { padding-left: 40px; padding-right: 40px; }
+  }
+
+  @media (min-width: 900px) {
+    .wrap { max-width: 680px; }
+  }
 </style>
 </head>
 <body>
