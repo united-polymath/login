@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>다시, 여름방학 · 추억의 여름방학 이야기 공모전</title>
+<meta name="description" content="당신의 가장 기억나는 여름방학 이야기는 무엇인가요? 추억의 여름방학 이야기 공모전." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Ownglyph Uiyeon';
+    src: url('ownglyph-uiyeon.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    --sky: #5EA9DE;
+    --sky-deep: #357FBE;
+    --cream: #FBF6EC;
+    --paper: #FFFFFF;
+    --sun: #F4B73E;
+    --sun-deep: #E29A28;
+    --ink: #4A4133;
+    --ink-soft: #756A58;
+    --ink-light: #ABA08C;
+    --line: #ECE3D2;
+    --shadow-sm: 0 6px 22px rgba(120,95,50,0.08);
+    --shadow-md: 0 16px 40px rgba(120,95,50,0.13);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    font-family: 'Ownglyph Uiyeon', 'Gowun Dodum', 'Apple SD Gothic Neo', sans-serif;
+    color: var(--ink);
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 540px; margin: 0 auto; background: var(--cream); }
+
+  /* ── HERO + 하늘 배경 데코 ── */
+  .hero {
+    position: relative;
+    background: linear-gradient(180deg, #9FCFED 0%, #C2E2F5 55%, var(--cream) 100%);
+    padding: 56px 28px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .sky-deco { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .sun {
+    position: absolute; top: 28px; right: 36px;
+    width: 96px; height: 96px; border-radius: 50%;
+    background: radial-gradient(circle, #FFE98C 0%, #FFD64E 46%, #FBC53A 60%, rgba(250,196,58,0.35) 72%, rgba(250,196,58,0) 88%);
+    box-shadow: 0 0 38px 10px rgba(255,206,80,0.55);
+    animation: glow 6s ease-in-out infinite;
+  }
+  @keyframes glow { 0%,100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.08); opacity: 1; } }
+  .cloud {
+    position: absolute; background: #fff; border-radius: 999px;
+    opacity: 0.9; filter: blur(1px);
+  }
+  .cloud::before, .cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; }
+  .cloud.c1 { top: 56px; left: -10px; width: 110px; height: 30px; animation: drift 13s ease-in-out infinite; }
+  .cloud.c1::before { width: 52px; height: 52px; top: -26px; left: 18px; }
+  .cloud.c1::after  { width: 38px; height: 38px; top: -18px; left: 58px; }
+  .cloud.c2 { top: 150px; right: 6px; width: 80px; height: 22px; opacity: 0.8; animation: drift 17s ease-in-out infinite reverse; }
+  .cloud.c2::before { width: 38px; height: 38px; top: -19px; left: 12px; }
+  .cloud.c2::after  { width: 28px; height: 28px; top: -13px; left: 42px; }
+  @keyframes drift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(16px); } }
+
+  .hero-inner { position: relative; z-index: 1; }
+  .eyebrow {
+    display: inline-block; font-size: 18px; color: #fff;
+    background: rgba(53,127,190,0.9); padding: 6px 20px; border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-img { position: relative; z-index: 1; max-width: 440px; margin: 26px auto 0; }
+  .hero-img img { width: 100%; display: block; border-radius: 22px 22px 0 0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 60px 24px; }
+  .sec-label {
+    text-align: center; font-size: 14px; color: var(--sun-deep);
+    letter-spacing: 0.22em; margin-bottom: 6px; font-family: 'Gowun Dodum', sans-serif;
+  }
+  .sec-title { text-align: center; font-size: 36px; color: var(--ink); line-height: 1.3; margin-bottom: 30px; }
+
+  /* ── CARD NEWS ── */
+  .cards { display: flex; flex-direction: column; gap: 24px; }
+  .ncard {
+    background: var(--paper); border-radius: 22px; overflow: hidden;
+    box-shadow: var(--shadow-sm); transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .ncard:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+  .ncard img { width: 100%; display: block; }
+
+  /* ── WHY (취지) ── */
+  .why { background: linear-gradient(180deg, #FFF6E0 0%, #FCEFCD 100%); }
+  .why-img { max-width: 380px; margin: 0 auto 36px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .why-img img { width: 100%; display: block; }
+  .why-body { max-width: 440px; margin: 0 auto; text-align: center; }
+  .why-body p { font-size: 23px; color: #8A5B1B; line-height: 1.65; margin-bottom: 18px; }
+  .why-body p.em { font-size: 27px; color: #6E4612; margin: 26px 0; }
+  .why-sign { text-align: center; font-size: 18px; color: var(--sun-deep); margin-top: 26px; }
+
+  /* ── BENEFITS ── */
+  .benefits { background: var(--cream); }
+  .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .benefit {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 20px;
+    padding: 26px 12px 22px; text-align: center; box-shadow: var(--shadow-sm);
+  }
+  .benefit .num { font-size: 14px; color: var(--sky-deep); letter-spacing: 0.1em; margin-bottom: 8px; font-family: 'Gowun Dodum', sans-serif; }
+  .benefit .bt { font-size: 23px; color: var(--ink); line-height: 1.35; }
+  .benefit .bd { font-size: 16px; color: var(--ink-light); margin-top: 2px; }
+
+  /* ── HOW ── */
+  .how { background: #F2F8FC; }
+  .how-list { display: flex; flex-direction: column; max-width: 430px; margin: 0 auto; }
+  .how-row { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px dashed #D5E3EE; }
+  .how-row:last-child { border-bottom: none; }
+  .how-row .k { flex-shrink: 0; width: 90px; font-size: 20px; color: var(--sky-deep); }
+  .how-row .v { font-size: 20px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ── FORM ── */
+  .form-section { background: linear-gradient(180deg, #EAF3FA 0%, #F2F8FC 100%); }
+  .form-card { background: var(--paper); border-radius: 28px; box-shadow: var(--shadow-md); overflow: hidden; }
+  .form-head {
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+    color: #fff; padding: 36px 28px 30px; text-align: center; position: relative;
+  }
+  .form-head .stamp {
+    position: absolute; top: 18px; right: 20px; border: 2px solid rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.9); font-size: 15px; padding: 3px 12px; border-radius: 8px; transform: rotate(8deg);
+  }
+  .form-head .ft { font-size: 34px; margin-bottom: 4px; }
+  .form-head .fs { font-size: 19px; opacity: 0.92; }
+  .form-head .period {
+    display: inline-block; margin-top: 14px; padding: 5px 16px;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 999px; font-size: 15px; font-family: 'Gowun Dodum', sans-serif; letter-spacing: 0.02em;
+  }
+
+  /* 신뢰 영역 */
+  .trust { background: #F7FBFE; border-bottom: 1px solid var(--line); padding: 22px 26px; }
+  .trust-item { display: flex; align-items: flex-start; gap: 9px; font-size: 15px; color: var(--ink-soft); font-family: 'Gowun Dodum', sans-serif; line-height: 1.55; margin-bottom: 9px; }
+  .trust-item:last-child { margin-bottom: 0; }
+  .trust-item svg { flex-shrink: 0; margin-top: 3px; }
+  .host-line { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #DCE7EF; font-size: 13.5px; color: var(--ink-light); font-family: 'Gowun Dodum', sans-serif; text-align: center; }
+  .host-line b { color: var(--sky-deep); font-weight: 600; }
+
+  .form-body { padding: 30px 26px; }
+  .field { margin-bottom: 26px; }
+  .field > label { display: block; font-size: 20px; color: var(--ink); margin-bottom: 9px; }
+  .field > label .req { color: #DB5B36; margin-left: 2px; }
+  .field .hint { display: block; font-size: 15px; color: var(--ink-light); margin-top: 2px; font-family: 'Gowun Dodum', sans-serif; line-height: 1.5; }
+
+  .field input[type="text"], .field input[type="tel"], .field input[type="email"], .field textarea {
+    width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px;
+    font-family: 'Gowun Dodum', 'Apple SD Gothic Neo', sans-serif; font-size: 15.5px;
+    color: var(--ink); background: #FFFDF8; transition: border-color .2s, box-shadow .2s;
+  }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--sky); box-shadow: 0 0 0 3px rgba(94,169,222,0.16); background: #fff; }
+  .field textarea { resize: vertical; min-height: 180px; line-height: 1.8; }
+  .field.has-error input, .field.has-error textarea { border-color: #DB5B36; background: #FFF5F1; }
+  .field .err-msg { display: none; font-size: 15px; color: #DB5B36; margin-top: 6px; }
+  .field.has-error .err-msg { display: block; }
+  .counter { text-align: right; font-size: 13px; color: var(--ink-light); margin-top: 6px; font-family: 'Gowun Dodum', sans-serif; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips label { cursor: pointer; border: 1.5px solid var(--line); background: #FFFDF8; border-radius: 999px; padding: 9px 18px; font-size: 19px; color: var(--ink-soft); transition: all .18s; }
+  .chips input:checked + label { border-color: var(--sky-deep); background: var(--sky-deep); color: #fff; }
+
+  .agree { display: flex; align-items: flex-start; gap: 11px; background: #FBF6EA; border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; }
+  .agree input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--sky-deep); flex-shrink: 0; }
+  .agree label { font-size: 15px; color: var(--ink-soft); line-height: 1.6; font-family: 'Gowun Dodum', sans-serif; }
+  .field.has-error .agree { border-color: #DB5B36; }
+
+  .submit-btn {
+    width: 100%; padding: 16px; border: none; border-radius: 16px;
+    background: linear-gradient(135deg, var(--sun) 0%, var(--sun-deep) 100%);
+    color: #fff; font-family: 'Ownglyph Uiyeon', sans-serif; font-size: 27px; cursor: pointer;
+    box-shadow: 0 10px 24px rgba(226,154,40,0.34); transition: transform .15s, box-shadow .2s, opacity .2s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(226,154,40,0.44); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; color: var(--ink-light); margin-top: 14px; font-family: 'Gowun Dodum', sans-serif; }
+
+  .foot { text-align: center; padding: 32px 20px 48px; font-size: 16px; color: var(--ink-light); background: #F2F8FC; line-height: 1.7; }
+  .foot .biz { font-family: 'Gowun Dodum', sans-serif; font-size: 13px; }
+
+  /* ── MODAL ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(40,30,15,0.5); backdrop-filter: blur(3px); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: #fff; border-radius: 28px; padding: 44px 32px 32px; text-align: center; max-width: 350px; width: 100%; box-shadow: var(--shadow-md); animation: pop .3s ease; }
+  @keyframes pop { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-box .mi { width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: #FFF1D2; display: flex; align-items: center; justify-content: center; }
+  .modal-title { font-size: 30px; margin-bottom: 8px; color: var(--ink); }
+  .modal-desc { font-size: 20px; color: var(--ink-soft); margin-bottom: 26px; line-height: 1.5; }
+  .modal-close-btn { width: 100%; padding: 14px; border: none; border-radius: 14px; background: var(--sky-deep); color: #fff; font-family: 'Ownglyph Uiyeon', sans-serif; font-size: 22px; cursor: pointer; }
+
+  @media (max-width: 420px) {
+    .sec-title { font-size: 30px; }
+    .sun { width: 100px; height: 100px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== HERO (구름·해 배경 + card-1) ===== -->
+  <section class="hero" style="padding-bottom:0;">
+    <div class="sky-deco">
+      <div class="sun"></div>
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+    </div>
+    <div class="hero-inner">
+      <span class="eyebrow">추억의 여름방학 이야기 공모전</span>
+    </div>
+    <div class="hero-img">
+      <img src="card-1.png" alt="다시, 여름방학" />
+    </div>
+  </section>
+
+  <!-- ===== WHY (공모전 취지 + card-2) ===== -->
+  <section class="why">
+    <div class="why-img"><img src="card-2.png" alt="이거 기억나면 우린 같은 세대입니다" /></div>
+    <p class="sec-label">WHY</p>
+    <h2 class="sec-title">우리가 이 공모전을 여는 이유</h2>
+    <div class="why-body">
+      <p>어른이 된 지금, 우리는 너무 많은 걱정을 안고 살아갑니다.</p>
+      <p>하지만 누구에게나, 아무 걱정 없이 반짝이던 여름이 있었습니다.</p>
+      <p class="em">그 시절의 나를 다시 꺼내보는 일.<br>그것만으로 지금의 나를 토닥일 수 있다고 믿습니다.</p>
+      <p>당신의 여름방학 이야기를 모아,<br>우리 모두의 여름을 한 권의 기록으로 남기려 합니다.</p>
+    </div>
+    <p class="why-sign">— LOGIN, 2030을 위한 성장 연구소</p>
+  </section>
+
+  <!-- ===== BENEFITS ===== -->
+  <section class="benefits">
+    <p class="sec-label">PRIZE</p>
+    <h2 class="sec-title">수상자 혜택</h2>
+    <div class="benefit-grid">
+      <div class="benefit"><div class="num">01</div><div class="bt">상금 50만원</div><div class="bd">우수 사연 선정</div></div>
+      <div class="benefit"><div class="num">02</div><div class="bt">추억 럭키박스</div><div class="bd">참여자 추첨 증정</div></div>
+      <div class="benefit"><div class="num">03</div><div class="bt">이야기집 수록</div><div class="bd">제작 참여 기회</div></div>
+    </div>
+  </section>
+
+  <!-- ===== HOW ===== -->
+  <section class="how">
+    <p class="sec-label">GUIDE</p>
+    <h2 class="sec-title">응모 안내</h2>
+    <div class="how-list">
+      <div class="how-row"><div class="k">모집 기간</div><div class="v">2026. 6. 1 ~ 6. 26</div></div>
+      <div class="how-row"><div class="k">응모 대상</div><div class="v">여름방학의 추억을 가진 누구나</div></div>
+      <div class="how-row"><div class="k">분량</div><div class="v">자유 (300자 이상 권장)</div></div>
+      <div class="how-row"><div class="k">참여 방법</div><div class="v">아래 신청서에 이야기를 작성해 제출</div></div>
+      <div class="how-row"><div class="k">시상</div><div class="v">우수 사연 상금 50만원 · 참여자 추첨 선물</div></div>
+      <div class="how-row"><div class="k">결과 발표</div><div class="v">2026. 7월 초, 당첨자 개별 연락</div></div>
+    </div>
+  </section>
+
+  <!-- ===== FORM ===== -->
+  <section class="form-section">
+    <div class="form-card">
+      <div class="form-head">
+        <span class="stamp">접수중</span>
+        <div class="ft">공모전 참여하기</div>
+        <div class="fs">당신의 여름방학 이야기를 들려주세요</div>
+        <div class="period">모집기간 · 2026. 6. 1 ~ 6. 26</div>
+      </div>
+
+      <!-- 신뢰 영역 -->
+      <div class="trust">
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#357FBE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          입력하신 개인정보는 공모전 운영·당첨 안내 목적으로만 사용되며 안전하게 보호됩니다.
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#357FBE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          제출하신 모든 사연은 공정한 기준으로 심사됩니다.
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#357FBE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          당첨 시 입력하신 연락처로 직접 안내드립니다.
+        </div>
+        <div class="host-line">주최 · 주관 <b>LOGIN</b> 2030을 위한 성장 연구소</div>
+      </div>
+
+      <div class="form-body">
+        <form id="storyForm" onsubmit="return handleSubmit(event)" novalidate>
+
+          <div class="field" id="field-category">
+            <label>응모 분야 <span class="req">*</span></label>
+            <div class="chips">
+              <input type="radio" id="cat1" name="category" value="가장 행복했던 순간" />
+              <label for="cat1">가장 행복했던 순간</label>
+              <input type="radio" id="cat2" name="category" value="가장 기억나는 친구" />
+              <label for="cat2">가장 기억나는 친구</label>
+              <input type="radio" id="cat3" name="category" value="가장 그리운 여름날" />
+              <label for="cat3">가장 그리운 여름날</label>
+            </div>
+            <div class="err-msg">응모 분야를 선택해주세요.</div>
+          </div>
+
+          <div class="field" id="field-title">
+            <label for="title">이야기 제목 <span class="req">*</span></label>
+            <input type="text" id="title" name="title" placeholder="당신의 여름방학 이야기에 제목을 붙여주세요" maxlength="60" />
+            <div class="err-msg">제목을 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="field-story">
+            <label for="story">여름방학 이야기 <span class="req">*</span>
+              <span class="hint">그 여름, 무슨 일이 있었나요? 누구와 함께였나요? 가장 그리운 장면을 떠올리며 적어주세요.</span>
+            </label>
+            <textarea id="story" name="story" placeholder="이야기를 자유롭게 들려주세요."></textarea>
+            <div class="counter"><span id="storyCount">0</span>자</div>
+            <div class="err-msg">이야기를 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="field-era">
+            <label for="era">그 시절 <span class="hint">(선택) 예) 초등학교 5학년, 1999년 여름</span></label>
+            <input type="text" id="era" name="era" placeholder="이야기 속 그 시절을 적어주세요" maxlength="40" />
+          </div>
+
+          <div class="field" id="field-name">
+            <label for="name">이름 <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" maxlength="20" />
+            <div class="err-msg">이름을 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="field-phone">
+            <label for="phone">연락처 <span class="req">*</span>
+              <span class="hint">당첨 안내를 위해서만 사용됩니다.</span>
+            </label>
+            <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" />
+            <div class="err-msg">연락처를 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="field-email">
+            <label for="email">이메일 <span class="hint">(선택)</span></label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" />
+          </div>
+
+          <div class="field" id="field-agree">
+            <div class="agree">
+              <input type="checkbox" id="agree" name="agree" />
+              <label for="agree">개인정보(이름·연락처·이메일) 수집 및 이용에 동의합니다. 수집된 정보는 공모전 운영 및 당첨 안내 목적으로만 사용됩니다.</label>
+            </div>
+            <div class="err-msg" style="margin-top:8px;">개인정보 수집에 동의해주세요.</div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">이야기 제출하기</button>
+          <p class="secure-note">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 10V7a6 6 0 0112 0v3" stroke="#ABA08C" stroke-width="2"/><rect x="4" y="10" width="16" height="10" rx="2" stroke="#ABA08C" stroke-width="2"/></svg>
+            안전하게 암호화되어 전송됩니다
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div>추억의 여름방학 이야기 공모전</div>
+      <div>© 2026 LOGIN · 2030을 위한 성장 연구소</div>
+      <div class="biz">사업자등록번호 293-07-03063</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== 완료 모달 ===== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="mi">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#E29A28" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="modal-title">이야기 접수 완료!</div>
+    <div class="modal-desc">소중한 여름방학 이야기를<br>들려주셔서 감사합니다.<br>당첨자는 입력하신 연락처로 안내드립니다.</div>
+    <button class="modal-close-btn" onclick="closeModal()">확인</button>
+  </div>
+</div>
+
+<script>
+  var SUPABASE_URL = 'https://atzyvbifvrlhwploqmpr.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo';
+  var TABLE = 'vacation_story';
+
+  var storyEl = document.getElementById('story');
+  var countEl = document.getElementById('storyCount');
+  storyEl.addEventListener('input', function() { countEl.textContent = storyEl.value.length; });
+
+  function validate() {
+    var ok = true;
+    function checkText(fieldId, inputId) {
+      var field = document.getElementById(fieldId);
+      var val = document.getElementById(inputId).value.trim();
+      field.classList.toggle('has-error', !val);
+      if (!val) ok = false;
+    }
+    var catField = document.getElementById('field-category');
+    var catChecked = document.querySelector('input[name="category"]:checked');
+    catField.classList.toggle('has-error', !catChecked);
+    if (!catChecked) ok = false;
+
+    checkText('field-title', 'title');
+    checkText('field-story', 'story');
+    checkText('field-name', 'name');
+    checkText('field-phone', 'phone');
+
+    var agreeField = document.getElementById('field-agree');
+    var agreed = document.getElementById('agree').checked;
+    agreeField.classList.toggle('has-error', !agreed);
+    if (!agreed) ok = false;
+
+    return ok;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!validate()) {
+      var firstError = document.querySelector('.has-error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '제출 중...';
+
+    var data = {
+      category: (document.querySelector('input[name="category"]:checked')||{}).value || '',
+      title:    document.getElementById('title').value.trim(),
+      story:    document.getElementById('story').value.trim(),
+      era:      document.getElementById('era').value.trim(),
+      name:     document.getElementById('name').value.trim(),
+      phone:    document.getElementById('phone').value.trim(),
+      email:    document.getElementById('email').value.trim()
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (!res.ok) return res.text().then(function(t) { throw new Error(t); });
+      document.getElementById('modal').classList.add('show');
+      document.getElementById('storyForm').reset();
+      countEl.textContent = '0';
+    })
+    .catch(function(err) {
+      console.error('Supabase error:', err);
+      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.textContent = '이야기 제출하기';
+    });
+
+    return false;
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('input, textarea').forEach(function(el) {
+    function clear() {
+      var field = el.closest('.field');
+      if (field) field.classList.remove('has-error');
+    }
+    el.addEventListener('input', clear);
+    el.addEventListener('change', clear);
+  });
+</script>
+
+</body>
+</html>
