@@ -2,9 +2,10 @@
 -- 여름방학 이야기 공모전 신청 테이블
 -- Supabase SQL Editor에서 전체 실행하세요
 -- 연결 프로젝트: atzyvbifvrlhwploqmpr
+-- 테이블명에 하이픈/대문자가 있어 항상 큰따옴표로 감쌉니다.
 -- =============================================
 
-create table public.vacation_story (
+create table public."AD-login-vacation" (
   id         uuid default gen_random_uuid() primary key,
   category   text not null,          -- 응모 분야
   title      text not null,          -- 이야기 제목
@@ -19,11 +20,11 @@ create table public.vacation_story (
 );
 
 -- ── RLS: 누구나 제출(INSERT) 가능, 조회는 차단 ──
-alter table public.vacation_story enable row level security;
+alter table public."AD-login-vacation" enable row level security;
 
 -- 익명 사용자(anon) + 로그인 사용자 모두 제출 허용
-create policy "vacation_story_insert"
-  on public.vacation_story
+create policy "AD-login-vacation_insert"
+  on public."AD-login-vacation"
   for insert
   to anon, authenticated
   with check (true);
