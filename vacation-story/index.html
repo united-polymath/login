@@ -261,7 +261,7 @@
     <h2 class="sec-title">응모 안내</h2>
     <div class="how-list">
       <div class="how-row"><div class="k">모집 기간</div><div class="v">2026. 6. 1 ~ 6. 26</div></div>
-      <div class="how-row"><div class="k">응모 대상</div><div class="v">여름방학의 추억을 가진 누구나</div></div>
+      <div class="how-row"><div class="k">응모 대상</div><div class="v">여름방학의 추억을 가진 20대 이상 누구나</div></div>
       <div class="how-row"><div class="k">분량</div><div class="v">자유 (300자 이상 권장)</div></div>
       <div class="how-row"><div class="k">참여 방법</div><div class="v">아래 신청서에 이야기를 작성해 제출</div></div>
       <div class="how-row"><div class="k">시상</div><div class="v">우수 사연 상금 50만원 · 참여자 추첨 선물</div></div>
@@ -338,6 +338,20 @@
             <div class="err-msg">이름을 입력해주세요.</div>
           </div>
 
+          <div class="field" id="field-birthdate">
+            <label for="birthdate">생년월일 <span class="req">*</span>
+              <span class="hint">예) 1995-07-15 (만 20세 이상 응모 가능)</span>
+            </label>
+            <input type="text" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD" maxlength="10" inputmode="numeric" />
+            <div class="err-msg">생년월일을 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="field-region">
+            <label for="region">거주지 <span class="req">*</span></label>
+            <input type="text" id="region" name="region" placeholder="예) 서울특별시 강남구" maxlength="40" />
+            <div class="err-msg">거주지를 입력해주세요.</div>
+          </div>
+
           <div class="field" id="field-phone">
             <label for="phone">연락처 <span class="req">*</span>
               <span class="hint">당첨 안내를 위해서만 사용됩니다.</span>
@@ -354,7 +368,7 @@
           <div class="field" id="field-agree">
             <div class="agree">
               <input type="checkbox" id="agree" name="agree" />
-              <label for="agree">개인정보(이름·연락처·이메일) 수집 및 이용에 동의합니다. 수집된 정보는 공모전 운영 및 당첨 안내 목적으로만 사용됩니다.</label>
+              <label for="agree">개인정보(이름·생년월일·거주지·연락처·이메일) 수집 및 이용에 동의합니다. 수집된 정보는 공모전 운영 및 당첨 안내 목적으로만 사용됩니다.</label>
             </div>
             <div class="err-msg" style="margin-top:8px;">개인정보 수집에 동의해주세요.</div>
           </div>
@@ -414,6 +428,8 @@
     checkText('field-title', 'title');
     checkText('field-story', 'story');
     checkText('field-name', 'name');
+    checkText('field-birthdate', 'birthdate');
+    checkText('field-region', 'region');
     checkText('field-phone', 'phone');
 
     var agreeField = document.getElementById('field-agree');
@@ -440,10 +456,12 @@
       category: (document.querySelector('input[name="category"]:checked')||{}).value || '',
       title:    document.getElementById('title').value.trim(),
       story:    document.getElementById('story').value.trim(),
-      era:      document.getElementById('era').value.trim(),
-      name:     document.getElementById('name').value.trim(),
-      phone:    document.getElementById('phone').value.trim(),
-      email:    document.getElementById('email').value.trim()
+      era:       document.getElementById('era').value.trim(),
+      name:      document.getElementById('name').value.trim(),
+      birthdate: document.getElementById('birthdate').value.trim(),
+      region:    document.getElementById('region').value.trim(),
+      phone:     document.getElementById('phone').value.trim(),
+      email:     document.getElementById('email').value.trim()
     };
 
     fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
