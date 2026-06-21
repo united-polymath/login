@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다시 한 번 숨 고르기 · 디지털 디톡스 챌린지 신청</title>
+<meta name="description" content="익숙해진 디지털을 잠시 내려놓는 7일의 디톡스 챌린지. 지금 신청해보세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#ffffff;
+    --neon:#c4f135;
+    --neon-deep:#a5d400;
+    --green:#5fd068;
+    --highlight:#fff2a8;
+    --line:#1a1a1a;
+    --muted:#8a8a8a;
+    --field:#f6f6f4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans KR',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* 데스크톱 배경 */
+  @media(min-width:680px){
+    body{
+      background:
+        radial-gradient(900px 460px at 50% -140px, #eaffb0 0%, rgba(234,255,176,0) 62%),
+        repeating-linear-gradient(0deg,#fafafa,#fafafa 23px,#f1f1ee 24px);
+      padding:30px 0;
+    }
+    .wrap{
+      background:var(--paper);
+      border:2.5px solid var(--line);
+      border-radius:26px;
+      box-shadow:8px 8px 0 var(--line);
+    }
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:56px 28px 70px;}
+
+  /* ---- HERO ---- */
+  .hero{position:relative;margin-bottom:42px;}
+  .eyebrow{
+    font-family:'Caveat',cursive;
+    font-size:30px;color:var(--ink);
+    transform:rotate(-4deg);display:inline-block;
+    margin-bottom:6px;
+  }
+  h1{
+    font-weight:900;font-size:38px;letter-spacing:-1px;
+    line-height:1.18;margin-bottom:14px;
+  }
+  h1 .neon{
+    background:linear-gradient(transparent 60%, var(--neon) 60%);
+    padding:0 2px;
+  }
+  .hero p{color:#555;font-size:15px;line-height:1.7;max-width:440px;}
+  .tag{
+    display:inline-block;margin-top:14px;
+    background:var(--highlight);font-weight:700;font-size:14px;
+    padding:3px 8px;transform:rotate(-1deg);
+  }
+  .doodle{
+    position:absolute;top:-14px;right:-6px;width:130px;height:auto;
+  }
+
+  /* ---- FORM CARD ---- */
+  .card{
+    border:2.5px solid var(--line);
+    border-radius:22px;
+    padding:36px 30px 40px;
+    position:relative;
+    background:var(--paper);
+  }
+  .card::before{
+    content:"";position:absolute;inset:8px;border:1.5px dashed #d8d8d8;
+    border-radius:16px;pointer-events:none;
+  }
+  .card-head{
+    display:flex;align-items:center;gap:10px;margin-bottom:8px;
+  }
+  .card-head h2{font-size:20px;font-weight:900;letter-spacing:-.5px;}
+  .badge{
+    font-family:'Caveat',cursive;font-size:22px;
+    background:var(--neon);padding:2px 12px;border-radius:30px;
+    transform:rotate(-3deg);border:2px solid var(--line);
+  }
+  .card-sub{color:var(--muted);font-size:13px;margin-bottom:26px;}
+
+  .field{margin-bottom:22px;position:relative;}
+  .field label{
+    display:block;font-weight:700;font-size:14px;margin-bottom:8px;
+  }
+  .field label .star{color:var(--neon-deep);font-family:'Gaegu';font-size:18px;}
+  .field input,.field textarea{
+    width:100%;font-family:'Noto Sans KR',sans-serif;font-size:15px;
+    background:var(--field);border:2px solid transparent;
+    border-radius:12px;padding:13px 15px;color:var(--ink);
+    transition:border-color .15s, background .15s;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:#b3b3b3;}
+  .field input:focus,.field textarea:focus{
+    outline:none;border-color:var(--neon-deep);background:#fff;
+  }
+  .field textarea{min-height:120px;resize:vertical;}
+
+  .row{display:flex;gap:14px;}
+  .row .field{flex:1;}
+
+  /* highlight question */
+  .qbox{
+    background:linear-gradient(transparent 55%, var(--neon) 55%);
+    display:inline;font-weight:900;font-size:16px;line-height:2;
+    padding:0 3px;
+  }
+  .field.q label{font-size:14px;margin-bottom:12px;line-height:1.5;}
+  .qhint{font-family:'Gaegu',cursive;color:#7a7a7a;font-size:15px;font-weight:400;}
+
+  /* consent */
+  .consent{
+    display:flex;align-items:flex-start;gap:9px;
+    background:var(--field);border-radius:12px;padding:13px 15px;margin-bottom:22px;
+  }
+  .consent input{margin-top:3px;width:17px;height:17px;accent-color:var(--neon-deep);flex-shrink:0;}
+  .consent label{font-size:12.5px;color:#666;line-height:1.55;font-weight:400;}
+
+  /* submit */
+  .submit{
+    width:100%;margin-top:8px;
+    font-family:'Noto Sans KR';font-weight:900;font-size:17px;
+    background:var(--neon);color:var(--ink);
+    border:2.5px solid var(--line);border-radius:14px;
+    padding:16px;cursor:pointer;
+    box-shadow:4px 4px 0 var(--line);
+    transition:transform .08s, box-shadow .08s, opacity .15s;
+  }
+  .submit:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--line);}
+  .submit:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line);}
+  .submit:disabled{opacity:.55;cursor:not-allowed;}
+
+  .foot{
+    text-align:center;margin-top:22px;color:var(--muted);font-size:12.5px;line-height:1.7;
+  }
+  .foot b{color:var(--ink);}
+  .foot .biz{font-size:11.5px;color:#b0b0b0;}
+
+  .done{
+    display:none;text-align:center;padding:30px 10px;
+  }
+  .done.show{display:block;}
+  .done .mark{font-family:'Caveat';font-size:46px;color:var(--neon-deep);}
+  .done h3{font-size:22px;font-weight:900;margin:6px 0 8px;}
+  .done p{color:#666;font-size:14px;}
+
+  @media(max-width:480px){
+    h1{font-size:30px;}
+    .doodle{width:96px;top:36px;}
+    .row{flex-direction:column;gap:0;}
+    .wrap{padding:40px 18px 60px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <svg class="doodle" viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- hands above head -->
+      <path d="M78 18 C70 34 60 46 56 58 M82 18 C90 34 100 46 104 58"/>
+      <path d="M68 16 Q80 4 92 16"/>
+      <!-- head -->
+      <circle cx="80" cy="74" r="22"/>
+      <path d="M72 72 q3 5 6 0 M88 72 q-3 5 -6 0" stroke-width="3"/>
+      <path d="M74 84 q6 6 12 0" stroke-width="3"/>
+      <!-- arms down to head -->
+      <path d="M56 58 Q48 80 64 92 M104 58 Q112 80 96 92"/>
+      <!-- body -->
+      <path d="M80 96 L80 150"/>
+      <!-- standing leg -->
+      <path d="M80 150 L72 205"/>
+      <!-- tree-pose bent leg -->
+      <path d="M80 150 Q108 150 100 178 Q92 200 80 150"/>
+    </svg>
+    <span class="eyebrow">log out ✗</span>
+    <h1>나의 나쁜 습관과<br><span class="neon">로그아웃</span>하는<br>다시 한 번 숨 고르기</h1>
+    <p>매일 주어지는 작은 디톡스 미션. 익숙해진 디지털을 잠시 내려놓고, 잊고 있던 시간들을 추억하며 나만의 쉼표를 찾아갑니다.</p>
+    <span class="tag">사는 게 제일 어려운 현대인들을 위한 7일의 디톡스</span>
+  </header>
+
+  <!-- FORM -->
+  <main class="card">
+    <div class="card-head">
+      <h2>챌린지 신청</h2>
+      <span class="badge">7 days</span>
+    </div>
+    <p class="card-sub">아래 정보를 적어주시면 시작일에 맞춰 안내드릴게요.</p>
+
+    <form id="form" novalidate>
+      <div class="field">
+        <label>이름 <span class="star">✶</span></label>
+        <input type="text" name="name" id="name" placeholder="홍길동" maxlength="20" required>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>나이 <span class="star">✶</span></label>
+          <input type="number" name="age" id="age" placeholder="28" min="1" max="120" required>
+        </div>
+        <div class="field">
+          <label>전화번호 <span class="star">✶</span></label>
+          <input type="tel" name="phone" id="phone" placeholder="010-0000-0000" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>거주지 <span class="star">✶</span></label>
+        <input type="text" name="city" id="city" placeholder="예) 서울특별시 마포구" maxlength="40" required>
+      </div>
+
+      <div class="field q">
+        <label>
+          <span class="qbox">어떤 것을 분리수거 하고 싶나요?</span><br>
+          <span class="qhint">버리고 싶은 습관과 그 이유를 자유롭게 적어주세요 ✏️</span>
+        </label>
+        <textarea name="declutter" id="declutter" placeholder="예) 자기 전 무한 스크롤. 잠도 줄고 아침이 무거워서, 이젠 떠나보내고 싶어요." required></textarea>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="agree" required>
+        <label for="agree">개인정보(이름·나이·연락처·거주지) 수집 및 이용에 동의합니다. 챌린지 운영·안내 목적으로만 사용됩니다.</label>
+      </div>
+
+      <button type="submit" class="submit" id="submitBtn">신청하고 숨 고르기 →</button>
+      <p class="foot">
+        제출 즉시 <b>다시 한 번 숨 고르기</b> 팀이 확인합니다.<br>
+        <span class="biz">LOGIN · 2030을 위한 성장 연구소 · 사업자등록번호 293-07-03063</span>
+      </p>
+    </form>
+
+    <div class="done" id="done">
+      <div class="mark">breathe ~</div>
+      <h3>신청이 접수되었어요</h3>
+      <p>곧 안내 메시지를 보내드릴게요.<br>그때까지, 한 번 깊게 들이쉬고 — 내쉬어요.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+  var SUPABASE_URL = 'https://atzyvbifvrlhwploqmpr.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo';
+  var TABLE = 'AD-login-detox';
+
+  var form = document.getElementById('form');
+  var done = document.getElementById('done');
+  var btn  = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+
+    btn.disabled = true;
+    btn.textContent = '제출 중...';
+
+    var data = {
+      name:      document.getElementById('name').value.trim(),
+      age:       document.getElementById('age').value.trim(),
+      phone:     document.getElementById('phone').value.trim(),
+      city:      document.getElementById('city').value.trim(),
+      declutter: document.getElementById('declutter').value.trim()
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer ' + SUPABASE_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify(data)
+    })
+    .then(function(res){
+      if(!res.ok) return res.text().then(function(t){ throw new Error(t); });
+      form.style.display='none';
+      done.classList.add('show');
+      done.scrollIntoView({behavior:'smooth',block:'center'});
+    })
+    .catch(function(err){
+      console.error('Supabase error:', err);
+      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      btn.disabled = false;
+      btn.textContent = '신청하고 숨 고르기 →';
+    });
+  });
+</script>
+</body>
+</html>
