@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에피소드 공모전 · 2010년대 그 시절의 기록</title>
+<meta name="description" content="10대 시절의 당연했던 풍경을 기록하는 에피소드 공모전. 당신의 2010년대 여름 기억을 세상에 남겨보세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --ivory:#F7F0E1;
+    --paper:#FFFDF7;
+    --bg:#F3ECDD;
+    --ink:#2B2620;
+    --ink-soft:#6B6256;
+    --ink-light:#A79B88;
+    --line:#E6DBC4;
+    --charcoal:#26221C;
+    --gold:#B5894E;
+    --gold-deep:#9A6F36;
+    --sky:#A9CFE6;
+    --sky-deep:#5E89A8;
+    --shadow-sm:0 6px 20px rgba(90,72,40,.08);
+    --shadow-md:0 18px 44px rgba(90,72,40,.16);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;
+    color:var(--ink);line-height:1.7;letter-spacing:-0.01em;
+    background:
+      linear-gradient(180deg,#BFDAEA 0%, #DCE7E0 16%, var(--bg) 34%, var(--bg) 100%);
+    -webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 0 60px;}
+
+  /* ---- HERO ---- */
+  .hero{padding:54px 26px 30px;text-align:center;}
+  .kicker{
+    display:inline-block;font-size:13px;font-weight:600;letter-spacing:.18em;
+    color:var(--sky-deep);margin-bottom:14px;
+  }
+  .hero h1{
+    font-weight:800;font-size:46px;letter-spacing:-0.03em;line-height:1.1;
+    color:var(--charcoal);margin-bottom:18px;
+  }
+  .hero .lead{
+    font-family:'Gowun Dodum',sans-serif;font-size:16px;color:var(--ink-soft);
+    line-height:1.85;max-width:420px;margin:0 auto;letter-spacing:0;
+  }
+  .cover{display:block;width:100%;max-width:460px;margin:26px auto 0;border-radius:18px;box-shadow:var(--shadow-md);}
+
+  /* reward chips */
+  .rewards{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:26px;}
+  .reward{
+    display:flex;align-items:center;gap:7px;
+    background:var(--paper);border:1px solid var(--line);border-radius:999px;
+    padding:8px 15px;font-size:13.5px;font-weight:600;color:var(--ink);box-shadow:var(--shadow-sm);
+  }
+  .reward svg{flex-shrink:0;}
+
+  /* ---- shared section ---- */
+  .panel{
+    background:var(--ivory);border:1px solid var(--line);border-radius:22px;
+    margin:24px 18px 0;padding:30px 26px 32px;box-shadow:var(--shadow-sm);
+  }
+  .panel-title{
+    text-align:center;font-weight:800;font-size:22px;color:var(--charcoal);
+    letter-spacing:-0.02em;margin-bottom:22px;
+  }
+
+  /* 개요 list */
+  .ov-item{margin-bottom:20px;}
+  .ov-item:last-child{margin-bottom:0;}
+  .ov-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:var(--charcoal);margin-bottom:6px;}
+  .ov-h .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .ov-b{font-size:14.5px;color:var(--ink-soft);line-height:1.65;padding-left:14px;}
+  .ov-b b{color:var(--ink);font-weight:600;}
+  .ov-b .sub{display:block;font-size:13px;color:var(--ink-light);margin-top:2px;}
+  .ov-cautions{font-size:13px;color:var(--ink-light);line-height:1.7;padding-left:14px;}
+
+  /* 시상 table */
+  .ptable{
+    margin-top:8px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper);
+  }
+  .prow{display:grid;grid-template-columns:0.95fr 0.5fr 1.7fr;border-bottom:1px solid var(--line);}
+  .prow:last-child{border-bottom:none;}
+  .prow>div{padding:12px 10px;font-size:13px;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.4;}
+  .prow .pa{border-left:1px solid var(--line);border-right:1px solid var(--line);}
+  .prow .pd{font-size:12.5px;color:var(--ink-soft);text-align:left;justify-content:flex-start;}
+  .prow.pth{background:var(--charcoal);}
+  .prow.pth>div{color:#fff;font-weight:600;font-size:12.5px;}
+  .prow.pth .pa{border-color:rgba(255,255,255,.16);}
+  .prow .pg{font-weight:700;color:var(--charcoal);}
+
+  /* ---- STEP FORM ---- */
+  .formwrap{margin:24px 18px 0;}
+  .steps-bar{display:flex;align-items:center;gap:6px;margin-bottom:6px;padding:0 4px;}
+  .sdot{flex:1;height:5px;border-radius:99px;background:var(--line);transition:background .3s;}
+  .sdot.on{background:var(--gold);}
+  .step-label{text-align:center;font-size:12.5px;font-weight:600;color:var(--ink-light);margin-bottom:20px;letter-spacing:.02em;}
+  .step-label b{color:var(--gold-deep);}
+
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:22px;
+    padding:30px 24px 26px;box-shadow:var(--shadow-md);
+  }
+  .step{display:none;animation:fade .35s ease;}
+  .step.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .step-head{font-weight:800;font-size:19px;color:var(--charcoal);margin-bottom:4px;letter-spacing:-0.02em;}
+  .step-sub{font-size:13.5px;color:var(--ink-light);margin-bottom:22px;line-height:1.6;}
+
+  .field{margin-bottom:19px;}
+  .field label{display:block;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:7px;}
+  .field label .req{color:var(--gold-deep);margin-left:2px;}
+  .field label .opt{color:var(--ink-light);font-weight:500;font-size:12.5px;margin-left:4px;}
+  .field .hint{display:block;font-weight:400;font-size:12.5px;color:var(--ink-light);margin-top:3px;line-height:1.55;}
+  .field input,.field textarea{
+    width:100%;font-family:inherit;font-size:15px;color:var(--ink);
+    background:var(--ivory);border:1.6px solid transparent;border-radius:12px;
+    padding:13px 15px;transition:border-color .15s, background .15s;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:#B3A78F;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:#fff;}
+  .field textarea{min-height:230px;resize:vertical;line-height:1.75;white-space:pre-wrap;}
+  .field.bad input,.field.bad textarea{border-color:#D9694A;background:#FCF3EF;}
+  .field .err{display:none;font-size:12.5px;color:#D9694A;margin-top:5px;}
+  .field.bad .err{display:block;}
+  .row2{display:flex;gap:12px;}
+  .row2 .field{flex:1;}
+  .counter{text-align:right;font-size:12px;color:var(--ink-light);margin-top:6px;}
+  .counter.warn{color:#D9694A;}
+
+  /* photo */
+  .photo-box{
+    border:1.6px dashed #D2C3A5;border-radius:14px;padding:18px;text-align:center;
+    background:var(--ivory);cursor:pointer;transition:border-color .15s,background .15s;
+  }
+  .photo-box:hover{border-color:var(--gold);background:#fff;}
+  .photo-box .pi{font-size:13px;color:var(--ink-soft);line-height:1.6;}
+  .photo-box .pup{font-weight:700;color:var(--gold-deep);font-size:14px;}
+  .photo-box input{display:none;}
+  .photo-preview{display:none;margin-top:12px;}
+  .photo-preview img{width:100%;border-radius:12px;display:block;}
+  .photo-preview .pname{font-size:12.5px;color:var(--ink-soft);margin-top:7px;}
+  .photo-preview .premove{color:#D9694A;font-weight:600;cursor:pointer;margin-left:8px;}
+
+  /* agree */
+  .agree{
+    display:flex;align-items:flex-start;gap:10px;background:var(--ivory);
+    border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:13px;
+  }
+  .agree.key{background:#FBF3E4;border-color:#E6D2A8;}
+  .agree input{margin-top:3px;width:18px;height:18px;accent-color:var(--gold-deep);flex-shrink:0;}
+  .agree label{font-size:13px;color:var(--ink-soft);line-height:1.6;font-weight:400;}
+  .agree label b{color:var(--ink);font-weight:700;}
+  .agree-err{display:none;font-size:12.5px;color:#D9694A;margin:-4px 0 10px 2px;}
+  .agree-err.show{display:block;}
+
+  /* nav buttons */
+  .nav{display:flex;gap:10px;margin-top:24px;}
+  .btn{
+    flex:1;font-family:inherit;font-weight:700;font-size:15.5px;cursor:pointer;
+    border-radius:13px;padding:15px;border:1.6px solid var(--charcoal);transition:transform .08s,opacity .15s,box-shadow .15s;
+  }
+  .btn-prev{flex:0 0 32%;background:transparent;color:var(--charcoal);}
+  .btn-next,.btn-submit{background:var(--charcoal);color:#fff;box-shadow:0 8px 20px rgba(38,34,28,.22);}
+  .btn-submit{background:linear-gradient(135deg,#3A332A,#26221C);font-size:16.5px;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn:active{transform:translateY(0);}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+  .save-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--ink-light);margin-top:14px;}
+
+  .foot{text-align:center;margin-top:30px;font-size:12.5px;color:var(--ink-light);line-height:1.7;padding:0 20px;}
+  .foot .biz{font-size:11.5px;color:#BCB199;}
+
+  /* done */
+  .done{display:none;text-align:center;padding:18px 6px;}
+  .done.show{display:block;animation:fade .4s ease;}
+  .done .mk{width:74px;height:74px;border-radius:50%;background:#FBF3E4;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .done h3{font-size:23px;font-weight:800;color:var(--charcoal);margin-bottom:10px;letter-spacing:-0.02em;}
+  .done p{font-size:14.5px;color:var(--ink-soft);line-height:1.7;}
+
+  @media(min-width:600px){
+    body{padding:30px 0;}
+    .wrap{background:transparent;}
+  }
+  @media(max-width:420px){
+    .hero h1{font-size:38px;}
+    .row2{flex-direction:column;gap:0;}
+    .btn-prev{flex:0 0 34%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HERO / WELCOME ===== -->
+  <header class="hero">
+    <span class="kicker">2010년대 청년 이야기 프로젝트</span>
+    <h1>에피소드 공모전</h1>
+    <p class="lead">당신의 2010년대 여름 기억을 세상에 기록하는 공간입니다.<br>완벽한 문장이 아니어도 괜찮으니, 그 시절의 공기를 편하게 들려주세요.</p>
+    <!-- 카드뉴스 이미지를 cover.png 로 넣으면 자동 표시됩니다 -->
+    <img class="cover" src="cover.png" alt="에피소드 공모전" onerror="this.style.display='none'">
+    <div class="rewards">
+      <span class="reward"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4z" stroke="#B5894E" stroke-width="2"/><path d="M4 9h16" stroke="#B5894E" stroke-width="2"/></svg>교과서·공적 미디어 등재</span>
+      <span class="reward"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="#B5894E" stroke-width="2"/><path d="M8 20h8" stroke="#B5894E" stroke-width="2" stroke-linecap="round"/></svg>지하철역 광고 전시</span>
+      <span class="reward"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="6" stroke="#B5894E" stroke-width="2"/><path d="M9 14l-1 7 4-2 4 2-1-7" stroke="#B5894E" stroke-width="2" stroke-linejoin="round"/></svg>상금 최대 100만원</span>
+    </div>
+  </header>
+
+  <!-- ===== 공모전 개요 ===== -->
+  <section class="panel">
+    <h2 class="panel-title">공모전 개요</h2>
+
+    <div class="ov-item">
+      <div class="ov-h"><span class="dot"></span>접수기간 / 대상</div>
+      <div class="ov-b"><b>2026. 06. 01 ~ 2026. 06. 26</b><span class="sub">서울시 거주 20대 누구나</span></div>
+    </div>
+
+    <div class="ov-item">
+      <div class="ov-h"><span class="dot"></span>에피소드 주제</div>
+      <div class="ov-b"><b>10대 시절의 당연했던 풍경</b><span class="sub">관련된 나만의 에피소드 기재</span></div>
+    </div>
+
+    <div class="ov-item">
+      <div class="ov-h"><span class="dot"></span>유의사항</div>
+      <div class="ov-cautions">
+        * 외부 전문가들의 공정한 심사를 통해 우수작품을 선정합니다.<br>
+        * 외부인의 도움이 발견된 경우 심사에서 제외됩니다.
+      </div>
+    </div>
+
+    <div class="ov-item">
+      <div class="ov-h"><span class="dot"></span>시상내역</div>
+      <div class="ptable">
+        <div class="prow pth"><div>구분</div><div>수상</div><div>수상내역</div></div>
+        <div class="prow"><div class="pg">대상</div><div class="pa">1</div><div class="pd">상금 100만원 + 교과서/공적 미디어 등재</div></div>
+        <div class="prow"><div class="pg">최우수상</div><div class="pa">1</div><div class="pd">상금 50만원 + 연구소 비공개 트렌드 리포트</div></div>
+        <div class="prow"><div class="pg">우수상</div><div class="pa">1</div><div class="pd">상금 30만원 + 밀리의 서재 3개월 이용권</div></div>
+        <div class="prow"><div class="pg">장려상</div><div class="pa">10</div><div class="pd">서울 주요 지하철역 광고 전시 (전원)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP FORM ===== -->
+  <div class="formwrap">
+    <div class="steps-bar">
+      <div class="sdot on" data-s="1"></div>
+      <div class="sdot" data-s="2"></div>
+      <div class="sdot" data-s="3"></div>
+    </div>
+    <div class="step-label">STEP <b id="curStep">1</b> / 3</div>
+
+    <div class="card">
+      <form id="epForm" novalidate>
+
+        <!-- STEP 1: 기본정보 -->
+        <section class="step on" data-step="1">
+          <div class="step-head">기본 정보</div>
+          <div class="step-sub">수상 안내와 본인 확인을 위해 받습니다. (통계 외 목적으로 쓰지 않아요)</div>
+
+          <div class="field" id="f-name">
+            <label>이름 <span class="req">*</span></label>
+            <input type="text" id="name" maxlength="20" placeholder="홍길동" autocomplete="name">
+            <div class="err">이름을 입력해주세요.</div>
+          </div>
+
+          <div class="row2">
+            <div class="field" id="f-phone">
+              <label>연락처 <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="010-0000-0000" autocomplete="tel">
+              <div class="err">연락처를 입력해주세요.</div>
+            </div>
+            <div class="field" id="f-birth">
+              <label>출생연도 <span class="req">*</span></label>
+              <input type="text" id="birth" maxlength="4" inputmode="numeric" placeholder="2001">
+              <div class="err">출생연도를 입력해주세요.</div>
+            </div>
+          </div>
+
+          <div class="field" id="f-region">
+            <label>거주지 <span class="req">*</span></label>
+            <input type="text" id="region" maxlength="40" placeholder="예) 서울시 마포구">
+            <div class="err">거주지를 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="f-pen">
+            <label>전시용 활동명 <span class="opt">(필명 · 선택)</span></label>
+            <input type="text" id="penName" maxlength="24" placeholder="예) 버디버디 아이디, 그때 그 닉네임">
+            <span class="hint">실명 대신 그 시절 쓰던 닉네임으로 기록되고 싶다면 적어주세요.</span>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn btn-next" data-next>다음 →</button>
+          </div>
+        </section>
+
+        <!-- STEP 2: 에피소드 -->
+        <section class="step" data-step="2">
+          <div class="step-head">에피소드 작성</div>
+          <div class="step-sub">스마트폰 메모장에 적듯 가볍게. 공백 포함 500자 이상 ~ 2,000자 이하예요.</div>
+
+          <div class="field" id="f-title">
+            <label>에피소드 제목 <span class="req">*</span></label>
+            <input type="text" id="title" maxlength="60" placeholder="예) 2012년 여름, 야자 째고 먹던 분식집 슬러시">
+            <div class="err">제목을 입력해주세요.</div>
+          </div>
+
+          <div class="field" id="f-episode">
+            <label>에피소드 본문 <span class="req">*</span></label>
+            <textarea id="episode" placeholder="💡 막막하다면 이런 걸 떠올려보세요.
+
+· 그때 주위에서 나던 냄새나 그날의 날씨는 어땠나요?
+· 그 시절 친구들과 나누었던 대화 중 기억나는 한 마디가 있다면?
+· 지금 생각하면 오글거리거나, 혹은 뭉클한 포인트는 무엇인가요?"></textarea>
+            <div class="counter"><span id="epCount">0</span> / 500~2,000자</div>
+            <div class="err">500자 이상 2,000자 이하로 작성해주세요.</div>
+          </div>
+
+          <div class="field" id="f-photo">
+            <label>그 시절 시각 자료 <span class="opt">(사진 · 선택)</span></label>
+            <span class="hint" style="margin-bottom:9px;">폴더폰 사진, 싸이월드 사진, 소원 팔찌·PMP 같은 소품 사진. <b style="color:var(--gold-deep)">첨부 시 선정 확률 UP!</b></span>
+            <label class="photo-box" id="photoBox">
+              <div class="pi"><span class="pup">사진 올리기</span><br>탭해서 그 시절 사진을 첨부하세요 (10MB 이하)</div>
+              <input type="file" id="photo" accept="image/*">
+            </label>
+            <div class="photo-preview" id="photoPreview">
+              <img id="photoImg" alt="첨부 사진">
+              <div class="pname"><span id="photoName"></span><span class="premove" id="photoRemove">삭제</span></div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn btn-prev" data-prev>← 이전</button>
+            <button type="button" class="btn btn-next" data-next>다음 →</button>
+          </div>
+        </section>
+
+        <!-- STEP 3: 동의 & 제출 -->
+        <section class="step" data-step="3">
+          <div class="step-head">권리 동의 및 제출</div>
+          <div class="step-sub">제출 전 아래 내용을 확인해주세요.</div>
+
+          <div class="agree key" id="f-rights">
+            <input type="checkbox" id="agreeRights">
+            <label for="agreeRights"><b>[필수] 작품 활용 동의</b><br>제출작이 <b>교과서·공적 미디어 등재, 지하철역 광고 전시, 도서 출간</b> 등 공적 목적으로 수정·인용·배포될 수 있음에 동의합니다.</label>
+          </div>
+          <div class="agree-err" id="err-rights">작품 활용에 동의해주세요.</div>
+
+          <div class="agree" id="f-privacy">
+            <input type="checkbox" id="agreePrivacy">
+            <label for="agreePrivacy"><b>[필수] 개인정보 수집·이용 동의</b><br>이름·연락처·거주지·출생연도를 수상 안내 및 통계 목적으로 수집·이용합니다.</label>
+          </div>
+          <div class="agree-err" id="err-privacy">개인정보 수집에 동의해주세요.</div>
+
+          <div class="nav">
+            <button type="button" class="btn btn-prev" data-prev>← 이전</button>
+            <button type="submit" class="btn btn-submit" id="submitBtn">나의 추억, 타임캡슐에 묻기</button>
+          </div>
+          <div class="save-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 10V7a6 6 0 0112 0v3" stroke="#A79B88" stroke-width="2"/><rect x="4" y="10" width="16" height="10" rx="2" stroke="#A79B88" stroke-width="2"/></svg>
+            안전하게 암호화되어 전송돼요
+          </div>
+        </section>
+
+        <!-- DONE -->
+        <div class="done" id="done">
+          <div class="mk">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#B5894E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>타임캡슐에 잘 묻었어요</h3>
+          <p>당신의 그 시절 이야기가 안전하게 기록되었습니다.<br>심사 후 수상자에게는 입력하신 연락처로 안내드릴게요.<br>그 여름을 꺼내어 들려주셔서 고맙습니다.</p>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="step-label" style="margin-top:14px;margin-bottom:0;">
+      <span id="autosaveHint">작성 내용은 이 기기에 자동 임시저장돼요</span>
+    </div>
+
+    <div class="foot">
+      <div>에피소드 공모전 · 2010년대 청년 이야기 프로젝트</div>
+      <div>© 2026 LOGIN · 2030을 위한 성장 연구소</div>
+      <div class="biz">사업자등록번호 293-07-03063</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var SUPABASE_URL = 'https://atzyvbifvrlhwploqmpr.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0enl2YmlmdnJsaHdwbG9xbXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjQzNTEsImV4cCI6MjA5MzgwMDM1MX0.6ap0rxCQXVsShJXTFb5UIKN4ykog32BLL1sBZN6vEMo';
+  var TABLE = 'login2';
+  var BUCKET = 'episode-photos';
+  var LSKEY = 'ep-contest-draft';
+
+  var MIN = 500, MAX = 2000;
+  var cur = 1;
+  var selectedFile = null;
+
+  var steps = document.querySelectorAll('.step');
+  var dots = document.querySelectorAll('.sdot');
+  var curStepEl = document.getElementById('curStep');
+
+  function showStep(n){
+    cur = n;
+    steps.forEach(function(s){ s.classList.toggle('on', +s.dataset.step === n); });
+    dots.forEach(function(d){ d.classList.toggle('on', +d.dataset.s <= n); });
+    curStepEl.textContent = n;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function setBad(id, bad){ document.getElementById(id).classList.toggle('bad', bad); }
+
+  function validateStep(n){
+    var ok = true;
+    if(n === 1){
+      var name = val('name'), phone = val('phone'), birth = val('birth'), region = val('region');
+      setBad('f-name', !name); if(!name) ok=false;
+      setBad('f-phone', !phone); if(!phone) ok=false;
+      setBad('f-birth', !/^(19|20)\d{2}$/.test(birth)); if(!/^(19|20)\d{2}$/.test(birth)) ok=false;
+      setBad('f-region', !region); if(!region) ok=false;
+    }
+    if(n === 2){
+      var title = val('title'), ep = document.getElementById('episode').value.trim();
+      setBad('f-title', !title); if(!title) ok=false;
+      var lenOk = ep.length >= MIN && ep.length <= MAX;
+      setBad('f-episode', !lenOk); if(!lenOk) ok=false;
+    }
+    if(n === 3){
+      var r = document.getElementById('agreeRights').checked;
+      var p = document.getElementById('agreePrivacy').checked;
+      document.getElementById('err-rights').classList.toggle('show', !r);
+      document.getElementById('err-privacy').classList.toggle('show', !p);
+      if(!r||!p) ok=false;
+    }
+    return ok;
+  }
+  function val(id){ return document.getElementById(id).value.trim(); }
+
+  document.querySelectorAll('[data-next]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(validateStep(cur)){ showStep(cur+1); }
+      else { var bad=document.querySelector('.step.on .bad'); if(bad) bad.scrollIntoView({behavior:'smooth',block:'center'}); }
+    });
+  });
+  document.querySelectorAll('[data-prev]').forEach(function(b){
+    b.addEventListener('click', function(){ showStep(cur-1); });
+  });
+
+  /* char counter */
+  var epEl = document.getElementById('episode');
+  var epCount = document.getElementById('epCount');
+  epEl.addEventListener('input', function(){
+    var n = epEl.value.trim().length;
+    epCount.textContent = n.toLocaleString();
+    epCount.parentNode.classList.toggle('warn', n>0 && (n<MIN || n>MAX));
+  });
+
+  /* photo */
+  var photoInput = document.getElementById('photo');
+  var preview = document.getElementById('photoPreview');
+  var box = document.getElementById('photoBox');
+  photoInput.addEventListener('change', function(){
+    var f = photoInput.files[0];
+    if(!f) return;
+    if(f.size > 10*1024*1024){ alert('사진은 10MB 이하만 첨부할 수 있어요.'); photoInput.value=''; return; }
+    selectedFile = f;
+    document.getElementById('photoImg').src = URL.createObjectURL(f);
+    document.getElementById('photoName').textContent = f.name;
+    preview.style.display='block';
+    box.style.display='none';
+  });
+  document.getElementById('photoRemove').addEventListener('click', function(){
+    selectedFile=null; photoInput.value=''; preview.style.display='none'; box.style.display='block';
+  });
+
+  /* localStorage autosave */
+  var saveIds = ['name','phone','birth','region','penName','title','episode'];
+  function saveDraft(){
+    var d={}; saveIds.forEach(function(id){ d[id]=document.getElementById(id).value; });
+    try{ localStorage.setItem(LSKEY, JSON.stringify(d)); }catch(e){}
+  }
+  function loadDraft(){
+    try{
+      var raw = localStorage.getItem(LSKEY); if(!raw) return;
+      var d = JSON.parse(raw);
+      saveIds.forEach(function(id){ if(d[id]) document.getElementById(id).value=d[id]; });
+      epEl.dispatchEvent(new Event('input'));
+      document.getElementById('autosaveHint').textContent='이전에 작성하던 내용을 불러왔어요';
+    }catch(e){}
+  }
+  saveIds.forEach(function(id){ document.getElementById(id).addEventListener('input', saveDraft); });
+  loadDraft();
+
+  /* submit */
+  var form = document.getElementById('epForm');
+  var done = document.getElementById('done');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validateStep(3)) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent='기록하는 중...';
+
+    uploadPhoto().then(function(photoUrl){
+      var data = {
+        name: val('name'),
+        phone: val('phone'),
+        birth_year: val('birth'),
+        region: val('region'),
+        pen_name: val('penName'),
+        title: val('title'),
+        episode: epEl.value.trim(),
+        photo_url: photoUrl || null
+      };
+      return fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'},
+        body: JSON.stringify(data)
+      });
+    })
+    .then(function(res){
+      if(!res.ok) return res.text().then(function(t){ throw new Error(t); });
+      try{ localStorage.removeItem(LSKEY); }catch(e){}
+      document.querySelector('.steps-bar').style.display='none';
+      document.querySelector('.step-label').style.display='none';
+      steps.forEach(function(s){ s.classList.remove('on'); });
+      done.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    })
+    .catch(function(err){
+      console.error('submit error:', err);
+      alert('제출 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.');
+      btn.disabled=false; btn.textContent='나의 추억, 타임캡슐에 묻기';
+    });
+  });
+
+  function uploadPhoto(){
+    if(!selectedFile) return Promise.resolve(null);
+    var ext = (selectedFile.name.split('.').pop()||'jpg').toLowerCase();
+    var fname = Date.now() + '-' + Math.random().toString(36).slice(2,9) + '.' + ext;
+    return fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fname, {
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':selectedFile.type||'application/octet-stream'},
+      body: selectedFile
+    }).then(function(res){
+      if(!res.ok){ console.warn('photo upload failed, continuing without photo'); return null; }
+      return SUPABASE_URL + '/storage/v1/object/public/' + BUCKET + '/' + fname;
+    }).catch(function(){ return null; });
+  }
+</script>
+</body>
+</html>
