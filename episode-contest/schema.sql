@@ -5,7 +5,7 @@
 -- =============================================
 
 -- 1) 신청 테이블 --------------------------------
-create table public.login2 (
+create table public."AD-login2-episode" (
   id         uuid default gen_random_uuid() primary key,
   name       text not null,          -- 이름
   phone      text not null,          -- 연락처
@@ -18,10 +18,10 @@ create table public.login2 (
   created_at timestamptz default now() not null
 );
 
-alter table public.login2 enable row level security;
+alter table public."AD-login2-episode" enable row level security;
 
-create policy "login2_insert"
-  on public.login2
+create policy "AD-login2-episode_insert"
+  on public."AD-login2-episode"
   for insert
   to anon, authenticated
   with check (true);

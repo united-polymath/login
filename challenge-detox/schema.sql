@@ -5,7 +5,7 @@
 -- 테이블명에 하이픈이 있어 항상 큰따옴표로 감쌉니다.
 -- =============================================
 
-create table public."AD-login-detox" (
+create table public."AD-login2-detox" (
   id         uuid default gen_random_uuid() primary key,
   name       text not null,          -- 이름
   age        text not null,          -- 나이
@@ -16,10 +16,10 @@ create table public."AD-login-detox" (
 );
 
 -- ── RLS: 누구나 제출(INSERT) 가능, 조회는 차단 ──
-alter table public."AD-login-detox" enable row level security;
+alter table public."AD-login2-detox" enable row level security;
 
-create policy "AD-login-detox_insert"
-  on public."AD-login-detox"
+create policy "AD-login2-detox_insert"
+  on public."AD-login2-detox"
   for insert
   to anon, authenticated
   with check (true);
