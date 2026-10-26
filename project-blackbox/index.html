@@ -800,10 +800,10 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <div class="text-[12px] font-bold text-blue-400 uppercase tracking-widest mb-3">Closed</div>
       <h3 class="text-2xl md:text-headline-md font-bold mb-3">참여자 모집이 마감되었어요</h3>
       <p class="text-slate-300 text-base leading-relaxed mb-8 max-w-xl mx-auto">
-        함께해주신 청년 여러분께 감사드립니다.<br/>다음 프로젝트 소식은 커뮤니티에서 가장 먼저 알려드릴게요.
+        함께해주신 청년 여러분께 감사드립니다.<br/>소식 받기를 신청하시면 다음 프로젝트를 가장 먼저 알려드릴게요.
       </p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="/community" class="px-8 py-3 bg-white text-slate-900 rounded-xl font-semibold hover:bg-slate-100 transition-colors">커뮤니티에서 소식 받기</a>
+        <a href="/community" data-notify="LOGIN 다음 프로젝트" class="px-8 py-3 bg-white text-slate-900 rounded-xl font-semibold hover:bg-slate-100 transition-colors">다음 프로젝트 소식 받기</a>
         <a href="/program" class="px-8 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-colors">← 목록으로 돌아가기</a>
       </div>
     </section>
@@ -895,5 +895,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>

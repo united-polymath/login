@@ -599,8 +599,23 @@ const CAT = {
   '돈·생활':    { g: 'linear-gradient(140deg,#E9FBF2 0%,#B8EED3 100%)', ink: '#0B7A4F', icon: 'savings' },
   '브랜딩·창작': { g: 'linear-gradient(140deg,#16171C 0%,#2C2E36 100%)', ink: '#F7F35A', icon: 'palette' },
 };
+// 신청 기간('YYYY.MM.DD ~ YYYY.MM.DD')으로 상태를 자동 계산: 오픈 전 soon · 기간 중 open · 마감 후 closed
+(function autoStatus() {
+  const day = (t) => { const m = String(t).match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/); return m ? new Date(+m[1], m[2] - 1, +m[3]) : null; };
+  const now = new Date();
+  DATA.seminars.forEach((s) => {
+    const [a, b] = String(s.apply || '').split('~').map(day);
+    if (!a || !b) return;
+    b.setHours(23, 59, 59);
+    s.status = now < a ? 'soon' : now <= b ? 'open' : 'closed';
+  });
+})();
+const RANK = { open: 0, soon: 1, closed: 2 };
+const LABEL = { open: '모집중', soon: '오픈 예정', closed: '종료' };
+const live = (s) => s.status !== 'closed';
+const openDay = (s) => s.apply.split('~')[0].trim().replace(/^\d{4}\.\s*/, '');
 const PER = 9;
-const S = DATA.seminars.slice().sort((a, b) => (a.status === b.status ? b.date.localeCompare(a.date) : a.status === 'open' ? -1 : 1));
+const S = DATA.seminars.slice().sort((a, b) => (a.status === b.status ? (live(a) ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date)) : RANK[a.status] - RANK[b.status]));
 const state = { status: 'all', cat: '전체', q: '', page: 1 };
 const $ = (s, el = document) => el.querySelector(s);
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -611,7 +626,7 @@ function poster(s, big) {
     <span class="material-symbols-outlined ic" style="color:${c.ink}">${c.icon}</span>
     <div class="flex items-center justify-between relative z-10">
       <span class="text-[11px] font-extrabold tracking-[0.06em]" style="color:${c.ink}">${esc(s.series)}</span>
-      <span class="s-badge ${s.status}">${s.status === 'open' ? '● 모집중' : '모집종료'}</span>
+      <span class="s-badge ${live(s) ? 'open' : 'closed'}">${s.status === 'open' ? '● 모집중' : s.status === 'soon' ? '오픈 예정' : '모집종료'}</span>
     </div>
     <div class="pt relative z-10 ${big ? 'text-[30px] md:text-[34px]' : 'text-[21px]'}" style="color:${c.ink}">${esc(s.title)}</div>
     <div class="relative z-10 text-[12px] font-bold" style="color:${c.ink};opacity:.75">${s.dateLabel} · ${s.fmt}</div>
@@ -623,7 +638,7 @@ function card(s) {
     ${poster(s)}
     <div class="px-3 pt-4 pb-3 flex-1 flex flex-col">
       <div class="flex items-center gap-2 mb-2.5 flex-wrap">
-        <span class="s-badge ${s.status === 'open' ? 'open' : ''}" style="${s.status === 'open' ? '' : 'background:#F1F2F4;color:var(--u-ink-3)'}">${s.status === 'open' ? '모집중' : '종료'}</span>
+        <span class="s-badge ${live(s) ? 'open' : ''}" style="${live(s) ? '' : 'background:#F1F2F4;color:var(--u-ink-3)'}">${LABEL[s.status]}</span>
         <span class="u-chip u-chip-line !py-1 !text-[11.5px]">${esc(s.cat)}</span>
         <span class="text-[12px] font-medium" style="color:var(--u-ink-3)">${s.fmt}</span>
       </div>
@@ -642,7 +657,7 @@ function card(s) {
 
 function filtered() {
   const q = state.q.trim().toLowerCase();
-  return S.filter((s) => (state.status === 'all' || s.status === state.status)
+  return S.filter((s) => (state.status === 'all' || s.status === state.status || (state.status === 'open' && s.status === 'soon'))
     && (state.cat === '전체' || s.cat === state.cat)
     && (!q || [s.title, s.sub, s.cat, s.series, s.intro, ...(s.tags || [])].join(' ').toLowerCase().includes(q)));
 }
@@ -669,7 +684,7 @@ function renderChips() {
 function renderDetail(id) {
   const s = DATA.seminars.find((x) => x.id === id);
   if (!s) { location.hash = ''; return; }
-  const sp = s.sp.map((i) => DATA.speakers[i]);
+  const sp = (s.sp || []).map((i) => DATA.speakers[i]);
   const open = s.status === 'open';
   const related = S.filter((x) => x.id !== s.id && x.cat === s.cat).slice(0, 3);
   $('#view-detail').innerHTML = `
@@ -678,7 +693,7 @@ function renderDetail(id) {
     <div class="lg:col-span-7">${poster(s, true)}</div>
     <aside class="lg:col-span-5 u-card s-tile p-6 md:p-8 lg:sticky lg:top-24">
       <div class="flex items-center gap-2 mb-4 flex-wrap">
-        <span class="s-badge ${open ? 'open' : ''}" style="${open ? '' : 'background:#F1F2F4;color:var(--u-ink-3)'}">${open ? '● 모집중' : '모집종료'}</span>
+        <span class="s-badge ${live(s) ? 'open' : ''}" style="${live(s) ? '' : 'background:#F1F2F4;color:var(--u-ink-3)'}">${open ? '● 모집중' : s.status === 'soon' ? '오픈 예정' : '모집종료'}</span>
         <span class="u-chip u-chip-line !py-1 !text-[11.5px]">${esc(s.cat)}</span>
         ${(s.tags || []).map((t) => `<span class="text-[12px] font-semibold" style="color:var(--u-ink-3)">#${esc(t)}</span>`).join('')}
       </div>
@@ -697,6 +712,9 @@ function renderDetail(id) {
       ${open
         ? `<button class="w-full u-btn u-btn-dark !py-4 text-[16px]" data-apply="${s.id}">신청하기 <span class="material-symbols-outlined text-[20px]">arrow_forward</span></button>
            <p class="text-[12.5px] text-center mt-3" style="color:var(--u-ink-3)">신청 마감 ${s.apply.split('~')[1].trim()} · 선착순 마감될 수 있어요</p>`
+        : s.status === 'soon'
+        ? `<div class="w-full rounded-full py-4 text-center font-bold text-[15px]" style="background:#F1F2F4;color:var(--u-ink-2)">${openDay(s)} 신청 오픈</div>
+           <p class="text-[12.5px] text-center mt-3" style="color:var(--u-ink-3)">신청 기간 ${s.apply}</p>`
         : `<div class="w-full rounded-full py-4 text-center font-bold text-[15px]" style="background:#F1F2F4;color:var(--u-ink-3)">모집이 종료된 세미나입니다</div>
            <a href="#" data-goto-open class="block text-center text-[13.5px] font-semibold mt-3 underline underline-offset-4" style="color:var(--u-ink-2)">지금 모집중인 세미나 보기</a>`}
     </aside>
@@ -722,7 +740,7 @@ function renderDetail(id) {
       </section>
       <section id="d-program" class="d-sec u-card s-tile p-6 md:p-9 scroll-mt-36">
         <h3>프로그램</h3>
-        <ol class="flex flex-col">${s.tt.map((r, i) => `
+        <ol class="flex flex-col">${(s.tt || []).length ? '' : '<li class="text-[15px]" style="color:var(--u-ink-3)">세부 프로그램은 확정되는 대로 공개돼요.</li>'}${(s.tt || []).map((r, i) => `
           <li class="grid grid-cols-[104px_1fr] md:grid-cols-[150px_1fr] gap-4 py-4 ${i ? 'border-t border-slate-100' : ''}">
             <div class="text-[13px] md:text-[14px] font-bold pt-0.5" style="color:var(--u-ink-3);font-variant-numeric:tabular-nums">${r[0]}</div>
             <div><div class="font-bold text-[15.5px] mb-1" style="color:var(--u-ink)">${esc(r[1])}</div><div class="text-[14px] leading-relaxed" style="color:var(--u-ink-3)">${esc(r[2])}</div></div>
@@ -730,7 +748,7 @@ function renderDetail(id) {
       </section>
       <section id="d-speaker" class="d-sec u-card s-tile p-6 md:p-9 scroll-mt-36">
         <h3>연사 소개</h3>
-        <div class="grid sm:grid-cols-2 gap-3">${sp.map((p) => `
+        <div class="grid sm:grid-cols-2 gap-3">${sp.length ? '' : '<p class="text-[15px]" style="color:var(--u-ink-3)">연사는 확정되는 대로 공개돼요.</p>'}${sp.map((p) => `
           <div class="rounded-[22px] p-5 flex gap-4 items-start" style="background:#F7F8F9">
             <div class="w-[72px] h-[72px] rounded-full overflow-hidden flex-shrink-0 flex items-end justify-center" style="background:#fff;box-shadow:0 0 0 1px var(--u-line)"><img src="${p[3]}" alt="${esc(p[0])}" class="h-[68px] w-auto object-contain"/></div>
             <div><div class="font-extrabold text-[17px]" style="color:var(--u-ink)">${esc(p[0])}</div><div class="text-[13px] font-semibold mb-2" style="color:var(--u-acc-ink)">LOGIN ${esc(p[1])}</div><p class="text-[13.5px] leading-relaxed" style="color:var(--u-ink-3);word-break:keep-all">${esc(p[2])}</p></div>
@@ -755,7 +773,7 @@ function renderDetail(id) {
       ${related.length ? `<div class="u-card s-tile p-5"><div class="font-extrabold text-[16px] mb-3 px-1" style="color:var(--u-ink)">같은 분야 세미나</div>
         ${related.map((r) => `<a href="#seminar-${r.id}" class="h-row group flex items-center gap-3 p-2 rounded-[16px] hover:bg-[#F7F8F9]">
           <span class="w-11 h-11 rounded-[12px] flex items-center justify-center flex-shrink-0" style="background:${CAT[r.cat].g}"><span class="material-symbols-outlined text-[20px]" style="color:${CAT[r.cat].ink};font-variation-settings:'FILL' 1">${CAT[r.cat].icon}</span></span>
-          <span class="flex-1 min-w-0"><span class="block text-[11.5px] font-medium" style="color:var(--u-ink-3)">${r.dateLabel} · ${r.status === 'open' ? '모집중' : '종료'}</span><span class="block text-[14px] font-bold leading-snug line-clamp-2" style="color:var(--u-ink)">${esc(r.title)}</span></span>
+          <span class="flex-1 min-w-0"><span class="block text-[11.5px] font-medium" style="color:var(--u-ink-3)">${r.dateLabel} · ${LABEL[r.status]}</span><span class="block text-[14px] font-bold leading-snug line-clamp-2" style="color:var(--u-ink)">${esc(r.title)}</span></span>
         </a>`).join('')}</div>` : ''}
     </aside>
   </div>`;
@@ -780,7 +798,15 @@ document.addEventListener('click', (e) => {
   const chip = e.target.closest('[data-cat]'); if (chip) { state.cat = chip.dataset.cat; state.page = 1; renderChips(); renderList(); }
   const pg = e.target.closest('#pager [data-p]'); if (pg) { state.page = +pg.dataset.p; renderList(); $('#open').scrollIntoView({ behavior: 'smooth' }); }
   const ap = e.target.closest('[data-apply]');
-  if (ap) { const s = DATA.seminars.find((x) => x.id === +ap.dataset.apply); const url = s.applyUrl || APPLY_URL_DEFAULT; if (url) window.open(url, '_blank', 'noopener'); else toast('신청 폼을 준비하고 있어요. 곧 열립니다!'); }
+  if (ap) {
+    const s = DATA.seminars.find((x) => x.id === +ap.dataset.apply);
+    const url = s.applyUrl || APPLY_URL_DEFAULT;
+    const sessionOf = (x) => `${x.session ? x.session + ' · ' : ''}${x.dateLabel} ${x.start}`;
+    const sessions = DATA.seminars.filter((x) => x.status === 'open' && (x === s || (s.group && x.group === s.group))).map(sessionOf);
+    if (window.LoginApply && LoginApply.enabled) LoginApply.openSeminar({ seminar: `[${s.series}] ${s.title}`, sessions, selected: sessionOf(s) });
+    else if (url) window.open(url, '_blank', 'noopener');
+    else toast('신청 폼을 준비하고 있어요. 곧 열립니다!');
+  }
   const go = e.target.closest('[data-goto-open]'); if (go) { e.preventDefault(); location.hash = 'open'; }
   const dt = e.target.closest('.d-tabs a'); if (dt) { e.preventDefault(); document.querySelectorAll('.d-tabs a').forEach((a) => a.classList.toggle('on', a === dt)); $(dt.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }
 });
@@ -845,5 +871,6 @@ renderChips(); renderList(); route();
   } catch (e) {}
 })();
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>

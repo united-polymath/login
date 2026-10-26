@@ -955,7 +955,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
         <span class="material-symbols-outlined text-sm align-middle mr-1" style="font-variation-settings:'FILL' 1;">warning</span>
         8명 정원으로 진행되는 프로그램입니다. 마감 후 추가 신청이 불가합니다.
       </div>
-      <a href="/community" class="block w-full py-4 bg-white text-emerald-700 rounded-2xl font-extrabold text-base hover:bg-emerald-50 transition-colors active:scale-95 duration-200 mb-4">다음 기수 소식 받기</a>
+      <a href="/community" data-notify="관계 회복력 실험실 다음 기수" class="block w-full py-4 bg-white text-emerald-700 rounded-2xl font-extrabold text-base hover:bg-emerald-50 transition-colors active:scale-95 duration-200 mb-4">다음 기수 소식 받기</a>
       <div class="flex items-center justify-center gap-2 text-emerald-100 text-xs">
         <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">mail</span>
         <span>문의: program@login.kr</span>
@@ -1073,5 +1073,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>

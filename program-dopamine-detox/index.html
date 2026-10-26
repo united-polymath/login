@@ -883,7 +883,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <p class="text-violet-200 text-sm mb-1">도파민 디톡스 4주 코호트</p>
       <div class="text-white text-3xl font-extrabold mb-2">198,000원</div>
       <p class="text-violet-300 text-xs mb-6">3기 모집이 마감되었어요 · 정원 12명</p>
-      <a href="/community" class="block w-full py-4 bg-white text-violet-700 rounded-2xl font-extrabold text-base hover:bg-violet-50 transition-colors active:scale-95 duration-200 mb-4">다음 기수 소식 받기</a>
+      <a href="/community" data-notify="도파민 디톡스 4주 코호트 다음 기수" class="block w-full py-4 bg-white text-violet-700 rounded-2xl font-extrabold text-base hover:bg-violet-50 transition-colors active:scale-95 duration-200 mb-4">다음 기수 소식 받기</a>
       <div class="flex items-center justify-center gap-2 text-violet-200 text-xs">
         <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">mail</span>
         <span>문의: program@login.kr</span>
@@ -1002,5 +1002,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>

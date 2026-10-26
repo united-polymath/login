@@ -722,7 +722,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <div class="text-3xl mb-3">🔭</div>
       <h3 class="font-extrabold text-teal-800 text-lg mb-2">COMING SOON</h3>
       <p class="text-teal-600 text-sm">다음 LAB SERIES를 준비 중이에요.<br/>알림을 신청하면 오픈 시 가장 먼저 알려드릴게요.</p>
-      <a href="/community" class="inline-block mt-5 px-6 py-2.5 bg-teal-600 text-white rounded-xl font-semibold text-sm hover:bg-teal-700 transition-colors">커뮤니티에서 소식 받기</a>
+      <a href="/community" data-notify="리추얼 LAB SERIES 다음 시리즈" class="inline-block mt-5 px-6 py-2.5 bg-teal-600 text-white rounded-xl font-semibold text-sm hover:bg-teal-700 transition-colors">알림 신청하기</a>
     </div>
 
   </div>
@@ -820,5 +820,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>

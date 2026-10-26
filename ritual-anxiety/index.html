@@ -840,7 +840,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <div class="font-bold text-slate-800 text-sm md:text-base">♻️ 불안 분리수거</div>
       <div class="text-xs md:text-sm text-slate-500">3주 실험형 · 온라인 · <span class="text-slate-400 font-semibold">모집 마감</span></div>
     </div>
-    <a href="/community" class="shrink-0 px-6 py-2.5 md:px-8 md:py-3 bg-teal-600 text-white rounded-xl font-bold text-sm md:text-base hover:bg-teal-700 active:scale-95 transition-all">다음 시리즈 소식 받기</a>
+    <a href="/community" data-notify="리추얼 LAB SERIES 다음 시리즈" class="shrink-0 px-6 py-2.5 md:px-8 md:py-3 bg-teal-600 text-white rounded-xl font-bold text-sm md:text-base hover:bg-teal-700 active:scale-95 transition-all">다음 시리즈 소식 받기</a>
   </div>
 </div>
 
@@ -950,5 +950,6 @@ async function handleApply() {
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
 </script>
+<script src="/assets/js/login-apply.js" defer></script>
 </body>
 </html>
