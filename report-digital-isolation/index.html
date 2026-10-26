@@ -10,6 +10,8 @@
   gtag('config', 'G-ZHG5NNPNLF');
 </script>
 
+
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>LOGIN - 디지털 과연결 시대의 역설적 고독 | Vol.9</title>
@@ -49,7 +51,7 @@
   .stat-number { font-family: 'Plus Jakarta Sans', 'Pretendard', sans-serif; }
   .finding-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
   .finding-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(14,14,14,0.12); }
-  .chapter-item:hover { background: #EEF7B5; }
+  .chapter-item:hover { background: #FAF8C8; }
   .chapter-item { transition: background 0.2s ease; }
 
   .hero-gradient {
@@ -60,9 +62,9 @@
    LOGIN EDITORIAL DESIGN
    ════════════════════════════════════════ */
   :root {
-    --lime: #C8E600;
-    --lime-dim: #A8C400;
-    --lime-bg: #EEF7B5;
+    --lime: #F7F35A;
+    --lime-dim: #E5DF2E;
+    --lime-bg: #FAF8C8;
     --bg:      #FAFAF5;
     --surface: #F4F1E8;
     --card:    #FFFFFF;
@@ -130,7 +132,7 @@
   .text-on-surface-variant        { color: var(--text2) !important; }
   .text-on-background             { color: var(--text1) !important; }
 
-  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .text-blue-600, .text-blue-700, .text-primary { color: #6E6A00 !important; }
   .bg-blue-600, .bg-primary,
   .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
   .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
@@ -140,7 +142,7 @@
   .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
   .text-on-primary                { color: #0E0E0E !important; }
   .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
-  .text-on-primary-container      { color: #6B8700 !important; }
+  .text-on-primary-container      { color: #6E6A00 !important; }
 
   .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
   .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
@@ -174,8 +176,339 @@
   .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
 
 </style>
+<!-- LOGIN Universe theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>/* ═══════════════════════════════════════════════════════════
+   LOGIN · UNIVERSE THEME  (v2 · 2026.10 · soft lemon)
+   기존 Tailwind 마크업 위에 얹는 공통 디자인 레이어.
+   - 문구(텍스트)는 건드리지 않고, 색·형태·여백·질감만 바꿉니다.
+   - 모든 메인 사이트 페이지의 <head> 맨 끝에서 로드됩니다.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --u-acc: #F7F35A;          /* 레몬 옐로 — 버튼/칩/하이라이트 */
+  --u-acc-2: #EFEA3C;
+  --u-acc-soft: #FCFBE0;
+  --u-acc-soft-2: #FAF8C8;
+  --u-acc-ink: #6E6A00;
+  --u-ink: #141518;
+  --u-ink-2: #45474D;
+  --u-ink-3: #8A8C93;
+  --u-line: #ECECEE;
+  --u-line-2: #E0E1E4;
+  --u-bg: #F3F4F6;
+  --u-card: #FFFFFF;
+  --u-glass: rgba(255, 255, 255, .8);
+  --u-space: #0E0F13;
+  --u-r-xl: 32px;
+  --u-r-lg: 24px;
+  --u-r-md: 18px;
+  --u-r-sm: 12px;
+  --u-sh-1: 0 1px 2px rgba(20,21,24,.03), 0 10px 30px -14px rgba(30,34,48,.12);
+  --u-sh-2: 0 2px 6px rgba(20,21,24,.04), 0 28px 56px -24px rgba(30,34,48,.22);
+  --u-font: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --u-display: 'Archivo', 'Pretendard Variable', 'Pretendard', sans-serif;
+}
+
+/* ───────── 바탕 ───────── */
+html, html body {
+  background-color: var(--u-bg) !important;
+  background-image:
+    radial-gradient(1100px 600px at 80% -10%, #FFFFFF, transparent 65%),
+    radial-gradient(900px 600px at -10% 30%, #FFFFFF, transparent 65%) !important;
+  background-size: auto !important;
+  background-attachment: fixed !important;
+  color: var(--u-ink) !important;
+  font-family: var(--u-font) !important;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+}
+html body h1, html body h2, html body h3 { letter-spacing: -0.03em; }
+::selection { background: var(--u-acc); color: var(--u-ink); }
+
+/* ───────── 상단 헤더 ───────── */
+html body header.top-0,
+html body nav.fixed.top-0 {
+  background: rgba(255, 255, 255, .86) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  backdrop-filter: saturate(160%) blur(20px);
+  border-bottom: 1px solid var(--u-line) !important;
+  box-shadow: none !important;
+}
+html body header.top-0 .md\:flex.gap-8,
+html body nav.fixed.top-0 .md\:flex.gap-8 { gap: 2px !important; }
+html body header.top-0 .md\:flex a,
+html body nav.fixed.top-0 .md\:flex a {
+  color: var(--u-ink-2) !important;
+  font-size: 14.5px;
+  font-weight: 600 !important;
+  padding: 8px 15px;
+  border-radius: 999px;
+  transition: background .2s ease, color .2s ease;
+  opacity: 1 !important;
+}
+html body header.top-0 .md\:flex a:hover,
+html body nav.fixed.top-0 .md\:flex a:hover { background: #F2F3F5; color: var(--u-ink) !important; }
+html body header.top-0 .md\:flex a.text-blue-600,
+html body header.top-0 .md\:flex a.text-primary,
+html body nav.fixed.top-0 .md\:flex a.text-blue-600,
+html body nav.fixed.top-0 .md\:flex a.text-primary,
+html body header.top-0 .md\:flex a[class*="text-[#F7F35A]"],
+html body nav.fixed.top-0 .md\:flex a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  font-weight: 700 !important;
+}
+html body header.top-0 img[alt="LOGIN"],
+html body nav.fixed.top-0 img[alt="LOGIN"] {
+  height: 36px !important;
+  width: auto !important;
+  padding: 6px 12px;
+  background: var(--u-ink);
+  border-radius: 12px !important;
+}
+html body header.top-0 .material-symbols-outlined.text-blue-600 { color: var(--u-ink) !important; }
+html body header.top-0 button.material-symbols-outlined,
+html body header.top-0 a .material-symbols-outlined { color: var(--u-ink-2) !important; }
+#header-avatar {
+  width: 40px !important; height: 40px !important;
+  background: var(--u-acc) !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 0 0 1px var(--u-line-2), 0 6px 14px -8px rgba(20,21,24,.4) !important;
+}
+#header-avatar .material-symbols-outlined, #header-avatar span.text-blue-700 { color: var(--u-ink) !important; }
+
+/* ───────── 모바일 하단 내비 ───────── */
+html body nav.fixed.bottom-0 {
+  left: 12px !important; right: 12px !important;
+  width: auto !important;
+  bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+  height: 68px !important;
+  border-radius: 26px !important;
+  background: rgba(255,255,255,.92) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(22px);
+  backdrop-filter: saturate(160%) blur(22px);
+  border: 1px solid var(--u-line) !important;
+  box-shadow: 0 18px 40px -18px rgba(30,34,48,.35) !important;
+  padding-left: 6px !important; padding-right: 6px !important;
+}
+html body nav.fixed.bottom-0 a { color: var(--u-ink-3) !important; border-radius: 18px !important; }
+html body nav.fixed.bottom-0 a.text-blue-600,
+html body nav.fixed.bottom-0 a.text-primary,
+html body nav.fixed.bottom-0 a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  width: 52px !important; height: 52px !important;
+}
+html body nav.fixed.bottom-0 a.text-blue-600 span,
+html body nav.fixed.bottom-0 a.text-primary span { color: var(--u-ink) !important; }
+
+/* ───────── 표면 · 카드 ───────── */
+html body .bg-white, html body section.bg-white, html body div.bg-white { background-color: var(--u-card) !important; }
+html body .bg-slate-50, html body .bg-gray-50,
+html body .bg-surface, html body .bg-surface-bright,
+html body .bg-surface-container-lowest { background-color: #F7F8F9 !important; }
+html body .bg-slate-100, html body .bg-gray-100,
+html body .bg-surface-container { background-color: #F1F2F4 !important; }
+html body .bg-surface-container-low { background-color: var(--u-card) !important; }
+html body .bg-background { background-color: transparent !important; }
+
+html body .border-slate-100, html body .border-outline-variant,
+html body .border-slate-200, html body .border-gray-100, html body .border-gray-200 { border-color: var(--u-line) !important; }
+html body .divide-slate-100 > * + * { border-color: var(--u-line) !important; }
+
+html body .rounded-3xl { border-radius: var(--u-r-xl) !important; }
+html body .rounded-2xl { border-radius: var(--u-r-lg) !important; }
+html body .rounded-xl  { border-radius: var(--u-r-md) !important; }
+html body .rounded-lg  { border-radius: var(--u-r-sm) !important; }
+html body .rounded:not(.rounded-full) { border-radius: 14px; }
+html body .rounded-t-2xl:not(nav) { border-top-left-radius: var(--u-r-lg) !important; border-top-right-radius: var(--u-r-lg) !important; }
+
+html body .shadow-sm { box-shadow: var(--u-sh-1) !important; }
+html body .shadow-md, html body .shadow-lg { box-shadow: var(--u-sh-2) !important; }
+html body .hover\:shadow-md:hover, html body .hover\:shadow-lg:hover { box-shadow: var(--u-sh-2) !important; }
+html body a.bg-white.border, html body div.bg-white.border { transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease; }
+html body a.bg-white.border:hover { transform: translateY(-3px); }
+
+/* ───────── 텍스트 색 ───────── */
+html body .text-slate-900, html body .text-on-surface, html body .text-on-background { color: var(--u-ink) !important; }
+html body .text-slate-800 { color: #1E1F23 !important; }
+html body .text-slate-700 { color: #31333A !important; }
+html body .text-slate-600, html body .text-outline, html body .text-on-surface-variant { color: var(--u-ink-2) !important; }
+html body .text-slate-500 { color: #70737B !important; }
+html body .text-slate-400 { color: var(--u-ink-3) !important; }
+html body .text-blue-600, html body .text-blue-700, html body .text-primary,
+html body .text-on-primary-container { color: var(--u-ink) !important; }
+html body .text-\[\#6E6A00\] { color: var(--u-acc-ink) !important; }
+
+/* ───────── 강조 / 버튼 ───────── */
+html body .bg-blue-600, html body .bg-primary, html body .bg-primary-container,
+html body .bg-slate-800, html body .bg-slate-900 { background-color: var(--u-ink) !important; color: #fff !important; }
+html body .bg-blue-600 .material-symbols-outlined,
+html body .bg-primary .material-symbols-outlined { color: var(--u-acc) !important; }
+html body .bg-blue-50, html body .bg-blue-100, html body .bg-primary-fixed,
+html body .bg-\[\#FAF8C8\] { background-color: var(--u-acc-soft-2) !important; }
+html body .border-blue-600, html body .border-primary { border-color: var(--u-ink) !important; }
+html body .hover\:bg-blue-700:hover, html body .hover\:bg-blue-600:hover { background-color: #2A2C31 !important; }
+html body button.rounded-xl, html body a.rounded-xl.font-bold { border-radius: 999px !important; }
+
+html body [style*="background:#F7F35A"], html body [style*="background: #F7F35A"],
+html body .bg-\[\#F7F35A\] { background: var(--u-acc) !important; }
+html body a[style*="background:#F7F35A"], html body button[style*="background:#F7F35A"],
+html body div[style*="background:#F7F35A"][style*="box-shadow"] {
+  border-radius: 999px !important;
+  box-shadow: 0 10px 24px -14px rgba(150,140,0,.9) !important;
+}
+html body [style*="color:#F7F35A"] { color: var(--u-acc) !important; }
+html body .text-\[\#F7F35A\] { color: var(--u-acc) !important; }
+
+html body [style*="border-radius:4px"], html body [style*="border-radius: 4px"],
+html body [style*="border-radius:2px"] { border-radius: 18px !important; }
+html body button[style*="border-radius:4px"], html body a[style*="border-radius:4px"],
+html body button[style*="border-radius: 4px"], html body a[style*="border-radius: 4px"] { border-radius: 999px !important; }
+
+/* 어두운 격자 블록 → 부드러운 다크 카드 */
+html body [style*="background:#0E0E0E"][style*="linear-gradient"] {
+  background-image: radial-gradient(500px 240px at 90% 0%, rgba(247,243,90,.12), transparent 70%) !important;
+  background-color: #17181C !important;
+}
+
+/* 모노 라벨 "// LOGIN …" → 노란 칩 라벨 */
+html body div[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body p[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body span[style*="IBM Plex Mono"][style*="#6E6A00"] {
+  display: inline-block;
+  color: var(--u-ink) !important;
+  background: var(--u-acc);
+  padding: 6px 12px 5px;
+  border-radius: 999px;
+  letter-spacing: .08em !important;
+  font-size: 11px !important;
+  font-family: var(--u-font) !important;
+  font-weight: 800 !important;
+}
+
+/* 폼 */
+html body input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html body textarea, html body select {
+  background-color: #FFFFFF !important;
+  border-color: var(--u-line-2) !important;
+  color: var(--u-ink) !important;
+  border-radius: 14px !important;
+}
+html body input:focus, html body textarea:focus, html body select:focus {
+  border-color: var(--u-ink) !important;
+  box-shadow: 0 0 0 4px rgba(247,243,90,.55) !important;
+  outline: none !important;
+}
+html body input[type="checkbox"]:checked, html body input[type="radio"]:checked {
+  background-color: var(--u-ink) !important; border-color: var(--u-ink) !important;
+}
+
+/* ───────── 푸터 → 밝은 카드 + 캐릭터 ───────── */
+html body footer.bg-\[\#0E0E0E\] {
+  position: relative;
+  overflow: hidden;
+  margin: 0 12px 96px !important;
+  border-radius: var(--u-r-xl);
+  background: #FFFFFF !important;
+  color: var(--u-ink-3) !important;
+  box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1);
+}
+@media (min-width: 768px) { html body footer.bg-\[\#0E0E0E\] { margin: 0 24px 24px !important; } }
+html body footer.bg-\[\#0E0E0E\]::after {
+  content: "";
+  position: absolute;
+  right: 3%; bottom: -14px;
+  width: 150px; height: 150px;
+  background: url('/assets/img/ddd10eb9b514.webp') no-repeat center bottom / contain;
+  pointer-events: none;
+}
+html body footer.bg-\[\#0E0E0E\] > div { position: relative; z-index: 1; }
+html body footer.bg-\[\#0E0E0E\] .text-white { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-500 { color: var(--u-ink-3) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-300 { color: var(--u-ink-2) !important; }
+html body footer.bg-\[\#0E0E0E\] .border-white\/10 { border-color: var(--u-line) !important; }
+html body footer.bg-\[\#0E0E0E\] nav a { color: var(--u-ink-2); font-weight: 600; }
+html body footer.bg-\[\#0E0E0E\] nav a:hover { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .bg-\[\#F7F35A\] { background: var(--u-acc) !important; border-radius: 6px; }
+@media (min-width: 768px) {
+  html body footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 160px; }
+  html body footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 160px; }
+}
+@media (max-width: 767px) {
+  html body footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 14px; bottom: auto; top: 18px; }
+}
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\], html body main.max-w-2xl footer.bg-\[\#0E0E0E\] { margin-left: 0 !important; margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] nav.grid, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:last-child, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\]::after, html body main.max-w-2xl footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 18px; bottom: auto; top: 18px; }
+html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:first-child, html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:first-child { flex-direction: column !important; padding-right: 90px; }
+
+html body button.rounded-full, html body a.rounded-full { transition: background .2s ease, color .2s ease, transform .15s ease; }
+html body button.rounded-full:active, html body a.rounded-full:active { transform: scale(.97); }
+
+/* ───────── 상세 페이지 공통 ───────── */
+html body[data-u="detail"] main > section:first-of-type.relative {
+  margin: 14px 12px 0;
+  border-radius: var(--u-r-xl);
+  overflow: hidden;
+  box-shadow: var(--u-sh-2);
+}
+@media (min-width: 768px) { html body[data-u="detail"] main > section:first-of-type.relative { margin: 20px 24px 0; } }
+html body[data-u="detail"] .border-l-4 { border-left-color: var(--u-acc) !important; }
+html body[data-u="detail"] .-mt-12, html body[data-u="detail"] .-mt-16, html body[data-u="detail"] .-mt-20 { border-radius: var(--u-r-lg) !important; }
+
+html body ::-webkit-scrollbar { width: 10px; height: 10px; }
+html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+
+/* ═════════ 새 마크업용 유틸 ═════════ */
+.u-card { background: #fff; border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1); }
+.u-panel-y { background: linear-gradient(180deg, #FDFCE7 0%, #FBF9D0 100%); border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px #F2EFC2; }
+.u-hl { background: linear-gradient(transparent 60%, var(--u-acc) 60%, var(--u-acc) 92%, transparent 92%); padding: 0 .06em; }
+.u-glass { background: var(--u-glass); -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-2); }
+.u-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.u-chip-acc { background: var(--u-acc); color: var(--u-ink); }
+.u-chip-line { background: #fff; color: var(--u-ink-2); box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-arrow { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: #fff; color: var(--u-ink); box-shadow: 0 0 0 1px var(--u-line-2), 0 4px 10px -6px rgba(20,21,24,.25); transition: background .2s ease, transform .2s ease, box-shadow .2s; flex-shrink: 0; }
+.group:hover .u-arrow { background: var(--u-acc); box-shadow: none; transform: translateX(2px); }
+.u-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-weight: 700; transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+.u-btn:active { transform: scale(.97); }
+.u-btn-dark { background: var(--u-ink); color: #fff; padding: 16px 26px; box-shadow: 0 14px 30px -16px rgba(20,21,24,.7); }
+.u-btn-dark:hover { background: #2A2C31; }
+.u-btn-dark .material-symbols-outlined { color: var(--u-acc); }
+.u-btn-line { background: #fff; color: var(--u-ink); padding: 16px 24px; box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-btn-line:hover { box-shadow: 0 0 0 1px var(--u-ink); }
+.u-btn-acc { background: var(--u-acc); color: var(--u-ink); padding: 14px 22px; }
+.u-btn-acc:hover { background: var(--u-acc-2); }
+.u-circle-acc { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--u-acc); color: var(--u-ink); box-shadow: 0 10px 24px -10px rgba(150,140,0,.8); transition: transform .2s; flex-shrink: 0; }
+.group:hover .u-circle-acc { transform: translateX(3px); }
+.u-fade-l { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%); mask-image: linear-gradient(90deg, transparent 0%, #000 24%); }
+.u-fade-round { -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); }
+.u-sparkle { position: absolute; width: 20px; height: 20px; background: #D9DFEC; clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: u-twinkle 3.4s ease-in-out infinite; }
+.u-sparkle.y { background: var(--u-acc); }
+@keyframes u-twinkle { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7) rotate(15deg); opacity: .6; } }
+@keyframes u-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.u-float { animation: u-float 6s ease-in-out infinite; }
+.u-stars { background-image:
+  radial-gradient(1.5px 1.5px at 8% 20%, rgba(255,255,255,.8), transparent 60%),
+  radial-gradient(1px 1px at 22% 70%, rgba(255,255,255,.55), transparent 60%),
+  radial-gradient(1.5px 1.5px at 41% 14%, rgba(255,255,255,.7), transparent 60%),
+  radial-gradient(1px 1px at 57% 48%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1.5px 1.5px at 73% 24%, rgba(255,255,255,.75), transparent 60%),
+  radial-gradient(1px 1px at 95% 12%, rgba(255,255,255,.6), transparent 60%); }
+.u-moon { position: absolute; left: -10%; right: -10%; bottom: -80%; height: 120%; border-radius: 50%; background: radial-gradient(60% 50% at 50% 18%, #A3A5AD 0%, #62646C 45%, #2C2E34 100%); }
+.u-moon::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background:
+  radial-gradient(4% 2.4% at 30% 9%, rgba(0,0,0,.22), transparent 70%),
+  radial-gradient(3% 2% at 62% 6%, rgba(0,0,0,.2), transparent 70%),
+  radial-gradient(2.5% 1.6% at 46% 15%, rgba(0,0,0,.18), transparent 70%); }
+@media (prefers-reduced-motion: reduce) { .u-float, .u-sparkle { animation: none !important; } }
+.u-prog-tiles { display: none; }
+@media (min-width: 1100px) { .u-prog-hero { padding-right: 440px !important; } .u-prog-tiles { display: block; } }
+</style>
 </head>
-<body class="bg-background text-on-background antialiased">
+<body data-u="detail" class="bg-background text-on-background antialiased">
 
 <!-- ───────────── Header Nav ───────────── -->
 <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
@@ -183,7 +516,7 @@
     <div class="flex items-center gap-3">
       <a href="/" class="flex items-center gap-2">
         <span class="material-symbols-outlined text-blue-600">bubble_chart</span>
-        <img src="/logo.png" alt="LOGIN" class="h-14 w-auto"/>
+        <img src="/assets/img/7ca059b88139.webp" alt="LOGIN" class="h-14 w-auto"/>
       </a>
     </div>
     <div class="hidden md:flex gap-8 items-center">
@@ -191,6 +524,8 @@
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/program">프로그램</a>
       <a class="text-blue-600 font-semibold hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/seminar">세미나</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/bootcamp">부트캠프</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
     </div>
     <div class="flex items-center gap-4">
@@ -219,7 +554,7 @@
       <div class="flex items-center gap-3">
         <span class="text-white/80 text-xs font-bold tracking-[0.15em] uppercase">LOGIN REPORT</span>
         <span class="w-1 h-1 rounded-full bg-white/50"></span>
-        <span class="px-3 py-1 rounded-full bg-[#C8E600]/20 backdrop-blur-sm text-[#C8E600] text-xs font-bold tracking-wide border border-[#C8E600]/40">Vol.9</span>
+        <span class="px-3 py-1 rounded-full bg-[#F7F35A]/20 backdrop-blur-sm text-[#F7F35A] text-xs font-bold tracking-wide border border-[#F7F35A]/40">Vol.9</span>
         <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-semibold border border-white/20">사회·관계</span>
       </div>
 
@@ -227,22 +562,22 @@
       <div class="max-w-3xl">
         <h1 class="text-white font-bold text-[28px] md:text-[40px] leading-tight mb-4 drop-shadow-lg">
           디지털 과연결 시대의 역설적 고독:<br/>
-          <span class="text-[#C8E600]">온라인 사회자본의 허와 실</span>
+          <span class="text-[#F7F35A]">온라인 사회자본의 허와 실</span>
         </h1>
       </div>
 
       <!-- 하단 메타 -->
       <div class="flex flex-wrap items-center gap-6 text-white/80 text-sm">
         <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-[#C8E600]/80 text-[18px]">group</span>
+          <span class="material-symbols-outlined text-[#F7F35A]/80 text-[18px]">group</span>
           <span>디지털사회 연구팀</span>
         </div>
         <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-[#C8E600]/80 text-[18px]">calendar_today</span>
+          <span class="material-symbols-outlined text-[#F7F35A]/80 text-[18px]">calendar_today</span>
           <span>2026년 1월 발행</span>
         </div>
         <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-[#C8E600]/80 text-[18px]">menu_book</span>
+          <span class="material-symbols-outlined text-[#F7F35A]/80 text-[18px]">menu_book</span>
           <span>44페이지</span>
         </div>
       </div>
@@ -255,12 +590,12 @@
 
       <!-- 브레드크럼 네비 -->
       <div class="flex items-center gap-2 mb-5 flex-wrap">
-        <a href="/insight" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#6B8700] transition-colors font-medium">
+        <a href="/insight" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#6E6A00] transition-colors font-medium">
           <span class="material-symbols-outlined text-base">arrow_back</span>
           인사이트로 돌아가기
         </a>
         <span class="text-slate-300">/</span>
-        <span class="text-[#6B8700] text-sm font-medium">사회·관계</span>
+        <span class="text-[#6E6A00] text-sm font-medium">사회·관계</span>
         <span class="text-slate-300">/</span>
         <span class="text-slate-700 text-sm truncate max-w-[180px] md:max-w-xs">디지털 고독 리포트</span>
       </div>
@@ -300,12 +635,12 @@
     <!-- Executive Summary -->
     <section>
       <div class="flex items-center gap-3 mb-5">
-        <div class="w-1 h-8 rounded-full bg-[#C8E600]"></div>
+        <div class="w-1 h-8 rounded-full bg-[#F7F35A]"></div>
         <h2 class="text-[22px] font-bold text-on-surface">Executive Summary</h2>
       </div>
-      <div class="bg-gradient-to-br from-[#EEF7B5] to-white rounded-2xl p-7 border border-[#D5E8A0]">
+      <div class="bg-gradient-to-br from-[#FAF8C8] to-white rounded-2xl p-7 border border-[#D5E8A0]">
         <p class="text-[16px] leading-[1.85] text-slate-700">
-          팔로워 3,000명의 인플루언서가 새벽에 혼자 운다. 단톡방이 50개인데 정작 힘들 때 연락할 사람이 없다. LOGIN Vol.9는 이 역설을 데이터로 증명한다. 2030 남녀 2,100명을 대상으로 SNS 사용 패턴과 외로움 지수의 상관관계를 사회연결망 분석(SNA)으로 분석한 결과, <strong class="text-[#6B8700]">SNS 고사용군의 외로움 지수는 저사용군 대비 2.7배</strong> 높았으며, '좋아요'와 팔로워 수가 늘어날수록 깊은 연대는 오히려 잠식되는 현상이 확인됐다. 온라인 사회자본의 양적 팽창이 질적 고독을 심화시키는 구조적 메커니즘을 밝히고, 디지털 디톡스의 실험적 효과를 통해 건강한 연결을 위한 전략을 제시한다.
+          팔로워 3,000명의 인플루언서가 새벽에 혼자 운다. 단톡방이 50개인데 정작 힘들 때 연락할 사람이 없다. LOGIN Vol.9는 이 역설을 데이터로 증명한다. 2030 남녀 2,100명을 대상으로 SNS 사용 패턴과 외로움 지수의 상관관계를 사회연결망 분석(SNA)으로 분석한 결과, <strong class="text-[#6E6A00]">SNS 고사용군의 외로움 지수는 저사용군 대비 2.7배</strong> 높았으며, '좋아요'와 팔로워 수가 늘어날수록 깊은 연대는 오히려 잠식되는 현상이 확인됐다. 온라인 사회자본의 양적 팽창이 질적 고독을 심화시키는 구조적 메커니즘을 밝히고, 디지털 디톡스의 실험적 효과를 통해 건강한 연결을 위한 전략을 제시한다.
         </p>
       </div>
     </section>
@@ -313,7 +648,7 @@
     <!-- 핵심 통계 4개 -->
     <section>
       <div class="flex items-center gap-3 mb-6">
-        <div class="w-1 h-8 rounded-full bg-[#C8E600]"></div>
+        <div class="w-1 h-8 rounded-full bg-[#F7F35A]"></div>
         <h2 class="text-[22px] font-bold text-on-surface">핵심 통계</h2>
       </div>
       <div class="grid grid-cols-2 gap-4 md:gap-6">
@@ -343,7 +678,7 @@
     <!-- 주요 발견사항 -->
     <section>
       <div class="flex items-center gap-3 mb-6">
-        <div class="w-1 h-8 rounded-full bg-[#C8E600]"></div>
+        <div class="w-1 h-8 rounded-full bg-[#F7F35A]"></div>
         <h2 class="text-[22px] font-bold text-on-surface">주요 발견사항</h2>
       </div>
       <div class="space-y-5">
@@ -351,18 +686,18 @@
         <!-- 발견 1 -->
         <div class="finding-card bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
           <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-[#EEF7B5] flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[#6B8700]">trending_up</span>
+            <div class="w-12 h-12 rounded-xl bg-[#FAF8C8] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#6E6A00]">trending_up</span>
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 rounded-md bg-[#EEF7B5] text-[#6B8700] text-[11px] font-bold">발견 01</span>
+                <span class="px-2 py-0.5 rounded-md bg-[#FAF8C8] text-[#6E6A00] text-[11px] font-bold">발견 01</span>
               </div>
               <h3 class="text-[17px] font-bold text-on-surface mb-3">팔로워 수와 외로움의 역설적 상관관계</h3>
               <p class="text-[14px] leading-relaxed text-slate-600 mb-4">팔로워 1만 명 이상 집단의 외로움 지수가 팔로워 100명 미만 집단보다 오히려 높음(1.4배). '광범위한 약한 연대'가 '소수의 깊은 연대'를 잠식하는 현상이 확인됐다.</p>
-              <div class="flex items-center gap-2 p-3 bg-[#EEF7B5] rounded-xl">
-                <span class="material-symbols-outlined text-[#6B8700] text-[16px]">analytics</span>
-                <span class="text-[13px] font-semibold text-[#6B8700]">팔로워 1만+ vs 100명 미만: 외로움 지수 1.4배 차이 (역방향)</span>
+              <div class="flex items-center gap-2 p-3 bg-[#FAF8C8] rounded-xl">
+                <span class="material-symbols-outlined text-[#6E6A00] text-[16px]">analytics</span>
+                <span class="text-[13px] font-semibold text-[#6E6A00]">팔로워 1만+ vs 100명 미만: 외로움 지수 1.4배 차이 (역방향)</span>
               </div>
             </div>
           </div>
@@ -434,14 +769,14 @@
     <!-- 연구 방법론 -->
     <section>
       <div class="flex items-center gap-3 mb-6">
-        <div class="w-1 h-8 rounded-full bg-[#C8E600]"></div>
+        <div class="w-1 h-8 rounded-full bg-[#F7F35A]"></div>
         <h2 class="text-[22px] font-bold text-on-surface">연구 방법론</h2>
       </div>
       <div class="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-[#EEF7B5] flex items-center justify-center shrink-0 mt-0.5">
-              <span class="material-symbols-outlined text-[#6B8700] text-[16px]">surveys</span>
+            <div class="w-8 h-8 rounded-lg bg-[#FAF8C8] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#6E6A00] text-[16px]">surveys</span>
             </div>
             <div>
               <p class="text-[13px] font-bold text-on-surface mb-1">대규모 설문 조사</p>
@@ -449,8 +784,8 @@
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-[#EEF7B5] flex items-center justify-center shrink-0 mt-0.5">
-              <span class="material-symbols-outlined text-[#6B8700] text-[16px]">phone_android</span>
+            <div class="w-8 h-8 rounded-lg bg-[#FAF8C8] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#6E6A00] text-[16px]">phone_android</span>
             </div>
             <div>
               <p class="text-[13px] font-bold text-on-surface mb-1">행동 로그 분석</p>
@@ -458,8 +793,8 @@
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-[#EEF7B5] flex items-center justify-center shrink-0 mt-0.5">
-              <span class="material-symbols-outlined text-[#6B8700] text-[16px]">hub</span>
+            <div class="w-8 h-8 rounded-lg bg-[#FAF8C8] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#6E6A00] text-[16px]">hub</span>
             </div>
             <div>
               <p class="text-[13px] font-bold text-on-surface mb-1">사회연결망 분석 (SNA)</p>
@@ -467,8 +802,8 @@
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-[#EEF7B5] flex items-center justify-center shrink-0 mt-0.5">
-              <span class="material-symbols-outlined text-[#6B8700] text-[16px]">science</span>
+            <div class="w-8 h-8 rounded-lg bg-[#FAF8C8] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#6E6A00] text-[16px]">science</span>
             </div>
             <div>
               <p class="text-[13px] font-bold text-on-surface mb-1">디지털 디톡스 실험</p>
@@ -482,12 +817,12 @@
     <!-- 챕터 목차 프리뷰 -->
     <section>
       <div class="flex items-center gap-3 mb-6">
-        <div class="w-1 h-8 rounded-full bg-[#C8E600]"></div>
+        <div class="w-1 h-8 rounded-full bg-[#F7F35A]"></div>
         <h2 class="text-[22px] font-bold text-on-surface">챕터 목차</h2>
       </div>
       <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm divide-y divide-slate-50">
         <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-[#0E0E0E] text-[#C8E600] flex items-center justify-center font-bold text-[15px] shrink-0">1</div>
+          <div class="w-10 h-10 rounded-xl bg-[#0E0E0E] text-[#F7F35A] flex items-center justify-center font-bold text-[15px] shrink-0">1</div>
           <div class="flex-1">
             <p class="text-[15px] font-bold text-on-surface mb-0.5">소셜미디어 생태계와 2030의 디지털 행동 패턴</p>
             <p class="text-[13px] text-slate-400">플랫폼별 사용 구조, 시간대별 행동 분석, 연령·성별 차이</p>
@@ -495,7 +830,7 @@
           <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
         </div>
         <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-[#2A2A2A] text-[#C8E600] flex items-center justify-center font-bold text-[15px] shrink-0">2</div>
+          <div class="w-10 h-10 rounded-xl bg-[#2A2A2A] text-[#F7F35A] flex items-center justify-center font-bold text-[15px] shrink-0">2</div>
           <div class="flex-1">
             <p class="text-[15px] font-bold text-on-surface mb-0.5">온라인 사회자본의 실체 — 사회연결망 분석(SNA) 결과</p>
             <p class="text-[13px] text-slate-400">연결 강도 분류, 브릿지 구조 분석, 허브 노드의 고독 역설</p>
@@ -503,7 +838,7 @@
           <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
         </div>
         <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-[#555] text-[#C8E600] flex items-center justify-center font-bold text-[15px] shrink-0">3</div>
+          <div class="w-10 h-10 rounded-xl bg-[#555] text-[#F7F35A] flex items-center justify-center font-bold text-[15px] shrink-0">3</div>
           <div class="flex-1">
             <p class="text-[15px] font-bold text-on-surface mb-0.5">디지털 고독의 심리적 메커니즘</p>
             <p class="text-[13px] text-slate-400">가변 보상 구조, 사회적 비교 자동화, 자존감 변동 모델</p>
@@ -511,7 +846,7 @@
           <span class="material-symbols-outlined text-slate-300 text-[20px]">chevron_right</span>
         </div>
         <div class="chapter-item flex items-center gap-5 p-6 cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-[#EEF7B5] text-[#6B8700] flex items-center justify-center font-bold text-[15px] shrink-0">4</div>
+          <div class="w-10 h-10 rounded-xl bg-[#FAF8C8] text-[#6E6A00] flex items-center justify-center font-bold text-[15px] shrink-0">4</div>
           <div class="flex-1">
             <p class="text-[15px] font-bold text-on-surface mb-0.5">건강한 디지털 사회자본을 위한 전략</p>
             <p class="text-[13px] text-slate-400">디지털 사용 설계 원칙, 오프라인 전환 루틴, 커뮤니티 설계</p>
@@ -527,11 +862,11 @@
   <div class="max-w-4xl mx-auto px-4 md:px-8 mt-14">
     <div class="bg-slate-900 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
       <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-[#C8E600] blur-3xl"></div>
+        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-[#F7F35A] blur-3xl"></div>
         <div class="absolute bottom-0 right-1/4 w-56 h-56 rounded-full bg-pink-500 blur-3xl"></div>
       </div>
       <div class="relative z-10">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-[#C8E600]/20 text-[#C8E600] text-[12px] font-bold tracking-wide mb-4 border border-[#C8E600]/30">LOGIN REPORT Vol.9</span>
+        <span class="inline-block px-4 py-1.5 rounded-full bg-[#F7F35A]/20 text-[#F7F35A] text-[12px] font-bold tracking-wide mb-4 border border-[#F7F35A]/30">LOGIN REPORT Vol.9</span>
         <h2 class="text-white text-[26px] md:text-[32px] font-bold mb-3 leading-tight">
           44페이지 전문 리포트를<br/>지금 바로 확인하세요
         </h2>
@@ -559,11 +894,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <a href="/insight" class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
         <div class="h-36 bg-gradient-to-br from-pink-50 to-rose-100 flex items-center justify-center relative overflow-hidden">
-          <span class="material-symbols-outlined text-[#C8E600]/60 text-[56px] group-hover:scale-110 transition-transform">favorite</span>
+          <span class="material-symbols-outlined text-[#F7F35A]/60 text-[56px] group-hover:scale-110 transition-transform">favorite</span>
         </div>
         <div class="p-5">
-          <span class="text-[11px] font-bold text-[#6B8700] uppercase tracking-wider">사회·관계</span>
-          <h3 class="text-[14px] font-bold text-on-surface mt-1.5 leading-snug group-hover:text-[#6B8700] transition-colors">결혼·출산 인식 전환 심층 보고서</h3>
+          <span class="text-[11px] font-bold text-[#6E6A00] uppercase tracking-wider">사회·관계</span>
+          <h3 class="text-[14px] font-bold text-on-surface mt-1.5 leading-snug group-hover:text-[#6E6A00] transition-colors">결혼·출산 인식 전환 심층 보고서</h3>
         </div>
       </a>
       <a href="/insight" class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
@@ -624,13 +959,13 @@
   <div id="dlModal" class="fixed inset-0 z-[200] hidden items-center justify-center px-4" onclick="if(event.target===this)closeDlModal()">
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
     <div class="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full p-7 text-center">
-      <div class="w-14 h-14 rounded-2xl bg-[#EEF7B5] flex items-center justify-center mx-auto mb-4">
-        <span class="material-symbols-outlined text-[#6B8700] text-[28px]">lock</span>
+      <div class="w-14 h-14 rounded-2xl bg-[#FAF8C8] flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-[#6E6A00] text-[28px]">lock</span>
       </div>
       <h3 class="text-[18px] font-bold text-[#0E0E0E] mb-2">프리미엄 회원 전용</h3>
       <p class="text-[14px] text-[#555] leading-relaxed mb-6">PDF 다운로드는 등급업 계정으로<br/>로그인한 회원만 이용 가능합니다.<br/><span class="font-semibold text-[#0E0E0E]">마이페이지</span>에서 계정 등급을 확인하세요.</p>
       <div class="flex flex-col gap-3">
-        <a href="/mypage" class="block w-full py-3 rounded-xl font-bold text-[15px] text-center" style="background:#0E0E0E;color:#C8E600;">마이페이지로 이동</a>
+        <a href="/mypage" class="block w-full py-3 rounded-xl font-bold text-[15px] text-center" style="background:#0E0E0E;color:#F7F35A;">마이페이지로 이동</a>
         <button onclick="closeDlModal()" class="w-full py-3 rounded-xl font-medium text-[14px] bg-[#F4F1E8] text-[#555]">닫기</button>
       </div>
     </div>

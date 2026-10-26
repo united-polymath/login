@@ -10,6 +10,8 @@
   gtag('config', 'G-ZHG5NNPNLF');
 </script>
 
+
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>LOGIN - 마이페이지</title>
@@ -68,9 +70,9 @@
    LOGIN EDITORIAL DESIGN
    ════════════════════════════════════════ */
   :root {
-    --lime: #C8E600;
-    --lime-dim: #A8C400;
-    --lime-bg: #EEF7B5;
+    --lime: #F7F35A;
+    --lime-dim: #E5DF2E;
+    --lime-bg: #FAF8C8;
     --bg:      #FAFAF5;
     --surface: #F4F1E8;
     --card:    #FFFFFF;
@@ -138,7 +140,7 @@
   .text-on-surface-variant        { color: var(--text2) !important; }
   .text-on-background             { color: var(--text1) !important; }
 
-  .text-blue-600, .text-blue-700, .text-primary { color: #6B8700 !important; }
+  .text-blue-600, .text-blue-700, .text-primary { color: #6E6A00 !important; }
   .bg-blue-600, .bg-primary,
   .bg-primary-container           { background-color: #0E0E0E !important; color: var(--lime) !important; }
   .border-blue-600, .border-primary { border-color: #0E0E0E !important; }
@@ -148,7 +150,7 @@
   .hover\:bg-blue-600:hover      { background-color: #2A2A2A !important; }
   .text-on-primary                { color: #0E0E0E !important; }
   .bg-primary-fixed               { background-color: var(--lime-bg) !important; }
-  .text-on-primary-container      { color: #6B8700 !important; }
+  .text-on-primary-container      { color: #6E6A00 !important; }
 
   .hover\:shadow-md:hover { box-shadow: 4px 4px 0 rgba(14,14,14,0.12) !important; }
   .hover\:shadow-lg:hover { box-shadow: 6px 6px 0 rgba(14,14,14,0.12) !important; }
@@ -182,24 +184,357 @@
   .bg-slate-800, .bg-slate-900 { background-color: #0E0E0E !important; color: #FFFFFF !important; }
 
 </style>
+<!-- LOGIN Universe theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>/* ═══════════════════════════════════════════════════════════
+   LOGIN · UNIVERSE THEME  (v2 · 2026.10 · soft lemon)
+   기존 Tailwind 마크업 위에 얹는 공통 디자인 레이어.
+   - 문구(텍스트)는 건드리지 않고, 색·형태·여백·질감만 바꿉니다.
+   - 모든 메인 사이트 페이지의 <head> 맨 끝에서 로드됩니다.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --u-acc: #F7F35A;          /* 레몬 옐로 — 버튼/칩/하이라이트 */
+  --u-acc-2: #EFEA3C;
+  --u-acc-soft: #FCFBE0;
+  --u-acc-soft-2: #FAF8C8;
+  --u-acc-ink: #6E6A00;
+  --u-ink: #141518;
+  --u-ink-2: #45474D;
+  --u-ink-3: #8A8C93;
+  --u-line: #ECECEE;
+  --u-line-2: #E0E1E4;
+  --u-bg: #F3F4F6;
+  --u-card: #FFFFFF;
+  --u-glass: rgba(255, 255, 255, .8);
+  --u-space: #0E0F13;
+  --u-r-xl: 32px;
+  --u-r-lg: 24px;
+  --u-r-md: 18px;
+  --u-r-sm: 12px;
+  --u-sh-1: 0 1px 2px rgba(20,21,24,.03), 0 10px 30px -14px rgba(30,34,48,.12);
+  --u-sh-2: 0 2px 6px rgba(20,21,24,.04), 0 28px 56px -24px rgba(30,34,48,.22);
+  --u-font: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --u-display: 'Archivo', 'Pretendard Variable', 'Pretendard', sans-serif;
+}
+
+/* ───────── 바탕 ───────── */
+html, html body {
+  background-color: var(--u-bg) !important;
+  background-image:
+    radial-gradient(1100px 600px at 80% -10%, #FFFFFF, transparent 65%),
+    radial-gradient(900px 600px at -10% 30%, #FFFFFF, transparent 65%) !important;
+  background-size: auto !important;
+  background-attachment: fixed !important;
+  color: var(--u-ink) !important;
+  font-family: var(--u-font) !important;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+}
+html body h1, html body h2, html body h3 { letter-spacing: -0.03em; }
+::selection { background: var(--u-acc); color: var(--u-ink); }
+
+/* ───────── 상단 헤더 ───────── */
+html body header.top-0,
+html body nav.fixed.top-0 {
+  background: rgba(255, 255, 255, .86) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  backdrop-filter: saturate(160%) blur(20px);
+  border-bottom: 1px solid var(--u-line) !important;
+  box-shadow: none !important;
+}
+html body header.top-0 .md\:flex.gap-8,
+html body nav.fixed.top-0 .md\:flex.gap-8 { gap: 2px !important; }
+html body header.top-0 .md\:flex a,
+html body nav.fixed.top-0 .md\:flex a {
+  color: var(--u-ink-2) !important;
+  font-size: 14.5px;
+  font-weight: 600 !important;
+  padding: 8px 15px;
+  border-radius: 999px;
+  transition: background .2s ease, color .2s ease;
+  opacity: 1 !important;
+}
+html body header.top-0 .md\:flex a:hover,
+html body nav.fixed.top-0 .md\:flex a:hover { background: #F2F3F5; color: var(--u-ink) !important; }
+html body header.top-0 .md\:flex a.text-blue-600,
+html body header.top-0 .md\:flex a.text-primary,
+html body nav.fixed.top-0 .md\:flex a.text-blue-600,
+html body nav.fixed.top-0 .md\:flex a.text-primary,
+html body header.top-0 .md\:flex a[class*="text-[#F7F35A]"],
+html body nav.fixed.top-0 .md\:flex a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  font-weight: 700 !important;
+}
+html body header.top-0 img[alt="LOGIN"],
+html body nav.fixed.top-0 img[alt="LOGIN"] {
+  height: 36px !important;
+  width: auto !important;
+  padding: 6px 12px;
+  background: var(--u-ink);
+  border-radius: 12px !important;
+}
+html body header.top-0 .material-symbols-outlined.text-blue-600 { color: var(--u-ink) !important; }
+html body header.top-0 button.material-symbols-outlined,
+html body header.top-0 a .material-symbols-outlined { color: var(--u-ink-2) !important; }
+#header-avatar {
+  width: 40px !important; height: 40px !important;
+  background: var(--u-acc) !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 0 0 1px var(--u-line-2), 0 6px 14px -8px rgba(20,21,24,.4) !important;
+}
+#header-avatar .material-symbols-outlined, #header-avatar span.text-blue-700 { color: var(--u-ink) !important; }
+
+/* ───────── 모바일 하단 내비 ───────── */
+html body nav.fixed.bottom-0 {
+  left: 12px !important; right: 12px !important;
+  width: auto !important;
+  bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+  height: 68px !important;
+  border-radius: 26px !important;
+  background: rgba(255,255,255,.92) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(22px);
+  backdrop-filter: saturate(160%) blur(22px);
+  border: 1px solid var(--u-line) !important;
+  box-shadow: 0 18px 40px -18px rgba(30,34,48,.35) !important;
+  padding-left: 6px !important; padding-right: 6px !important;
+}
+html body nav.fixed.bottom-0 a { color: var(--u-ink-3) !important; border-radius: 18px !important; }
+html body nav.fixed.bottom-0 a.text-blue-600,
+html body nav.fixed.bottom-0 a.text-primary,
+html body nav.fixed.bottom-0 a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  width: 52px !important; height: 52px !important;
+}
+html body nav.fixed.bottom-0 a.text-blue-600 span,
+html body nav.fixed.bottom-0 a.text-primary span { color: var(--u-ink) !important; }
+
+/* ───────── 표면 · 카드 ───────── */
+html body .bg-white, html body section.bg-white, html body div.bg-white { background-color: var(--u-card) !important; }
+html body .bg-slate-50, html body .bg-gray-50,
+html body .bg-surface, html body .bg-surface-bright,
+html body .bg-surface-container-lowest { background-color: #F7F8F9 !important; }
+html body .bg-slate-100, html body .bg-gray-100,
+html body .bg-surface-container { background-color: #F1F2F4 !important; }
+html body .bg-surface-container-low { background-color: var(--u-card) !important; }
+html body .bg-background { background-color: transparent !important; }
+
+html body .border-slate-100, html body .border-outline-variant,
+html body .border-slate-200, html body .border-gray-100, html body .border-gray-200 { border-color: var(--u-line) !important; }
+html body .divide-slate-100 > * + * { border-color: var(--u-line) !important; }
+
+html body .rounded-3xl { border-radius: var(--u-r-xl) !important; }
+html body .rounded-2xl { border-radius: var(--u-r-lg) !important; }
+html body .rounded-xl  { border-radius: var(--u-r-md) !important; }
+html body .rounded-lg  { border-radius: var(--u-r-sm) !important; }
+html body .rounded:not(.rounded-full) { border-radius: 14px; }
+html body .rounded-t-2xl:not(nav) { border-top-left-radius: var(--u-r-lg) !important; border-top-right-radius: var(--u-r-lg) !important; }
+
+html body .shadow-sm { box-shadow: var(--u-sh-1) !important; }
+html body .shadow-md, html body .shadow-lg { box-shadow: var(--u-sh-2) !important; }
+html body .hover\:shadow-md:hover, html body .hover\:shadow-lg:hover { box-shadow: var(--u-sh-2) !important; }
+html body a.bg-white.border, html body div.bg-white.border { transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease; }
+html body a.bg-white.border:hover { transform: translateY(-3px); }
+
+/* ───────── 텍스트 색 ───────── */
+html body .text-slate-900, html body .text-on-surface, html body .text-on-background { color: var(--u-ink) !important; }
+html body .text-slate-800 { color: #1E1F23 !important; }
+html body .text-slate-700 { color: #31333A !important; }
+html body .text-slate-600, html body .text-outline, html body .text-on-surface-variant { color: var(--u-ink-2) !important; }
+html body .text-slate-500 { color: #70737B !important; }
+html body .text-slate-400 { color: var(--u-ink-3) !important; }
+html body .text-blue-600, html body .text-blue-700, html body .text-primary,
+html body .text-on-primary-container { color: var(--u-ink) !important; }
+html body .text-\[\#6E6A00\] { color: var(--u-acc-ink) !important; }
+
+/* ───────── 강조 / 버튼 ───────── */
+html body .bg-blue-600, html body .bg-primary, html body .bg-primary-container,
+html body .bg-slate-800, html body .bg-slate-900 { background-color: var(--u-ink) !important; color: #fff !important; }
+html body .bg-blue-600 .material-symbols-outlined,
+html body .bg-primary .material-symbols-outlined { color: var(--u-acc) !important; }
+html body .bg-blue-50, html body .bg-blue-100, html body .bg-primary-fixed,
+html body .bg-\[\#FAF8C8\] { background-color: var(--u-acc-soft-2) !important; }
+html body .border-blue-600, html body .border-primary { border-color: var(--u-ink) !important; }
+html body .hover\:bg-blue-700:hover, html body .hover\:bg-blue-600:hover { background-color: #2A2C31 !important; }
+html body button.rounded-xl, html body a.rounded-xl.font-bold { border-radius: 999px !important; }
+
+html body [style*="background:#F7F35A"], html body [style*="background: #F7F35A"],
+html body .bg-\[\#F7F35A\] { background: var(--u-acc) !important; }
+html body a[style*="background:#F7F35A"], html body button[style*="background:#F7F35A"],
+html body div[style*="background:#F7F35A"][style*="box-shadow"] {
+  border-radius: 999px !important;
+  box-shadow: 0 10px 24px -14px rgba(150,140,0,.9) !important;
+}
+html body [style*="color:#F7F35A"] { color: var(--u-acc) !important; }
+html body .text-\[\#F7F35A\] { color: var(--u-acc) !important; }
+
+html body [style*="border-radius:4px"], html body [style*="border-radius: 4px"],
+html body [style*="border-radius:2px"] { border-radius: 18px !important; }
+html body button[style*="border-radius:4px"], html body a[style*="border-radius:4px"],
+html body button[style*="border-radius: 4px"], html body a[style*="border-radius: 4px"] { border-radius: 999px !important; }
+
+/* 어두운 격자 블록 → 부드러운 다크 카드 */
+html body [style*="background:#0E0E0E"][style*="linear-gradient"] {
+  background-image: radial-gradient(500px 240px at 90% 0%, rgba(247,243,90,.12), transparent 70%) !important;
+  background-color: #17181C !important;
+}
+
+/* 모노 라벨 "// LOGIN …" → 노란 칩 라벨 */
+html body div[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body p[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body span[style*="IBM Plex Mono"][style*="#6E6A00"] {
+  display: inline-block;
+  color: var(--u-ink) !important;
+  background: var(--u-acc);
+  padding: 6px 12px 5px;
+  border-radius: 999px;
+  letter-spacing: .08em !important;
+  font-size: 11px !important;
+  font-family: var(--u-font) !important;
+  font-weight: 800 !important;
+}
+
+/* 폼 */
+html body input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html body textarea, html body select {
+  background-color: #FFFFFF !important;
+  border-color: var(--u-line-2) !important;
+  color: var(--u-ink) !important;
+  border-radius: 14px !important;
+}
+html body input:focus, html body textarea:focus, html body select:focus {
+  border-color: var(--u-ink) !important;
+  box-shadow: 0 0 0 4px rgba(247,243,90,.55) !important;
+  outline: none !important;
+}
+html body input[type="checkbox"]:checked, html body input[type="radio"]:checked {
+  background-color: var(--u-ink) !important; border-color: var(--u-ink) !important;
+}
+
+/* ───────── 푸터 → 밝은 카드 + 캐릭터 ───────── */
+html body footer.bg-\[\#0E0E0E\] {
+  position: relative;
+  overflow: hidden;
+  margin: 0 12px 96px !important;
+  border-radius: var(--u-r-xl);
+  background: #FFFFFF !important;
+  color: var(--u-ink-3) !important;
+  box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1);
+}
+@media (min-width: 768px) { html body footer.bg-\[\#0E0E0E\] { margin: 0 24px 24px !important; } }
+html body footer.bg-\[\#0E0E0E\]::after {
+  content: "";
+  position: absolute;
+  right: 3%; bottom: -14px;
+  width: 150px; height: 150px;
+  background: url('/assets/img/ddd10eb9b514.webp') no-repeat center bottom / contain;
+  pointer-events: none;
+}
+html body footer.bg-\[\#0E0E0E\] > div { position: relative; z-index: 1; }
+html body footer.bg-\[\#0E0E0E\] .text-white { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-500 { color: var(--u-ink-3) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-300 { color: var(--u-ink-2) !important; }
+html body footer.bg-\[\#0E0E0E\] .border-white\/10 { border-color: var(--u-line) !important; }
+html body footer.bg-\[\#0E0E0E\] nav a { color: var(--u-ink-2); font-weight: 600; }
+html body footer.bg-\[\#0E0E0E\] nav a:hover { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .bg-\[\#F7F35A\] { background: var(--u-acc) !important; border-radius: 6px; }
+@media (min-width: 768px) {
+  html body footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 160px; }
+  html body footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 160px; }
+}
+@media (max-width: 767px) {
+  html body footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 14px; bottom: auto; top: 18px; }
+}
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\], html body main.max-w-2xl footer.bg-\[\#0E0E0E\] { margin-left: 0 !important; margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] nav.grid, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:last-child, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\]::after, html body main.max-w-2xl footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 18px; bottom: auto; top: 18px; }
+html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:first-child, html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:first-child { flex-direction: column !important; padding-right: 90px; }
+
+html body button.rounded-full, html body a.rounded-full { transition: background .2s ease, color .2s ease, transform .15s ease; }
+html body button.rounded-full:active, html body a.rounded-full:active { transform: scale(.97); }
+
+/* ───────── 상세 페이지 공통 ───────── */
+html body[data-u="detail"] main > section:first-of-type.relative {
+  margin: 14px 12px 0;
+  border-radius: var(--u-r-xl);
+  overflow: hidden;
+  box-shadow: var(--u-sh-2);
+}
+@media (min-width: 768px) { html body[data-u="detail"] main > section:first-of-type.relative { margin: 20px 24px 0; } }
+html body[data-u="detail"] .border-l-4 { border-left-color: var(--u-acc) !important; }
+html body[data-u="detail"] .-mt-12, html body[data-u="detail"] .-mt-16, html body[data-u="detail"] .-mt-20 { border-radius: var(--u-r-lg) !important; }
+
+html body ::-webkit-scrollbar { width: 10px; height: 10px; }
+html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+
+/* ═════════ 새 마크업용 유틸 ═════════ */
+.u-card { background: #fff; border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1); }
+.u-panel-y { background: linear-gradient(180deg, #FDFCE7 0%, #FBF9D0 100%); border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px #F2EFC2; }
+.u-hl { background: linear-gradient(transparent 60%, var(--u-acc) 60%, var(--u-acc) 92%, transparent 92%); padding: 0 .06em; }
+.u-glass { background: var(--u-glass); -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-2); }
+.u-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.u-chip-acc { background: var(--u-acc); color: var(--u-ink); }
+.u-chip-line { background: #fff; color: var(--u-ink-2); box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-arrow { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: #fff; color: var(--u-ink); box-shadow: 0 0 0 1px var(--u-line-2), 0 4px 10px -6px rgba(20,21,24,.25); transition: background .2s ease, transform .2s ease, box-shadow .2s; flex-shrink: 0; }
+.group:hover .u-arrow { background: var(--u-acc); box-shadow: none; transform: translateX(2px); }
+.u-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-weight: 700; transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+.u-btn:active { transform: scale(.97); }
+.u-btn-dark { background: var(--u-ink); color: #fff; padding: 16px 26px; box-shadow: 0 14px 30px -16px rgba(20,21,24,.7); }
+.u-btn-dark:hover { background: #2A2C31; }
+.u-btn-dark .material-symbols-outlined { color: var(--u-acc); }
+.u-btn-line { background: #fff; color: var(--u-ink); padding: 16px 24px; box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-btn-line:hover { box-shadow: 0 0 0 1px var(--u-ink); }
+.u-btn-acc { background: var(--u-acc); color: var(--u-ink); padding: 14px 22px; }
+.u-btn-acc:hover { background: var(--u-acc-2); }
+.u-circle-acc { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--u-acc); color: var(--u-ink); box-shadow: 0 10px 24px -10px rgba(150,140,0,.8); transition: transform .2s; flex-shrink: 0; }
+.group:hover .u-circle-acc { transform: translateX(3px); }
+.u-fade-l { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%); mask-image: linear-gradient(90deg, transparent 0%, #000 24%); }
+.u-fade-round { -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); }
+.u-sparkle { position: absolute; width: 20px; height: 20px; background: #D9DFEC; clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: u-twinkle 3.4s ease-in-out infinite; }
+.u-sparkle.y { background: var(--u-acc); }
+@keyframes u-twinkle { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7) rotate(15deg); opacity: .6; } }
+@keyframes u-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.u-float { animation: u-float 6s ease-in-out infinite; }
+.u-stars { background-image:
+  radial-gradient(1.5px 1.5px at 8% 20%, rgba(255,255,255,.8), transparent 60%),
+  radial-gradient(1px 1px at 22% 70%, rgba(255,255,255,.55), transparent 60%),
+  radial-gradient(1.5px 1.5px at 41% 14%, rgba(255,255,255,.7), transparent 60%),
+  radial-gradient(1px 1px at 57% 48%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1.5px 1.5px at 73% 24%, rgba(255,255,255,.75), transparent 60%),
+  radial-gradient(1px 1px at 95% 12%, rgba(255,255,255,.6), transparent 60%); }
+.u-moon { position: absolute; left: -10%; right: -10%; bottom: -80%; height: 120%; border-radius: 50%; background: radial-gradient(60% 50% at 50% 18%, #A3A5AD 0%, #62646C 45%, #2C2E34 100%); }
+.u-moon::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background:
+  radial-gradient(4% 2.4% at 30% 9%, rgba(0,0,0,.22), transparent 70%),
+  radial-gradient(3% 2% at 62% 6%, rgba(0,0,0,.2), transparent 70%),
+  radial-gradient(2.5% 1.6% at 46% 15%, rgba(0,0,0,.18), transparent 70%); }
+@media (prefers-reduced-motion: reduce) { .u-float, .u-sparkle { animation: none !important; } }
+.u-prog-tiles { display: none; }
+@media (min-width: 1100px) { .u-prog-hero { padding-right: 440px !important; } .u-prog-tiles { display: block; } }
+</style>
 </head>
-<body class="bg-background text-on-surface">
+<body data-u="section" class="bg-background text-on-surface">
 
 <!-- Header -->
 <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
   <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1200px] mx-auto">
     <a href="/" class="flex items-center">
-      <img src="/logo.png" alt="LOGIN" class="h-14 w-auto"/>
+      <img src="/assets/img/7ca059b88139.webp" alt="LOGIN" class="h-14 w-auto"/>
     </a>
     <div class="hidden md:flex gap-8 items-center">
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/">홈</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/program">프로그램</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/seminar">세미나</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/bootcamp">부트캠프</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
       <a class="text-blue-600 font-semibold" href="/mypage">마이페이지</a>
     </div>
-    <div id="header-avatar" class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer hidden" style="background:#C8E600;color:#0E0E0E;" onclick="location.href='/mypage'"></div>
+    <div id="header-avatar" class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer hidden" style="background:#F7F35A;color:#0E0E0E;" onclick="location.assign('/mypage')"></div>
   </div>
 </header>
 
@@ -208,7 +543,7 @@
   <!-- ===== LOADING VIEW ===== -->
   <div id="view-loading" class="view active">
     <div class="flex flex-col items-center justify-center pt-32 gap-4">
-      <div class="w-10 h-10 border-4 rounded-full spinner" style="border-color:#E5E2D7;border-top-color:#C8E600;"></div>
+      <div class="w-10 h-10 border-4 rounded-full spinner" style="border-color:#E5E2D7;border-top-color:#F7F35A;"></div>
       <p class="text-sm text-on-surface-variant font-medium">잠시만요...</p>
     </div>
   </div>
@@ -216,8 +551,10 @@
   <!-- ===== LOGIN VIEW ===== -->
   <div id="view-login" class="view fade-in">
     <div class="text-center pt-8 pb-10">
-      <div class="w-16 h-16 flex items-center justify-center mx-auto mb-5" style="background:#0E0E0E;border-radius:4px;">
-        <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings:'FILL' 1">person</span>
+      <div class="relative w-[170px] mx-auto mb-4" aria-hidden="true">
+        <span class="u-sparkle y" style="left:0;top:20px;width:14px;height:14px"></span>
+        <span class="u-sparkle" style="right:4px;top:6px;width:12px;height:12px;animation-delay:1s"></span>
+        <img src="/assets/img/ddd10eb9b514.webp" alt="" class="u-float w-[170px]"/>
       </div>
       <h1 class="text-2xl font-extrabold text-on-surface mb-1">LOGIN에 오신 걸 환영해요</h1>
       <p class="text-on-surface-variant text-sm">로그인하고 함께 성장을 시작하세요.</p>
@@ -234,7 +571,7 @@
           <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호</label>
           <input id="login-password" type="password" class="input-field" placeholder="비밀번호 입력" autocomplete="current-password"/>
         </div>
-        <button id="login-btn" onclick="handleLogin()" class="w-full py-3.5 font-bold text-base transition-colors active:scale-[0.98] duration-150 mt-2 flex items-center justify-center gap-2" style="background:#C8E600;color:#0E0E0E;border-radius:4px;">
+        <button id="login-btn" onclick="handleLogin()" class="w-full py-3.5 font-bold text-base transition-colors active:scale-[0.98] duration-150 mt-2 flex items-center justify-center gap-2" style="background:#F7F35A;color:#0E0E0E;border-radius:4px;">
           <span id="login-btn-text">로그인</span>
           <span id="login-btn-spinner" class="hidden w-4 h-4 border-2 border-white/40 border-t-white rounded-full spinner"></span>
         </button>
@@ -243,13 +580,13 @@
       <div class="mt-5 pt-5 border-t border-slate-100 text-center">
         <p class="text-sm text-on-surface-variant">
           아직 회원이 아니신가요?
-          <button onclick="showView('signup')" class="font-semibold hover:underline ml-1" style="color:#6B8700;">회원가입</button>
+          <button onclick="showView('signup')" class="font-semibold hover:underline ml-1" style="color:#6E6A00;">회원가입</button>
         </p>
       </div>
     </div>
 
-    <div class="mt-4 p-4 rounded border" style="background:#EEF7B5;border-color:#D5E8A0;">
-      <div class="text-[12px] font-semibold mb-1" style="color:#6B8700;">💡 처음 방문이신가요?</div>
+    <div class="mt-4 p-4 rounded border" style="background:#FAF8C8;border-color:#D5E8A0;">
+      <div class="text-[12px] font-semibold mb-1" style="color:#6E6A00;">💡 처음 방문이신가요?</div>
       <div class="text-[12px]" style="color:#555555;">위 "회원가입"으로 계정을 만들면 바로 커뮤니티에 글을 올릴 수 있어요.</div>
     </div>
   </div>
@@ -257,8 +594,8 @@
   <!-- ===== SIGNUP VIEW ===== -->
   <div id="view-signup" class="view fade-in">
     <div class="text-center pt-8 pb-10">
-      <div class="w-16 h-16 flex items-center justify-center mx-auto mb-5" style="background:#0E0E0E;border-radius:4px;">
-        <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings:'FILL' 1">person_add</span>
+      <div class="w-16 h-16 flex items-center justify-center mx-auto mb-5" style="background:var(--u-acc);border-radius:22px;">
+        <span class="material-symbols-outlined text-3xl" style="color:#141518;font-variation-settings:'FILL' 1">person_add</span>
       </div>
       <h1 class="text-2xl font-extrabold text-on-surface mb-1">회원가입</h1>
       <p class="text-on-surface-variant text-sm">LOGIN 멤버가 되어 함께 성장해요.</p>
@@ -284,7 +621,7 @@
           <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호 확인</label>
           <input id="signup-password2" type="password" class="input-field" placeholder="비밀번호 재입력" autocomplete="new-password"/>
         </div>
-        <button id="signup-btn" onclick="handleSignup()" class="w-full py-3.5 font-bold text-base transition-colors active:scale-[0.98] duration-150 mt-2 flex items-center justify-center gap-2" style="background:#C8E600;color:#0E0E0E;border-radius:4px;">
+        <button id="signup-btn" onclick="handleSignup()" class="w-full py-3.5 font-bold text-base transition-colors active:scale-[0.98] duration-150 mt-2 flex items-center justify-center gap-2" style="background:#F7F35A;color:#0E0E0E;border-radius:4px;">
           <span id="signup-btn-text">가입하기</span>
           <span id="signup-btn-spinner" class="hidden w-4 h-4 border-2 border-white/40 border-t-white rounded-full spinner"></span>
         </button>
@@ -293,7 +630,7 @@
       <div class="mt-5 pt-5 border-t border-slate-100 text-center">
         <p class="text-sm text-on-surface-variant">
           이미 계정이 있으신가요?
-          <button onclick="showView('login')" class="font-semibold hover:underline ml-1" style="color:#6B8700;">로그인</button>
+          <button onclick="showView('login')" class="font-semibold hover:underline ml-1" style="color:#6E6A00;">로그인</button>
         </p>
       </div>
     </div>
@@ -330,7 +667,7 @@
                   <input id="name-input" type="text" maxlength="20"
                     class="flex-1 px-3 py-1.5 rounded-xl bg-white/20 text-white placeholder:text-white/50 text-base font-bold border border-white/40 focus:outline-none focus:border-white min-w-0"
                     placeholder="이름 입력"/>
-                  <button onclick="saveName()" class="px-3 py-1.5 text-sm font-bold whitespace-nowrap" style="background:#C8E600;color:#0E0E0E;border-radius:2px;">저장</button>
+                  <button onclick="saveName()" class="px-3 py-1.5 text-sm font-bold whitespace-nowrap" style="background:#F7F35A;color:#0E0E0E;border-radius:2px;">저장</button>
                   <button onclick="cancelEditName()" class="px-2 py-1.5 text-white/70 hover:text-white text-sm">취소</button>
                 </div>
                 <div id="name-save-msg" class="text-[11px] mt-1 hidden"></div>
@@ -363,8 +700,8 @@
     <!-- Quick Actions -->
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50 mb-5">
       <a href="/community" class="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
-        <div class="w-9 h-9 flex items-center justify-center flex-shrink-0" style="background:#EEF7B5;border-radius:2px;">
-          <span class="material-symbols-outlined text-xl" style="color:#6B8700;" style="font-variation-settings:'FILL' 1">forum</span>
+        <div class="w-9 h-9 flex items-center justify-center flex-shrink-0" style="background:#FAF8C8;border-radius:2px;">
+          <span class="material-symbols-outlined text-xl" style="color:#6E6A00;" style="font-variation-settings:'FILL' 1">forum</span>
         </div>
         <div class="flex-1 min-w-0">
           <div class="font-semibold text-sm text-on-surface">커뮤니티 글 쓰기</div>
@@ -405,16 +742,16 @@
       <div id="my-posts-empty" class="hidden bg-white rounded-2xl border border-slate-100 shadow-sm p-8 text-center">
         <span class="material-symbols-outlined text-slate-300 text-4xl mb-2 block">edit_note</span>
         <p class="text-on-surface-variant text-sm">아직 작성한 글이 없어요.</p>
-        <a href="/community" class="inline-block mt-3 font-semibold text-sm hover:underline" style="color:#6B8700;">첫 글 쓰러 가기 →</a>
+        <a href="/community" class="inline-block mt-3 font-semibold text-sm hover:underline" style="color:#6E6A00;">첫 글 쓰러 가기 →</a>
       </div>
     </div>
 
     <!-- Settings -->
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50 mb-5">
       <!-- 등급 업그레이드 문의 -->
-      <button onclick="showView('upgrade')" class="w-full flex items-center gap-4 p-4 hover:bg-[#EEF7B5] transition-colors text-left">
-        <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EEF7B5;">
-          <span class="material-symbols-outlined text-xl" style="color:#6B8700;">workspace_premium</span>
+      <button onclick="showView('upgrade')" class="w-full flex items-center gap-4 p-4 hover:bg-[#FAF8C8] transition-colors text-left">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#FAF8C8;">
+          <span class="material-symbols-outlined text-xl" style="color:#6E6A00;">workspace_premium</span>
         </div>
         <div class="flex-1 min-w-0">
           <div class="font-semibold text-sm text-on-surface">등급 업그레이드 문의</div>
@@ -467,7 +804,7 @@
           <label class="block text-sm font-semibold mb-1.5">새 비밀번호 확인</label>
           <input id="new-pw2" type="password" class="input-field" placeholder="새 비밀번호 재입력"/>
         </div>
-        <button id="pw-btn" onclick="handleChangePassword()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#C8E600;border-radius:4px;">
+        <button id="pw-btn" onclick="handleChangePassword()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#F7F35A;border-radius:4px;">
           <span id="pw-btn-text">변경하기</span>
           <span id="pw-btn-spinner" class="hidden w-4 h-4 border-2 border-white/40 border-t-white rounded-full spinner"></span>
         </button>
@@ -483,8 +820,8 @@
         돌아가기
       </button>
       <div class="flex items-center gap-3 mb-2">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#EEF7B5;">
-          <span class="material-symbols-outlined" style="color:#6B8700;font-size:22px;">workspace_premium</span>
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#FAF8C8;">
+          <span class="material-symbols-outlined" style="color:#6E6A00;font-size:22px;">workspace_premium</span>
         </div>
         <div>
           <h1 class="text-2xl font-extrabold text-on-surface leading-tight">등급 업그레이드 문의</h1>
@@ -494,19 +831,19 @@
     </div>
 
     <!-- 프리미엄 혜택 안내 -->
-    <div class="rounded-xl p-4 mb-5 border" style="background:#EEF7B5;border-color:#D5E8A0;">
-      <p class="text-xs font-bold mb-2" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;letter-spacing:0.08em;">// PREMIUM BENEFITS</p>
+    <div class="rounded-xl p-4 mb-5 border" style="background:#FAF8C8;border-color:#D5E8A0;">
+      <p class="text-xs font-bold mb-2" style="font-family:'IBM Plex Mono',monospace;color:#6E6A00;letter-spacing:0.08em;">// PREMIUM BENEFITS</p>
       <ul class="space-y-1.5 text-sm text-[#0E0E0E]">
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">download</span>리포트 PDF 전체 다운로드</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">lock_open</span>프리미엄 인사이트 전체 열람</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6B8700;">event_available</span>프로그램 우선 신청권</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6E6A00;">download</span>리포트 PDF 전체 다운로드</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6E6A00;">lock_open</span>프리미엄 인사이트 전체 열람</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-base" style="color:#6E6A00;">event_available</span>프로그램 우선 신청권</li>
       </ul>
     </div>
 
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
       <div id="upgrade-error" class="hidden mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-sm font-medium"></div>
-      <div id="upgrade-success" class="hidden mb-4 p-4 rounded-xl text-center" style="background:#EEF7B5;">
-        <span class="material-symbols-outlined text-3xl mb-2 block" style="color:#6B8700;">check_circle</span>
+      <div id="upgrade-success" class="hidden mb-4 p-4 rounded-xl text-center" style="background:#FAF8C8;">
+        <span class="material-symbols-outlined text-3xl mb-2 block" style="color:#6E6A00;">check_circle</span>
         <p class="font-bold text-[#0E0E0E] mb-1">문의가 접수됐어요!</p>
         <p class="text-sm text-slate-500">검토 후 1~2 영업일 내로 이메일로 안내드릴게요.</p>
       </div>
@@ -514,19 +851,19 @@
       <div id="upgrade-form" class="space-y-5">
         <!-- 이름 -->
         <div>
-          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 이름</label>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6E6A00;">// 이름</label>
           <input id="upgrade-name" type="text" class="input-field" placeholder="이름을 입력하세요"/>
         </div>
 
         <!-- 이메일 -->
         <div>
-          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 이메일</label>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6E6A00;">// 이메일</label>
           <input id="upgrade-email" type="email" class="input-field bg-[#F4F1E8]" readonly placeholder="자동으로 채워집니다"/>
         </div>
 
         <!-- 문의 목적 -->
         <div>
-          <label class="block text-xs font-bold mb-2 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 주요 이용 목적</label>
+          <label class="block text-xs font-bold mb-2 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6E6A00;">// 주요 이용 목적</label>
           <div class="grid grid-cols-2 gap-2" id="purpose-btns">
             <button type="button" onclick="togglePurpose(this)" data-val="pdf" class="purpose-btn py-2.5 px-3 rounded-lg border text-sm font-medium text-left transition-all border-[#E5E2D7] text-slate-600 bg-white hover:border-[#0E0E0E]">
               📄 PDF 다운로드
@@ -545,13 +882,13 @@
 
         <!-- 문의 내용 -->
         <div>
-          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6B8700;">// 추가 문의 내용 <span class="normal-case font-normal text-slate-400">(선택)</span></label>
+          <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider" style="font-family:'IBM Plex Mono',monospace;color:#6E6A00;">// 추가 문의 내용 <span class="normal-case font-normal text-slate-400">(선택)</span></label>
           <textarea id="upgrade-msg" class="input-field resize-none" rows="4" placeholder="등급업을 원하시는 이유나 궁금한 점을 자유롭게 적어주세요."></textarea>
         </div>
 
-        <button id="upgrade-btn" onclick="handleUpgradeRequest()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#C8E600;border-radius:4px;">
+        <button id="upgrade-btn" onclick="handleUpgradeRequest()" class="w-full py-3.5 font-bold transition-colors flex items-center justify-center gap-2" style="background:#0E0E0E;color:#F7F35A;border-radius:4px;">
           <span id="upgrade-btn-text">문의 접수하기</span>
-          <span id="upgrade-btn-spinner" class="hidden w-4 h-4 border-2 rounded-full spinner" style="border-color:#C8E600/40;border-top-color:#C8E600;"></span>
+          <span id="upgrade-btn-spinner" class="hidden w-4 h-4 border-2 rounded-full spinner" style="border-color:#F7F35A/40;border-top-color:#F7F35A;"></span>
         </button>
       </div>
     </div>
@@ -565,17 +902,17 @@
         <div class="max-w-sm">
           <div class="flex items-center gap-2 mb-3">
             <span class="text-lg font-extrabold text-white tracking-tight">LOGIN</span>
-            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#C8E600] text-[#0E0E0E]">SELAB</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#F7F35A] text-[#0E0E0E]">SELAB</span>
           </div>
           <p class="text-sm leading-relaxed text-slate-500">2030을 위한 성장 연구소.<br>나를 알아가는 가장 빠른 길.</p>
         </div>
 
         <!-- 바로가기 -->
         <nav class="grid grid-cols-2 gap-x-10 gap-y-2 text-sm">
-          <a href="/about" class="hover:text-[#C8E600] transition-colors">About</a>
-          <a href="/program" class="hover:text-[#C8E600] transition-colors">프로그램</a>
-          <a href="/insight" class="hover:text-[#C8E600] transition-colors">인사이트</a>
-          <a href="/community" class="hover:text-[#C8E600] transition-colors">커뮤니티</a>
+          <a href="/about" class="hover:text-[#F7F35A] transition-colors">About</a>
+          <a href="/program" class="hover:text-[#F7F35A] transition-colors">프로그램</a>
+          <a href="/insight" class="hover:text-[#F7F35A] transition-colors">인사이트</a>
+          <a href="/community" class="hover:text-[#F7F35A] transition-colors">커뮤니티</a>
         </nav>
       </div>
 
@@ -673,7 +1010,7 @@ function setLoading(btnId, textId, spinnerId, loading) {
 function getRoleBadge(role) {
   const map = {
     admin:   { cls: 'bg-amber-100 text-amber-700',  label: '관리자 ⭐' },
-    manager: { cls: '',    label: '매니저', style: 'background:#EEF7B5;color:#6B8700;' },
+    manager: { cls: '',    label: '매니저', style: 'background:#FAF8C8;color:#6E6A00;' },
     member:  { cls: 'bg-slate-100 text-slate-600',  label: '일반 회원' },
   };
   const info = map[role] || map['member'];
@@ -1058,7 +1395,7 @@ function togglePurpose(btn) {
     btn.style.color = '';
   } else {
     selectedPurposes.add(val);
-    btn.style.background = '#EEF7B5';
+    btn.style.background = '#FAF8C8';
     btn.style.borderColor = '#0E0E0E';
     btn.style.color = '#0E0E0E';
   }
@@ -1169,6 +1506,7 @@ document.addEventListener('keydown', (e) => {
   else if (active.id === 'view-signup') handleSignup();
   else if (active.id === 'view-change-password') handleChangePassword();
 });
+
 
 // ===== REALTIME AUTH STATE =====
 db.auth.onAuthStateChange(async (event, session) => {
