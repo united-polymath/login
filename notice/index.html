@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHG5NNPNLF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZHG5NNPNLF');
+</script>
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>공지사항 - LOGIN 2030을 위한 성장 연구소</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "inverse-primary": "#b4c5ff",
+          "surface-container-high": "#e6e8ea",
+          "surface-container-highest": "#e0e3e5",
+          "surface-container-lowest": "#ffffff",
+          "primary-container": "#2563eb",
+          "on-surface": "#191c1e",
+          "on-background": "#191c1e",
+          "on-primary": "#ffffff",
+          "outline-variant": "#c3c6d7",
+          "surface-variant": "#e0e3e5",
+          "surface-bright": "#f7f9fb",
+          "on-secondary-container": "#00714d",
+          "surface-container": "#eceef0",
+          "primary": "#004ac6",
+          "outline": "#737686",
+          "surface": "#f7f9fb",
+          "primary-fixed": "#dbe1ff",
+          "on-surface-variant": "#434655",
+          "surface-container-low": "#f2f4f6",
+          "background": "#f7f9fb",
+          "on-primary-container": "#eeefff",
+          "on-primary-fixed": "#00174b"
+        },
+        spacing: {
+          "margin-desktop": "64px",
+          "gutter": "24px",
+        },
+        fontSize: {
+          "headline-xl": ["40px", { lineHeight: "1.2", fontWeight: "700" }],
+          "headline-lg": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+          "headline-md": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+          "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+          "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+          "label-sm": ["14px", { lineHeight: "1.4", letterSpacing: "0.02em", fontWeight: "500" }],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { min-height: 100dvh; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { scrollbar-width: none; }
+  body.u-home footer.bg-\[\#0E0E0E\] { margin: 56px 0 96px !important; }
+  @media (min-width: 768px) { body.u-home footer.bg-\[\#0E0E0E\] { margin: 72px 0 0 !important; } body.u-home footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 160px; } }
+  .s-tile { border-radius: 30px; position: relative; overflow: hidden; }
+  .s-title { word-break: keep-all; font-size: clamp(34px, 4.2vw, 56px); line-height: 1.1; font-weight: 900; letter-spacing: -0.05em; color: var(--u-ink); }
+  .s-chip { padding: 9px 16px; border-radius: 999px; font-size: 14px; font-weight: 700; color: var(--u-ink-2); background: #fff; box-shadow: 0 0 0 1px var(--u-line-2); white-space: nowrap; transition: background .2s, color .2s, box-shadow .2s; }
+  .s-chip:hover { box-shadow: 0 0 0 1px var(--u-ink); }
+  .s-chip.on { background: var(--u-ink); color: #fff; box-shadow: none; }
+  .s-tab { padding: 10px 4px; font-size: 15px; font-weight: 700; color: var(--u-ink-3); border-bottom: 2.5px solid transparent; white-space: nowrap; }
+  .s-tab.on { color: var(--u-ink); border-color: var(--u-ink); }
+  .s-card { background: #fff; border-radius: 26px; padding: 10px; box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1); transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; display: flex; flex-direction: column; }
+  .s-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-2); }
+  .s-card.closed .s-poster { filter: saturate(.55); }
+  .s-poster { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 16/10; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .s-poster .pt { font-weight: 900; letter-spacing: -0.045em; line-height: 1.22; word-break: keep-all; }
+  .s-poster .ic { position: absolute; right: -10px; bottom: -18px; font-size: 130px; opacity: .22; font-variation-settings: 'FILL' 1, 'wght' 300; }
+  .s-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 800; }
+  .s-badge.open { background: var(--u-acc); color: var(--u-ink); }
+  .s-badge.closed { background: rgba(20,21,24,.72); color: #fff; }
+  .s-page { min-width: 40px; height: 40px; border-radius: 999px; font-weight: 700; font-size: 14px; color: var(--u-ink-2); display: inline-flex; align-items: center; justify-content: center; transition: background .2s; }
+  .s-page:hover { background: #fff; box-shadow: 0 0 0 1px var(--u-line-2); }
+  .s-page.on { background: var(--u-ink); color: #fff; }
+  .s-page:disabled { opacity: .3; pointer-events: none; }
+  .d-sec h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.035em; color: var(--u-ink); margin-bottom: 18px; }
+  .d-check li { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--u-line); font-size: 15px; color: var(--u-ink-2); }
+  .d-check li:last-child { border-bottom: 0; }
+  .d-tabs { position: sticky; top: 64px; z-index: 20; background: rgba(255,255,255,.92); backdrop-filter: blur(16px); }
+  .d-tabs a { padding: 16px 4px; font-size: 15px; font-weight: 700; color: var(--u-ink-3); border-bottom: 2.5px solid transparent; }
+  .d-tabs a.on { color: var(--u-ink); border-color: var(--u-ink); }
+  .d-info dt { color: var(--u-ink-3); font-size: 13.5px; width: 72px; flex-shrink: 0; }
+  .d-info dd { color: var(--u-ink); font-size: 14.5px; font-weight: 600; }
+  .s-toast { position: fixed; left: 50%; bottom: 100px; transform: translate(-50%, 20px); opacity: 0; background: var(--u-ink); color: #fff; padding: 12px 18px; border-radius: 999px; font-size: 14px; font-weight: 600; transition: all .3s; z-index: 80; pointer-events: none; }
+  .s-toast.show { opacity: 1; transform: translate(-50%, 0); }
+  [hidden] { display: none !important; }
+</style>
+<!-- LOGIN Universe theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>/* ═══════════════════════════════════════════════════════════
+   LOGIN · UNIVERSE THEME  (v2 · 2026.10 · soft lemon)
+   기존 Tailwind 마크업 위에 얹는 공통 디자인 레이어.
+   - 문구(텍스트)는 건드리지 않고, 색·형태·여백·질감만 바꿉니다.
+   - 모든 메인 사이트 페이지의 <head> 맨 끝에서 로드됩니다.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --u-acc: #F7F35A;          /* 레몬 옐로 — 버튼/칩/하이라이트 */
+  --u-acc-2: #EFEA3C;
+  --u-acc-soft: #FCFBE0;
+  --u-acc-soft-2: #FAF8C8;
+  --u-acc-ink: #6E6A00;
+  --u-ink: #141518;
+  --u-ink-2: #45474D;
+  --u-ink-3: #8A8C93;
+  --u-line: #ECECEE;
+  --u-line-2: #E0E1E4;
+  --u-bg: #F3F4F6;
+  --u-card: #FFFFFF;
+  --u-glass: rgba(255, 255, 255, .8);
+  --u-space: #0E0F13;
+  --u-r-xl: 32px;
+  --u-r-lg: 24px;
+  --u-r-md: 18px;
+  --u-r-sm: 12px;
+  --u-sh-1: 0 1px 2px rgba(20,21,24,.03), 0 10px 30px -14px rgba(30,34,48,.12);
+  --u-sh-2: 0 2px 6px rgba(20,21,24,.04), 0 28px 56px -24px rgba(30,34,48,.22);
+  --u-font: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --u-display: 'Archivo', 'Pretendard Variable', 'Pretendard', sans-serif;
+}
+
+/* ───────── 바탕 ───────── */
+html, html body {
+  background-color: var(--u-bg) !important;
+  background-image:
+    radial-gradient(1100px 600px at 80% -10%, #FFFFFF, transparent 65%),
+    radial-gradient(900px 600px at -10% 30%, #FFFFFF, transparent 65%) !important;
+  background-size: auto !important;
+  background-attachment: fixed !important;
+  color: var(--u-ink) !important;
+  font-family: var(--u-font) !important;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+}
+html body h1, html body h2, html body h3 { letter-spacing: -0.03em; }
+::selection { background: var(--u-acc); color: var(--u-ink); }
+
+/* ───────── 상단 헤더 ───────── */
+html body header.top-0,
+html body nav.fixed.top-0 {
+  background: rgba(255, 255, 255, .86) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  backdrop-filter: saturate(160%) blur(20px);
+  border-bottom: 1px solid var(--u-line) !important;
+  box-shadow: none !important;
+}
+html body header.top-0 .md\:flex.gap-8,
+html body nav.fixed.top-0 .md\:flex.gap-8 { gap: 2px !important; }
+html body header.top-0 .md\:flex a,
+html body nav.fixed.top-0 .md\:flex a {
+  color: var(--u-ink-2) !important;
+  font-size: 14.5px;
+  font-weight: 600 !important;
+  padding: 8px 15px;
+  border-radius: 999px;
+  transition: background .2s ease, color .2s ease;
+  opacity: 1 !important;
+}
+html body header.top-0 .md\:flex a:hover,
+html body nav.fixed.top-0 .md\:flex a:hover { background: #F2F3F5; color: var(--u-ink) !important; }
+html body header.top-0 .md\:flex a.text-blue-600,
+html body header.top-0 .md\:flex a.text-primary,
+html body nav.fixed.top-0 .md\:flex a.text-blue-600,
+html body nav.fixed.top-0 .md\:flex a.text-primary,
+html body header.top-0 .md\:flex a[class*="text-[#F7F35A]"],
+html body nav.fixed.top-0 .md\:flex a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  font-weight: 700 !important;
+}
+html body header.top-0 img[alt="LOGIN"],
+html body nav.fixed.top-0 img[alt="LOGIN"] {
+  height: 36px !important;
+  width: auto !important;
+  padding: 6px 12px;
+  background: var(--u-ink);
+  border-radius: 12px !important;
+}
+html body header.top-0 .material-symbols-outlined.text-blue-600 { color: var(--u-ink) !important; }
+html body header.top-0 button.material-symbols-outlined,
+html body header.top-0 a .material-symbols-outlined { color: var(--u-ink-2) !important; }
+#header-avatar {
+  width: 40px !important; height: 40px !important;
+  background: var(--u-acc) !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 0 0 1px var(--u-line-2), 0 6px 14px -8px rgba(20,21,24,.4) !important;
+}
+#header-avatar .material-symbols-outlined, #header-avatar span.text-blue-700 { color: var(--u-ink) !important; }
+
+/* ───────── 모바일 하단 내비 ───────── */
+html body nav.fixed.bottom-0 {
+  left: 12px !important; right: 12px !important;
+  width: auto !important;
+  bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+  height: 68px !important;
+  border-radius: 26px !important;
+  background: rgba(255,255,255,.92) !important;
+  -webkit-backdrop-filter: saturate(160%) blur(22px);
+  backdrop-filter: saturate(160%) blur(22px);
+  border: 1px solid var(--u-line) !important;
+  box-shadow: 0 18px 40px -18px rgba(30,34,48,.35) !important;
+  padding-left: 6px !important; padding-right: 6px !important;
+}
+html body nav.fixed.bottom-0 a { color: var(--u-ink-3) !important; border-radius: 18px !important; }
+html body nav.fixed.bottom-0 a.text-blue-600,
+html body nav.fixed.bottom-0 a.text-primary,
+html body nav.fixed.bottom-0 a[class*="text-[#F7F35A]"] {
+  background: var(--u-acc) !important;
+  color: var(--u-ink) !important;
+  width: 52px !important; height: 52px !important;
+}
+html body nav.fixed.bottom-0 a.text-blue-600 span,
+html body nav.fixed.bottom-0 a.text-primary span { color: var(--u-ink) !important; }
+
+/* ───────── 표면 · 카드 ───────── */
+html body .bg-white, html body section.bg-white, html body div.bg-white { background-color: var(--u-card) !important; }
+html body .bg-slate-50, html body .bg-gray-50,
+html body .bg-surface, html body .bg-surface-bright,
+html body .bg-surface-container-lowest { background-color: #F7F8F9 !important; }
+html body .bg-slate-100, html body .bg-gray-100,
+html body .bg-surface-container { background-color: #F1F2F4 !important; }
+html body .bg-surface-container-low { background-color: var(--u-card) !important; }
+html body .bg-background { background-color: transparent !important; }
+
+html body .border-slate-100, html body .border-outline-variant,
+html body .border-slate-200, html body .border-gray-100, html body .border-gray-200 { border-color: var(--u-line) !important; }
+html body .divide-slate-100 > * + * { border-color: var(--u-line) !important; }
+
+html body .rounded-3xl { border-radius: var(--u-r-xl) !important; }
+html body .rounded-2xl { border-radius: var(--u-r-lg) !important; }
+html body .rounded-xl  { border-radius: var(--u-r-md) !important; }
+html body .rounded-lg  { border-radius: var(--u-r-sm) !important; }
+html body .rounded:not(.rounded-full) { border-radius: 14px; }
+html body .rounded-t-2xl:not(nav) { border-top-left-radius: var(--u-r-lg) !important; border-top-right-radius: var(--u-r-lg) !important; }
+
+html body .shadow-sm { box-shadow: var(--u-sh-1) !important; }
+html body .shadow-md, html body .shadow-lg { box-shadow: var(--u-sh-2) !important; }
+html body .hover\:shadow-md:hover, html body .hover\:shadow-lg:hover { box-shadow: var(--u-sh-2) !important; }
+html body a.bg-white.border, html body div.bg-white.border { transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease; }
+html body a.bg-white.border:hover { transform: translateY(-3px); }
+
+/* ───────── 텍스트 색 ───────── */
+html body .text-slate-900, html body .text-on-surface, html body .text-on-background { color: var(--u-ink) !important; }
+html body .text-slate-800 { color: #1E1F23 !important; }
+html body .text-slate-700 { color: #31333A !important; }
+html body .text-slate-600, html body .text-outline, html body .text-on-surface-variant { color: var(--u-ink-2) !important; }
+html body .text-slate-500 { color: #70737B !important; }
+html body .text-slate-400 { color: var(--u-ink-3) !important; }
+html body .text-blue-600, html body .text-blue-700, html body .text-primary,
+html body .text-on-primary-container { color: var(--u-ink) !important; }
+html body .text-\[\#6E6A00\] { color: var(--u-acc-ink) !important; }
+
+/* ───────── 강조 / 버튼 ───────── */
+html body .bg-blue-600, html body .bg-primary, html body .bg-primary-container,
+html body .bg-slate-800, html body .bg-slate-900 { background-color: var(--u-ink) !important; color: #fff !important; }
+html body .bg-blue-600 .material-symbols-outlined,
+html body .bg-primary .material-symbols-outlined { color: var(--u-acc) !important; }
+html body .bg-blue-50, html body .bg-blue-100, html body .bg-primary-fixed,
+html body .bg-\[\#FAF8C8\] { background-color: var(--u-acc-soft-2) !important; }
+html body .border-blue-600, html body .border-primary { border-color: var(--u-ink) !important; }
+html body .hover\:bg-blue-700:hover, html body .hover\:bg-blue-600:hover { background-color: #2A2C31 !important; }
+html body button.rounded-xl, html body a.rounded-xl.font-bold { border-radius: 999px !important; }
+
+html body [style*="background:#F7F35A"], html body [style*="background: #F7F35A"],
+html body .bg-\[\#F7F35A\] { background: var(--u-acc) !important; }
+html body a[style*="background:#F7F35A"], html body button[style*="background:#F7F35A"],
+html body div[style*="background:#F7F35A"][style*="box-shadow"] {
+  border-radius: 999px !important;
+  box-shadow: 0 10px 24px -14px rgba(150,140,0,.9) !important;
+}
+html body [style*="color:#F7F35A"] { color: var(--u-acc) !important; }
+html body .text-\[\#F7F35A\] { color: var(--u-acc) !important; }
+
+html body [style*="border-radius:4px"], html body [style*="border-radius: 4px"],
+html body [style*="border-radius:2px"] { border-radius: 18px !important; }
+html body button[style*="border-radius:4px"], html body a[style*="border-radius:4px"],
+html body button[style*="border-radius: 4px"], html body a[style*="border-radius: 4px"] { border-radius: 999px !important; }
+
+/* 어두운 격자 블록 → 부드러운 다크 카드 */
+html body [style*="background:#0E0E0E"][style*="linear-gradient"] {
+  background-image: radial-gradient(500px 240px at 90% 0%, rgba(247,243,90,.12), transparent 70%) !important;
+  background-color: #17181C !important;
+}
+
+/* 모노 라벨 "// LOGIN …" → 노란 칩 라벨 */
+html body div[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body p[style*="IBM Plex Mono"][style*="#6E6A00"],
+html body span[style*="IBM Plex Mono"][style*="#6E6A00"] {
+  display: inline-block;
+  color: var(--u-ink) !important;
+  background: var(--u-acc);
+  padding: 6px 12px 5px;
+  border-radius: 999px;
+  letter-spacing: .08em !important;
+  font-size: 11px !important;
+  font-family: var(--u-font) !important;
+  font-weight: 800 !important;
+}
+
+/* 폼 */
+html body input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html body textarea, html body select {
+  background-color: #FFFFFF !important;
+  border-color: var(--u-line-2) !important;
+  color: var(--u-ink) !important;
+  border-radius: 14px !important;
+}
+html body input:focus, html body textarea:focus, html body select:focus {
+  border-color: var(--u-ink) !important;
+  box-shadow: 0 0 0 4px rgba(247,243,90,.55) !important;
+  outline: none !important;
+}
+html body input[type="checkbox"]:checked, html body input[type="radio"]:checked {
+  background-color: var(--u-ink) !important; border-color: var(--u-ink) !important;
+}
+
+/* ───────── 푸터 → 밝은 카드 + 캐릭터 ───────── */
+html body footer.bg-\[\#0E0E0E\] {
+  position: relative;
+  overflow: hidden;
+  margin: 0 12px 96px !important;
+  border-radius: var(--u-r-xl);
+  background: #FFFFFF !important;
+  color: var(--u-ink-3) !important;
+  box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1);
+}
+@media (min-width: 768px) { html body footer.bg-\[\#0E0E0E\] { margin: 0 24px 24px !important; } }
+html body footer.bg-\[\#0E0E0E\]::after {
+  content: "";
+  position: absolute;
+  right: 3%; bottom: -14px;
+  width: 150px; height: 150px;
+  background: url('/assets/img/ddd10eb9b514.webp') no-repeat center bottom / contain;
+  pointer-events: none;
+}
+html body footer.bg-\[\#0E0E0E\] > div { position: relative; z-index: 1; }
+html body footer.bg-\[\#0E0E0E\] .text-white { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-500 { color: var(--u-ink-3) !important; }
+html body footer.bg-\[\#0E0E0E\] .text-slate-300 { color: var(--u-ink-2) !important; }
+html body footer.bg-\[\#0E0E0E\] .border-white\/10 { border-color: var(--u-line) !important; }
+html body footer.bg-\[\#0E0E0E\] nav a { color: var(--u-ink-2); font-weight: 600; }
+html body footer.bg-\[\#0E0E0E\] nav a:hover { color: var(--u-ink) !important; }
+html body footer.bg-\[\#0E0E0E\] .bg-\[\#F7F35A\] { background: var(--u-acc) !important; border-radius: 6px; }
+@media (min-width: 768px) {
+  html body footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 160px; }
+  html body footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 160px; }
+}
+@media (max-width: 767px) {
+  html body footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 14px; bottom: auto; top: 18px; }
+}
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\], html body main.max-w-2xl footer.bg-\[\#0E0E0E\] { margin-left: 0 !important; margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] nav.grid, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] nav.grid { margin-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:last-child, html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:last-child { padding-right: 0 !important; }
+html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\]::after, html body main.max-w-2xl footer.bg-\[\#0E0E0E\]::after { width: 96px; height: 96px; right: 18px; bottom: auto; top: 18px; }
+html body main.max-w-2xl footer.bg-\[\#0E0E0E\] > div > div:first-child, html body main.max-w-\[480px\] footer.bg-\[\#0E0E0E\] > div > div:first-child { flex-direction: column !important; padding-right: 90px; }
+
+html body button.rounded-full, html body a.rounded-full { transition: background .2s ease, color .2s ease, transform .15s ease; }
+html body button.rounded-full:active, html body a.rounded-full:active { transform: scale(.97); }
+
+/* ───────── 상세 페이지 공통 ───────── */
+html body[data-u="detail"] main > section:first-of-type.relative {
+  margin: 14px 12px 0;
+  border-radius: var(--u-r-xl);
+  overflow: hidden;
+  box-shadow: var(--u-sh-2);
+}
+@media (min-width: 768px) { html body[data-u="detail"] main > section:first-of-type.relative { margin: 20px 24px 0; } }
+html body[data-u="detail"] .border-l-4 { border-left-color: var(--u-acc) !important; }
+html body[data-u="detail"] .-mt-12, html body[data-u="detail"] .-mt-16, html body[data-u="detail"] .-mt-20 { border-radius: var(--u-r-lg) !important; }
+
+html body ::-webkit-scrollbar { width: 10px; height: 10px; }
+html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+
+/* ═════════ 새 마크업용 유틸 ═════════ */
+.u-card { background: #fff; border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-1); }
+.u-panel-y { background: linear-gradient(180deg, #FDFCE7 0%, #FBF9D0 100%); border-radius: var(--u-r-xl); box-shadow: 0 0 0 1px #F2EFC2; }
+.u-hl { background: linear-gradient(transparent 60%, var(--u-acc) 60%, var(--u-acc) 92%, transparent 92%); padding: 0 .06em; }
+.u-glass { background: var(--u-glass); -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px); box-shadow: 0 0 0 1px var(--u-line), var(--u-sh-2); }
+.u-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.u-chip-acc { background: var(--u-acc); color: var(--u-ink); }
+.u-chip-line { background: #fff; color: var(--u-ink-2); box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-arrow { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: #fff; color: var(--u-ink); box-shadow: 0 0 0 1px var(--u-line-2), 0 4px 10px -6px rgba(20,21,24,.25); transition: background .2s ease, transform .2s ease, box-shadow .2s; flex-shrink: 0; }
+.group:hover .u-arrow { background: var(--u-acc); box-shadow: none; transform: translateX(2px); }
+.u-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-weight: 700; transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+.u-btn:active { transform: scale(.97); }
+.u-btn-dark { background: var(--u-ink); color: #fff; padding: 16px 26px; box-shadow: 0 14px 30px -16px rgba(20,21,24,.7); }
+.u-btn-dark:hover { background: #2A2C31; }
+.u-btn-dark .material-symbols-outlined { color: var(--u-acc); }
+.u-btn-line { background: #fff; color: var(--u-ink); padding: 16px 24px; box-shadow: 0 0 0 1px var(--u-line-2); }
+.u-btn-line:hover { box-shadow: 0 0 0 1px var(--u-ink); }
+.u-btn-acc { background: var(--u-acc); color: var(--u-ink); padding: 14px 22px; }
+.u-btn-acc:hover { background: var(--u-acc-2); }
+.u-circle-acc { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--u-acc); color: var(--u-ink); box-shadow: 0 10px 24px -10px rgba(150,140,0,.8); transition: transform .2s; flex-shrink: 0; }
+.group:hover .u-circle-acc { transform: translateX(3px); }
+.u-fade-l { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%); mask-image: linear-gradient(90deg, transparent 0%, #000 24%); }
+.u-fade-round { -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); }
+.u-sparkle { position: absolute; width: 20px; height: 20px; background: #D9DFEC; clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: u-twinkle 3.4s ease-in-out infinite; }
+.u-sparkle.y { background: var(--u-acc); }
+@keyframes u-twinkle { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7) rotate(15deg); opacity: .6; } }
+@keyframes u-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.u-float { animation: u-float 6s ease-in-out infinite; }
+.u-stars { background-image:
+  radial-gradient(1.5px 1.5px at 8% 20%, rgba(255,255,255,.8), transparent 60%),
+  radial-gradient(1px 1px at 22% 70%, rgba(255,255,255,.55), transparent 60%),
+  radial-gradient(1.5px 1.5px at 41% 14%, rgba(255,255,255,.7), transparent 60%),
+  radial-gradient(1px 1px at 57% 48%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1.5px 1.5px at 73% 24%, rgba(255,255,255,.75), transparent 60%),
+  radial-gradient(1px 1px at 95% 12%, rgba(255,255,255,.6), transparent 60%); }
+.u-moon { position: absolute; left: -10%; right: -10%; bottom: -80%; height: 120%; border-radius: 50%; background: radial-gradient(60% 50% at 50% 18%, #A3A5AD 0%, #62646C 45%, #2C2E34 100%); }
+.u-moon::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background:
+  radial-gradient(4% 2.4% at 30% 9%, rgba(0,0,0,.22), transparent 70%),
+  radial-gradient(3% 2% at 62% 6%, rgba(0,0,0,.2), transparent 70%),
+  radial-gradient(2.5% 1.6% at 46% 15%, rgba(0,0,0,.18), transparent 70%); }
+@media (prefers-reduced-motion: reduce) { .u-float, .u-sparkle { animation: none !important; } }
+.u-prog-tiles { display: none; }
+@media (min-width: 1100px) { .u-prog-hero { padding-right: 440px !important; } .u-prog-tiles { display: block; } }
+</style>
+<style>
+  .n-row { display: flex; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--u-line); transition: background .2s; }
+  .n-row:last-child { border-bottom: 0; }
+  .n-row:hover { background: #F7F8F9; }
+  .n-cat { flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: #F1F2F4; color: var(--u-ink-2); }
+  .n-cat.pin { background: var(--u-acc); color: var(--u-ink); }
+  .n-body { font-size: 15.5px; line-height: 1.85; color: var(--u-ink-2); word-break: keep-all; }
+  .n-body .n-h { font-size: 17px; font-weight: 800; color: var(--u-ink); margin: 6px 0 8px; letter-spacing: -0.02em; }
+  .n-body .n-list { margin: 0 0 4px; padding: 0; list-style: none; }
+  .n-body .n-list li { position: relative; padding-left: 16px; margin: 4px 0; }
+  .n-body .n-list li::before { content: ''; position: absolute; left: 3px; top: .8em; width: 5px; height: 5px; border-radius: 50%; background: var(--u-ink-3); }
+</style>
+</head>
+<body data-u="section" class="u-home">
+
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="flex justify-between items-center h-16 px-5 w-full max-w-[1240px] mx-auto">
+    <!-- Logo -->
+    <a href="/" class="flex items-center">
+      <img src="/assets/img/7ca059b88139.webp" alt="LOGIN" class="h-14 w-auto"/>
+    </a>
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/">홈</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/about">About Us</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/program">프로그램</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/seminar">세미나</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/bootcamp">부트캠프</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/contests">공모전</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/mypage">마이페이지</a>
+    </div>
+    <!-- Profile -->
+    <div id="header-avatar" class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden" onclick="location.assign('/mypage')" style="cursor:pointer">
+      <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+    </div>
+  </div>
+</header>
+
+<main class="pt-20 md:pt-24 pb-32 max-w-[1240px] mx-auto px-3 md:px-6">
+
+  <div id="view-list">
+    <section class="u-card s-tile p-7 md:p-12 md:min-h-[260px] flex flex-col justify-end">
+      <img src="/assets/img/2c6f123001ec.webp" alt="" aria-hidden="true" class="u-fade-l absolute right-0 top-0 h-full w-[40%] object-cover object-[62%_50%] hidden md:block"/>
+      <div class="relative z-10 md:max-w-[60%]">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] font-bold mb-5" style="background:var(--u-acc);color:var(--u-ink)"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">campaign</span>Notice</div>
+        <h1 class="s-title mb-3">연구소 공지사항</h1>
+        <p class="text-[15px] md:text-[17px] leading-[1.7]" style="color:var(--u-ink-3);word-break:keep-all">공모전 · 세미나 · 프로그램 일정과 운영 소식을 알려드려요.</p>
+      </div>
+    </section>
+    <div class="flex gap-2 overflow-x-auto hide-scrollbar mt-8 mb-4 -mx-3 px-3 md:mx-0 md:px-0" id="n-chips"></div>
+    <div class="u-card s-tile" id="n-list"><p class="px-6 py-10 text-center text-[14.5px]" style="color:var(--u-ink-3)">공지사항을 불러오고 있어요</p></div>
+  </div>
+  <div id="view-detail" hidden></div>
+
+
+  <footer class="bg-[#0E0E0E] text-slate-400 mt-16 mb-20 md:mb-0">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
+        <!-- 브랜드 -->
+        <div class="max-w-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg font-extrabold text-white tracking-tight">LOGIN</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#F7F35A] text-[#0E0E0E]">SELAB</span>
+          </div>
+          <p class="text-sm leading-relaxed text-slate-500">2030을 위한 성장 연구소.<br>나를 알아가는 가장 빠른 길.</p>
+        </div>
+
+        <!-- 바로가기 -->
+        <nav class="grid grid-cols-2 gap-x-10 gap-y-2 text-sm">
+          <a href="/about" class="hover:text-[#F7F35A] transition-colors">About</a>
+          <a href="/program" class="hover:text-[#F7F35A] transition-colors">프로그램</a>
+          <a href="/insight" class="hover:text-[#F7F35A] transition-colors">인사이트</a>
+          <a href="/community" class="hover:text-[#F7F35A] transition-colors">커뮤니티</a>
+          <a href="/contests" class="hover:text-[#F7F35A] transition-colors">공모전</a>
+          <a href="/notice" class="hover:text-[#F7F35A] transition-colors">공지사항</a>
+        </nav>
+      </div>
+
+      <!-- 사업자 정보 / 저작권 -->
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500">
+        <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span></p>
+        <p>© 2026 LOGIN. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] rounded-t-2xl flex justify-around items-center h-20 pb-safe px-1 md:hidden">
+  <a class="flex flex-col items-center justify-center text-slate-400 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/">
+    <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1">home</span>
+    <span class="text-[8.5px] font-medium">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/about">
+    <span class="material-symbols-outlined text-[17px]">info</span>
+    <span class="text-[8.5px] font-medium">About</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/program">
+    <span class="material-symbols-outlined text-[17px]">school</span>
+    <span class="text-[8.5px] font-medium">프로그램</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/insight">
+    <span class="material-symbols-outlined text-[17px]">auto_graph</span>
+    <span class="text-[8.5px] font-medium">인사이트</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/community">
+    <span class="material-symbols-outlined text-[17px]">forum</span>
+    <span class="text-[8.5px] font-medium">커뮤니티</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 rounded-full w-11 h-11 active:scale-90 transition-transform duration-150" href="/mypage">
+    <span class="material-symbols-outlined text-[17px]">person</span>
+    <span class="text-[8.5px] font-medium">마이페이지</span>
+  </a>
+</nav>
+<div class="s-toast" id="toast"></div>
+
+<script src="/assets/data/notices.js"></script>
+<script src="/assets/js/login-apply.js"></script>
+<script>
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2400); }
+// 공지 본문: ■ 소제목, · 목록, 빈 줄은 문단 구분, 주소는 링크로
+function noticeBody(text) {
+  const link = (s) => esc(s).replace(/(https?:\/\/[^\s<]+|theloginlab\.co\.kr\/[^\s<]*)/g, (u) => `<a href="${u.startsWith('http') ? u : 'https://' + u}" class="underline underline-offset-4" style="color:var(--u-ink)">${u}</a>`);
+  let html = '', list = false;
+  String(text || '').split('\n').forEach((line) => {
+    const t = line.trim();
+    if (t.startsWith('· ') || t.startsWith('- ')) { if (!list) { html += '<ul class="n-list">'; list = true; } html += `<li>${link(t.slice(2))}</li>`; return; }
+    if (list) { html += '</ul>'; list = false; }
+    if (!t) html += '<div class="h-3"></div>';
+    else if (t.startsWith('■')) html += `<h3 class="n-h">${link(t.replace(/^■\s*/, ''))}</h3>`;
+    else html += `<p>${link(t)}</p>`;
+  });
+  return html + (list ? '</ul>' : '');
+}
+
+let ALL = [], cat = '전체';
+function renderList() {
+  const cats = ['전체', ...new Set(ALL.map((n) => n.cat))];
+  $('#n-chips').innerHTML = cats.map((c) => `<button class="s-chip ${c === cat ? 'on' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  const list = ALL.filter((n) => cat === '전체' || n.cat === cat);
+  $('#n-list').innerHTML = list.length ? list.map((n) => `<a href="#n-${encodeURIComponent(n.id)}" class="n-row"><span class="n-cat ${n.pinned ? 'pin' : ''}">${n.pinned ? '📌 ' : ''}${esc(n.cat)}</span><span class="flex-1 min-w-0 font-bold text-[15.5px] truncate" style="color:var(--u-ink)">${esc(n.title)}</span><span class="text-[13px] flex-shrink-0 hidden sm:block" style="color:var(--u-ink-3)">${esc(n.date)}</span></a>`).join('')
+    : '<p class="px-6 py-10 text-center text-[14.5px]" style="color:var(--u-ink-3)">등록된 공지가 없어요.</p>';
+}
+function renderDetail(id) {
+  const n = ALL.find((x) => String(x.id) === id);
+  if (!n) { location.hash = ''; return; }
+  document.title = n.title + ' - LOGIN 공지사항';
+  $('#view-detail').innerHTML = `
+    <a href="#" class="inline-flex items-center gap-1.5 text-[14px] font-semibold mb-5" style="color:var(--u-ink-2)"><span class="material-symbols-outlined text-[18px]">arrow_back</span>공지 목록</a>
+    <article class="u-card s-tile p-6 md:p-12 max-w-[860px]">
+      <div class="flex items-center gap-2 mb-4"><span class="n-cat ${n.pinned ? 'pin' : ''}">${esc(n.cat)}</span><span class="text-[13.5px]" style="color:var(--u-ink-3)">${esc(n.date)}</span></div>
+      <h1 class="text-[24px] md:text-[30px] font-extrabold leading-[1.35] tracking-[-0.04em] mb-6 pb-6 border-b border-slate-100" style="color:var(--u-ink);word-break:keep-all">${esc(n.title)}</h1>
+      <div class="n-body">${noticeBody(n.body)}</div>
+      ${n.cat === '공모전' ? '<a href="/contests" class="u-btn u-btn-dark mt-8 !py-3 !px-5 text-[14.5px]">공모전 페이지로 가기 <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>' : ''}
+    </article>`;
+}
+function route() {
+  const m = location.hash.match(/^#n-(.+)$/);
+  $('#view-list').hidden = !!m; $('#view-detail').hidden = !m;
+  if (m) { renderDetail(decodeURIComponent(m[1])); window.scrollTo(0, 0); }
+  else { document.title = '공지사항 - LOGIN 2030을 위한 성장 연구소'; renderList(); }
+}
+document.addEventListener('click', (e) => { const c = e.target.closest('[data-cat]'); if (c) { cat = c.dataset.cat; renderList(); } });
+window.addEventListener('hashchange', route);
+LoginApply.notices().then((list) => { ALL = list; route(); });
+
+</script>
+<script>// header-auth.js — 모든 페이지 공통 헤더 아바타 처리
+(async function () {
+  const SUPABASE_URL = 'https://hroyuxjqqlimwrrhdwnd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_RihZu0hAorZDdbE7bddoPQ_qsFpc0C4';
+
+  const el = document.getElementById('header-avatar');
+  if (!el) return;
+
+  try {
+    // SDK getSession — 커뮤니티.html과 동일 방식 (토큰 자동 갱신)
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data: { session } } = await db.auth.getSession();
+    if (!session) return;
+
+    const userId = session.user.id;
+    const token = session.access_token;
+
+    // 세션 있으면 일단 이메일 이니셜로 즉시 표시
+    const emailInitial = (session.user.email || '?').charAt(0).toUpperCase();
+    el.innerHTML = `<span class="text-sm font-bold text-blue-700">${emailInitial}</span>`;
+    el.classList.remove('bg-slate-200');
+    el.classList.add('bg-blue-100');
+    el.onclick = () => { location.assign('/mypage'); };
+    el.style.cursor = 'pointer';
+
+    // 프로필 fetch로 이름/아바타 업데이트
+    try {
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), 5000);
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}&select=name,avatar_url&limit=1`,
+        { signal: controller.signal, headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${token}` } }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        const profile = rows && rows[0];
+        if (profile) {
+          const name = profile.name || emailInitial;
+          const initial = name.charAt(0).toUpperCase();
+          if (profile.avatar_url) {
+            el.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full object-cover rounded-full"
+              onerror="this.parentElement.innerHTML='<span class=\'text-sm font-bold text-blue-700\'>${initial}</span>'" />`;
+          } else {
+            el.innerHTML = `<span class="text-sm font-bold text-blue-700">${initial}</span>`;
+          }
+        }
+      }
+    } catch (e) {}
+
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

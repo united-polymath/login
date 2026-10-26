@@ -460,6 +460,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/seminar">세미나</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/bootcamp">부트캠프</a>
+      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/contests">공모전</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/mypage">마이페이지</a>
     </div>
@@ -472,6 +473,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
 
 
 <main class="pt-20 md:pt-24 pb-32 max-w-[1240px] mx-auto px-3 md:px-6">
+  <a href="/notice" id="home-notice" class="u-card flex items-center gap-3 px-5 py-3.5 mb-3 md:mb-4 rounded-[20px]" hidden><span class="text-[12px] font-extrabold px-2.5 py-1 rounded-full flex-shrink-0" style="background:var(--u-acc);color:var(--u-ink)">공지</span><span class="flex-1 min-w-0 truncate font-bold text-[14.5px]" style="color:var(--u-ink)" id="home-notice-title"></span><span class="material-symbols-outlined text-[18px]" style="color:var(--u-ink-3)">chevron_right</span></a>
   <div class="grid grid-cols-2 lg:grid-cols-12 gap-3 md:gap-4">
 
     <!-- HERO TILE -->
@@ -656,6 +658,8 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
           <a href="/program" class="hover:text-[#F7F35A] transition-colors">프로그램</a>
           <a href="/insight" class="hover:text-[#F7F35A] transition-colors">인사이트</a>
           <a href="/community" class="hover:text-[#F7F35A] transition-colors">커뮤니티</a>
+          <a href="/contests" class="hover:text-[#F7F35A] transition-colors">공모전</a>
+          <a href="/notice" class="hover:text-[#F7F35A] transition-colors">공지사항</a>
         </nav>
       </div>
 
@@ -757,6 +761,16 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     if (e.key === 'F12') e.preventDefault();
     if (e.ctrlKey && ['u','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
   });
+</script>
+<script src="/assets/data/notices.js"></script>
+<script src="/assets/js/login-apply.js"></script>
+<script>
+LoginApply.notices().then((list) => {
+  const n = list[0]; if (!n) return;
+  const a = document.getElementById('home-notice');
+  document.getElementById('home-notice-title').textContent = n.title;
+  a.href = '/notice#n-' + encodeURIComponent(n.id); a.hidden = false;
+});
 </script>
 </body>
 </html>

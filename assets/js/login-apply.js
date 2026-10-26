@@ -4,7 +4,7 @@
    submitUrl 이 비어 있으면 모달 대신 원래 링크/안내가 그대로 동작한다. */
 (function () {
   var CONFIG = {
-    submitUrl: '',   // ← 구글 Apps Script '웹 앱 URL' (…/exec)
+    submitUrl: '',   // ← 구글 Apps Script '웹 앱 URL' (…/exec) — 신청 저장 · 공지사항 · 공모전 결과 조회에 함께 씀
     privacy: {
       seminar: '수집 항목: 이름, 연락처, 출생연도, 지금의 나 · 이용 목적: 세미나 신청 확인 및 참석 안내 · 보유 기간: 세미나 종료 후 1년 이내 파기',
       notify: '수집 항목: 이름, 연락처 · 이용 목적: 다음 기수·시리즈 오픈 알림 발송 · 보유 기간: 알림 발송 후 1년 이내 파기 (요청 시 즉시 삭제)'
@@ -204,5 +204,25 @@ textarea.la-i{min-height:76px;resize:vertical}\
     openNotify(a.getAttribute('data-notify'));
   });
 
-  window.LoginApply = { enabled: !!CONFIG.submitUrl, openSeminar: openSeminar, openNotify: openNotify };
+  // 같은 Apps Script 에서 읽어 오는 것들 — 공지사항, 공모전 결과 조회
+  function getJSON(params, ms) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    if (ctrl) setTimeout(function () { ctrl.abort(); }, ms || 6000);
+    return fetch(CONFIG.submitUrl + '?' + new URLSearchParams(params), ctrl ? { signal: ctrl.signal } : {}).then(function (r) { return r.json(); });
+  }
+  function byPinnedDate(a, b) { return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || String(b.date).localeCompare(String(a.date)); }
+  // 시트(「공지사항」 탭)를 우선 쓰고, 불러오지 못하면 /assets/data/notices.js 의 기본 목록을 쓴다
+  function notices() {
+    var fallback = (window.LOGIN_NOTICES || []).slice().sort(byPinnedDate);
+    if (!CONFIG.submitUrl) return Promise.resolve(fallback);
+    return getJSON({ type: 'notices' }, 4000)
+      .then(function (res) { return res && res.ok && res.notices && res.notices.length ? res.notices.sort(byPinnedDate) : fallback; })
+      .catch(function () { return fallback; });
+  }
+  function lookupResult(contest, name, phone4) {
+    if (!CONFIG.submitUrl) return Promise.resolve({ ok: false, code: 'not_yet' });
+    return getJSON({ type: 'result', contest: contest, name: name, phone4: phone4 }, 10000);
+  }
+
+  window.LoginApply = { enabled: !!CONFIG.submitUrl, openSeminar: openSeminar, openNotify: openNotify, notices: notices, lookupResult: lookupResult, esc: esc };
 })();
