@@ -615,6 +615,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <button class="tab-btn" data-section="lab" onclick="showSection('lab')">연구소 소개</button>
       <button class="tab-btn" data-section="team" onclick="showSection('team')">연구진 소개</button>
       <button class="tab-btn" data-section="history" onclick="showSection('history')">연혁</button>
+      <button class="tab-btn" data-section="plan" onclick="showSection('plan')">앞으로의 계획</button>
       <button class="tab-btn" data-section="rules" onclick="showSection('rules')">규정</button>
     </div>
 
@@ -634,6 +635,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
             <button class="sidebar-btn" data-section="lab" onclick="showSection('lab')">연구소 소개</button>
             <button class="sidebar-btn" data-section="team" onclick="showSection('team')">연구진 소개</button>
             <button class="sidebar-btn" data-section="history" onclick="showSection('history')">연혁</button>
+            <button class="sidebar-btn" data-section="plan" onclick="showSection('plan')">앞으로의 계획</button>
             <button class="sidebar-btn" data-section="rules" onclick="showSection('rules')">규정</button>
           </nav>
         </div>
@@ -1017,60 +1019,314 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
         </div>
 
         <!-- 연혁 -->
-        <div id="section-history" class="section-content bg-white rounded-2xl border border-outline-variant p-8 md:p-10">
+        <div id="section-history" class="section-content bg-white rounded-2xl border border-outline-variant p-5 md:p-10">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6E6A00;margin-bottom:8px;">// History</div>
           <h2 class="text-headline-md text-on-surface mb-2">연혁</h2>
-          <p class="text-on-surface-variant text-sm mb-8">연구소의 주요 발자취를 한눈에 확인하세요</p>
+          <p class="text-on-surface-variant text-sm mb-8">2023년 첫 프로그램부터 지금까지, LOGIN이 걸어온 길이에요</p>
 
           <div class="relative">
-            <!-- Timeline line -->
-            <div class="absolute left-[72px] md:left-[88px] top-0 bottom-0 w-0.5 bg-outline-variant"></div>
-
-            <div class="flex flex-col gap-8">
-              <!-- 2026.05 -->
-              <div class="flex gap-6 items-start relative">
-                <div class="w-16 md:w-20 shrink-0 text-right">
-                  <span class="font-bold text-base" style="color:#F7F35A;">2026</span>
-                </div>
-                <div class="w-4 h-4 border-4 border-white shrink-0 mt-1 z-10" style="background:#F7F35A;border-radius:0;"></div>
-                <div class="flex-1 pb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold px-2 py-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">05월</span>
-                    <span class="font-semibold text-sm text-on-surface">제1회 청년 정책 기획 공모전 개최</span>
+            <div class="absolute left-[63px] md:left-[111px] top-1 bottom-1 w-0.5 bg-outline-variant"></div>
+            <div class="flex flex-col gap-5">
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2026</span></div>
+                <div class="w-4 h-4 border-4 border-white shrink-0 mt-1 z-10" style="background:#F7F35A;border-radius:0;box-shadow:0 0 0 1px #E4DF3A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">10월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">미우새 공모전 개최</span><span class="block text-xs text-slate-400 mt-0.5">미워했던 나를 다시 읽는 시간</span></li></ul>
                   </div>
                 </div>
               </div>
-
-              <!-- 2026.09 -->
-              <div class="flex gap-6 items-start relative">
-                <div class="w-16 md:w-20 shrink-0 text-right">
-                  <span class="text-slate-600 font-bold text-base"> </span>
-                </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
                 <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
-                <div class="flex-1 pb-2">
-                  <div class="flex items-start gap-2">
-                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">09월</span>
-                    <div>
-                      <span class="font-semibold text-sm text-on-surface">랩 로그인 공식 인사이트 리포트 &lt;2026 청년 커스텀 패치노트&gt; 발간</span>
-                      <span class="ml-1 text-xs text-slate-400">(예정)</span>
-                    </div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">09월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">도전스토리 공모전 개최</span><span class="block text-xs text-slate-400 mt-0.5">서울·경기 20대 대상</span></li><li><span class="font-semibold text-sm text-on-surface">대학생활 난중일기 공모전 개최</span><span class="block text-xs text-slate-400 mt-0.5">02~07년생 청년 대상</span></li></ul>
                   </div>
                 </div>
               </div>
-
-              <!-- 2027.01 -->
-              <div class="flex gap-6 items-start relative">
-                <div class="w-16 md:w-20 shrink-0 text-right">
-                  <span class="text-slate-600 font-bold text-base">2027</span>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">08월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">2026 대학생 진로 탐색 지원사업 운영</span><span class="block text-xs text-slate-400 mt-0.5">30명 선발</span></li><li><span class="font-semibold text-sm text-on-surface">청년 취업 1:1 동행 사업 추가 모집</span></li></ul>
+                  </div>
                 </div>
-                <div class="w-4 h-4 rounded-full bg-slate-200 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
-                <div class="flex-1 pb-2">
-                  <div class="flex items-start gap-2">
-                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#8A8A8A;border-radius:2px;">01월</span>
-                    <div>
-                      <span class="font-semibold text-sm text-on-surface">청년 정책 제안 B2G 시스템 구축 및 파트너십 확장</span>
-                      <span class="ml-1 text-xs text-slate-400">(예정)</span>
-                    </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">07월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">청년 활동 지원 사업 운영</span><span class="block text-xs text-slate-400 mt-0.5">33명 선발 · 활동 지원금 · 1:1 코칭</span></li><li><span class="font-semibold text-sm text-on-surface">2026 대학생 지원 프로젝트 운영</span><span class="block text-xs text-slate-400 mt-0.5">35명 선발</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">06월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">대학생 창업 아이디어 공모전 · 창업 지원 사업 운영</span><span class="block text-xs text-slate-400 mt-0.5">20명 선발 · 1:1 동행</span></li><li><span class="font-semibold text-sm text-on-surface">2010년대 청년 이야기 프로젝트 「다시, 여름방학」 공모전 개최</span></li><li><span class="font-semibold text-sm text-on-surface">디지털 디톡스 7일 챌린지 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">05월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">제1회 청년 정책 기획 공모전 개최</span><span class="block text-xs text-slate-400 mt-0.5">「A/S 부탁드립니다 — 고장난 20대 일상 수리 공모전」</span></li><li><span class="font-semibold text-sm text-on-surface">청년 취업 1:1 동행 사업 · 1:1 커리어 컨설팅 시작</span></li><li><span class="font-semibold text-sm text-on-surface">청년 번아웃 회복 프로젝트 공모 · 습관 챌린지 「잡도리」 운영</span></li><li><span class="font-semibold text-sm text-on-surface">전공 · 직업 유형 테스트 오픈</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">04월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">리추얼 LAB SERIES 01 「불안 분리수거」 운영</span><span class="block text-xs text-slate-400 mt-0.5">3주 실험형 멘탈 트레이닝</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#FAF8C8;color:#6E6A00;border-radius:2px;">03월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">블랙박스 인사이트 프로젝트 진행</span><span class="block text-xs text-slate-400 mt-0.5">20대 커리어 고민 심층 인터뷰 · 세대 경험 데이터 연결</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative mt-4">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2025</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">11월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">협업 네트워킹 프로젝트 운영</span><span class="block text-xs text-slate-400 mt-0.5">~ 2026.02</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">09월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">회복 탄력성 훈련 운영</span></li><li><span class="font-semibold text-sm text-on-surface">감정 메타-센싱 강화 실험</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">08월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">자기계발 교육 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">06월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">자기정체성 탐색 실험</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">03월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">공감적 소통과 경청 훈련 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">02월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">자기확신, 자존감 회복 실험</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">01월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">경험 vs. 성향 성장 연구</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative mt-4">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2024</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">11월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">스피치 교육 운영</span></li><li><span class="font-semibold text-sm text-on-surface">삶의 경험을 통한 성장 전략 연구 · 인간관계와 자기 소통 연구</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">10월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">실패 수용과 성장 연구 · 정신 건강과 웰빙 연구</span><span class="block text-xs text-slate-400 mt-0.5">연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">08월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">인지적 유연성과 학습 능력 연구</span><span class="block text-xs text-slate-400 mt-0.5">첫 연구 프로젝트</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">05월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">성장 마인드셋 코칭 프로그램 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">04월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">조직변화 적응력 프로그램 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">03월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">LOGIN 토론 스터디 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">02월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">자아정체성 탐구 워크숍 · 멘토링 프로그램 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">01월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">팀워크 &amp; 협업 트레이닝 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative mt-4">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2023</span></div>
+                <div class="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm shrink-0 mt-1 z-10"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#F4F1E8;color:#555;border-radius:2px;">07월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">첫 프로그램 「자기 효능감 개발 프로그램」 운영</span></li></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 앞으로의 계획 -->
+        <div id="section-plan" class="section-content bg-white rounded-2xl border border-outline-variant p-5 md:p-10">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6E6A00;margin-bottom:8px;">// Roadmap</div>
+          <h2 class="text-headline-md text-on-surface mb-2">앞으로의 계획</h2>
+          <p class="text-on-surface-variant text-sm mb-8">LOGIN이 준비하고 있는 사업과 일정이에요</p>
+
+          <div class="relative">
+            <div class="absolute left-[63px] md:left-[111px] top-1 bottom-1 w-0.5 bg-outline-variant"></div>
+            <div class="flex flex-col gap-5">
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2026</span></div>
+                <div class="w-4 h-4 rounded-full bg-white border-2 border-dashed shrink-0 mt-1 z-10" style="border-color:#C9C35A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#fff;color:#6E6A00;border:1px dashed #C9C35A;border-radius:2px;">11월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">미우새 공모전 결과 발표 및 시상</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li><li><span class="font-semibold text-sm text-on-surface">LOGIN 세미나 「첫 이력서, AI랑 같이 쓰면 달라지는 것들」</span><span class="ml-1 text-xs text-slate-400">(예정)</span><span class="block text-xs text-slate-400 mt-0.5">11.07</span></li><li><span class="font-semibold text-sm text-on-surface">LOGIN 세미나 「번아웃 직전의 나에게: 20대 회복 탄력성 클래스」</span><span class="ml-1 text-xs text-slate-400">(예정)</span><span class="block text-xs text-slate-400 mt-0.5">11.14</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-white border-2 border-dashed shrink-0 mt-1 z-10" style="border-color:#C9C35A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#fff;color:#6E6A00;border:1px dashed #C9C35A;border-radius:2px;">연내</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">랩 로그인 공식 인사이트 리포트 &lt;2026 청년 커스텀 패치노트&gt; 발간</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative mt-4">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">2027</span></div>
+                <div class="w-4 h-4 rounded-full bg-white border-2 border-dashed shrink-0 mt-1 z-10" style="border-color:#C9C35A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#fff;color:#6E6A00;border:1px dashed #C9C35A;border-radius:2px;">01월</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">청년 정책 제안 B2G 시스템 구축 및 파트너십 확장</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-white border-2 border-dashed shrink-0 mt-1 z-10" style="border-color:#C9C35A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#fff;color:#6E6A00;border:1px dashed #C9C35A;border-radius:2px;">상반기</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">코호트 프로그램 다음 기수 오픈</span><span class="ml-1 text-xs text-slate-400">(예정)</span><span class="block text-xs text-slate-400 mt-0.5">도파민 디톡스 · AI 커리어 리디자인 · 관계 회복력 실험실 · 감정 리터러시 · N잡러 퍼스널 브랜딩</span></li><li><span class="font-semibold text-sm text-on-surface">리추얼 LAB SERIES 07 오픈</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li><li><span class="font-semibold text-sm text-on-surface">제2회 청년 정책 기획 공모전 개최</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 md:gap-6 items-start relative">
+                <div class="w-11 md:w-20 shrink-0 text-right"><span class="font-bold text-base text-on-surface">&nbsp;</span></div>
+                <div class="w-4 h-4 rounded-full bg-white border-2 border-dashed shrink-0 mt-1 z-10" style="border-color:#C9C35A;"></div>
+                <div class="flex-1 min-w-0 pb-1">
+                  <div class="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2">
+                    <span class="text-xs font-bold px-2 py-0.5 shrink-0 mt-0.5" style="background:#fff;color:#6E6A00;border:1px dashed #C9C35A;border-radius:2px;">하반기</span>
+                    <ul class="flex flex-col gap-2"><li><span class="font-semibold text-sm text-on-surface">블랙박스 인사이트 세대 연결 앱 개발</span><span class="ml-1 text-xs text-slate-400">(예정)</span><span class="block text-xs text-slate-400 mt-0.5">청년 고민 데이터 × 선배 경험 데이터</span></li><li><span class="font-semibold text-sm text-on-surface">대학생 창업 · 진로 지원 사업 2기 운영</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li><li><span class="font-semibold text-sm text-on-surface">2027 청년 인사이트 리포트 발간</span><span class="ml-1 text-xs text-slate-400">(예정)</span></li></ul>
                   </div>
                 </div>
               </div>
