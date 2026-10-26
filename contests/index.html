@@ -521,7 +521,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     </a>
     <a href="#result" class="u-card s-tile col-span-2 lg:col-span-6 p-5 md:p-6 flex items-center gap-4 min-h-[110px] group">
       <span class="material-symbols-outlined text-[28px]" style="color:var(--u-ink)">workspace_premium</span>
-      <div class="flex-1"><div class="text-[12.5px] font-bold mb-0.5" style="color:var(--u-acc-ink)">수상자 발표</div><div class="font-bold text-[15px]" style="color:var(--u-ink)">11월 12일(목) · 이름과 연락처 뒤 4자리로 결과 확인</div></div>
+      <div class="flex-1"><div class="text-[12.5px] font-bold mb-0.5" style="color:var(--u-acc-ink)">수상자 발표</div><div class="font-bold text-[15px]" style="color:var(--u-ink)">11월 9일(월) · 이름과 연락처 뒤 4자리로 결과 확인</div></div>
       <span class="u-arrow"><span class="material-symbols-outlined text-[20px]">arrow_forward</span></span>
     </a>
   </div>
@@ -547,7 +547,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
             <div class="flex gap-3"><dt>공모 내용</dt><dd>나의 경험과 성장에 대한 짧은 글 1편</dd></div>
             <div class="flex gap-3"><dt>참가비</dt><dd>무료</dd></div>
             <div class="flex gap-3"><dt>접수 기간</dt><dd>2026.10.1(목) ~ <b>11.7(토) 23:59</b> <span class="text-[12.5px] font-semibold" style="color:var(--u-ink-3)">(10.31에서 연장)</span></dd></div>
-            <div class="flex gap-3"><dt>수상자 발표</dt><dd>2026.11.12(목) · 이 페이지에서 결과 확인 · 수상자 개별 연락</dd></div>
+            <div class="flex gap-3"><dt>수상자 발표</dt><dd>2026.11.9(월) · 이 페이지에서 결과 확인 · 수상자 개별 연락</dd></div>
           </dl>
           <a id="c-cta" href="https://muhaevillage-02.github.io/login-program/miusae-apply/?utm_source=theloginlab&amp;utm_medium=website&amp;utm_campaign=contests_page" class="w-full u-btn u-btn-dark !py-4 text-[16px] justify-center">지금 공모전 신청하기 <span class="material-symbols-outlined text-[20px]">arrow_forward</span></a>
           <p class="text-[12.5px] text-center mt-3" style="color:var(--u-ink-3)" id="c-cta-note">신청서 작성은 공모전 신청 페이지에서 진행돼요 · 제출한 이야기는 외부에 공개되지 않아요</p>
@@ -595,7 +595,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <div class="relative z-10 max-w-[560px]">
         <div class="text-[12px] font-bold mb-2" style="color:var(--u-acc)">미우새 공모전 · 수상자 발표</div>
         <h2 class="text-white text-[28px] md:text-[34px] font-black tracking-[-0.045em] leading-tight mb-2">내 결과 확인하기</h2>
-        <p class="text-[15px] mb-6" style="color:rgba(255,255,255,.7);word-break:keep-all" id="r-lead">결과는 <b class="text-white">11월 12일(목) 오전 10시</b>에 공개돼요. 신청할 때 입력한 이름과 연락처 뒤 4자리로 확인할 수 있어요.</p>
+        <p class="text-[15px] mb-6" style="color:rgba(255,255,255,.7);word-break:keep-all" id="r-lead">결과는 <b class="text-white">11월 9일(월) 오전 10시</b>에 공개돼요. 신청할 때 입력한 이름과 연락처 뒤 4자리로 확인할 수 있어요.</p>
         <form id="r-form" class="grid sm:grid-cols-[1fr_150px] gap-3" novalidate>
           <input class="c-in" name="name" autocomplete="name" placeholder="이름" maxlength="30" aria-label="이름"/>
           <input class="c-in" name="phone4" inputmode="numeric" maxlength="4" placeholder="연락처 뒤 4자리" aria-label="연락처 뒤 4자리"/>
@@ -717,7 +717,7 @@ function noticeBody(text) {
 const C = {
   name: '미우새 공모전',
   deadline: new Date('2026-11-07T23:59:59+09:00'),
-  resultAt: new Date('2026-11-12T10:00:00+09:00'),
+  resultAt: new Date('2026-11-09T10:00:00+09:00'),
 };
 const PAST = [
   ['2026.05', '제1회 청년 정책 기획 공모전', '「A/S 부탁드립니다 — 고장난 20대 일상 수리 공모전」'],
@@ -731,7 +731,7 @@ if (now <= C.deadline) {
 } else {
   const after = now >= C.resultAt;
   $('#hero-state').textContent = after ? '// Result' : '// Closed';
-  $('#hero-dday').textContent = after ? '수상 결과가 발표됐어요' : '접수 마감 · 11.12(목) 결과 발표';
+  $('#hero-dday').textContent = after ? '수상 결과가 발표됐어요' : '접수 마감 · 11.9(월) 결과 발표';
   $('#c-state').textContent = after ? '결과 발표' : '접수 마감 · 심사 중';
   $('#c-state').className = 's-badge closed';
   const cta = $('#c-cta');
@@ -744,7 +744,7 @@ if (now <= C.deadline) {
 // 수상 결과 확인
 const rOut = $('#r-out'), rBtn = $('#r-btn');
 const box = (html, tone) => `<div class="rounded-[20px] p-5 text-[15px] leading-relaxed" style="${tone === 'win' ? 'background:var(--u-acc);color:var(--u-ink)' : 'background:rgba(255,255,255,.1);color:#fff'}">${html}</div>`;
-if (now < C.resultAt) { rBtn.textContent = '11월 12일(목) 오전 10시 공개'; rBtn.disabled = true; rBtn.style.opacity = '.55'; }
+if (now < C.resultAt) { rBtn.textContent = '11월 9일(월) 오전 10시 공개'; rBtn.disabled = true; rBtn.style.opacity = '.55'; }
 $('#r-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const f = e.target.elements, name = f.name.value.trim(), p4 = f.phone4.value.replace(/\D/g, '');
@@ -754,7 +754,7 @@ $('#r-form').addEventListener('submit', (e) => {
   LoginApply.lookupResult(C.name, name, p4).then((r) => {
     if (r.ok && r.found) rOut.innerHTML = box(`<div class="text-[13px] font-bold mb-1">🎉 축하해요, ${esc(name)}님!</div><div class="text-[22px] font-black tracking-[-0.03em] mb-1">${esc(r.award)} 수상</div>${r.message ? `<div class="mb-1">${esc(r.message)}</div>` : ''}<div class="text-[13.5px] opacity-80">수상자께는 입력하신 연락처로 개별 연락을 드려요.</div>`, 'win');
     else if (r.ok) rOut.innerHTML = box('입력하신 정보로 수상 내역이 확인되지 않았어요. 이름과 연락처 뒤 4자리를 다시 확인해 주세요.<br/><span class="opacity-75 text-[13.5px]">소중한 이야기를 들려주신 모든 분께 감사드려요.</span>');
-    else if (r.code === 'not_yet') rOut.innerHTML = box('아직 결과 공개 전이에요. 11월 12일(목) 오전 10시에 공개돼요.');
+    else if (r.code === 'not_yet') rOut.innerHTML = box('아직 결과 공개 전이에요. 11월 9일(월) 오전 10시에 공개돼요.');
     else if (r.code === 'not_ready') rOut.innerHTML = box('결과를 정리하고 있어요. 잠시 후 다시 확인해 주세요.');
     else rOut.innerHTML = box('입력하신 내용을 다시 확인해 주세요.');
   }).catch(() => { rOut.innerHTML = box('조회 중 문제가 생겼어요. 잠시 후 다시 시도해 주세요.'); })
