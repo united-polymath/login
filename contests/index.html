@@ -463,7 +463,8 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
   .c-faq details[open] summary .material-symbols-outlined { transform: rotate(180deg); }
   .c-faq p { padding: 0 0 18px; color: var(--u-ink-2); font-size: 15px; line-height: 1.75; }
   .d-info dt { width: 84px; }
-  .c-past { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: #fff; box-shadow: 0 0 0 1px var(--u-line); }
+  .c-past { display: flex; align-items: center; gap: 14px; min-width: 0; padding: 16px 18px; border-radius: 20px; background: #fff; box-shadow: 0 0 0 1px var(--u-line); }
+  .c-past .s-badge { flex-shrink: 0; white-space: nowrap; }
 </style>
 </head>
 <body data-u="section" class="u-home">
@@ -619,13 +620,14 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <details><summary>제출한 이야기가 외부에 공개되나요?<span class="material-symbols-outlined">expand_more</span></summary><p>아니요. 제출된 작품은 외부에 공개되지 않으며 심사 목적으로만 활용돼요.</p></details>
       <details><summary>이미 접수했는데 다시 내야 하나요?<span class="material-symbols-outlined">expand_more</span></summary><p>아니요. 접수 기간이 연장되어도 기존 접수는 그대로 유효해요. 기존 신청자와 연장 기간 신청자 모두 같은 기준으로 마감 후 함께 심사해요.</p></details>
       <details><summary>작품 제출 후 수정할 수 있나요?<span class="material-symbols-outlined">expand_more</span></summary><p>아니요. 최종 제출 후에는 수정할 수 없어요.</p></details>
+      <details><summary>궁금한 점은 어디로 문의하나요?<span class="material-symbols-outlined">expand_more</span></summary><p>이메일 <a href="mailto:wearetheloginlab@gmail.com" class="font-semibold underline underline-offset-4" style="color:var(--u-ink)">wearetheloginlab@gmail.com</a>으로 보내 주세요. 공모전 이름과 성함을 함께 적어 주시면 더 빠르게 답변드릴 수 있어요.</p></details>
     </section>
   </div>
 
   <!-- ═════════ 지난 공모전 ═════════ -->
   <section class="mt-12 md:mt-16">
     <h3 class="text-[24px] md:text-[28px] font-extrabold tracking-[-0.04em] mb-5" style="color:var(--u-ink)">지난 공모전</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" id="c-past"></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="c-past"></div>
   </section>
 
 
@@ -653,7 +655,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
 
       <!-- 사업자 정보 / 저작권 -->
       <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500">
-        <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span></p>
+        <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span><span class="hidden sm:inline mx-2 text-slate-600">·</span><br class="sm:hidden"/>문의 <a href="mailto:wearetheloginlab@gmail.com" class="text-slate-300 hover:text-[#F7F35A] transition-colors">wearetheloginlab@gmail.com</a></p>
         <p>© 2026 LOGIN. All rights reserved.</p>
       </div>
     </div>
@@ -699,7 +701,8 @@ const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': 
 function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2400); }
 // 공지 본문: ■ 소제목, · 목록, 빈 줄은 문단 구분, 주소는 링크로
 function noticeBody(text) {
-  const link = (s) => esc(s).replace(/(https?:\/\/[^\s<]+|theloginlab\.co\.kr\/[^\s<]*)/g, (u) => `<a href="${u.startsWith('http') ? u : 'https://' + u}" class="underline underline-offset-4" style="color:var(--u-ink)">${u}</a>`);
+  const href = (u) => (u.startsWith('http') ? u : u.includes('@') ? 'mailto:' + u : 'https://' + u);
+  const link = (s) => esc(s).replace(/(https?:\/\/[^\s<]+|theloginlab\.co\.kr\/[^\s<]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+)/g, (u) => `<a href="${href(u)}" class="underline underline-offset-4" style="color:var(--u-ink)">${u}</a>`);
   let html = '', list = false;
   String(text || '').split('\n').forEach((line) => {
     const t = line.trim();

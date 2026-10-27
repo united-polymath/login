@@ -514,7 +514,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
 
       <!-- 사업자 정보 / 저작권 -->
       <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500">
-        <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span></p>
+        <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span><span class="hidden sm:inline mx-2 text-slate-600">·</span><br class="sm:hidden"/>문의 <a href="mailto:wearetheloginlab@gmail.com" class="text-slate-300 hover:text-[#F7F35A] transition-colors">wearetheloginlab@gmail.com</a></p>
         <p>© 2026 LOGIN. All rights reserved.</p>
       </div>
     </div>
@@ -560,7 +560,8 @@ const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': 
 function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2400); }
 // 공지 본문: ■ 소제목, · 목록, 빈 줄은 문단 구분, 주소는 링크로
 function noticeBody(text) {
-  const link = (s) => esc(s).replace(/(https?:\/\/[^\s<]+|theloginlab\.co\.kr\/[^\s<]*)/g, (u) => `<a href="${u.startsWith('http') ? u : 'https://' + u}" class="underline underline-offset-4" style="color:var(--u-ink)">${u}</a>`);
+  const href = (u) => (u.startsWith('http') ? u : u.includes('@') ? 'mailto:' + u : 'https://' + u);
+  const link = (s) => esc(s).replace(/(https?:\/\/[^\s<]+|theloginlab\.co\.kr\/[^\s<]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+)/g, (u) => `<a href="${href(u)}" class="underline underline-offset-4" style="color:var(--u-ink)">${u}</a>`);
   let html = '', list = false;
   String(text || '').split('\n').forEach((line) => {
     const t = line.trim();
