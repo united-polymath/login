@@ -580,7 +580,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/insight">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/seminar">세미나</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/bootcamp">부트캠프</a>
-      <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/contests">공모전</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/community">커뮤니티</a>
       <a class="text-slate-600 font-medium hover:opacity-80 transition-opacity" href="/mypage">마이페이지</a>
     </div>
@@ -607,10 +606,11 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
   </section>
 
   <!-- ===== 3개 메인 탭 ===== -->
-  <div class="flex gap-1 mb-8 border-b border-outline-variant">
+  <div class="flex gap-1 mb-8 border-b border-outline-variant overflow-x-auto hide-scrollbar">
     <button onclick="switchMainTab('프로그램')" class="main-tab-btn px-6 py-3 text-sm font-bold text-blue-600 border-b-2 border-blue-600 -mb-px transition-all" data-tab="프로그램">프로그램</button>
     <button onclick="switchMainTab('프로젝트')" class="main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all" data-tab="프로젝트">프로젝트</button>
     <button onclick="switchMainTab('리추얼')" class="main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all" data-tab="리추얼">리추얼</button>
+    <button onclick="switchMainTab('공모전')" class="main-tab-btn px-6 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent -mb-px hover:text-slate-700 transition-all whitespace-nowrap" data-tab="공모전">공모전</button>
   </div>
 
   <!-- ===== 탭 1: 프로그램 ===== -->
@@ -1372,6 +1372,53 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     </div>
   </div>
 
+  <!-- ===== 탭 4: 공모전 ===== -->
+  <div id="tab-공모전" class="main-tab-content hidden">
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">진행중인 공모전</h3>
+        <span id="ct-state-chip" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[12px] font-bold"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>접수중</span>
+      </div>
+      <a href="/contests" class="group grid md:grid-cols-[minmax(0,340px)_1fr] bg-white rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow">
+        <div class="bg-[#FFFBE0] overflow-hidden"><img src="/assets/img/miusae-poster.jpg" alt="미우새 공모전 포스터" class="w-full h-64 md:h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"/></div>
+        <div class="p-6 md:p-8 flex flex-col">
+          <div class="flex items-center gap-2 mb-3 flex-wrap">
+            <span id="ct-dday" class="px-2.5 py-0.5 rounded-full bg-[#F7F35A] text-[#141518] text-[11px] font-bold">접수중</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[11px] font-bold">청년 성장 공모전</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 text-[11px] font-bold">접수 기간 연장</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-extrabold text-on-surface mb-1">미우새 공모전</h3>
+          <p class="text-on-surface-variant text-sm md:text-base mb-5">미워했던 나를 다시 읽는 시간 — 미운 오리였던 나, 지금의 나, 되고 싶은 백조에 대한 이야기</p>
+          <dl class="grid grid-cols-[84px_1fr] gap-y-2 text-sm mb-6">
+            <dt class="text-slate-400">참가 대상</dt><dd class="font-semibold text-on-surface">서울 거주 2001~2007년생 청년</dd>
+            <dt class="text-slate-400">접수 기간</dt><dd class="font-semibold text-on-surface">~ 2026.11.7(토) 23:59</dd>
+            <dt class="text-slate-400">수상자 발표</dt><dd class="font-semibold text-on-surface">2026.11.9(월)</dd>
+            <dt class="text-slate-400">수상 혜택</dt><dd class="font-semibold text-on-surface">대상 50만원 · 우수상 30만원 · 장려상 강점 발견 코칭권</dd>
+          </dl>
+          <div class="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+            <span class="text-sm text-slate-500">참가비 <b class="text-on-surface">무료</b></span>
+            <span class="px-5 py-2 rounded-lg bg-[#141518] text-[#F7F35A] text-sm font-semibold whitespace-nowrap">자세히 보기 · 신청 →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">지난 공모전</h3>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[12px] font-bold">종료</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+        <div class="bg-white rounded-xl border border-outline-variant p-5 opacity-85">
+          <div class="flex items-center gap-2 mb-2"><span class="px-2.5 py-0.5 rounded-full bg-slate-700 text-white text-[11px] font-bold">종료</span><span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">정책</span></div>
+          <h3 class="font-bold text-on-surface text-base mb-1">제1회 청년 정책 기획 공모전</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-2">「A/S 부탁드립니다 — 고장난 20대 일상 수리 공모전」</p>
+          <p class="text-slate-400 text-xs">2026.05.06 – 2026.05.22 접수</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== FOOTER ===== -->
   <footer class="bg-[#0E0E0E] text-slate-400 mt-16 mb-20 md:mb-0">
     <div class="max-w-5xl mx-auto px-6 py-12">
@@ -1391,7 +1438,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
           <a href="/program" class="hover:text-[#F7F35A] transition-colors">프로그램</a>
           <a href="/insight" class="hover:text-[#F7F35A] transition-colors">인사이트</a>
           <a href="/community" class="hover:text-[#F7F35A] transition-colors">커뮤니티</a>
-          <a href="/contests" class="hover:text-[#F7F35A] transition-colors">공모전</a>
           <a href="/notice" class="hover:text-[#F7F35A] transition-colors">공지사항</a>
         </nav>
       </div>
@@ -1542,4 +1588,19 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
   });
 </script>
 <script src="/assets/js/login-apply.js" defer></script>
+<script>
+// 공모전 탭: /program#contest 로 바로 열기 + 날짜에 맞춰 상태 표시
+(function () {
+  function openFromHash() { if (location.hash === '#contest') switchMainTab('공모전'); }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+  var now = new Date(), deadline = new Date('2026-11-07T23:59:59+09:00'), result = new Date('2026-11-09T10:00:00+09:00');
+  var chip = document.getElementById('ct-state-chip'), dd = document.getElementById('ct-dday');
+  var days = Math.ceil((new Date(2026, 10, 7) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+  if (now <= deadline) { dd.textContent = days > 0 ? '접수 마감 D-' + days : '오늘 마감'; return; }
+  chip.className = 'px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[12px] font-bold';
+  chip.textContent = now >= result ? '결과 발표' : '접수 마감 · 심사 중';
+  dd.textContent = now >= result ? '결과 확인하기' : '접수 마감';
+})();
+</script>
 </body></html>

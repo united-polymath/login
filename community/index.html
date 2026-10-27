@@ -563,7 +563,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <a class="text-slate-600 font-medium hover:opacity-80" href="/insight">인사이트</a>
       <a class="text-slate-600 font-medium hover:opacity-80" href="/seminar">세미나</a>
       <a class="text-slate-600 font-medium hover:opacity-80" href="/bootcamp">부트캠프</a>
-      <a class="text-slate-600 font-medium hover:opacity-80" href="/contests">공모전</a>
       <a class="text-blue-600 font-semibold" href="/community">커뮤니티</a>
       <a class="text-slate-600 font-medium hover:opacity-80" href="/mypage">마이페이지</a>
     </div>
@@ -728,6 +727,30 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
     <p class="text-[#444] text-sm mt-1">첫 번째 글을 작성해보세요!</p>
   </div>
 
+  <!-- 로그인 전: 회원 전용 안내 -->
+  <div id="feed-locked" class="hidden relative rounded-2xl overflow-hidden">
+    <div class="space-y-3 blur-[3px] opacity-70 select-none pointer-events-none" aria-hidden="true">
+      <div class="rounded-2xl border border-[#E5E2D7] bg-white p-4">
+        <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-[#ECEAE2]"></div><div class="flex-1"><div class="h-3 w-24 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-16 rounded bg-[#F1EFE8]"></div></div></div>
+        <div class="h-3 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-3/4 rounded bg-[#F1EFE8]"></div>
+      </div>
+      <div class="rounded-2xl border border-[#E5E2D7] bg-white p-4">
+        <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-[#ECEAE2]"></div><div class="flex-1"><div class="h-3 w-24 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-16 rounded bg-[#F1EFE8]"></div></div></div>
+        <div class="h-3 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-3/4 rounded bg-[#F1EFE8]"></div>
+      </div>
+      <div class="rounded-2xl border border-[#E5E2D7] bg-white p-4">
+        <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-full bg-[#ECEAE2]"></div><div class="flex-1"><div class="h-3 w-24 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-16 rounded bg-[#F1EFE8]"></div></div></div>
+        <div class="h-3 rounded bg-[#ECEAE2] mb-2"></div><div class="h-3 w-3/4 rounded bg-[#F1EFE8]"></div>
+      </div>
+    </div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6" style="background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.9))">
+      <div class="text-4xl mb-3">🔒</div>
+      <p class="text-[#0E0E0E] font-bold text-[17px]">회원만 볼 수 있는 이야기예요</p>
+      <p class="text-[#555] text-sm mt-1.5 leading-relaxed">LOGIN 회원들이 나눈 고민과 성장 이야기는<br/>로그인하면 바로 볼 수 있어요.</p>
+      <a href="/mypage" class="mt-5 px-6 py-3 bg-[#0E0E0E] text-[#F7F35A] rounded-xl font-bold text-sm">로그인 / 회원가입</a>
+    </div>
+  </div>
+
   <!-- Error -->
   <div id="feed-error" class="hidden text-center py-16">
     <div class="text-4xl mb-3">⚠️</div>
@@ -757,7 +780,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
           <a href="/program" class="hover:text-[#F7F35A] transition-colors">프로그램</a>
           <a href="/insight" class="hover:text-[#F7F35A] transition-colors">인사이트</a>
           <a href="/community" class="hover:text-[#F7F35A] transition-colors">커뮤니티</a>
-          <a href="/contests" class="hover:text-[#F7F35A] transition-colors">공모전</a>
           <a href="/notice" class="hover:text-[#F7F35A] transition-colors">공지사항</a>
         </nav>
       </div>
@@ -1006,6 +1028,17 @@ function renderFiltered() {
     if (aNotice !== bNotice) return bNotice - aNotice;
     return new Date(b.created_at) - new Date(a.created_at);
   });
+
+  // 로그인 전에는 글이 회원에게만 보여서 빈 화면 대신 회원 전용 안내를 보여준다
+  const lockedEl = document.getElementById('feed-locked');
+  lockedEl.classList.add('hidden');
+  if (!currentUser && allPosts.length === 0) {
+    feedEl.classList.add('hidden');
+    emptyEl.classList.add('hidden');
+    lockedEl.classList.remove('hidden');
+    countEl.textContent = '회원 전용';
+    return;
+  }
 
   countEl.textContent = `총 ${filtered.length}개`;
 
