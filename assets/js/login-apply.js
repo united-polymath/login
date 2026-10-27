@@ -6,8 +6,8 @@
   var CONFIG = {
     submitUrl: '',   // ← 구글 Apps Script '웹 앱 URL' (…/exec) — 신청 저장 · 공지사항 · 공모전 결과 조회에 함께 씀
     privacy: {
-      seminar: '수집 항목: 이름, 연락처, 출생연도, 지금의 나 · 이용 목적: 세미나 신청 확인 및 참석 안내 · 보유 기간: 세미나 종료 후 1년 이내 파기',
-      notify: '수집 항목: 이름, 연락처 · 이용 목적: 다음 기수·시리즈 오픈 알림 발송 · 보유 기간: 알림 발송 후 1년 이내 파기 (요청 시 즉시 삭제)'
+      seminar: '수집 항목: 이름, 연락처, 출생연도, 지금의 나 · 이용 목적: 세미나 신청 확인 및 참석 안내 · 보유 기간: 세미나 종료 후 1년 이내 파기 · 동의를 거부할 수 있으며, 거부 시 신청할 수 없어요',
+      notify: '수집 항목: 이름, 연락처 · 이용 목적: 다음 기수·시리즈 오픈 알림 발송 · 보유 기간: 알림 발송 후 1년 이내 파기 (요청 시 즉시 삭제) · 동의를 거부할 수 있으며, 거부 시 알림을 받을 수 없어요'
     }
   };
 
@@ -143,7 +143,7 @@ textarea.la-i{min-height:76px;resize:vertical}\
   }
   var privacyHtml = function (type) {
     return '<div><label class="la-chk"><input type="checkbox" name="privacy"><span><b>[필수]</b> 개인정보 수집·이용에 동의합니다.</span></label>'
-      + '<div class="la-note">' + esc(CONFIG.privacy[type]) + '</div></div>';
+      + '<div class="la-note">' + esc(CONFIG.privacy[type]) + ' · <a href="/privacy" target="_blank" rel="noopener" style="text-decoration:underline">개인정보처리방침</a></div></div>';
   };
 
   function openSeminar(o) {

@@ -15,6 +15,18 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>LOGIN - 마이페이지</title>
+<!-- og -->
+<meta name="description" content="LOGIN 로그인 · 회원가입"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="LOGIN"/>
+<meta property="og:title" content="LOGIN - 마이페이지"/>
+<meta property="og:description" content="LOGIN 로그인 · 회원가입"/>
+<meta property="og:url" content="https://theloginlab.co.kr/mypage/"/>
+<meta property="og:image" content="https://theloginlab.co.kr/assets/img/og-default.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<!-- /og -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -621,6 +633,11 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
           <label class="block text-sm font-semibold text-on-surface mb-1.5">비밀번호 확인</label>
           <input id="signup-password2" type="password" class="input-field" placeholder="비밀번호 재입력" autocomplete="new-password"/>
         </div>
+        <div class="flex flex-col gap-2 pt-1 text-[13px]" style="color:#444">
+          <label class="flex items-start gap-2 cursor-pointer"><input id="signup-age" type="checkbox" class="mt-0.5 rounded"/><span><b>[필수]</b> 만 14세 이상입니다.</span></label>
+          <label class="flex items-start gap-2 cursor-pointer"><input id="signup-privacy" type="checkbox" class="mt-0.5 rounded"/><span><b>[필수]</b> 개인정보 수집·이용에 동의합니다.</span></label>
+          <p class="pl-6 text-[12px] leading-relaxed text-slate-500">수집 항목: 이메일, 비밀번호, 이름(닉네임) · 이용 목적: 회원 식별과 커뮤니티·마이페이지 이용 · 보유 기간: 회원 탈퇴 시까지 · 회원 정보는 Supabase(인도 서버)에 저장돼요. 동의를 거부할 수 있으며, 거부 시 가입할 수 없어요. <a href="/privacy" target="_blank" class="underline">개인정보처리방침</a></p>
+        </div>
         <button id="signup-btn" onclick="handleSignup()" class="w-full py-3.5 font-bold text-base transition-colors active:scale-[0.98] duration-150 mt-2 flex items-center justify-center gap-2" style="background:#F7F35A;color:#0E0E0E;border-radius:4px;">
           <span id="signup-btn-text">가입하기</span>
           <span id="signup-btn-spinner" class="hidden w-4 h-4 border-2 border-white/40 border-t-white rounded-full spinner"></span>
@@ -920,7 +937,7 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
       <!-- 사업자 정보 / 저작권 -->
       <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500">
         <p>사업자등록번호 <span class="text-slate-300">293-07-03063</span><span class="hidden sm:inline mx-2 text-slate-600">·</span><br class="sm:hidden"/>문의 <a href="mailto:wearetheloginlab@gmail.com" class="text-slate-300 hover:text-[#F7F35A] transition-colors">wearetheloginlab@gmail.com</a></p>
-        <p>© 2026 LOGIN. All rights reserved.</p>
+        <p><a href="/privacy" class="font-bold text-slate-300 hover:text-[#F7F35A] transition-colors mr-3">개인정보처리방침</a>© 2026 LOGIN. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -1217,6 +1234,8 @@ async function handleSignup() {
   if (!email) return showError('signup-error', '이메일을 입력해주세요.');
   if (pw.length < 8) return showError('signup-error', '비밀번호는 8자리 이상이어야 해요.');
   if (pw !== pw2) return showError('signup-error', '비밀번호가 일치하지 않아요.');
+  if (!document.getElementById('signup-age').checked) return showError('signup-error', '만 14세 이상만 가입할 수 있어요.');
+  if (!document.getElementById('signup-privacy').checked) return showError('signup-error', '개인정보 수집·이용에 동의해주세요.');
 
   isLoading = true;
   setLoading('signup-btn', 'signup-btn-text', 'signup-btn-spinner', true);
@@ -1225,7 +1244,7 @@ async function handleSignup() {
     const { data, error } = await db.auth.signUp({
       email,
       password: pw,
-      options: { data: { name } }
+      options: { data: { name, privacy_agreed_at: new Date().toISOString() } }
     });
 
     if (error) {
@@ -1369,18 +1388,26 @@ async function handleLogout() {
 
 // ===== DELETE ACCOUNT =====
 async function handleDeleteAccount() {
-  if (!confirm('정말 탈퇴하시겠어요?\n작성한 글과 계정 정보가 모두 삭제돼요.')) return;
+  if (!confirm('정말 탈퇴하시겠어요?\n작성한 글과 계정 정보가 모두 삭제되고 되돌릴 수 없어요.')) return;
   if (!currentUser) return;
   try {
-    // Sign out — full deletion typically requires server-side admin API
+    // Supabase 의 delete_my_account() 가 계정·프로필·글·좋아요를 함께 지운다.
+    // 먼저 really=false 로 함수가 있는지만 확인 — 없으면 아무것도 지우지 않고 이메일 요청으로 안내
+    const probe = await db.rpc('delete_my_account', { really: false });
+    if (probe.error) throw probe.error;
+    // 프로필 사진은 저장소 파일이라 계정보다 먼저 지운다
+    const { data: files } = await db.storage.from('avatars').list(currentUser.id);
+    if (files && files.length) await db.storage.from('avatars').remove(files.map((f) => `${currentUser.id}/${f.name}`));
+    const { error } = await db.rpc('delete_my_account', { really: true });
+    if (error) throw error;
     await db.auth.signOut();
     currentUser = null;
     currentProfile = null;
     updateHeaderAvatar(null);
-    alert('탈퇴가 완료되었어요. 이용해주셔서 감사합니다.');
+    alert('탈퇴가 완료되었어요. 계정과 작성한 글이 모두 삭제되었어요.');
     showView('login');
   } catch (e) {
-    alert('탈퇴 처리 중 오류가 발생했어요. 관리자에게 문의해주세요.');
+    alert('탈퇴를 바로 처리하지 못했어요.\nwearetheloginlab@gmail.com 으로 가입한 이메일을 적어 탈퇴를 요청해 주시면 계정과 글을 삭제해 드릴게요.');
   }
 }
 
