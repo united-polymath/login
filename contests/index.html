@@ -496,13 +496,6 @@ html body ::-webkit-scrollbar-thumb { background: rgba(20,21,24,.16); border-rad
   .rw-perk .material-symbols-outlined { flex-shrink: 0; width: 34px; height: 34px; border-radius: 12px; background: var(--u-acc-soft-2); display: flex; align-items: center; justify-content: center; font-size: 20px; }
   .rw-perk b { display: block; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; word-break: keep-all; }
   .rw-perk small { display: block; font-size: 12.5px; color: var(--u-ink-3); line-height: 1.45; margin-top: 2px; word-break: keep-all; }
-  .rw-cert { display: block; width: 100%; aspect-ratio: 4 / 5; border-radius: 16px; background: #FFFDF2; box-shadow: 0 14px 30px -18px rgba(20,21,24,.5); }
-  .rw-acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
-  .rw-acts button { border: 0; border-radius: 999px; padding: 14px 16px; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit; }
-  .rw-acts .material-symbols-outlined { font-size: 19px; }
-  .rw-save { background: var(--u-ink); color: var(--u-acc); }
-  .rw-share { background: #fff; color: var(--u-ink); }
-  .rw-hint { font-size: 12.5px; color: var(--u-ink-2); opacity: .8; text-align: center; margin-top: 8px; }
   .rw-next { display: flex; gap: 8px; align-items: flex-start; margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(20,21,24,.22); font-size: 13.5px; line-height: 1.6; color: var(--u-ink-2); word-break: keep-all; }
   .rw-next .material-symbols-outlined { font-size: 18px; margin-top: 1px; }
   .rw-confetti { position: fixed; inset: 0; pointer-events: none; z-index: 90; overflow: hidden; }
@@ -797,7 +790,6 @@ const PERKS = {
   '우수상': [['payments', '상금 30만원', ''], ['edit_note', '자소서 첨삭권', '']],
   '장려상': [['psychology', '강점 발견 코칭권', '나만의 강점을 찾아 주는 코칭'], ['insights', 'AI 역량 분석 리포트', '내 역량을 분석한 개인 리포트']],
 };
-const CAN_SHARE_FILES = (() => { try { return !!(navigator.canShare && navigator.canShare({ files: [new File([''], 'a.png', { type: 'image/png' })] })); } catch (e) { return false; } })();
 
 function showWin(name, r) {
   const award = String(r.award || '').trim();
@@ -807,36 +799,11 @@ function showWin(name, r) {
     <div class="rw-award"><div class="rw-medal"><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span></div><div><div class="rw-kicker">미우새 청년 성장 공모전</div><div class="rw-title">${esc(award)} 수상</div></div></div>
     <p class="rw-lead">${esc(name)}님이 들려준 성장 이야기가 수상작으로 선정됐어요.${r.message ? `<br/>${esc(r.message)}` : ''}</p>
     ${perks.length ? `<div class="rw-sec">수상 혜택</div><div class="rw-perks">${perks.map((p) => `<div class="rw-perk"><span class="material-symbols-outlined" aria-hidden="true">${p[0]}</span><div><b>${p[1]}</b>${p[2] ? `<small>${p[2]}</small>` : ''}</div></div>`).join('')}</div>` : ''}
-    <div class="rw-sec">디지털 상장</div>
-    <img class="rw-cert" id="rw-cert" alt="${esc(name)}님의 미우새 공모전 ${esc(award)} 상장"/>
-    <div class="rw-acts"><button type="button" class="rw-save" id="rw-save" disabled><span class="material-symbols-outlined" aria-hidden="true">download</span>상장 저장하기</button>${CAN_SHARE_FILES ? '<button type="button" class="rw-share" id="rw-share" disabled><span class="material-symbols-outlined" aria-hidden="true">ios_share</span>공유하기</button>' : ''}</div>
-    <p class="rw-hint">저장이 안 되면 상장 이미지를 길게 눌러 저장해 주세요.</p>
     <div class="rw-next"><span class="material-symbols-outlined" aria-hidden="true">sms</span><span>혜택 이용 방법은 입력하신 연락처로 개별 안내해 드려요.</span></div>
   </div>`;
   const top = rOut.getBoundingClientRect().top + window.scrollY - 90;
   window.scrollTo({ top, behavior: 'smooth' });
   setTimeout(confetti, 250);
-
-  const file = `미우새공모전_${award}_${name}.png`.replace(/[\\/:*?"<>|\s]+/g, '_');
-  makeCert(name, award).then((cv) => {
-    $('#rw-cert').src = cv.toDataURL('image/png');
-    cv.toBlob((blob) => {
-      if (!blob) return;
-      const save = $('#rw-save'), share = $('#rw-share');
-      save.disabled = false;
-      save.onclick = () => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob); a.download = file;
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-        toast('상장을 저장했어요');
-      };
-      if (share) {
-        share.disabled = false;
-        share.onclick = () => navigator.share({ files: [new File([blob], file, { type: 'image/png' })], title: '미우새 공모전 수상', text: `미우새 청년 성장 공모전 ${award} 수상 🎉` }).catch(() => {});
-      }
-    }, 'image/png');
-  });
 }
 
 // 축하 꽃가루 (움직임 줄이기 설정이면 생략)
@@ -862,67 +829,6 @@ function confetti() {
   setTimeout(() => wrap.remove(), 3000);
 }
 
-// 디지털 상장 이미지 (1080×1350)
-function makeCert(name, award) {
-  const FONT = '"Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif';
-  const body = `위 사람은 LOGIN LAB이 주최한 「미우새 청년 성장 공모전」에서 미운 오리였던 나와 앞으로 되고 싶은 백조의 이야기를 진솔하게 풀어내어 위와 같이 입상하였기에 이 상장을 수여합니다.`;
-  const all = `상장성명 ${name}${award}${body}2026년 11월 9일LOGIN LAB2030을 위한 성장 연구소미우새 청년 성장 공모전·★`;
-  const ready = document.fonts && document.fonts.load
-    ? Promise.race([Promise.all([500, 700, 900].map((w) => document.fonts.load(`${w} 40px "Pretendard Variable"`, all))), new Promise((ok) => setTimeout(ok, 2500))]).catch(() => {})
-    : Promise.resolve();
-  return ready.then(() => {
-    const W = 1080, H = 1350, cv = document.createElement('canvas');
-    cv.width = W; cv.height = H;
-    const g = cv.getContext('2d');
-    const glow = (x, y, r, c) => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, 'rgba(247,243,90,0)'); g.fillStyle = gr; g.fillRect(0, 0, W, H); };
-    const star = (x, y, r, c) => { g.fillStyle = c; g.beginPath(); for (let k = 0; k < 8; k++) { const rr = k % 2 ? r * 0.28 : r, an = k * Math.PI / 4 - Math.PI / 2; g.lineTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr); } g.closePath(); g.fill(); };
-    const font = (w, s) => { g.font = `${w} ${s}px ${FONT}`; };
-
-    g.fillStyle = '#FFFDF2'; g.fillRect(0, 0, W, H);
-    glow(W * 0.9, 0, 620, 'rgba(247,243,90,.6)');
-    glow(0, H, 560, 'rgba(247,243,90,.45)');
-    g.strokeStyle = '#141518'; g.lineWidth = 6; g.strokeRect(44, 44, W - 88, H - 88);
-    g.strokeStyle = '#C9C33A'; g.lineWidth = 2; g.strokeRect(64, 64, W - 128, H - 128);
-    [[100, 100], [W - 100, 100], [100, H - 100], [W - 100, H - 100]].forEach(([x, y]) => star(x, y, 18, '#141518'));
-    star(W / 2 - 250, 270, 26, '#E9E23A'); star(W / 2 + 255, 240, 16, '#E9E23A');
-
-    g.textAlign = 'center'; g.fillStyle = '#6E6A00'; font(700, 28);
-    g.fillText('LOGIN LAB  ·  미우새 청년 성장 공모전', W / 2, 175);
-    g.fillStyle = '#141518'; font(900, 150);
-    g.fillText('상    장', W / 2, 335);
-
-    font(900, 56);
-    const pw = g.measureText(award).width + 110, py = 380;
-    g.fillStyle = '#F7F35A'; g.strokeStyle = '#141518'; g.lineWidth = 4;
-    g.beginPath(); g.roundRect ? g.roundRect(W / 2 - pw / 2, py, pw, 96, 48) : g.rect(W / 2 - pw / 2, py, pw, 96); g.fill(); g.stroke();
-    g.fillStyle = '#141518'; g.fillText(award, W / 2, py + 68);
-
-    g.fillStyle = '#8A8C93'; font(700, 28); g.fillText('성 명', W / 2, 575);
-    g.fillStyle = '#141518'; font(800, 72); g.fillText(name, W / 2, 655);
-    const nw = Math.max(260, g.measureText(name).width + 80);
-    g.strokeStyle = '#141518'; g.lineWidth = 2; g.beginPath(); g.moveTo(W / 2 - nw / 2, 682); g.lineTo(W / 2 + nw / 2, 682); g.stroke();
-
-    font(500, 35); g.fillStyle = '#45474D';
-    const lines = []; let cur = '';
-    body.split(' ').forEach((w) => { const t = cur ? cur + ' ' + w : w; if (cur && g.measureText(t).width > 840) { lines.push(cur); cur = w; } else cur = t; });
-    if (cur) lines.push(cur);
-    lines.forEach((l, i) => g.fillText(l, W / 2, 770 + i * 58));
-
-    const by = 770 + lines.length * 58;
-    g.fillStyle = '#141518'; font(700, 34); g.fillText('2026년 11월 9일', W / 2, by + 45);
-    font(900, 60); g.fillText('LOGIN LAB', W / 2, by + 145);
-    g.fillStyle = '#8A8C93'; font(500, 26); g.fillText('2030을 위한 성장 연구소', W / 2, by + 188);
-
-    font(900, 60); const sx = W / 2 + g.measureText("LOGIN LAB").width / 2 + 72, sy = by + 122;
-    g.save(); g.translate(sx, sy); g.rotate(-0.2);
-    g.fillStyle = 'rgba(247,243,90,.92)'; g.beginPath(); g.arc(0, 0, 62, 0, Math.PI * 2); g.fill();
-    g.strokeStyle = '#141518'; g.lineWidth = 4; g.stroke();
-    g.lineWidth = 1.5; g.beginPath(); g.arc(0, 0, 52, 0, Math.PI * 2); g.stroke();
-    g.fillStyle = '#141518'; font(900, 24); g.fillText('LOGIN', 0, -2); font(800, 16); g.fillText('★ LAB ★', 0, 24);
-    g.restore();
-    return cv;
-  });
-}
 $('#r-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const f = e.target.elements, name = f.name.value.trim(), p4 = f.phone4.value.replace(/\D/g, '');
