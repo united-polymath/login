@@ -1244,7 +1244,7 @@ async function handleSignup() {
     const { data, error } = await db.auth.signUp({
       email,
       password: pw,
-      options: { data: { name, privacy_agreed_at: new Date().toISOString() } }
+      options: { data: { name, site: 'login', privacy_agreed_at: new Date().toISOString() } }
     });
 
     if (error) {
